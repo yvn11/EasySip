@@ -1,0 +1,619 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	test/ts-shareptr.cpp	/^	A(int n) : n_(n)$/;"	f	class:A
+A	test/ts-shareptr.cpp	/^class A$/;"	c	file:
+A	test/ts.cpp	/^	A()$/;"	f	class:A
+A	test/ts.cpp	/^	A(A &a)$/;"	f	class:A
+A	test/ts.cpp	/^	A(unsigned int val)$/;"	f	class:A
+A	test/ts.cpp	/^class A$/;"	c	file:
+AckMessage	include/message.h	/^		AckMessage()$/;"	f	class:EasySip::AckMessage
+AckMessage	include/message.h	/^	class AckMessage : public RequestMessage$/;"	c	namespace:EasySip
+AckMethod	include/method.h	/^	class AckMethod : public Method$/;"	c	namespace:EasySip
+B	test/ts.cpp	/^	B(unsigned int val)$/;"	f	class:B
+B	test/ts.cpp	/^class B : public A$/;"	c	file:
+BUILD	makefiles/predef.mk	/^BUILD			= $(PROJECT_DIR)\/build$/;"	m
+Base	include/message.h	/^		typedef Message Base;$/;"	t	class:EasySip::Message
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::T1_Rtt
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::T2_MAX_RETRAN_INTV
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::T4_MAX_DURATION_OF_MSG
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TA_INVITE_RETRAN_INTERVAL
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TB_INVITE_TIMEOUT
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TC_PROXY_INVITE_TIMEOUT
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TD_WAIT_FOR_RETRAN
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TE_NON_INVITE_RETRAN_INTV
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TF_NON_INVITE_REQS_TIMEOUT
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TG_INVITE_RESP_RETRAN_INTV
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TH_WAIT_FOR_ACK_RECEIPT
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TI_WAIT_FOR_ACK_RETRAN
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN
+Base	include/timer.h	/^		typedef Timer Base;$/;"	t	class:EasySip::TK_WAIT_FOR_RESP_RETRAN
+ByeMessage	include/message.h	/^		ByeMessage()$/;"	f	class:EasySip::ByeMessage
+ByeMessage	include/message.h	/^	class ByeMessage : public RequestMessage$/;"	c	namespace:EasySip
+ByeMethod	include/method.h	/^		ByeMethod()$/;"	f	class:EasySip::ByeMethod
+ByeMethod	include/method.h	/^	class ByeMethod : public Method$/;"	c	namespace:EasySip
+CC	makefiles/predef.mk	/^CC		= gcc$/;"	m
+CXX	makefiles/predef.mk	/^CXX		= g++$/;"	m
+CancelMessage	include/message.h	/^		CancelMessage()$/;"	f	class:EasySip::CancelMessage
+CancelMessage	include/message.h	/^	class CancelMessage : public RequestMessage$/;"	c	namespace:EasySip
+CancelMethod	include/method.h	/^		CancelMethod()$/;"	f	class:EasySip::CancelMethod
+CancelMethod	include/method.h	/^	class CancelMethod : public Method$/;"	c	namespace:EasySip
+Code	include/mapper.h	/^		int Code()$/;"	f	struct:EasySip::CodeMap
+Code	include/mapper.h	/^		void Code(int c)$/;"	f	struct:EasySip::CodeMap
+CodeMap	include/mapper.h	/^		CodeMap()$/;"	f	struct:EasySip::CodeMap
+CodeMap	include/mapper.h	/^		CodeMap(int c)$/;"	f	struct:EasySip::CodeMap
+CodeMap	include/mapper.h	/^		CodeMap(int c, std::string n)$/;"	f	struct:EasySip::CodeMap
+CodeMap	include/mapper.h	/^		CodeMap(std::string n)$/;"	f	struct:EasySip::CodeMap
+CodeMap	include/mapper.h	/^	struct CodeMap : public std::pair<int, std::string>$/;"	s	namespace:EasySip
+DESCRIPTION	Makefile	/^DESCRIPTION	= Easy-to-used SIP Stack$/;"	m
+DESCRIPTION	build/version.h	5;"	d
+EasySip	include/header_field.h	/^namespace EasySip$/;"	n
+EasySip	include/mapper.h	/^namespace EasySip$/;"	n
+EasySip	include/message.h	/^namespace EasySip$/;"	n
+EasySip	include/method.h	/^namespace EasySip$/;"	n
+EasySip	include/request_message.h	/^namespace EasySip$/;"	n
+EasySip	include/response_code.h	/^namespace EasySip$/;"	n
+EasySip	include/timer.h	/^namespace EasySip$/;"	n
+EasySip	include/uri.h	/^namespace EasySip$/;"	n
+EasySip	include/user_agent/uaclient.h	/^namespace EasySip$/;"	n
+EasySip	include/user_agent/uaserver.h	/^namespace EasySip$/;"	n
+EasySip	include/user_agent/user_agent.h	/^namespace EasySip$/;"	n
+EasySip	src/header_field.cpp	/^namespace EasySip$/;"	n	file:
+EasySip	src/message.cpp	/^namespace EasySip$/;"	n	file:
+EasySip	src/method.cpp	/^namespace EasySip$/;"	n	file:
+EasySip	src/user_agent/uaclient.cpp	/^namespace EasySip$/;"	n	file:
+EasySip	src/user_agent/uaserver.cpp	/^namespace EasySip$/;"	n	file:
+EasySip	src/user_agent/user_agent.cpp	/^namespace EasySip$/;"	n	file:
+Field	include/header_field.h	/^		static std::string Field()$/;"	f	struct:EasySip::HeaderField
+HFAccept	include/header_field.h	/^		HFAccept() : HeaderField("Accept") \/\/ type\/sub-type$/;"	f	struct:EasySip::HFAccept
+HFAccept	include/header_field.h	/^	struct HFAccept : public HeaderField$/;"	s	namespace:EasySip
+HFAcceptContact	include/header_field.h	/^		HFAcceptContact() : HeaderField("Accept-Contact", "a")$/;"	f	struct:EasySip::HFAcceptContact
+HFAcceptContact	include/header_field.h	/^	struct HFAcceptContact : public HeaderField$/;"	s	namespace:EasySip
+HFAcceptEncoding	include/header_field.h	/^		HFAcceptEncoding() : HeaderField("Accept-Encoding")$/;"	f	struct:EasySip::HFAcceptEncoding
+HFAcceptEncoding	include/header_field.h	/^	struct HFAcceptEncoding : public HeaderField$/;"	s	namespace:EasySip
+HFAcceptLanguage	include/header_field.h	/^		HFAcceptLanguage() : HeaderField("Accept-Language")$/;"	f	struct:EasySip::HFAcceptLanguage
+HFAcceptLanguage	include/header_field.h	/^	struct HFAcceptLanguage : public HeaderField$/;"	s	namespace:EasySip
+HFAlertInfo	include/header_field.h	/^		HFAlertInfo() : HeaderField("Alert-Info", true)$/;"	f	struct:EasySip::HFAlertInfo
+HFAlertInfo	include/header_field.h	/^	struct HFAlertInfo : public HeaderField$/;"	s	namespace:EasySip
+HFAllow	include/header_field.h	/^		HFAllow() : HeaderField("Allow")$/;"	f	struct:EasySip::HFAllow
+HFAllow	include/header_field.h	/^	struct HFAllow : public HeaderField$/;"	s	namespace:EasySip
+HFAllowEvents	include/header_field.h	/^		HFAllowEvents() : HeaderField("Allow-Events", "u")$/;"	f	struct:EasySip::HFAllowEvents
+HFAllowEvents	include/header_field.h	/^	struct HFAllowEvents : public HeaderField$/;"	s	namespace:EasySip
+HFAnswerMode	include/header_field.h	/^		HFAnswerMode() : HeaderField("Answer-Mode")$/;"	f	struct:EasySip::HFAnswerMode
+HFAnswerMode	include/header_field.h	/^	struct HFAnswerMode : public HeaderField$/;"	s	namespace:EasySip
+HFAuthenticationInfo	include/header_field.h	/^		HFAuthenticationInfo() : HeaderField("Authentication-Info")$/;"	f	struct:EasySip::HFAuthenticationInfo
+HFAuthenticationInfo	include/header_field.h	/^	struct HFAuthenticationInfo : public HeaderField$/;"	s	namespace:EasySip
+HFAuthorization	include/header_field.h	/^		HFAuthorization() : HeaderField("Authorization")$/;"	f	struct:EasySip::HFAuthorization
+HFAuthorization	include/header_field.h	/^	struct HFAuthorization : public HeaderField$/;"	s	namespace:EasySip
+HFCSeq	include/header_field.h	/^		HFCSeq() : HeaderField("CSeq")$/;"	f	struct:EasySip::HFCSeq
+HFCSeq	include/header_field.h	/^	struct HFCSeq : public HeaderField$/;"	s	namespace:EasySip
+HFCallId	include/header_field.h	/^		HFCallId() : HeaderField("Call-ID", "i")$/;"	f	struct:EasySip::HFCallId
+HFCallId	include/header_field.h	/^	struct HFCallId : public HeaderField$/;"	s	namespace:EasySip
+HFCallInfo	include/header_field.h	/^		HFCallInfo() : HeaderField("Call-Info", true)$/;"	f	struct:EasySip::HFCallInfo
+HFCallInfo	include/header_field.h	/^	struct HFCallInfo : public HeaderField$/;"	s	namespace:EasySip
+HFContact	include/header_field.h	/^		HFContact() : HeaderField("Contact", "m")$/;"	f	struct:EasySip::HFContact
+HFContact	include/header_field.h	/^	struct HFContact : public HeaderField$/;"	s	namespace:EasySip
+HFContentEncoding	include/header_field.h	/^		HFContentEncoding() : HeaderField("Content-Encoding", "e")$/;"	f	struct:EasySip::HFContentEncoding
+HFContentEncoding	include/header_field.h	/^	struct HFContentEncoding : public HeaderField$/;"	s	namespace:EasySip
+HFContentLanguage	include/header_field.h	/^		HFContentLanguage() : HeaderField("Content-Language")$/;"	f	struct:EasySip::HFContentLanguage
+HFContentLanguage	include/header_field.h	/^	struct HFContentLanguage : public HeaderField$/;"	s	namespace:EasySip
+HFContentLength	include/header_field.h	/^		HFContentLength() : HeaderField("Content-Length", "l", true)$/;"	f	struct:EasySip::HFContentLength
+HFContentLength	include/header_field.h	/^	struct HFContentLength : public HeaderField$/;"	s	namespace:EasySip
+HFContentType	include/header_field.h	/^		HFContentType() : HeaderField("Content-Type", "c")$/;"	f	struct:EasySip::HFContentType
+HFContentType	include/header_field.h	/^	struct HFContentType : public HeaderField$/;"	s	namespace:EasySip
+HFDate	include/header_field.h	/^		HFDate() : HeaderField("Date", true)$/;"	f	struct:EasySip::HFDate
+HFDate	include/header_field.h	/^	struct HFDate : public HeaderField$/;"	s	namespace:EasySip
+HFErrorInfo	include/header_field.h	/^		HFErrorInfo() : HeaderField("Error-Info", true)$/;"	f	struct:EasySip::HFErrorInfo
+HFErrorInfo	include/header_field.h	/^	struct HFErrorInfo : public HeaderField$/;"	s	namespace:EasySip
+HFEvent	include/header_field.h	/^		HFEvent() : HeaderField("Event", "o")$/;"	f	struct:EasySip::HFEvent
+HFEvent	include/header_field.h	/^	struct HFEvent : public HeaderField$/;"	s	namespace:EasySip
+HFExpires	include/header_field.h	/^		HFExpires() : HeaderField("Expires")$/;"	f	struct:EasySip::HFExpires
+HFExpires	include/header_field.h	/^	struct HFExpires : public HeaderField$/;"	s	namespace:EasySip
+HFFrom	include/header_field.h	/^		HFFrom() : HeaderField("From", "f")$/;"	f	struct:EasySip::HFFrom
+HFFrom	include/header_field.h	/^	struct HFFrom : public HeaderField$/;"	s	namespace:EasySip
+HFInReplyTo	include/header_field.h	/^		HFInReplyTo() : HeaderField("In-Reply-To")$/;"	f	struct:EasySip::HFInReplyTo
+HFInReplyTo	include/header_field.h	/^	struct HFInReplyTo : public HeaderField$/;"	s	namespace:EasySip
+HFJoin	include/header_field.h	/^		HFJoin() : HeaderField("Join")$/;"	f	struct:EasySip::HFJoin
+HFJoin	include/header_field.h	/^	struct HFJoin : public HeaderField$/;"	s	namespace:EasySip
+HFMIMEVersion	include/header_field.h	/^		HFMIMEVersion() : HeaderField("MIME-Version")$/;"	f	struct:EasySip::HFMIMEVersion
+HFMIMEVersion	include/header_field.h	/^	struct HFMIMEVersion : public HeaderField$/;"	s	namespace:EasySip
+HFMaxForwards	include/header_field.h	/^		HFMaxForwards() : HeaderField("Max-Forwards", true)$/;"	f	struct:EasySip::HFMaxForwards
+HFMaxForwards	include/header_field.h	/^	struct HFMaxForwards : public HeaderField$/;"	s	namespace:EasySip
+HFMinExpires	include/header_field.h	/^		HFMinExpires() : HeaderField("Min-Expires")$/;"	f	struct:EasySip::HFMinExpires
+HFMinExpires	include/header_field.h	/^	struct HFMinExpires : public HeaderField$/;"	s	namespace:EasySip
+HFMinSE	include/header_field.h	/^		HFMinSE() : HeaderField("Min-SE")$/;"	f	struct:EasySip::HFMinSE
+HFMinSE	include/header_field.h	/^	struct HFMinSE : public HeaderField$/;"	s	namespace:EasySip
+HFOrganization	include/header_field.h	/^		HFOrganization() : HeaderField("Organization", true)$/;"	f	struct:EasySip::HFOrganization
+HFOrganization	include/header_field.h	/^	struct HFOrganization : public HeaderField$/;"	s	namespace:EasySip
+HFPAssertedIdentity	include/header_field.h	/^		HFPAssertedIdentity() : HeaderField("P-Asserted-Identity")$/;"	f	struct:EasySip::HFPAssertedIdentity
+HFPAssertedIdentity	include/header_field.h	/^	struct HFPAssertedIdentity : public HeaderField$/;"	s	namespace:EasySip
+HFPOSPAuthToken	include/header_field.h	/^		HFPOSPAuthToken() : HeaderField("P-OSP-Auth-Token")$/;"	f	struct:EasySip::HFPOSPAuthToken
+HFPOSPAuthToken	include/header_field.h	/^	struct HFPOSPAuthToken : public HeaderField$/;"	s	namespace:EasySip
+HFPPreferredIdentity	include/header_field.h	/^		HFPPreferredIdentity() : HeaderField("P-Preferred-Identity")$/;"	f	struct:EasySip::HFPPreferredIdentity
+HFPPreferredIdentity	include/header_field.h	/^	struct HFPPreferredIdentity : public HeaderField$/;"	s	namespace:EasySip
+HFPriority	include/header_field.h	/^		HFPriority() : HeaderField("Priority", true)$/;"	f	struct:EasySip::HFPriority
+HFPriority	include/header_field.h	/^	struct HFPriority : public HeaderField$/;"	s	namespace:EasySip
+HFPrivAnswerMode	include/header_field.h	/^		HFPrivAnswerMode() : HeaderField("Priv-Answer-Mode")$/;"	f	struct:EasySip::HFPrivAnswerMode
+HFPrivAnswerMode	include/header_field.h	/^	struct HFPrivAnswerMode : public HeaderField$/;"	s	namespace:EasySip
+HFPrivacy	include/header_field.h	/^		HFPrivacy() : HeaderField("Privacy", true)$/;"	f	struct:EasySip::HFPrivacy
+HFPrivacy	include/header_field.h	/^	struct HFPrivacy : public HeaderField$/;"	s	namespace:EasySip
+HFProxyAuthenticate	include/header_field.h	/^		HFProxyAuthenticate() : HeaderField("Proxy-Authenticate", true)$/;"	f	struct:EasySip::HFProxyAuthenticate
+HFProxyAuthenticate	include/header_field.h	/^	struct HFProxyAuthenticate : public HeaderField$/;"	s	namespace:EasySip
+HFProxyAuthorization	include/header_field.h	/^		HFProxyAuthorization() : HeaderField("Proxy-Authorization", true)$/;"	f	struct:EasySip::HFProxyAuthorization
+HFProxyAuthorization	include/header_field.h	/^	struct HFProxyAuthorization : public HeaderField$/;"	s	namespace:EasySip
+HFProxyRequire	include/header_field.h	/^		HFProxyRequire() : HeaderField("Proxy-Require", true)$/;"	f	struct:EasySip::HFProxyRequire
+HFProxyRequire	include/header_field.h	/^	struct HFProxyRequire : public HeaderField$/;"	s	namespace:EasySip
+HFRSeq	include/header_field.h	/^		HFRSeq() : HeaderField("RSeq")$/;"	f	struct:EasySip::HFRSeq
+HFRSeq	include/header_field.h	/^	struct HFRSeq : public HeaderField$/;"	s	namespace:EasySip
+HFRack	include/header_field.h	/^		HFRack() : HeaderField("RACK")$/;"	f	struct:EasySip::HFRack
+HFRack	include/header_field.h	/^	struct HFRack : public HeaderField$/;"	s	namespace:EasySip
+HFReason	include/header_field.h	/^		HFReason() : HeaderField("Reason", true)$/;"	f	struct:EasySip::HFReason
+HFReason	include/header_field.h	/^	struct HFReason : public HeaderField$/;"	s	namespace:EasySip
+HFRecordRoute	include/header_field.h	/^		HFRecordRoute() : HeaderField("Record-Route", true)$/;"	f	struct:EasySip::HFRecordRoute
+HFRecordRoute	include/header_field.h	/^	struct HFRecordRoute : public HeaderField$/;"	s	namespace:EasySip
+HFReferTo	include/header_field.h	/^		HFReferTo() : HeaderField("Refer-To", "r")$/;"	f	struct:EasySip::HFReferTo
+HFReferTo	include/header_field.h	/^	struct HFReferTo : public HeaderField$/;"	s	namespace:EasySip
+HFReferredBy	include/header_field.h	/^		HFReferredBy() : HeaderField("Referred-By", "b")$/;"	f	struct:EasySip::HFReferredBy
+HFReferredBy	include/header_field.h	/^	struct HFReferredBy : public HeaderField$/;"	s	namespace:EasySip
+HFRejectContact	include/header_field.h	/^		HFRejectContact() : HeaderField("Reject-Contact", "j")$/;"	f	struct:EasySip::HFRejectContact
+HFRejectContact	include/header_field.h	/^	struct HFRejectContact : public HeaderField$/;"	s	namespace:EasySip
+HFReplaces	include/header_field.h	/^		HFReplaces() : HeaderField("Replaces")$/;"	f	struct:EasySip::HFReplaces
+HFReplaces	include/header_field.h	/^	struct HFReplaces : public HeaderField$/;"	s	namespace:EasySip
+HFReplyTo	include/header_field.h	/^		HFReplyTo() : HeaderField("Replay-To")$/;"	f	struct:EasySip::HFReplyTo
+HFReplyTo	include/header_field.h	/^	struct HFReplyTo : public HeaderField$/;"	s	namespace:EasySip
+HFRequestDisposition	include/header_field.h	/^		HFRequestDisposition() : HeaderField("Request-Disposition")$/;"	f	struct:EasySip::HFRequestDisposition
+HFRequestDisposition	include/header_field.h	/^	struct HFRequestDisposition : public HeaderField$/;"	s	namespace:EasySip
+HFRequire	include/header_field.h	/^		HFRequire() : HeaderField("Require", true)$/;"	f	struct:EasySip::HFRequire
+HFRequire	include/header_field.h	/^	struct HFRequire : public HeaderField$/;"	s	namespace:EasySip
+HFRetryAfter	include/header_field.h	/^		HFRetryAfter() : HeaderField("Retry-After")$/;"	f	struct:EasySip::HFRetryAfter
+HFRetryAfter	include/header_field.h	/^	struct HFRetryAfter : public HeaderField$/;"	s	namespace:EasySip
+HFRoute	include/header_field.h	/^		HFRoute() : HeaderField("Route", true)$/;"	f	struct:EasySip::HFRoute
+HFRoute	include/header_field.h	/^	struct HFRoute : public HeaderField$/;"	s	namespace:EasySip
+HFServer	include/header_field.h	/^		HFServer() : HeaderField("Server")$/;"	f	struct:EasySip::HFServer
+HFServer	include/header_field.h	/^	struct HFServer : public HeaderField$/;"	s	namespace:EasySip
+HFSessionExpires	include/header_field.h	/^		HFSessionExpires() : HeaderField("Session-Expires", "x")$/;"	f	struct:EasySip::HFSessionExpires
+HFSessionExpires	include/header_field.h	/^	struct HFSessionExpires : public HeaderField$/;"	s	namespace:EasySip
+HFSubject	include/header_field.h	/^		HFSubject() : HeaderField("Subject", "s")$/;"	f	struct:EasySip::HFSubject
+HFSubject	include/header_field.h	/^	struct HFSubject : public HeaderField$/;"	s	namespace:EasySip
+HFSubscriptionState	include/header_field.h	/^		HFSubscriptionState() : HeaderField("Subscription-State")$/;"	f	struct:EasySip::HFSubscriptionState
+HFSubscriptionState	include/header_field.h	/^	struct HFSubscriptionState : public HeaderField$/;"	s	namespace:EasySip
+HFSupported	include/header_field.h	/^		HFSupported() : HeaderField("Supported", "k")$/;"	f	struct:EasySip::HFSupported
+HFSupported	include/header_field.h	/^	struct HFSupported : public HeaderField$/;"	s	namespace:EasySip
+HFTimestamp	include/header_field.h	/^		HFTimestamp() : HeaderField("Timestamp")$/;"	f	struct:EasySip::HFTimestamp
+HFTimestamp	include/header_field.h	/^	struct HFTimestamp : public HeaderField$/;"	s	namespace:EasySip
+HFTo	include/header_field.h	/^		HFTo() : HeaderField("To", "t")$/;"	f	struct:EasySip::HFTo
+HFTo	include/header_field.h	/^	struct HFTo : public HeaderField$/;"	s	namespace:EasySip
+HFUnsupported	include/header_field.h	/^		HFUnsupported() : HeaderField("Unsupported")$/;"	f	struct:EasySip::HFUnsupported
+HFUnsupported	include/header_field.h	/^	struct HFUnsupported : public HeaderField$/;"	s	namespace:EasySip
+HFUserAgent	include/header_field.h	/^		HFUserAgent() : HeaderField("User-Agent")$/;"	f	struct:EasySip::HFUserAgent
+HFUserAgent	include/header_field.h	/^	struct HFUserAgent : public HeaderField$/;"	s	namespace:EasySip
+HFVia	include/header_field.h	/^		HFVia() : HeaderField("Via", "v", true)$/;"	f	struct:EasySip::HFVia
+HFVia	include/header_field.h	/^	struct HFVia : public HeaderField$/;"	s	namespace:EasySip
+HFWWWAuthenticate	include/header_field.h	/^		HFWWWAuthenticate() : HeaderField("WWW-Authenticate", true)$/;"	f	struct:EasySip::HFWWWAuthenticate
+HFWWWAuthenticate	include/header_field.h	/^	struct HFWWWAuthenticate : public HeaderField$/;"	s	namespace:EasySip
+HFWarning	include/header_field.h	/^		HFWarning() : HeaderField("Warning")$/;"	f	struct:EasySip::HFWarning
+HFWarning	include/header_field.h	/^	struct HFWarning : public HeaderField$/;"	s	namespace:EasySip
+HeaderField	include/header_field.h	/^		HeaderField()$/;"	f	struct:EasySip::HeaderField
+HeaderField	include/header_field.h	/^		HeaderField(std::string f, bool is_hbh = false)$/;"	f	struct:EasySip::HeaderField
+HeaderField	include/header_field.h	/^		HeaderField(std::string f, std::string c, bool is_hbh = false)$/;"	f	struct:EasySip::HeaderField
+HeaderField	include/header_field.h	/^	struct HeaderField$/;"	s	namespace:EasySip
+HeaderFieldList	include/header_field.h	/^		HeaderFieldList()$/;"	f	class:EasySip::HeaderFieldList
+HeaderFieldList	include/header_field.h	/^	class HeaderFieldList\/\/ : public std::vector<HeaderFieldPtr>\/\/std::shared_ptr<T> >$/;"	c	namespace:EasySip
+HeaderFieldPtr	include/header_field.h	/^	typedef std::shared_ptr<HeaderField> HeaderFieldPtr;$/;"	t	namespace:EasySip
+HeaderFieldPtrNew	include/header_field.h	118;"	d
+HeaderFields	include/header_field.h	/^	struct HeaderFields$/;"	s	namespace:EasySip
+HeaderFileds	include/header_field.h	/^		HeaderFileds()$/;"	f	struct:EasySip::HeaderFields
+HeaderParams	include/uri.h	/^	typedef Parameters HeaderParams;$/;"	t	namespace:EasySip
+INCLUDES	Makefile	/^INCLUDES	= include build$/;"	m
+InfoMessage	include/message.h	/^		InfoMessage()$/;"	f	class:EasySip::InfoMessage
+InfoMessage	include/message.h	/^	class InfoMessage : public RequestMessage$/;"	c	namespace:EasySip
+InfoMethod	include/method.h	/^	class InfoMethod : public Method$/;"	c	namespace:EasySip
+Initialize	include/uri.h	/^		void Initialize()$/;"	f	struct:EasySip::URI
+InviteMessage	include/message.h	/^		InviteMessage()$/;"	f	class:EasySip::InviteMessage
+InviteMessage	include/message.h	/^		InviteMessage(RequestMessage &in_msg)$/;"	f	class:EasySip::InviteMessage
+InviteMessage	include/message.h	/^		InviteMessage(std::string &in_msg)$/;"	f	class:EasySip::InviteMessage
+InviteMessage	include/message.h	/^	class InviteMessage : public RequestMessage$/;"	c	namespace:EasySip
+InviteMethod	include/method.h	/^		InviteMethod()$/;"	f	class:EasySip::InviteMethod
+InviteMethod	include/method.h	/^		InviteMethod(RequestMessage &in_msg)$/;"	f	class:EasySip::InviteMethod
+InviteMethod	include/method.h	/^	class InviteMethod : public Method$/;"	c	namespace:EasySip
+LAST_BUILD_TIME	build/version.h	8;"	d
+LIBS	Makefile	/^LIBS		=$/;"	m
+LN	makefiles/predef.mk	/^LN		= ln -sf$/;"	m
+METHOD_ID_ACK	include/request_message.h	/^		METHOD_ID_ACK,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_BYE	include/request_message.h	/^		METHOD_ID_BYE,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_CANCEL	include/request_message.h	/^		METHOD_ID_CANCEL,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_INFO	include/request_message.h	/^		METHOD_ID_INFO,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_INVITE	include/request_message.h	/^		METHOD_ID_INVITE,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_MESSAGE	include/request_message.h	/^		METHOD_ID_MESSAGE,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_NOTIFY	include/request_message.h	/^		METHOD_ID_NOTIFY,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_OPTIONS	include/request_message.h	/^		METHOD_ID_OPTIONS,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_PRACK	include/request_message.h	/^		METHOD_ID_PRACK,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_REFER	include/request_message.h	/^		METHOD_ID_REFER,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_REGISTER	include/request_message.h	/^		METHOD_ID_REGISTER,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_SUBSCRIBE	include/request_message.h	/^		METHOD_ID_SUBSCRIBE,$/;"	e	enum:EasySip::__anon1
+METHOD_ID_UPDATE	include/request_message.h	/^		METHOD_ID_UPDATE,$/;"	e	enum:EasySip::__anon1
+MKDIR	makefiles/predef.mk	/^MKDIR	= mkdir -p$/;"	m
+Message	include/message.h	/^		Message()$/;"	f	class:EasySip::Message
+Message	include/message.h	/^	class Message : public HeaderFields$/;"	c	namespace:EasySip
+MessageMessage	include/message.h	/^		MessageMessage()$/;"	f	class:EasySip::MessageMessage
+MessageMessage	include/message.h	/^	class MessageMessage : public RequestMessage$/;"	c	namespace:EasySip
+MessageMethod	include/method.h	/^	class MessageMethod : public Method$/;"	c	namespace:EasySip
+Method	include/method.h	/^		Method()$/;"	f	class:EasySip::Method
+Method	include/method.h	/^	class Method$/;"	c	namespace:EasySip
+MethodMap	include/request_message.h	/^	typedef CodeMap MethodMap;$/;"	t	namespace:EasySip
+MethodMapList	include/request_message.h	/^	typedef std::set<MethodMap> MethodMapList;$/;"	t	namespace:EasySip
+Name	include/mapper.h	/^		std::string Name() const$/;"	f	struct:EasySip::CodeMap
+Name	include/mapper.h	/^		std::string Name()$/;"	f	struct:EasySip::Parameter
+Name	include/mapper.h	/^		void Name(std::string n)$/;"	f	struct:EasySip::CodeMap
+Name	include/mapper.h	/^		void Name(std::string n)$/;"	f	struct:EasySip::Parameter
+NotifyMessage	include/message.h	/^		NotifyMessage()$/;"	f	class:EasySip::NotifyMessage
+NotifyMessage	include/message.h	/^	class NotifyMessage : public RequestMessage$/;"	c	namespace:EasySip
+NotifyMethod	include/method.h	/^	class NotifyMethod : public Method$/;"	c	namespace:EasySip
+OBJS	makefiles/predef.mk	/^OBJS			= $(patsubst %.cpp, $(BUILD)\/%.o, $(SOURCES))$/;"	m
+OptionsMessage	include/message.h	/^		OptionsMessage()$/;"	f	class:EasySip::OptionsMessage
+OptionsMessage	include/message.h	/^	class OptionsMessage : public RequestMessage$/;"	c	namespace:EasySip
+OptionsMethod	include/method.h	/^	class OptionsMethod : public Method$/;"	c	namespace:EasySip
+PROJECT	Makefile	/^PROJECT		= EasySip$/;"	m
+PROJECT	build/version.h	4;"	d
+PROJECT_ALIAS	makefiles/predef.mk	/^PROJECT_ALIAS	= $(shell echo $(PROJECT)|tr '[:upper:]' '[:lower:]')$/;"	m
+PROJECT_DIR	makefiles/predef.mk	/^PROJECT_DIR		= $(shell pwd)$/;"	m
+Param	include/header_field.h	/^		Param(std::string name)$/;"	f	class:EasySip::Param
+Param	include/header_field.h	/^		Param(std::string name, bool has)$/;"	f	class:EasySip::Param
+Param	include/header_field.h	/^		Param(std::string name, std::string va)$/;"	f	class:EasySip::Param
+Param	include/header_field.h	/^		Param(std::string name, std::string va, bool has)$/;"	f	class:EasySip::Param
+Param	include/header_field.h	/^	class Param$/;"	c	namespace:EasySip
+Parameter	include/mapper.h	/^		Parameter() : need_value_(true)$/;"	f	struct:EasySip::Parameter
+Parameter	include/mapper.h	/^		Parameter(std::string name, std::string value = "", bool need_value = true)$/;"	f	struct:EasySip::Parameter
+Parameter	include/mapper.h	/^	struct Parameter : public std::pair<std::string, std::string>$/;"	s	namespace:EasySip
+Parameters	include/mapper.h	/^		Parameters()$/;"	f	class:EasySip::Parameters
+Parameters	include/mapper.h	/^	class Parameters : std::set<Parameter>$/;"	c	namespace:EasySip
+PrackMessage	include/message.h	/^		PrackMessage()$/;"	f	class:EasySip::PrackMessage
+PrackMessage	include/message.h	/^	class PrackMessage : public RequestMessage$/;"	c	namespace:EasySip
+PrackMethod	include/method.h	/^	class PrackMethod : public Method$/;"	c	namespace:EasySip
+REVISION	build/version.h	7;"	d
+REVISION	makefiles/predef.mk	/^REVISION		= $(shell svn info|grep "Last Changed Rev"|cut -f2 -d:|cut -f2 -d\\ ) $/;"	m
+RM	makefiles/predef.mk	/^RM		= rm -rf$/;"	m
+RefOf	include/header_field.h	/^	T& RefOf(T& t) { return t; }$/;"	f	namespace:EasySip
+ReferMessage	include/message.h	/^		ReferMessage()$/;"	f	class:EasySip::ReferMessage
+ReferMessage	include/message.h	/^	class ReferMessage : public RequestMessage$/;"	c	namespace:EasySip
+ReferMethod	include/method.h	/^	class ReferMethod : public Method$/;"	c	namespace:EasySip
+RegisterMessage	include/message.h	/^		RegisterMessage()$/;"	f	class:EasySip::RegisterMessage
+RegisterMessage	include/message.h	/^	class RegisterMessage : public RequestMessage$/;"	c	namespace:EasySip
+RegisterMethod	include/method.h	/^		RegisterMethod()$/;"	f	class:EasySip::RegisterMethod
+RegisterMethod	include/method.h	/^	class RegisterMethod : public Method$/;"	c	namespace:EasySip
+RequestLine	include/header_field.h	/^		RequestLine()$/;"	f	struct:EasySip::RequestLine
+RequestLine	include/header_field.h	/^	struct RequestLine$/;"	s	namespace:EasySip
+RequestMessage	include/message.h	/^		RequestMessage()$/;"	f	class:EasySip::RequestMessage
+RequestMessage	include/message.h	/^		RequestMessage(RequestMessage &in_msg)$/;"	f	class:EasySip::RequestMessage
+RequestMessage	include/message.h	/^		RequestMessage(std::string &in_msg)$/;"	f	class:EasySip::RequestMessage
+RequestMessage	include/message.h	/^	class RequestMessage : public Message$/;"	c	namespace:EasySip
+RespCode	include/response_code.h	/^	typedef CodeMap RespCode;$/;"	t	namespace:EasySip
+RespStatus	include/message.h	/^		ResponseStatus& RespStatus()$/;"	f	class:EasySip::ResponseMessage
+RespStatus	include/message.h	/^		void RespStatus(ResponseStatus &resp)$/;"	f	class:EasySip::ResponseMessage
+RespStatus	include/message.h	/^		void RespStatus(const RespCode &resp)$/;"	f	class:EasySip::ResponseMessage
+ResponseMessage	include/message.h	/^		ResponseMessage()$/;"	f	class:EasySip::ResponseMessage
+ResponseMessage	include/message.h	/^		ResponseMessage(RequestMessage &in_msg)$/;"	f	class:EasySip::ResponseMessage
+ResponseMessage	include/message.h	/^		ResponseMessage(RespCode &resp)$/;"	f	class:EasySip::ResponseMessage
+ResponseMessage	include/message.h	/^	class ResponseMessage : public Message$/;"	c	namespace:EasySip
+ResponseStatus	include/header_field.h	/^		ResponseStatus()$/;"	f	struct:EasySip::ResponseStatus
+ResponseStatus	include/header_field.h	/^	struct ResponseStatus$/;"	s	namespace:EasySip
+SHARED_OBJ	makefiles/predef.mk	/^SHARED_OBJ		= $(BUILD)\/lib$(PROJECT_ALIAS).so$/;"	m
+SIP_VERSION_2_0	include/header_field.h	16;"	d
+SOURCES	makefiles/predef.mk	/^SOURCES			= $(shell find $(SRCS) -iregex ".*\\.c\\(c\\|pp\\|++\\|xx\\)")$/;"	m
+SRCS	Makefile	/^SRCS		= src$/;"	m
+Start	include/timer.h	/^		void Start()$/;"	f	class:EasySip::Timer
+SubscribeMessage	include/message.h	/^		SubscribeMessage()$/;"	f	class:EasySip::SubscribeMessage
+SubscribeMessage	include/message.h	/^	class SubscribeMessage : public RequestMessage$/;"	c	namespace:EasySip
+SubscribeMethod	include/method.h	/^	class SubscribeMethod : public Method$/;"	c	namespace:EasySip
+T1_RTT	include/timer.h	/^		T1_RTT()$/;"	f	class:EasySip::T1_Rtt
+T1_Rtt	include/timer.h	/^	class T1_Rtt : public Timer$/;"	c	namespace:EasySip
+T2_MAX_RETRAN_INTV	include/timer.h	/^		T2_MAX_RETRAN_INTV()$/;"	f	class:EasySip::T2_MAX_RETRAN_INTV
+T2_MAX_RETRAN_INTV	include/timer.h	/^	class T2_MAX_RETRAN_INTV : public Timer$/;"	c	namespace:EasySip
+T4_MAX_DURATION_OF_MSG	include/timer.h	/^		T4_MAX_DURATION_OF_MSG()$/;"	f	class:EasySip::T4_MAX_DURATION_OF_MSG
+T4_MAX_DURATION_OF_MSG	include/timer.h	/^	class T4_MAX_DURATION_OF_MSG : public Timer$/;"	c	namespace:EasySip
+TA_INVITE_RETRAN_INTERVAL	include/timer.h	/^		TA_INVITE_RETRAN_INTERVAL()$/;"	f	class:EasySip::TA_INVITE_RETRAN_INTERVAL
+TA_INVITE_RETRAN_INTERVAL	include/timer.h	/^	class TA_INVITE_RETRAN_INTERVAL : public Timer$/;"	c	namespace:EasySip
+TB_INVITE_TIMEOUT	include/timer.h	/^		TB_INVITE_TIMEOUT()$/;"	f	class:EasySip::TB_INVITE_TIMEOUT
+TB_INVITE_TIMEOUT	include/timer.h	/^	class TB_INVITE_TIMEOUT : public Timer$/;"	c	namespace:EasySip
+TC_PROXY_INVITE_TIMEOUT	include/timer.h	/^		TC_PROXY_INVITE_TIMEOUT()$/;"	f	class:EasySip::TC_PROXY_INVITE_TIMEOUT
+TC_PROXY_INVITE_TIMEOUT	include/timer.h	/^	class TC_PROXY_INVITE_TIMEOUT : public Timer$/;"	c	namespace:EasySip
+TD_WAIT_FOR_RETRAN	include/timer.h	/^		TD_WAIT_FOR_RETRAN()$/;"	f	class:EasySip::TD_WAIT_FOR_RETRAN
+TD_WAIT_FOR_RETRAN	include/timer.h	/^	class TD_WAIT_FOR_RETRAN : public Timer$/;"	c	namespace:EasySip
+TE_NON_INVITE_RETRAN_INTV	include/timer.h	/^		TE_NON_INVITE_RETRAN_INTV()$/;"	f	class:EasySip::TE_NON_INVITE_RETRAN_INTV
+TE_NON_INVITE_RETRAN_INTV	include/timer.h	/^	class TE_NON_INVITE_RETRAN_INTV : public Timer$/;"	c	namespace:EasySip
+TF_NON_INVITE_REQS_TIMEOUT	include/timer.h	/^		TF_NON_INVITE_REQS_TIMEOUT()$/;"	f	class:EasySip::TF_NON_INVITE_REQS_TIMEOUT
+TF_NON_INVITE_REQS_TIMEOUT	include/timer.h	/^	class TF_NON_INVITE_REQS_TIMEOUT : public Timer$/;"	c	namespace:EasySip
+TG_INVITE_RESP_RETRAN_INTV	include/timer.h	/^		TG_INVITE_RESP_RETRAN_INTV()$/;"	f	class:EasySip::TG_INVITE_RESP_RETRAN_INTV
+TG_INVITE_RESP_RETRAN_INTV	include/timer.h	/^	class TG_INVITE_RESP_RETRAN_INTV : public Timer$/;"	c	namespace:EasySip
+TH_WAIT_FOR_ACK_RECEIPT	include/timer.h	/^		TH_WAIT_FOR_ACK_RECEIPT()$/;"	f	class:EasySip::TH_WAIT_FOR_ACK_RECEIPT
+TH_WAIT_FOR_ACK_RECEIPT	include/timer.h	/^	class TH_WAIT_FOR_ACK_RECEIPT : public Timer$/;"	c	namespace:EasySip
+TI_WAIT_FOR_ACK_RETRAN	include/timer.h	/^		TI_WAIT_FOR_ACK_RETRAN()$/;"	f	class:EasySip::TI_WAIT_FOR_ACK_RETRAN
+TI_WAIT_FOR_ACK_RETRAN	include/timer.h	/^	class TI_WAIT_FOR_ACK_RETRAN : public Timer$/;"	c	namespace:EasySip
+TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN	include/timer.h	/^		TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN()$/;"	f	class:EasySip::TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN
+TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN	include/timer.h	/^	class TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN : public Timer$/;"	c	namespace:EasySip
+TK_WAIT_FOR_RESP_RETRAN	include/timer.h	/^		TK_WAIT_FOR_RESP_RETRAN()$/;"	f	class:EasySip::TK_WAIT_FOR_RESP_RETRAN
+TK_WAIT_FOR_RESP_RETRAN	include/timer.h	/^	class TK_WAIT_FOR_RESP_RETRAN : public Timer$/;"	c	namespace:EasySip
+TOUCH	makefiles/predef.mk	/^TOUCH	= touch$/;"	m
+T_PTR	include/header_field.h	/^		typedef std::shared_ptr<T> T_PTR;$/;"	t	class:EasySip::HeaderFieldList
+Timer	include/timer.h	/^		Timer(Timer &tm)$/;"	f	class:EasySip::Timer
+Timer	include/timer.h	/^		Timer(std::string value)$/;"	f	class:EasySip::Timer
+Timer	include/timer.h	/^		Timer(unsigned long value)$/;"	f	class:EasySip::Timer
+Timer	include/timer.h	/^	class Timer$/;"	c	namespace:EasySip
+UAClient	include/user_agent/uaclient.h	/^		UAClient()$/;"	f	class:EasySip::UAClient
+UAClient	include/user_agent/uaclient.h	/^	class UAClient : public UserAgent$/;"	c	namespace:EasySip
+UAServer	include/user_agent/uaserver.h	/^		UAServer()$/;"	f	class:EasySip::UAServer
+UAServer	include/user_agent/uaserver.h	/^	class UAServer : public UserAgent$/;"	c	namespace:EasySip
+URI	include/uri.h	/^		URI()$/;"	f	struct:EasySip::URI
+URI	include/uri.h	/^	struct URI$/;"	s	namespace:EasySip
+URIParams	include/uri.h	/^	typedef Parameters URIParams;$/;"	t	namespace:EasySip
+UpdateMessage	include/message.h	/^		UpdateMessage()$/;"	f	class:EasySip::UpdateMessage
+UpdateMessage	include/message.h	/^	class UpdateMessage : public RequestMessage$/;"	c	namespace:EasySip
+UpdateMethod	include/method.h	/^	class UpdateMethod : public Method$/;"	c	namespace:EasySip
+UserAgent	include/user_agent/user_agent.h	/^		UserAgent()$/;"	f	class:EasySip::UserAgent
+UserAgent	include/user_agent/user_agent.h	/^	class UserAgent\/\/ : public Methods$/;"	c	namespace:EasySip
+VERSION	Makefile	/^VERSION		= 0.0.1$/;"	m
+VERSION	build/version.h	6;"	d
+VERSION_HEADER	makefiles/predef.mk	/^VERSION_HEADER	= $(BUILD)\/version.h$/;"	m
+Value	include/mapper.h	/^		std::string Value()$/;"	f	struct:EasySip::Parameter
+Value	include/mapper.h	/^		void Value(std::string v)$/;"	f	struct:EasySip::Parameter
+Value	include/timer.h	/^		std::string Value()$/;"	f	class:EasySip::Timer
+Value	include/timer.h	/^		void Value(std::string value)$/;"	f	class:EasySip::TC_PROXY_INVITE_TIMEOUT
+Value	include/timer.h	/^		void Value(std::string value)$/;"	f	class:EasySip::Timer
+Value	test/ts.cpp	/^	unsigned long Value()$/;"	f	class:A
+Value	test/ts.cpp	/^	void Value(unsigned long val)$/;"	f	class:A
+ValueMap	include/mapper.h	/^	typedef std::map<std::string, std::string> ValueMap;$/;"	t	namespace:EasySip
+Values	include/mapper.h	/^	typedef std::vector<std::string> Values;$/;"	t	namespace:EasySip
+accept_	include/header_field.h	/^		HeaderFieldList<HFAccept> accept_; \/\/ type\/sub-type$/;"	m	struct:EasySip::HeaderFields
+accept_contact_	include/header_field.h	/^		HeaderFieldList<HFAcceptContact> accept_contact_;$/;"	m	struct:EasySip::HeaderFields
+accept_encoding_	include/header_field.h	/^		HeaderFieldList<HFAcceptEncoding> accept_encoding_;$/;"	m	struct:EasySip::HeaderFields
+accept_language_	include/header_field.h	/^		HeaderFieldList<HFAcceptLanguage> accept_language_;$/;"	m	struct:EasySip::HeaderFields
+add_param	include/uri.h	/^		void add_param(std::string name, std::string value = "", bool need_value = true)$/;"	f	struct:EasySip::URI
+alert_info_	include/header_field.h	/^		HeaderFieldList<HFAlertInfo> alert_info_;$/;"	m	struct:EasySip::HeaderFields
+allow_	include/header_field.h	/^		HeaderFieldList<HFAllow> allow_;$/;"	m	struct:EasySip::HeaderFields
+allow_events_	include/header_field.h	/^		HeaderFieldList<HFAllowEvents> allow_events_;$/;"	m	struct:EasySip::HeaderFields
+allowed_fields_	include/header_field.h	/^		std::map<std::string, HeaderFieldList<HeaderFields&> > allowed_fields_;$/;"	m	struct:EasySip::HeaderFields
+allowed_methods_	include/user_agent/uaserver.h	/^		MethodMapList allowed_methods_;$/;"	m	class:EasySip::UAServer
+answer_mode_	include/header_field.h	/^		HeaderFieldList<HFAnswerMode> answer_mode_;$/;"	m	struct:EasySip::HeaderFields
+append	include/mapper.h	/^		void append(std::string name, bool need_value)$/;"	f	class:EasySip::Parameters
+append	include/mapper.h	/^		void append(std::string name, std::string value = "", bool need_value = true)$/;"	f	class:EasySip::Parameters
+append_data	src/method.cpp	/^	int Method::append_data(std::string buf)$/;"	f	class:EasySip::Method
+append_field	include/header_field.h	/^		void append_field()$/;"	f	class:EasySip::HeaderFieldList
+append_header	src/method.cpp	/^	int Method::append_header(std::string key, std::string value)$/;"	f	class:EasySip::Method
+append_userdata	include/message.h	/^		void append_userdata(std::string buf)$/;"	f	class:EasySip::Message
+append_value	include/header_field.h	/^		void append_value(std::string val, unsigned int index = 0)$/;"	f	class:EasySip::HeaderFieldList
+authentication_info_	include/header_field.h	/^		HeaderFieldList<HFAuthenticationInfo> authentication_info_;$/;"	m	struct:EasySip::HeaderFields
+authorization_	include/header_field.h	/^		HeaderFieldList<HFAuthorization> authorization_;$/;"	m	struct:EasySip::HeaderFields
+call_id_	include/header_field.h	/^		HeaderFieldList<HFCallId> call_id_;$/;"	m	struct:EasySip::HeaderFields
+call_info_	include/header_field.h	/^		HeaderFieldList<HFCallInfo> call_info_;$/;"	m	struct:EasySip::HeaderFields
+compact_form_	include/header_field.h	/^		std::string compact_form_;$/;"	m	struct:EasySip::HeaderField
+contact_	include/header_field.h	/^		HeaderFieldList<HFContact> contact_;$/;"	m	struct:EasySip::HeaderFields
+content_encoding_	include/header_field.h	/^		HeaderFieldList<HFContentEncoding> content_encoding_;$/;"	m	struct:EasySip::HeaderFields
+content_language_	include/header_field.h	/^		HeaderFieldList<HFContentLanguage> content_language_;$/;"	m	struct:EasySip::HeaderFields
+content_length_	include/header_field.h	/^		HeaderFieldList<HFContentLength> content_length_;$/;"	m	struct:EasySip::HeaderFields
+content_type_	include/header_field.h	/^		HeaderFieldList<HFContentType> content_type_;$/;"	m	struct:EasySip::HeaderFields
+create	src/message.cpp	/^	AckMessage& AckMessage::create()$/;"	f	class:EasySip::AckMessage
+create	src/message.cpp	/^	ByeMessage& ByeMessage::create()$/;"	f	class:EasySip::ByeMessage
+create	src/message.cpp	/^	CancelMessage& CancelMessage::create()$/;"	f	class:EasySip::CancelMessage
+create	src/message.cpp	/^	InfoMessage& InfoMessage::create()$/;"	f	class:EasySip::InfoMessage
+create	src/message.cpp	/^	InviteMessage& InviteMessage::create()$/;"	f	class:EasySip::InviteMessage
+create	src/message.cpp	/^	Message& Message::create()$/;"	f	class:EasySip::Message
+create	src/message.cpp	/^	MessageMessage& MessageMessage::create()$/;"	f	class:EasySip::MessageMessage
+create	src/message.cpp	/^	NotifyMessage& NotifyMessage::create()$/;"	f	class:EasySip::NotifyMessage
+create	src/message.cpp	/^	OptionsMessage& OptionsMessage::create()$/;"	f	class:EasySip::OptionsMessage
+create	src/message.cpp	/^	PrackMessage& PrackMessage::create()$/;"	f	class:EasySip::PrackMessage
+create	src/message.cpp	/^	ReferMessage& ReferMessage::create()$/;"	f	class:EasySip::ReferMessage
+create	src/message.cpp	/^	RegisterMessage& RegisterMessage::create()$/;"	f	class:EasySip::RegisterMessage
+create	src/message.cpp	/^	ResponseMessage& ResponseMessage::create()$/;"	f	class:EasySip::ResponseMessage
+create	src/message.cpp	/^	SubscribeMessage& SubscribeMessage::create()$/;"	f	class:EasySip::SubscribeMessage
+create	src/message.cpp	/^	UpdateMessage& UpdateMessage::create()$/;"	f	class:EasySip::UpdateMessage
+cseq_	include/header_field.h	/^		HeaderFieldList<HFCSeq> cseq_;$/;"	m	struct:EasySip::HeaderFields
+date_	include/header_field.h	/^		HeaderFieldList<HFDate> date_;$/;"	m	struct:EasySip::HeaderFields
+empty	include/header_field.h	/^		bool empty()$/;"	f	class:EasySip::HeaderFieldList
+error_info_	include/header_field.h	/^		HeaderFieldList<HFErrorInfo> error_info_;$/;"	m	struct:EasySip::HeaderFields
+event_	include/header_field.h	/^		HeaderFieldList<HFEvent> event_;$/;"	m	struct:EasySip::HeaderFields
+expires_	include/header_field.h	/^		HeaderFieldList<HFExpires> expires_; \/\/ in second$/;"	m	struct:EasySip::HeaderFields
+field_	include/header_field.h	/^		std::string field_;$/;"	m	struct:EasySip::HeaderField
+from_	include/header_field.h	/^		HeaderFieldList<HFFrom> from_;$/;"	m	struct:EasySip::HeaderFields
+has_Name	include/mapper.h	/^		bool has_Name(std::string name)$/;"	f	class:EasySip::Parameters
+has_value_	include/header_field.h	/^		bool has_value_;$/;"	m	class:EasySip::Param
+header_params_	include/header_field.h	/^		HeaderParams header_params_;$/;"	m	struct:EasySip::HeaderField
+hflist_	include/header_field.h	/^		std::vector<std::shared_ptr<T> > hflist_;$/;"	m	class:EasySip::HeaderFieldList
+in_replay_to_	include/header_field.h	/^		HeaderFieldList<HFInReplyTo> in_replay_to_;$/;"	m	struct:EasySip::HeaderFields
+init_allowed_fields	src/header_field.cpp	/^	void HeaderFields::init_allowed_fields()$/;"	f	class:EasySip::HeaderFields
+init_allowed_methods	src/user_agent/uaserver.cpp	/^	void UAServer::init_allowed_methods()$/;"	f	class:EasySip::UAServer
+is_hop_by_hop_	include/header_field.h	/^		bool is_hop_by_hop_;$/;"	m	struct:EasySip::HeaderField
+is_valid	src/message.cpp	/^	bool AckMessage::is_valid()$/;"	f	class:EasySip::AckMessage
+is_valid	src/message.cpp	/^	bool ByeMessage::is_valid()$/;"	f	class:EasySip::ByeMessage
+is_valid	src/message.cpp	/^	bool CancelMessage::is_valid()$/;"	f	class:EasySip::CancelMessage
+is_valid	src/message.cpp	/^	bool InfoMessage::is_valid()$/;"	f	class:EasySip::InfoMessage
+is_valid	src/message.cpp	/^	bool InviteMessage::is_valid()$/;"	f	class:EasySip::InviteMessage
+is_valid	src/message.cpp	/^	bool Message::is_valid()$/;"	f	class:EasySip::Message
+is_valid	src/message.cpp	/^	bool MessageMessage::is_valid()$/;"	f	class:EasySip::MessageMessage
+is_valid	src/message.cpp	/^	bool NotifyMessage::is_valid()$/;"	f	class:EasySip::NotifyMessage
+is_valid	src/message.cpp	/^	bool OptionsMessage::is_valid()$/;"	f	class:EasySip::OptionsMessage
+is_valid	src/message.cpp	/^	bool PrackMessage::is_valid()$/;"	f	class:EasySip::PrackMessage
+is_valid	src/message.cpp	/^	bool ReferMessage::is_valid()$/;"	f	class:EasySip::ReferMessage
+is_valid	src/message.cpp	/^	bool RegisterMessage::is_valid()$/;"	f	class:EasySip::RegisterMessage
+is_valid	src/message.cpp	/^	bool SubscribeMessage::is_valid()$/;"	f	class:EasySip::SubscribeMessage
+is_valid	src/message.cpp	/^	bool UpdateMessage::is_valid()$/;"	f	class:EasySip::UpdateMessage
+is_value_valid	include/header_field.h	/^		bool is_value_valid()$/;"	f	struct:EasySip::HFContact
+is_value_valid	include/header_field.h	/^		virtual bool is_value_valid()$/;"	f	struct:EasySip::HeaderField
+join_	include/header_field.h	/^		HeaderFieldList<HFJoin> join_;$/;"	m	struct:EasySip::HeaderFields
+main	test/ts-pair.cpp	/^int main()$/;"	f
+main	test/ts-shareptr.cpp	/^int main()$/;"	f
+main	test/ts-timer.cpp	/^int main()$/;"	f
+main	test/ts.cpp	/^int main()$/;"	f
+max_forwards_	include/header_field.h	/^		HeaderFieldList<HFMaxForwards> max_forwards_;$/;"	m	struct:EasySip::HeaderFields
+method	include/message.h	/^		MethodMap method()$/;"	f	class:EasySip::Message
+method_	include/header_field.h	/^		MethodMap method_;$/;"	m	struct:EasySip::RequestLine
+mime_version_	include/header_field.h	/^		HeaderFieldList<HFMIMEVersion> mime_version_;$/;"	m	struct:EasySip::HeaderFields
+min_expires_	include/header_field.h	/^		HeaderFieldList<HFMinExpires> min_expires_;$/;"	m	struct:EasySip::HeaderFields
+min_se_	include/header_field.h	/^		HeaderFieldList<HFMinSE> min_se_;$/;"	m	struct:EasySip::HeaderFields
+msg_	include/message.h	/^		std::string msg_; \/\/ message to send, which contains header fields and user data$/;"	m	class:EasySip::Message
+msg_	include/method.h	/^		std::shared_ptr<Message> msg_;$/;"	m	class:EasySip::Method
+n_	test/ts-shareptr.cpp	/^	int n_;$/;"	m	class:A	file:
+name_	include/header_field.h	/^		std::string name_;$/;"	m	class:EasySip::Param
+need_value_	include/mapper.h	/^		bool need_value_;$/;"	m	struct:EasySip::Parameter
+on_ack_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_ack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_ack_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_ack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_bye_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_bye_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_bye_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_bye_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_cancel_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_cancel_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_cancel_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_cancel_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_info_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_info_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_info_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_info_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_invite_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_invite_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_invite_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_invite_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_message_receive	src/method.cpp	/^	int InviteMethod::on_message_receive(Message &in_msg)$/;"	f	class:EasySip::InviteMethod
+on_message_receive	src/method.cpp	/^	int Method::on_message_receive(Message &in_msg)$/;"	f	class:EasySip::Method
+on_message_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_message_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_message_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_message_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_notify_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_notify_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_notify_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_notify_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_options_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_options_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_options_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_options_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_prack_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_prack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_prack_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_prack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_receive_request	src/user_agent/user_agent.cpp	/^	int UserAgent::on_receive_request(Message &in_msg)$/;"	f	class:EasySip::UserAgent
+on_refer_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_refer_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_refer_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_refer_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_register_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_register_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_register_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_register_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_response	src/user_agent/uaclient.cpp	/^	int UAClient::on_response(Message &in_msg)$/;"	f	class:EasySip::UAClient
+on_response	src/user_agent/uaserver.cpp	/^	int UAServer::on_response(Message &in_msg)$/;"	f	class:EasySip::UAServer
+on_rx_req_exception	src/user_agent/uaserver.cpp	/^	int UAServer::on_rx_req_exception(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_rx_req_exception	src/user_agent/user_agent.cpp	/^	int UserAgent::on_rx_req_exception(RequestMessage &in_msg)$/;"	f	class:EasySip::UserAgent
+on_subscribe_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_subscribe_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_subscribe_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_subscribe_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+on_update_request	src/user_agent/uaclient.cpp	/^	int UAClient::on_update_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAClient
+on_update_request	src/user_agent/uaserver.cpp	/^	int UAServer::on_update_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
+operator ()	include/header_field.h	/^		std::string operator() ()$/;"	f	struct:EasySip::HeaderField
+operator ()	include/header_field.h	/^		std::string operator() ()$/;"	f	struct:EasySip::RequestLine
+operator ()	include/header_field.h	/^		std::string operator() ()$/;"	f	struct:EasySip::ResponseStatus
+operator ()	include/mapper.h	/^		std::string operator() ()$/;"	f	struct:EasySip::CodeMap
+operator ()	include/mapper.h	/^		void operator() (CodeMap &cm)$/;"	f	struct:EasySip::CodeMap
+operator ()	include/uri.h	/^		std::string operator() ()$/;"	f	struct:EasySip::URI
+operator *	include/timer.h	/^		unsigned long operator* (unsigned long val)$/;"	f	class:EasySip::Timer
+operator *	test/ts.cpp	/^	unsigned long operator* (unsigned long val)$/;"	f	class:A
+operator <	include/mapper.h	/^		bool operator< (CodeMap cm)$/;"	f	struct:EasySip::CodeMap
+operator <	include/mapper.h	/^		friend bool operator< (Parameter a, Parameter b)$/;"	f	struct:EasySip::Parameter
+operator <<	include/header_field.h	/^		friend std::ostream& operator<< (std::ostream &o, RequestLine req)$/;"	f	struct:EasySip::RequestLine
+operator <<	include/header_field.h	/^		friend std::ostream& operator<< (std::ostream &o, ResponseStatus res)$/;"	f	struct:EasySip::ResponseStatus
+operator <<	include/header_field.h	/^		friend std::ostream& operator<< (std::ostream& o, HeaderField hf)$/;"	f	struct:EasySip::HeaderField
+operator <<	include/mapper.h	/^		friend std::ostream& operator<< (std::ostream &o, CodeMap cm)$/;"	f	struct:EasySip::CodeMap
+operator <<	include/mapper.h	/^		friend std::ostream& operator<< (std::ostream &o, Parameter p)$/;"	f	struct:EasySip::Parameter
+operator <<	include/mapper.h	/^		friend std::ostream& operator<< (std::ostream &o, Parameters ps)$/;"	f	class:EasySip::Parameters
+operator <<	include/uri.h	/^		friend std::ostream& operator<< (std::ostream &o, URI uri)$/;"	f	struct:EasySip::URI
+operator =	include/mapper.h	/^		void operator= (const CodeMap &cm)$/;"	f	struct:EasySip::CodeMap
+operator =	test/ts.cpp	/^	A operator= (A a)$/;"	f	class:A
+operator ==	include/mapper.h	/^		bool operator== (const CodeMap &cm)$/;"	f	struct:EasySip::CodeMap
+organization_	include/header_field.h	/^		HeaderFieldList<HFOrganization> organization_;$/;"	m	struct:EasySip::HeaderFields
+p_asserted_identity_	include/header_field.h	/^		HeaderFieldList<HFPAssertedIdentity> p_asserted_identity_;$/;"	m	struct:EasySip::HeaderFields
+p_osp_auth_token_	include/header_field.h	/^		HeaderFieldList<HFPOSPAuthToken> p_osp_auth_token_;$/;"	m	struct:EasySip::HeaderFields
+p_preferred_identity_	include/header_field.h	/^		HeaderFieldList<HFPPreferredIdentity> p_preferred_identity_;$/;"	m	struct:EasySip::HeaderFields
+parse_header	include/message.h	/^		virtual void parse_header()$/;"	f	class:EasySip::RequestMessage
+parse_header	src/message.cpp	/^	void InviteMessage::parse_header()$/;"	f	class:EasySip::InviteMessage
+parse_header	src/method.cpp	/^	void InviteMethod::parse_header()$/;"	f	class:EasySip::InviteMethod
+prepare	src/method.cpp	/^	int Method::prepare(std::string dest)$/;"	f	class:EasySip::Method
+priority_	include/header_field.h	/^		HeaderFieldList<HFPriority> priority_;$/;"	m	struct:EasySip::HeaderFields
+priv_answer_mode_	include/header_field.h	/^		HeaderFieldList<HFPrivAnswerMode> priv_answer_mode_;$/;"	m	struct:EasySip::HeaderFields
+privacy_	include/header_field.h	/^		HeaderFieldList<HFPrivacy> privacy_;$/;"	m	struct:EasySip::HeaderFields
+proxy_authenticate_	include/header_field.h	/^		HeaderFieldList<HFProxyAuthenticate> proxy_authenticate_;$/;"	m	struct:EasySip::HeaderFields
+proxy_authorization_	include/header_field.h	/^		HeaderFieldList<HFProxyAuthorization> proxy_authorization_;$/;"	m	struct:EasySip::HeaderFields
+proxy_require_	include/header_field.h	/^		HeaderFieldList<HFProxyRequire> proxy_require_;$/;"	m	struct:EasySip::HeaderFields
+rack_	include/header_field.h	/^		HeaderFieldList<HFRack> rack_;$/;"	m	struct:EasySip::HeaderFields
+reason_	include/header_field.h	/^		HeaderFieldList<HFReason> reason_;$/;"	m	struct:EasySip::HeaderFields
+record_route_	include/header_field.h	/^		HeaderFieldList<HFRecordRoute> record_route_;$/;"	m	struct:EasySip::HeaderFields
+refer_to_	include/header_field.h	/^		HeaderFieldList<HFReferTo> refer_to_;$/;"	m	struct:EasySip::HeaderFields
+referred_by_	include/header_field.h	/^		HeaderFieldList<HFReferredBy> referred_by_;$/;"	m	struct:EasySip::HeaderFields
+reject_contact_	include/header_field.h	/^		HeaderFieldList<HFRejectContact> reject_contact_;$/;"	m	struct:EasySip::HeaderFields
+replaces_	include/header_field.h	/^		HeaderFieldList<HFReplaces> replaces_;$/;"	m	struct:EasySip::HeaderFields
+reply_to_	include/header_field.h	/^		HeaderFieldList<HFReplyTo> reply_to_;$/;"	m	struct:EasySip::HeaderFields
+req_line_	include/header_field.h	/^		RequestLine req_line_;$/;"	m	struct:EasySip::HeaderFields
+request_disposition_	include/header_field.h	/^		HeaderFieldList<HFRequestDisposition> request_disposition_;$/;"	m	struct:EasySip::HeaderFields
+request_uri_	include/header_field.h	/^		std::string request_uri_;$/;"	m	struct:EasySip::RequestLine
+require_	include/header_field.h	/^		HeaderFieldList<HFRequire> require_;$/;"	m	struct:EasySip::HeaderFields
+resp_code_	include/header_field.h	/^		RespCode resp_code_; \/\/ status_code_, reason_parase_$/;"	m	struct:EasySip::ResponseStatus
+resp_status_	include/header_field.h	/^		ResponseStatus resp_status_;$/;"	m	struct:EasySip::HeaderFields
+retry_after_	include/header_field.h	/^		HeaderFieldList<HFRetryAfter> retry_after_; \/\/ in second$/;"	m	struct:EasySip::HeaderFields
+route_	include/header_field.h	/^		HeaderFieldList<HFRoute> route_;$/;"	m	struct:EasySip::HeaderFields
+rseq_	include/header_field.h	/^		HeaderFieldList<HFRSeq> rseq_;$/;"	m	struct:EasySip::HeaderFields
+server_	include/header_field.h	/^		HeaderFieldList<HFServer> server_;$/;"	m	struct:EasySip::HeaderFields
+session_expires_	include/header_field.h	/^		HeaderFieldList<HFSessionExpires> session_expires_; \/\/ in second$/;"	m	struct:EasySip::HeaderFields
+set_param	include/uri.h	/^		void set_param(std::string name, std::string value)$/;"	f	struct:EasySip::URI
+set_value_by_name	include/mapper.h	/^		void set_value_by_name(std::string name, std::string value)$/;"	f	class:EasySip::Parameters
+show	test/ts.cpp	/^	void show()$/;"	f	class:A
+sigev_notify_cb	test/ts-timer.cpp	/^void sigev_notify_cb(union sigval sv)$/;"	f
+subject_	include/header_field.h	/^		HeaderFieldList<HFSubject> subject_;$/;"	m	struct:EasySip::HeaderFields
+subscription_state_	include/header_field.h	/^		HeaderFieldList<HFSubscriptionState> subscription_state_;$/;"	m	struct:EasySip::HeaderFields
+supported_	include/header_field.h	/^		HeaderFieldList<HFSupported> supported_;$/;"	m	struct:EasySip::HeaderFields
+time_string_to_ulong	include/timer.h	/^		static unsigned long time_string_to_ulong(std::string value)$/;"	f	class:EasySip::Timer
+time_ulong_to_string	include/timer.h	/^		static unsigned long time_ulong_to_string(unsigned long value)$/;"	f	class:EasySip::Timer
+timestamp_	include/header_field.h	/^		HeaderFieldList<HFTimestamp> timestamp_;$/;"	m	struct:EasySip::HeaderFields
+to_	include/header_field.h	/^		HeaderFieldList<HFTo> to_;$/;"	m	struct:EasySip::HeaderFields
+transmit_protocol	include/header_field.h	/^		std::string transmit_protocol()$/;"	f	struct:EasySip::HFVia
+unsupported_	include/header_field.h	/^		HeaderFieldList<HFUnsupported> unsupported_;$/;"	m	struct:EasySip::HeaderFields
+uri_	include/uri.h	/^		std::string uri_;$/;"	m	struct:EasySip::URI
+uri_params_	include/uri.h	/^		URIParams uri_params_;$/;"	m	struct:EasySip::URI
+user_agent_	include/header_field.h	/^		HeaderFieldList<HFUserAgent> user_agent_;$/;"	m	struct:EasySip::HeaderFields
+user_data_	include/message.h	/^		std::string user_data_;$/;"	m	class:EasySip::Message
+value	test/ts.cpp	/^	unsigned long value;$/;"	m	class:A	file:
+value_	include/header_field.h	/^		std::string value_;$/;"	m	class:EasySip::Param
+value_	include/timer.h	/^		unsigned long value_; \/\/ in  ms$/;"	m	class:EasySip::Timer
+values_	include/header_field.h	/^		Values values_;$/;"	m	struct:EasySip::HeaderField
+version	include/header_field.h	/^		std::string version()$/;"	f	struct:EasySip::HFVia
+version_	include/header_field.h	/^		std::string version_;$/;"	m	struct:EasySip::RequestLine
+version_	include/header_field.h	/^		std::string version_;$/;"	m	struct:EasySip::ResponseStatus
+via_	include/header_field.h	/^		HeaderFieldList<HFVia> via_;$/;"	m	struct:EasySip::HeaderFields
+warning_	include/header_field.h	/^		HeaderFieldList<HFWarning> warning_;$/;"	m	struct:EasySip::HeaderFields
+www_authenticate_	include/header_field.h	/^		HeaderFieldList<HFWWWAuthenticate> www_authenticate_;$/;"	m	struct:EasySip::HeaderFields
+~A	test/ts-shareptr.cpp	/^	~A()$/;"	f	class:A
+~A	test/ts.cpp	/^	~A()$/;"	f	class:A
+~AckMessage	include/message.h	/^		~AckMessage()$/;"	f	class:EasySip::AckMessage
+~B	test/ts.cpp	/^	~B()$/;"	f	class:B
+~ByeMessage	include/message.h	/^		~ByeMessage()$/;"	f	class:EasySip::ByeMessage
+~ByeMethod	include/method.h	/^		~ByeMethod()$/;"	f	class:EasySip::ByeMethod
+~CancelMessage	include/message.h	/^		~CancelMessage()$/;"	f	class:EasySip::CancelMessage
+~CancelMethod	include/method.h	/^		~CancelMethod()$/;"	f	class:EasySip::CancelMethod
+~HeaderField	include/header_field.h	/^		~HeaderField()$/;"	f	struct:EasySip::HeaderField
+~HeaderFieldList	include/header_field.h	/^		~HeaderFieldList()$/;"	f	class:EasySip::HeaderFieldList
+~InfoMessage	include/message.h	/^		~InfoMessage()$/;"	f	class:EasySip::InfoMessage
+~InviteMessage	include/message.h	/^		~InviteMessage()$/;"	f	class:EasySip::InviteMessage
+~InviteMethod	include/method.h	/^		~InviteMethod()$/;"	f	class:EasySip::InviteMethod
+~Message	include/message.h	/^		~Message()$/;"	f	class:EasySip::Message
+~MessageMessage	include/message.h	/^		~MessageMessage()$/;"	f	class:EasySip::MessageMessage
+~Method	include/method.h	/^		~Method()$/;"	f	class:EasySip::Method
+~NotifyMessage	include/message.h	/^		~NotifyMessage()$/;"	f	class:EasySip::NotifyMessage
+~OptionsMessage	include/message.h	/^		~OptionsMessage()$/;"	f	class:EasySip::OptionsMessage
+~Param	include/header_field.h	/^		~Param()$/;"	f	class:EasySip::Param
+~Parameter	include/mapper.h	/^		~Parameter()$/;"	f	struct:EasySip::Parameter
+~Parameters	include/mapper.h	/^		~Parameters()$/;"	f	class:EasySip::Parameters
+~PrackMessage	include/message.h	/^		~PrackMessage()$/;"	f	class:EasySip::PrackMessage
+~ReferMessage	include/message.h	/^		~ReferMessage()$/;"	f	class:EasySip::ReferMessage
+~RegisterMessage	include/message.h	/^		~RegisterMessage()$/;"	f	class:EasySip::RegisterMessage
+~RegisterMethod	include/method.h	/^		~RegisterMethod()$/;"	f	class:EasySip::RegisterMethod
+~ResponseMessage	include/message.h	/^		~ResponseMessage()$/;"	f	class:EasySip::ResponseMessage
+~SubscribeMessage	include/message.h	/^		~SubscribeMessage()$/;"	f	class:EasySip::SubscribeMessage
+~T1_RTT	include/timer.h	/^		~T1_RTT()$/;"	f	class:EasySip::T1_Rtt
+~T2_MAX_RETRAN_INTV	include/timer.h	/^		~T2_MAX_RETRAN_INTV()$/;"	f	class:EasySip::T2_MAX_RETRAN_INTV
+~T4_MAX_DURATION_OF_MSG	include/timer.h	/^		~T4_MAX_DURATION_OF_MSG()$/;"	f	class:EasySip::T4_MAX_DURATION_OF_MSG
+~TA_INVITE_RETRAN_INTERVAL	include/timer.h	/^		~TA_INVITE_RETRAN_INTERVAL()$/;"	f	class:EasySip::TA_INVITE_RETRAN_INTERVAL
+~TB_INVITE_TIMEOUT	include/timer.h	/^		~TB_INVITE_TIMEOUT()$/;"	f	class:EasySip::TB_INVITE_TIMEOUT
+~TC_PROXY_INVITE_TIMEOUT	include/timer.h	/^		~TC_PROXY_INVITE_TIMEOUT()$/;"	f	class:EasySip::TC_PROXY_INVITE_TIMEOUT
+~TD_WAIT_FOR_RETRAN	include/timer.h	/^		~TD_WAIT_FOR_RETRAN()$/;"	f	class:EasySip::TD_WAIT_FOR_RETRAN
+~TE_NON_INVITE_RETRAN_INTV	include/timer.h	/^		~TE_NON_INVITE_RETRAN_INTV()$/;"	f	class:EasySip::TE_NON_INVITE_RETRAN_INTV
+~TF_NON_INVITE_REQS_TIMEOUT	include/timer.h	/^		~TF_NON_INVITE_REQS_TIMEOUT()$/;"	f	class:EasySip::TF_NON_INVITE_REQS_TIMEOUT
+~TG_INVITE_RESP_RETRAN_INTV	include/timer.h	/^		~TG_INVITE_RESP_RETRAN_INTV()$/;"	f	class:EasySip::TG_INVITE_RESP_RETRAN_INTV
+~TH_WAIT_FOR_ACK_RECEIPT	include/timer.h	/^		~TH_WAIT_FOR_ACK_RECEIPT()$/;"	f	class:EasySip::TH_WAIT_FOR_ACK_RECEIPT
+~TI_WAIT_FOR_ACK_RETRAN	include/timer.h	/^		~TI_WAIT_FOR_ACK_RETRAN()$/;"	f	class:EasySip::TI_WAIT_FOR_ACK_RETRAN
+~TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN	include/timer.h	/^		~TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN()$/;"	f	class:EasySip::TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN
+~TK_WAIT_FOR_RESP_RETRAN	include/timer.h	/^		~TK_WAIT_FOR_RESP_RETRAN()$/;"	f	class:EasySip::TK_WAIT_FOR_RESP_RETRAN
+~Timer	include/timer.h	/^		~Timer()$/;"	f	class:EasySip::Timer
+~UAClient	include/user_agent/uaclient.h	/^		~UAClient()$/;"	f	class:EasySip::UAClient
+~UAServer	include/user_agent/uaserver.h	/^		~UAServer()$/;"	f	class:EasySip::UAServer
+~URI	include/uri.h	/^		~URI()$/;"	f	struct:EasySip::URI
+~UpdateMessage	include/message.h	/^		~UpdateMessage()$/;"	f	class:EasySip::UpdateMessage
+~UserAgent	include/user_agent/user_agent.h	/^		~UserAgent()$/;"	f	class:EasySip::UserAgent
