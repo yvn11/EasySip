@@ -11,24 +11,32 @@ LIBS		=
 include makefiles/predef.mk
 include makefiles/basic.mk
 
-all: easysip
+#all: easysip
 
 easysip: $(SHARED_OBJ)
 #	@echo $(MAKEFILE_LIST)
 
 $(SHARED_OBJ): $(SHARED_OBJ).$(VERSION)
-	@echo "\n===Building $@===>"
+	@echo
+	@echo "===Building $@===>"
 	$(RM) $(SHARED_OBJ)
 	$(LN) $(shell basename $<) $@
 
 $(SHARED_OBJ).$(VERSION) : $(OBJS)
-	@echo "\n===Building $@===>"
+	@echo
+	@echo "===Building $@===>"
 	$(CXX) $(CFLAGS) -shared $(LDFLAGS) $(INCLUDES:%=-I%) $(MACROS:%=-D%) $(LIBS:%=-l%) -o $@ $^
 
 $(BUILD)/%.o : %.cpp
-	@echo "\n===Generating $@===>"
+	@echo
+	@echo "===Generating $@===>"
 	$(MKDIR) $(dir $@)
 	$(CXX) $(CFLAGS) $(LDFLAGS) $(INCLUDES:%=-I%) $(MACROS:%=-D%) $(LIBS:%=-l%) -c -o $@ $^
+
+tests: $(SHARED_OBJ)
+	@echo
+	@echo "===Generating $@===>"
+	@make BUILD=../build -C test all
 
 clean:
 	$(RM) $(BUILD)

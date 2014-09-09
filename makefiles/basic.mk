@@ -15,11 +15,13 @@ endif
 all: $(VERSION_HEADER)
 
 $(BUILD):
-	@echo "\n===Generating $@===>"
+	@echo
+	@echo "===Generating $@===>"
 	$(MKDIR) $@
 
 $(VERSION_HEADER): $(BUILD)
-	@echo "\n===Generating $@===>"
+	@echo
+	@echo "===Generating $@===>"
 	@touch $@
 	@echo "/* Automated generated file - `date -u` */" > $@
 	@echo "#pragma once" >> $@

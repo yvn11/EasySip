@@ -14,7 +14,7 @@ VERSION_HEADER	= $(BUILD)/version.h
 REVISION		= $(shell svn info|grep "Last Changed Rev"|cut -f2 -d:|cut -f2 -d\ ) 
 SOURCES			= $(shell find $(SRCS) -iregex ".*\.c\(c\|pp\|++\|xx\)")
 
-CFLAGS			+= -Wall -O0 -g3 --std=c++11 -MP -MMD
+CFLAGS			+= -Wall -O0 -g3 --std=c++11 -MP -MMD -fPIC -Wl,--hash-style=sysv
 LDFLAGS			+=
 MACROS			+=
 
