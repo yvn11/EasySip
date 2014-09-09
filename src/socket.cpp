@@ -1,3 +1,8 @@
+/*
+ * src/socket.cpp
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #include "socket.h"
 
 namespace EasySip
@@ -50,4 +55,3 @@ namespace EasySip
 		return ret;
 	}
 } // namespace EasySip
-

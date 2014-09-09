@@ -1,3 +1,8 @@
+/*
+ * include/mapper.h
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #pragma once
 
 #include <string>
@@ -174,7 +179,7 @@ namespace EasySip
 			insert(p);
 		}
 
-		bool has_Name(std::string name)
+		bool has_name(std::string name)
 		{
 			Parameter p(name);
 

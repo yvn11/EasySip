@@ -1,3 +1,8 @@
+/*
+ * include/uri.h
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #pragma once
 
 #include <memory>

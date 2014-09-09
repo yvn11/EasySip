@@ -1,3 +1,8 @@
+/*
+ * src/user_agent/user_agent.cpp
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #include "user_agent/user_agent.h"
 
 namespace EasySip

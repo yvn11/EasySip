@@ -1,3 +1,8 @@
+/*
+ * src/message.cpp
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #include "message.h"
 
 namespace EasySip

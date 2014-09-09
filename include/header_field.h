@@ -1,4 +1,8 @@
 /*
+ * include/header_field.h
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ *
  * References:
  * 		Session Initiation Protocol (Sip) Parameters, IANA
  * 		RFC-3261
@@ -77,14 +81,19 @@ namespace EasySip
 		{
 		}
 
-		static std::string Field()
+		std::string Field()
 		{
 			return field_;
 		}
 
-		virtual bool is_value_valid()
+		bool is_value_valid()
 		{
 			return true;
+		}
+
+		void HeaderParam(std::string n, std::string v)
+		{
+			header_params_.set_value_by_name(n, v);
 		}
 
 		friend std::ostream& operator<< (std::ostream& o, HeaderField hf)
@@ -118,12 +127,12 @@ namespace EasySip
 	#define HeaderFieldPtrNew std::make_shared
 
 	template<typename T>
-	class HeaderFieldList// : public std::vector<HeaderFieldPtr>//std::shared_ptr<T> >
+	class HeaderFieldList// : public std::vector<std::shared_ptr<T> >
 	{
-		std::vector<std::shared_ptr<T> > hflist_;
+		typedef std::shared_ptr<T> T_PTR;
+		std::vector<T_PTR> hflist_;
 
 	public:
-		typedef std::shared_ptr<T> T_PTR;
 
 		HeaderFieldList()
 		{
@@ -142,17 +151,40 @@ namespace EasySip
 		void append_value(std::string val, unsigned int index = 0)
 		{
 			if (index >= hflist_.size())
-				return;
+				return; // TODO: throw exception
 
 			hflist_.at(index)->values_.push_back(val); 
+		}
+
+		void append_param(std::string name, std::string value, unsigned int index = 0)
+		{
+			hflist_.at(index).HeaderParam(name, value);
+		}
+
+		std::string Field()
+		{
+			return hflist_.at(0).Field();
 		}
 
 		bool empty()
 		{
 			return hflist_.empty();
 		}
+
 	};
 
+	template <typename T>
+	void append_header(HeaderFieldList<T> &hf, std::string value)
+	{
+		hf.append_field();
+		hf.append_value(value);
+	}
+
+	template <typename T>
+	void append_value(HeaderFieldList<T> &hf, std::string value)
+	{
+		hf.append_value(value);
+	}
 //	typedef std::map<std::string, HeaderField> HeaderFields;
 
 	// ---------- Mandatory fields ---------------
@@ -200,8 +232,8 @@ namespace EasySip
 		}
 	};
 
-	/* Via: SIP/2.0/UDP aa.atlanta.com>;branch=38Z89sdhJ;received=192.168.0.50
-	 * Via: SIP/2.0/UDP cc.atlanta.com>;branch=2998H933k;received=192.168.0.43
+	/* Via: SIP/2.0/UDP <aa.atlanta.com>;branch=38Z89sdhJ;received=192.168.0.50
+	 * Via: SIP/2.0/UDP <cc.atlanta.com>;branch=2998H933k;received=192.168.0.43
 	 * Via: SIP/2.0/UDP 135.180.130.133
 	 * ...
 	 */
@@ -891,16 +923,17 @@ namespace EasySip
 		HeaderFieldList<HFExpires> expires_; // in second
 		HeaderFieldList<HFMIMEVersion> mime_version_;
 
-		HeaderFileds()
+		HeaderFields()
 		{
 			init_allowed_fields();
 		}
 
+		~HeaderFields()
+		{
+		}
 	protected:
-		std::map<std::string, HeaderFieldList<HeaderFields&> > allowed_fields_;
+		std::set<std::string> allowed_fields_;
 		void init_allowed_fields();
 	};
 
 } // namespace EasySip
-
-

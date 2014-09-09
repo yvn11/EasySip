@@ -1,4 +1,10 @@
+/*
+ * src/user_agent/uaserver.cpp
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #include "user_agent/uaserver.h"
+#include "socket.h"
 
 namespace EasySip
 {
@@ -19,9 +25,74 @@ namespace EasySip
 		allowed_methods_.insert(METHOD_PRACK);
 	}
 
+	int UAServer::invite_request()
+	{
+		return 0;
+	}
+
+	int UAServer::register_request()
+	{
+		return 0;
+	}
+
+	int UAServer::bye_request()
+	{
+		return 0;
+	}
+
+	int UAServer::cancel_request()
+	{
+		return 0;
+	}
+
+	int UAServer::update_request()
+	{
+		return 0;
+	}
+
+	int UAServer::info_request()
+	{
+		return 0;
+	}
+
+	int UAServer::ack_request()
+	{
+		return 0;
+	}
+
+	int UAServer::message_request()
+	{
+		return 0;
+	}
+
+	int UAServer::subscribe_request()
+	{
+		return 0;
+	}
+
+	int UAServer::notify_request()
+	{
+		return 0;
+	}
+
+	int UAServer::refer_request()
+	{
+		return 0;
+	}
+
+	int UAServer::options_request()
+	{
+		return 0;
+	}
+
+	int UAServer::prack_request()
+	{
+		return 0;
+	}
+
 	int UAServer::on_invite_request(RequestMessage &in_msg)
 	{
-		InviteMethod invite(in_msg);
+		InviteMethod invite;//(in_msg);
 		invite.parse_header();
 
 		return 0;
@@ -105,6 +176,20 @@ namespace EasySip
 			resp_msg.allow_.append_value(it->Name());
 
 		// ---------------------------------------------
+
+		return 0;
+	}
+
+	int UAServer::start()
+	{
+		SocketIp4UDP udp;
+
+		udp.Addr("192.168.0.116");
+
+		while (1)
+		{
+			udp.recv(0);
+		}
 
 		return 0;
 	}

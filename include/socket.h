@@ -1,3 +1,8 @@
+/*
+ * include/socket.h
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #pragma once
 
 

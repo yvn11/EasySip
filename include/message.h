@@ -1,3 +1,8 @@
+/*
+ * include/message.h
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #pragma once
 
 #include "header_field.h"
@@ -20,7 +25,7 @@ namespace EasySip
 		typedef Message Base;
 
 		std::string user_data_;
-		std::string msg_; // message to send, which contains header fields and user data
+		std::string msg_; // message to send or received, which contains header fields and user data
 
 	public:
 
@@ -44,6 +49,7 @@ namespace EasySip
 
 		virtual Message& create();
 		virtual bool is_valid();
+//		virtual void parse_header();
 	};
 	
 	// ---------------- Request messages --------------------------
@@ -87,7 +93,7 @@ namespace EasySip
 				pos++;
 				// read field
 				size_t pos_end = msg_.find_first_of(":", pos);
-				field = msg.substr(pos, pos_end);
+				field = msg_.substr(pos, pos_end);
 				pos = pos_end;
 
 				if (allowed_fields_.find(field) == allowed_fields_.end())

@@ -1,3 +1,8 @@
+/*
+ * include/response_code.h
+ * 
+ * Author: Zex <top_zlynch@yahoo.com>
+ */
 #pragma once
 
 #include "mapper.h"
