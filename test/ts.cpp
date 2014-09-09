@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 
 class A
 {
@@ -78,6 +79,31 @@ int main()
 	B b2(B(100)*3);
 //	std::cout << b.Value() << '\n';
 	std::cout << b2.Value() << '\n';
+
+
+		std::string buffer, line;
+//
+//		while(std::getline(std::cin, line))
+//		{
+//			buffer += line;
+//		}
+//
+//		std::cout <<  "---------------\n"
+//			<< buffer;
+//		std::cout <<  "---------------\n";
+//
+//	std::cout << ";;;;;;;;;;;;;;;;;;;;;;;\n";
+
+
+	char buf;
+
+	while (std::getline(std::cin, line))
+	{
+		strncpy(&buf, line.c_str(), 1);
+		buffer += buf;
+		std::cout << buffer << '\n';
+	}
+
 	return 1;
 }
 
