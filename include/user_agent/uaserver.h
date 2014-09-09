@@ -16,6 +16,7 @@ namespace EasySip
 
 		void init_allowed_methods();
 
+	public:
 		UAServer()
 		{
 			init_allowed_methods();

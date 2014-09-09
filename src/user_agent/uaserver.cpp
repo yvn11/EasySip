@@ -184,11 +184,14 @@ namespace EasySip
 	{
 		SocketIp4UDP udp;
 
-		udp.Addr("192.168.0.116");
+		//udp.Addr("192.168.0.116");
+		udp.Addr("192.168.2.8");
 
-		while (1)
+		while (udp.recv(0) > 0 )
 		{
-			udp.recv(0);
+			std::cout << "|---------------------------|>\n";
+			std::cout << udp.Message();
+			std::cout << "<|---------------------------|\n";
 		}
 
 		return 0;

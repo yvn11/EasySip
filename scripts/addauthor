@@ -1,0 +1,10 @@
+for f in `find include src -type f`;
+do
+	echo $f
+	a=`cat $f`
+	echo "/*" > $f
+	echo " * $f" >> $f
+	echo " * " >> $f
+	echo " * Author: Zex <top_zlynch@yahoo.com>" >> $f
+	echo " */" >> $f; echo "$a" >> $f
+done

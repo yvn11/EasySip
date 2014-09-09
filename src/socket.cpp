@@ -8,7 +8,7 @@
 namespace EasySip
 {
 	SocketIp4UDP::SocketIp4UDP()
-	: SocketIp4(SOCK_DGRAM)
+	: SocketIp4(SOCK_DGRAM), binded_(false)
 	{
 	}
 
@@ -24,10 +24,22 @@ namespace EasySip
 
 	int SocketIp4UDP::recv(int selfloop)
 	{
-		bind(sk_, (sockaddr*)&sk_addr_, sizeof(sk_addr_));
+		int ret;
+
+		if (!binded_)
+		{
+			if (0 > (ret = bind(sk_, (sockaddr*)&sk_addr_, sizeof(sk_addr_))))
+			{
+				// TODO: throw exception
+				std::cout << "error: " << strerror(errno) << '\n';
+				return ret;
+			}
+			binded_ = true;
+		}
 
 		char *buf = new char [max_rx_];
-		int ret;
+		memset(buf, 0, max_rx_);
+
 		socklen_t len = sizeof(sk_addr_);
 
 		do
@@ -44,13 +56,14 @@ namespace EasySip
 			}
 			else
 			{
-				msg_ += buf;
+				msg_ = buf;
 			}
 
-			std::cout << "msg: " << msg_ << '\n';
+//			std::cout << "msg: " << msg_ << '\n';
 		} while (selfloop);
 
 		delete buf;
+		buf = 0;
 
 		return ret;
 	}

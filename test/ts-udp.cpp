@@ -6,9 +6,7 @@ using namespace EasySip;
 int main()
 {
 	SocketIp4UDP udp;
-
-	udp.Addr("192.168.0.116");
-
+	udp.Addr("192.168.2.8");
 	std::string line;
 
 	while (getline(std::cin, line))

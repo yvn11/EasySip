@@ -141,7 +141,7 @@ namespace EasySip
 
 	class SocketIp4UDP : public SocketIp4
 	{
-
+		bool binded_;
 	public:
 		SocketIp4UDP();
 
