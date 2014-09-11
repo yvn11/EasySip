@@ -41,7 +41,8 @@ namespace EasySip
 
 		friend std::ostream& operator<< (std::ostream &o, URI uri)
 		{
-			o << "<" << uri.uri_ << uri.uri_params_ << ">";
+			if (!uri.uri_.empty())
+				o << "<" << uri.uri_ << uri.uri_params_ << ">";
 			return o;
 		}
 

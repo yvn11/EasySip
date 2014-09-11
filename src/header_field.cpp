@@ -33,15 +33,15 @@ namespace EasySip
 
 		hf.generate_values();
 
-		for (Values::iterator it = hf.values_.begin();
-			it != hf.values_.end(); it++)
-		{
-			o << *it;
-			
-			if (std::distance(hf.values_.begin(), it) < (int)hf.values_.size()-1)
-				o << " ";
-		}
-		
+//		for (Values::iterator it = hf.values_.begin();
+//			it != hf.values_.end(); it++)
+//		{
+//			o << *it;
+//			
+//			if (std::distance(hf.values_.begin(), it) < (int)hf.values_.size()-1)
+//				o << " ";
+//		}
+		o << hf.Values();
 		o << hf.header_params_ << "\n";
 
 		return o;
@@ -74,11 +74,14 @@ namespace EasySip
 
 	void HFVia::generate_values()
 	{
-		if (proto_.size())
-			values_.push_back(proto_);
-
-		if (addr_.size())
-			values_.push_back(addr_);
+//		if (proto_.size())
+//			values_.push_back(proto_);
+//
+//		if (addr_.size())
+//			values_.push_back(addr_);
+		std::ostringstream o;
+		o << proto_ << " " << addr_;
+		values_.append(o.str());
 	}
 
 	void HFVia::parse(std::string &msg, size_t &pos)
@@ -88,12 +91,15 @@ namespace EasySip
 
 	void HFFrom::generate_values()
 	{
-		if (user_name_.size())
-			values_.push_back(user_name_);
-
+//		if (user_name_.size())
+//			values_.push_back(user_name_);
+//
+//		std::ostringstream o;
+//		o << uri_;
+//		values_.push_back(o.str());
 		std::ostringstream o;
-		o << uri_;
-		values_.push_back(o.str());
+		o << user_name_ << " " << uri_;
+		values_.append(o.str());
 	}
 
 	void HFFrom::parse(std::string &msg, size_t &pos)
@@ -184,10 +190,10 @@ namespace EasySip
 		header_params_.append("temp-gruu-cookie");
 	}
 
-//	void HFOrganization::generate_values()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
+	void HFOrganization::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
 
 	void HFOrganization::parse(std::string &msg, size_t &pos)
 	{
@@ -270,6 +276,563 @@ namespace EasySip
 	}
 
 	void HFPrivAnswerMode::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAccept::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAccept::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAcceptContact::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAcceptContact::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAcceptEncoding::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAcceptEncoding::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAcceptLanguage::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAcceptLanguage::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFAuthorization::HFAuthorization() : HeaderField("Authorization")
+	{
+		header_params_.append("algorithm");
+		header_params_.append("auts");
+		header_params_.append("cnonce");
+		header_params_.append("nc");
+		header_params_.append("nonce");
+		header_params_.append("opaque");
+		header_params_.append("qop");
+		header_params_.append("realm");
+		header_params_.append("response");
+		header_params_.append("uri");
+		header_params_.append("username");
+	}
+
+	void HFAuthorization::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAuthorization::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFCallInfo::HFCallInfo() : HeaderField("Call-Info", true)
+	{
+		header_params_.append("m");
+		header_params_.append("purpose");
+	}
+
+	void HFCallInfo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFCallInfo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFEvent::HFEvent() : HeaderField("Event", "o")
+	{
+		header_params_.append("adaptive-min-rate");
+		header_params_.append("body");
+		header_params_.append("call-id");
+		header_params_.append("effective-by");
+		header_params_.append("from-tag");
+		header_params_.append("id");
+		header_params_.append("include-session-description");
+		header_params_.append("max-rate");
+		header_params_.append("min-rate");
+		header_params_.append("model");
+		header_params_.append("profile-type");
+		header_params_.append("shared");
+		header_params_.append("to-tag");
+		header_params_.append("vendor");
+		header_params_.append("version");
+	}
+
+	void HFEvent::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFEvent::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFInReplyTo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFInReplyTo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFJoin::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFJoin::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPriority::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPriority::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPrivacy::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPrivacy::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFProxyAuthorization::HFProxyAuthorization() : HeaderField("Proxy-Authorization", true)
+	{
+		header_params_.append("algorithm");
+		header_params_.append("auts");
+		header_params_.append("cnonce");
+		header_params_.append("nc");
+		header_params_.append("nonce");
+		header_params_.append("opaque");
+		header_params_.append("qop");
+		header_params_.append("realm");
+		header_params_.append("response");
+		header_params_.append("uri");
+		header_params_.append("username");
+	}
+
+	void HFProxyAuthorization::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFProxyAuthorization::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFProxyRequire::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFProxyRequire::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPOSPAuthToken::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPOSPAuthToken::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPAssertedIdentity::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPAssertedIdentity::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPPreferredIdentity::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPPreferredIdentity::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMaxForwards::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMaxForwards::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReason::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReason::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReferTo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReferTo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReferredBy::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReferredBy::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReplyTo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReplyTo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReplaces::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFReplaces::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRejectContact::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRejectContact::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRequestDisposition::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRequestDisposition::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRequire::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRequire::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRoute::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRoute::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRack::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRack::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFSessionExpires::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFSessionExpires::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFSubscriptionState::HFSubscriptionState() : HeaderField("Subscription-State")
+	{
+		header_params_.append("adaptive-min-rate");
+		header_params_.append("expires");
+		header_params_.append("max-rate");
+		header_params_.append("min-rate");
+		header_params_.append("reason");
+		header_params_.append("retry-after");
+	}
+
+	void HFSubscriptionState::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFSubscriptionState::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFAuthenticationInfo::HFAuthenticationInfo() : HeaderField("Authentication-Info")
+	{
+		header_params_.append("cnonce");
+		header_params_.append("nc");
+		header_params_.append("nextnonce");
+		header_params_.append("qop");
+		header_params_.append("rspauth");
+	}
+
+	void HFAuthenticationInfo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAuthenticationInfo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFErrorInfo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFErrorInfo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMinExpires::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMinExpires::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMinSE::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMinSE::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFProxyAuthenticate::HFProxyAuthenticate() : HeaderField("Proxy-Authenticate", true)
+	{
+		header_params_.append("algorithm");
+		header_params_.append("domain");
+		header_params_.append("nonce");
+		header_params_.append("opaque");
+		header_params_.append("qop");
+		header_params_.append("realm");
+		header_params_.append("stale");
+	}
+
+	void HFProxyAuthenticate::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFProxyAuthenticate::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFServer::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFServer::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFUnsupported::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFUnsupported::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFWarning::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFWarning::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFWWWAuthenticate::HFWWWAuthenticate() : HeaderField("WWW-Authenticate", true)
+	{
+		header_params_.append("algorithm");
+		header_params_.append("domain");
+		header_params_.append("nonce");
+		header_params_.append("opaque");
+		header_params_.append("qop");
+		header_params_.append("realm");
+		header_params_.append("stale");
+	}
+
+	void HFWWWAuthenticate::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFWWWAuthenticate::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRSeq::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRSeq::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAllow::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAllow::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContentEncoding::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContentEncoding::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContentLength::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+		values_ = length_;
+	}
+
+	void HFContentLength::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContentLanguage::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContentLanguage::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContentType::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContentType::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFExpires::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFExpires::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMIMEVersion::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFMIMEVersion::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}

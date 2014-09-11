@@ -20,44 +20,12 @@ namespace EasySip
 {
 	#define SIP_VERSION_2_0 "SIP/2.0"
 
-	class Param
-	{
-		std::string name_;
-		std::string value_;
-		bool has_value_;
-
-	public:
-
-		Param(std::string name)
-		: name_(name), has_value_(true)
-		{
-		}
-
-		Param(std::string name, std::string va)
-		: name_(name), value_(va), has_value_(true)
-		{
-		}
-
-		Param(std::string name, bool has)
-		: name_(name), has_value_(has)
-		{
-		}
-
-		Param(std::string name, std::string va, bool has)
-		: name_(name), value_(va), has_value_(has)
-		{
-		}
-
-		~Param()
-		{
-		}
-	};
-
 	struct HeaderField
 	{
 		std::string field_;
 		std::string compact_form_;
-		Values values_;
+//		Values values_;
+		std::string values_;
 		HeaderParams header_params_;
 		bool is_hop_by_hop_;
 
@@ -93,6 +61,11 @@ namespace EasySip
 		{
 		}
 
+		std::string Values()
+		{
+			return values_;
+		}
+
 		void HeaderParam(std::string n, std::string v)
 		{
 			header_params_.set_value_by_name(n, v);
@@ -125,13 +98,13 @@ namespace EasySip
 			this->push_back(p);
 		}
 
-		void append_value(std::string val, unsigned int index = 0)
-		{
-			if (index >= this->size())
-				return; // TODO: throw exception
-
-			this->at(index)->values_.push_back(val); 
-		}
+//		void append_value(std::string val, unsigned int index = 0)
+//		{
+//			if (index >= this->size())
+//				return; // TODO: throw exception
+//
+//			this->at(index)->values_.push_back(val); 
+//		}
 
 		void append_param(std::string name, std::string value, unsigned int index = 0)
 		{
@@ -289,19 +262,6 @@ namespace EasySip
 
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
-
-		bool is_value_valid()
-		{
-			if (values_.size() < 4)
-				return false;
-
-			std::string v = values_.at(0);
-
-			if (v.at(0) != '<' || v.at(v.size()-1) != '>')
-				return false;
-
-			return true;
-		}
 	};
 
 	struct HFOrganization : public HeaderField
@@ -309,7 +269,7 @@ namespace EasySip
 		HFOrganization() : HeaderField("Organization", true)
 		{
 		}
-//		void generate_values();
+		void generate_values();
 		void parse(std::string &msg, size_t &pos);
 	};
 
@@ -399,6 +359,8 @@ namespace EasySip
 		{
 			header_params_.append("q");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAcceptContact : public HeaderField
@@ -406,6 +368,8 @@ namespace EasySip
 		HFAcceptContact() : HeaderField("Accept-Contact", "a")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAcceptEncoding : public HeaderField
@@ -414,6 +378,8 @@ namespace EasySip
 		{
 			header_params_.append("q");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAcceptLanguage : public HeaderField
@@ -422,55 +388,32 @@ namespace EasySip
 		{
 			header_params_.append("q");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAuthorization : public HeaderField
 	{
-		HFAuthorization() : HeaderField("Authorization")
-		{
-			header_params_.append("algorithm");
-			header_params_.append("auts");
-			header_params_.append("cnonce");
-			header_params_.append("nc");
-			header_params_.append("nonce");
-			header_params_.append("opaque");
-			header_params_.append("qop");
-			header_params_.append("realm");
-			header_params_.append("response");
-			header_params_.append("uri");
-			header_params_.append("username");
-		}
+		HFAuthorization();
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFCallInfo : public HeaderField
 	{
-		HFCallInfo() : HeaderField("Call-Info", true)
-		{
-			header_params_.append("m");
-			header_params_.append("purpose");
-		}
+		HFCallInfo();
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFEvent : public HeaderField
 	{
-		HFEvent() : HeaderField("Event", "o")
-		{
-			header_params_.append("adaptive-min-rate");
-			header_params_.append("body");
-			header_params_.append("call-id");
-			header_params_.append("effective-by");
-			header_params_.append("from-tag");
-			header_params_.append("id");
-			header_params_.append("include-session-description");
-			header_params_.append("max-rate");
-			header_params_.append("min-rate");
-			header_params_.append("model");
-			header_params_.append("profile-type");
-			header_params_.append("shared");
-			header_params_.append("to-tag");
-			header_params_.append("vendor");
-			header_params_.append("version");
-		}
+		HFEvent();
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFInReplyTo : public HeaderField
@@ -478,6 +421,8 @@ namespace EasySip
 		HFInReplyTo() : HeaderField("In-Reply-To")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFJoin : public HeaderField
@@ -485,6 +430,8 @@ namespace EasySip
 		HFJoin() : HeaderField("Join")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPriority : public HeaderField
@@ -492,6 +439,8 @@ namespace EasySip
 		HFPriority() : HeaderField("Priority", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPrivacy : public HeaderField
@@ -499,24 +448,15 @@ namespace EasySip
 		HFPrivacy() : HeaderField("Privacy", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFProxyAuthorization : public HeaderField
 	{
-		HFProxyAuthorization() : HeaderField("Proxy-Authorization", true)
-		{
-			header_params_.append("algorithm");
-			header_params_.append("auts");
-			header_params_.append("cnonce");
-			header_params_.append("nc");
-			header_params_.append("nonce");
-			header_params_.append("opaque");
-			header_params_.append("qop");
-			header_params_.append("realm");
-			header_params_.append("response");
-			header_params_.append("uri");
-			header_params_.append("username");
-		}
+		HFProxyAuthorization();
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFProxyRequire : public HeaderField
@@ -524,6 +464,8 @@ namespace EasySip
 		HFProxyRequire() : HeaderField("Proxy-Require", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPOSPAuthToken : public HeaderField
@@ -531,6 +473,8 @@ namespace EasySip
 		HFPOSPAuthToken() : HeaderField("P-OSP-Auth-Token")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPAssertedIdentity : public HeaderField
@@ -538,6 +482,8 @@ namespace EasySip
 		HFPAssertedIdentity() : HeaderField("P-Asserted-Identity")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPPreferredIdentity : public HeaderField
@@ -545,6 +491,8 @@ namespace EasySip
 		HFPPreferredIdentity() : HeaderField("P-Preferred-Identity")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFMaxForwards : public HeaderField
@@ -552,6 +500,8 @@ namespace EasySip
 		HFMaxForwards() : HeaderField("Max-Forwards", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReason : public HeaderField
@@ -561,6 +511,8 @@ namespace EasySip
 			header_params_.append("cause");
 			header_params_.append("text");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReferTo : public HeaderField
@@ -568,6 +520,8 @@ namespace EasySip
 		HFReferTo() : HeaderField("Refer-To", "r")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Referred-By: <sip:user@host.com>
@@ -577,6 +531,8 @@ namespace EasySip
 		HFReferredBy() : HeaderField("Referred-By", "b")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReplyTo : public HeaderField
@@ -584,6 +540,8 @@ namespace EasySip
 		HFReplyTo() : HeaderField("Replay-To")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReplaces : public HeaderField
@@ -591,6 +549,8 @@ namespace EasySip
 		HFReplaces() : HeaderField("Replaces")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRejectContact : public HeaderField
@@ -598,6 +558,8 @@ namespace EasySip
 		HFRejectContact() : HeaderField("Reject-Contact", "j")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRequestDisposition : public HeaderField
@@ -605,6 +567,8 @@ namespace EasySip
 		HFRequestDisposition() : HeaderField("Request-Disposition")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Require: 100rel
@@ -614,6 +578,8 @@ namespace EasySip
 		HFRequire() : HeaderField("Require", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRoute : public HeaderField
@@ -621,6 +587,8 @@ namespace EasySip
 		HFRoute() : HeaderField("Route", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRack : public HeaderField
@@ -628,6 +596,8 @@ namespace EasySip
 		HFRack() : HeaderField("RACK")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFSessionExpires : public HeaderField
@@ -635,32 +605,25 @@ namespace EasySip
 		HFSessionExpires() : HeaderField("Session-Expires", "x")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFSubscriptionState : public HeaderField
 	{
-		HFSubscriptionState() : HeaderField("Subscription-State")
-		{
-			header_params_.append("adaptive-min-rate");
-			header_params_.append("expires");
-			header_params_.append("max-rate");
-			header_params_.append("min-rate");
-			header_params_.append("reason");
-			header_params_.append("retry-after");
-		}
+		HFSubscriptionState();
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	// -------------------- Response header -----------------------------
 	struct HFAuthenticationInfo : public HeaderField
 	{
-		HFAuthenticationInfo() : HeaderField("Authentication-Info")
-		{
-			header_params_.append("cnonce");
-			header_params_.append("nc");
-			header_params_.append("nextnonce");
-			header_params_.append("qop");
-			header_params_.append("rspauth");
-		}
+		HFAuthenticationInfo();
+		
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFErrorInfo : public HeaderField
@@ -668,6 +631,8 @@ namespace EasySip
 		HFErrorInfo() : HeaderField("Error-Info", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFMinExpires : public HeaderField
@@ -675,6 +640,8 @@ namespace EasySip
 		HFMinExpires() : HeaderField("Min-Expires")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFMinSE : public HeaderField
@@ -682,20 +649,16 @@ namespace EasySip
 		HFMinSE() : HeaderField("Min-SE")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFProxyAuthenticate : public HeaderField
 	{
-		HFProxyAuthenticate() : HeaderField("Proxy-Authenticate", true)
-		{
-			header_params_.append("algorithm");
-			header_params_.append("domain");
-			header_params_.append("nonce");
-			header_params_.append("opaque");
-			header_params_.append("qop");
-			header_params_.append("realm");
-			header_params_.append("stale");
-		}
+		HFProxyAuthenticate();
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFServer : public HeaderField
@@ -703,6 +666,8 @@ namespace EasySip
 		HFServer() : HeaderField("Server")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Unsupported: 100rel
@@ -712,6 +677,8 @@ namespace EasySip
 		HFUnsupported() : HeaderField("Unsupported")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFWarning : public HeaderField
@@ -719,20 +686,16 @@ namespace EasySip
 		HFWarning() : HeaderField("Warning")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFWWWAuthenticate : public HeaderField
 	{
-		HFWWWAuthenticate() : HeaderField("WWW-Authenticate", true)
-		{
-			header_params_.append("algorithm");
-			header_params_.append("domain");
-			header_params_.append("nonce");
-			header_params_.append("opaque");
-			header_params_.append("qop");
-			header_params_.append("realm");
-			header_params_.append("stale");
-		}
+		HFWWWAuthenticate();
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRSeq : public HeaderField
@@ -740,6 +703,8 @@ namespace EasySip
 		HFRSeq() : HeaderField("RSeq")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAllow : public HeaderField
@@ -747,6 +712,8 @@ namespace EasySip
 		HFAllow() : HeaderField("Allow")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFContentEncoding : public HeaderField
@@ -754,13 +721,19 @@ namespace EasySip
 		HFContentEncoding() : HeaderField("Content-Encoding", "e")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFContentLength : public HeaderField
 	{
+		std::string length_;
+
 		HFContentLength() : HeaderField("Content-Length", "l", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFContentLanguage : public HeaderField
@@ -768,6 +741,8 @@ namespace EasySip
 		HFContentLanguage() : HeaderField("Content-Language")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFContentType : public HeaderField
@@ -775,6 +750,8 @@ namespace EasySip
 		HFContentType() : HeaderField("Content-Type", "c")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFExpires : public HeaderField
@@ -782,6 +759,8 @@ namespace EasySip
 		HFExpires() : HeaderField("Expires")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFMIMEVersion : public HeaderField
@@ -789,6 +768,8 @@ namespace EasySip
 		HFMIMEVersion() : HeaderField("MIME-Version")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct RequestLine

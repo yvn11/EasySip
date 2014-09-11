@@ -90,7 +90,7 @@ namespace EasySip
 		o << user_data_.size();
 
 		content_length_.append_field();
-		content_length_.append_value(o.str());
+		content_length_.at(0)->length_ = o.str();//append_value(o.str());
 
 		return RefOf<Message>(*this);
 	}

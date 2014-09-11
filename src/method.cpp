@@ -10,32 +10,32 @@ namespace EasySip
 	// Basic Method
 	int Method::append_header(std::string key, std::string value)
 	{
-		if (HFFrom().Field() == key)
-		{
-			EasySip::append_header<HFFrom>(msg_->from_, value);
-		}
-		else if (HFTo().Field() == key)
-		{
-			EasySip::append_header<HFTo>(msg_->to_, value);
-			msg_->req_line_.request_uri_ = value;
-		}
-		else if (HFCallId().Field() == key)
-		{
-			EasySip::append_header<HFCallId>(msg_->call_id_, value);
-		}
-		else if (HFCSeq().Field() == key)
-		{
-			EasySip::append_header<HFCSeq>(msg_->cseq_, value);
-		}
-		else if (HFVia().Field() == key)
-		{
-			EasySip::append_header<HFVia>(msg_->via_, value);
-		}
-		else
-		{
-			//TODO: throw exception
-		}
-
+//		if (HFFrom().Field() == key)
+//		{
+//			EasySip::append_header<HFFrom>(msg_->from_, value);
+//		}
+//		else if (HFTo().Field() == key)
+//		{
+//			EasySip::append_header<HFTo>(msg_->to_, value);
+//			msg_->req_line_.request_uri_ = value;
+//		}
+//		else if (HFCallId().Field() == key)
+//		{
+//			EasySip::append_header<HFCallId>(msg_->call_id_, value);
+//		}
+//		else if (HFCSeq().Field() == key)
+//		{
+//			EasySip::append_header<HFCSeq>(msg_->cseq_, value);
+//		}
+//		else if (HFVia().Field() == key)
+//		{
+//			EasySip::append_header<HFVia>(msg_->via_, value);
+//		}
+//		else
+//		{
+//			//TODO: throw exception
+//		}
+//
 		return 0;
 	}
 
