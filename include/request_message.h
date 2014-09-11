@@ -9,7 +9,66 @@
 
 namespace EasySip
 {
+	class Method;
+	class InviteMethod;
+	class AckMethod;
+	class RegisterMethod;
+	class CancelMethod;
+	class ByeMethod;
+	class UpdateMethod;
+	class PrackMethod;
+	class NotifyMethod;
+	class SubscribeMethod;
+	class InfoMethod;
+	class OptionsMethod;
+	class ReferMethod;
+	class MessageMethod;
+
 	typedef CodeMap MethodMap;
+
+//	template<typename T>
+//	class MethodMap : public MethodMap_
+//	{
+//	protected:
+//
+//		T method_;
+//
+//	public:
+//
+//		MethodMap(int code, std::string name, T &method)
+//		: CodeMap(code, name), method_(method)
+//		{
+//		}
+//
+//		MethodMap(int code, std::string name)
+//		: CodeMap(code, name)
+//		{
+//		}
+//
+//		~MethodMap()
+//		{
+//		}
+//
+//		T& Method()
+//		{
+//			return RefOf<T>(method_);
+//		}
+//
+//		void Method(T &method)
+//		{
+//			method_ = method;
+//		}
+//
+//		std::string Name()
+//		{
+//			return CodeMap::Name();
+//		}
+//
+//		bool operator== (const MethodMap<T> &mm)
+//		{
+//			return (Code() == mm.Code());
+//		}
+//	};
 
 	enum
 	{
@@ -30,25 +89,25 @@ namespace EasySip
 
 	// Requests since SIP 1.0
 	// RFC-3261
-	const MethodMap METHOD_INVITE(METHOD_ID_INVITE, "INVITE");
-	const MethodMap METHOD_CANCEL(METHOD_ID_CANCEL, "CANCEL");
-	const MethodMap METHOD_ACK(METHOD_ID_ACK, "ACK");
-	const MethodMap METHOD_BYE(METHOD_ID_BYE, "BYE");
-	const MethodMap METHOD_REGISTER(METHOD_ID_REGISTER, "REGISTER");
-	const MethodMap METHOD_OPTIONS(METHOD_ID_OPTIONS, "OPTIONS");
+	const MethodMap/*<InviteMethod>*/ METHOD_INVITE(METHOD_ID_INVITE, "INVITE");
+	const MethodMap/*<CancelMethod>*/ METHOD_CANCEL(METHOD_ID_CANCEL, "CANCEL");
+	const MethodMap/*<AckMethod>*/ METHOD_ACK(METHOD_ID_ACK, "ACK");
+	const MethodMap/*<ByeMethod>*/ METHOD_BYE(METHOD_ID_BYE, "BYE");
+	const MethodMap/*<RegisterMethod>*/ METHOD_REGISTER(METHOD_ID_REGISTER, "REGISTER");
+	const MethodMap/*<OptionsMethod>*/ METHOD_OPTIONS(METHOD_ID_OPTIONS, "OPTIONS");
 	// Additional requests since SIP 2.0
 	// RFC-6665
-	const MethodMap METHOD_SUBSCRIBE(METHOD_ID_SUBSCRIBE, "SUBSCRIBE");
-	const MethodMap METHOD_NOTIFY(METHOD_ID_NOTIFY, "NOTIFY");
-	const MethodMap METHOD_MESSAGE(METHOD_ID_MESSAGE, "MESSAGE");
+	const MethodMap/*<SubscribeMethod>*/ METHOD_SUBSCRIBE(METHOD_ID_SUBSCRIBE, "SUBSCRIBE");
+	const MethodMap/*<NotifyMethod>*/ METHOD_NOTIFY(METHOD_ID_NOTIFY, "NOTIFY");
+	const MethodMap/*<MessageMethod>*/ METHOD_MESSAGE(METHOD_ID_MESSAGE, "MESSAGE");
 	// RFC-6086
-	const MethodMap METHOD_INFO(METHOD_ID_INFO, "INFO");
+	const MethodMap/*<InfoMethod>*/ METHOD_INFO(METHOD_ID_INFO, "INFO");
 	// RFC-3311
-	const MethodMap METHOD_UPDATE(METHOD_ID_UPDATE, "UPDATE");
+	const MethodMap/*<UpdateMethod>*/ METHOD_UPDATE(METHOD_ID_UPDATE, "UPDATE");
 	// RFC-3515
-	const MethodMap METHOD_REFER(METHOD_ID_REFER, "REFER");
+	const MethodMap/*<ReferMethod>*/ METHOD_REFER(METHOD_ID_REFER, "REFER");
 	// RFC-3262
-	const MethodMap METHOD_PRACK(METHOD_ID_PRACK, "PRACK");
+	const MethodMap/*<PrackMethod>*/ METHOD_PRACK(METHOD_ID_PRACK, "PRACK");
 
 	typedef std::set<MethodMap> MethodMapList;
 } // namespace EasiSip

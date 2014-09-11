@@ -1,3 +1,28 @@
 export LD_LIBRARY_PATH=./build
 
-build/test/ts-udp
+res_path=./test/res
+
+#for f in `ls $res_path`
+#do
+#	echo $res_path/$f
+#	cat $res_path/$f|build/test/ts-udp
+#	sleep 2
+#done
+
+#resp_path="
+#$res_path/sip5
+#$res_path/sip14
+#$res_path/sip9
+resp_path="
+$res_path/sip3
+"
+
+#for f in "$resp_path"
+#do
+#	echo $f
+#	cat $f|build/test/ts-udp
+#	sleep 1
+#done
+
+cat test/res/sip-invite | build/test/ts-udp
+

@@ -1,6 +1,12 @@
+/*
+ * lsof -i
+ * netstat -lptu
+ * netstat -tulpn
+ */
 #include <iostream>
 #include "socket.h"
-#include "user_agent/uaserver.h"
+#include "UserAgent/uaserver.h"
+#include <thread>
 
 using namespace EasySip;
 
@@ -12,6 +18,7 @@ int main()
 //	udp.recv();
 
 	UAServer server;
+//	std::thread(std::bind(&UAServer::start, server)).join();
 	server.start();
 	return 0;
 }

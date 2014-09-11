@@ -70,4 +70,5 @@ namespace EasySip
 	const RespCode SIP_RESPONSE_GLOBAL_NOT_EXIST(604);
 	const RespCode SIP_RESPONSE_GLOBAL_NOT_ACCEPTABLE(606);
 
+	typedef std::set<RespCode> RespCodeList;
 } // namespace EasySip

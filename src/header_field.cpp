@@ -7,74 +7,275 @@
 
 namespace EasySip
 {
+	void RequestLine::parse(std::string &msg, size_t &pos)
+	{
+		size_t next = 0;
+		// read method
+		next = msg.find_first_of(" ", pos);
+		method_.Name(msg.substr(pos, next-pos));
+		pos = next + 1;
+		// read request-uri
+		next = msg.find_first_of(" ", pos);
+		request_uri_ = msg.substr(pos, next-pos);
+		pos = next + 1;
+		// read version
+		next = msg.find_first_of(".", pos);
+		version_ = msg.substr(pos, next-pos);
+		pos = next + 1;
+		next = msg.find_first_of("1234567890", pos);
+		version_ += msg.substr(pos, next-pos);
+		pos = next + 1;
+	}
+
+	std::ostream& operator<< (std::ostream& o, HeaderField &hf)
+	{
+		o << hf.field_ << ": ";
+
+		hf.generate_values();
+
+		for (Values::iterator it = hf.values_.begin();
+			it != hf.values_.end(); it++)
+		{
+			o << *it;
+			
+			if (std::distance(hf.values_.begin(), it) < (int)hf.values_.size()-1)
+				o << " ";
+		}
+		
+		o << hf.header_params_ << "\n";
+
+		return o;
+	}
+
+	std::string HeaderField::operator() ()
+	{
+		std::ostringstream o;
+		o << *this;
+
+		return o.str();
+	}
+
+	HFVia::HFVia() : HeaderField("Via", "v", true)
+	{
+		header_params_.append("alias");
+		header_params_.append("branch");
+		header_params_.append("comp");
+		header_params_.append("keep");
+		header_params_.append("maddr");
+		header_params_.append("oc");
+		header_params_.append("oc-algo");
+		header_params_.append("oc-seq");
+		header_params_.append("oc-validity");
+		header_params_.append("received");
+		header_params_.append("rport");
+		header_params_.append("sigcomp-id");
+		header_params_.append("ttl");
+	}
+
+	void HFVia::generate_values()
+	{
+		if (proto_.size())
+			values_.push_back(proto_);
+
+		if (addr_.size())
+			values_.push_back(addr_);
+	}
+
+	void HFVia::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFFrom::generate_values()
+	{
+		if (user_name_.size())
+			values_.push_back(user_name_);
+
+		std::ostringstream o;
+		o << uri_;
+		values_.push_back(o.str());
+	}
+
+	void HFFrom::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFCSeq::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFCSeq::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFCallId::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFCallId::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFTo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFTo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAlertInfo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAlertInfo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAllowEvents::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAllowEvents::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFDate::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFDate::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContact::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFContact::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	HFContact::HFContact() : HeaderField("Contact", "m")
+	{
+		header_params_.append("expires");
+		header_params_.append("mp");
+		header_params_.append("np");
+		header_params_.append("pub-gruu");
+		header_params_.append("q");
+		header_params_.append("rc");
+		header_params_.append("reg-id");
+		header_params_.append("temp-gruu");
+		header_params_.append("temp-gruu-cookie");
+	}
+
+//	void HFOrganization::generate_values()
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
+
+	void HFOrganization::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRecordRoute::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRecordRoute::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRetryAfter::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRetryAfter::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFSubject::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFSubject::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFSupported::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFSupported::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFTimestamp::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFTimestamp::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFUserAgent::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFUserAgent::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAnswerMode::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAnswerMode::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPrivAnswerMode::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFPrivAnswerMode::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
 	void HeaderFields::init_allowed_fields()
 	{
-//		allowed_fields_["CallId"] = call_id_;
-//		allowed_fields_["CSeq"] = call_id_;
-//		allowed_fields_["From"] = call_id_;
-//		allowed_fields_["To"] = call_id_;
-//		allowed_fields_["Via"] = call_id_;
-//		allowed_fields_["Alert-Info"] = call_id_;
-//		allowed_fields_["Allow-Events"] = call_id_;
-//		allowed_fields_["Date"] = call_id_;
-//		allowed_fields_["Contact"] = call_id_;
-//		allowed_fields_["Organization"] = call_id_;
-//		allowed_fields_["Record-Route"] = call_id_;
-//		allowed_fields_["Retry-After"] = call_id_;
-//		allowed_fields_["Subject"] = call_id_;
-//		allowed_fields_["Supported"] = call_id_;
-//		allowed_fields_["Timestamp"] = call_id_;
-//		allowed_fields_["User-Agent"] = call_id_;
-//		allowed_fields_["Answer-Mode"] = call_id_;
-//		allowed_fields_["Priv-Answer-Mode"] = call_id_;
-//		allowed_fields_["Accept"] = call_id_;
-//		allowed_fields_["Accept-Contact"] = call_id_;
-//		allowed_fields_["Accept-Encoding"] = call_id_;
-//		allowed_fields_["Accept-Language"] = call_id_;
-//		allowed_fields_["Authorization"] = call_id_;
-//		allowed_fields_["Call-Info"] = call_id_;
-//		allowed_fields_["Event"] = call_id_;
-//		allowed_fields_["In-Reply-To"] = call_id_;
-//		allowed_fields_["Join"] = call_id_;
-//		allowed_fields_["Priority"] = call_id_;
-//		allowed_fields_["Privacy"] = call_id_;
-//		allowed_fields_["Proxy-Authorization"] = call_id_;
-//		allowed_fields_["Proxy-Require"] = call_id_;
-//		allowed_fields_["P-OSP-AuthToken"] = call_id_;
-//		allowed_fields_["PAsserted-Identity"] = call_id_;
-//		allowed_fields_["PPreferred-Identity"] = call_id_;
-//		allowed_fields_["Max-Forwards"] = call_id_;
-//		allowed_fields_["Reason"] = call_id_;
-//		allowed_fields_["Refer-To"] = call_id_;
-//		allowed_fields_["Referred-By"] = call_id_;
-//		allowed_fields_["Reply-To"] = call_id_;
-//		allowed_fields_["Replaces"] = call_id_;
-//		allowed_fields_["Reject-Contact"] = call_id_;
-//		allowed_fields_["Request-Disposition"] = call_id_;
-//		allowed_fields_["Require"] = call_id_;
-//		allowed_fields_["Route"] = call_id_;
-//		allowed_fields_["Rack"] = call_id_;
-//		allowed_fields_["Session-Expires"] = call_id_;
-//		allowed_fields_["Subscription-State"] = call_id_;
-//		allowed_fields_["AuthenticationInfo"] = call_id_;
-//		allowed_fields_["Error-Info"] = call_id_;
-//		allowed_fields_["Min-Expires"] = call_id_;
-//		allowed_fields_["Min-SE"] = call_id_;
-//		allowed_fields_["Proxy-Authenticate"] = call_id_;
-//		allowed_fields_["Server"] = call_id_;
-//		allowed_fields_["Unsupported"] = call_id_;
-//		allowed_fields_["Warning"] = call_id_;
-//		allowed_fields_["WWW-Authenticate"] = call_id_;
-//		allowed_fields_["RSeq"] = call_id_;
-//		allowed_fields_["Allow"] = call_id_;
-//		allowed_fields_["Content-Encoding"] = call_id_;
-//		allowed_fields_["Content-Length"] = call_id_;
-//		allowed_fields_["Content-Language"] = call_id_;
-//		allowed_fields_["Content-Type"] = call_id_;
-//		allowed_fields_["Expires"] = call_id_;
-//		allowed_fields_["MIME-Version"] = call_id_;
-
-		
 		allowed_fields_.insert("CallId");
 		allowed_fields_.insert("CSeq");
 		allowed_fields_.insert("From");
@@ -140,4 +341,14 @@ namespace EasySip
 		allowed_fields_.insert("Expires");
 		allowed_fields_.insert("MIME-Version");
 	}
+
+	HeaderFields::HeaderFields()
+	{
+		init_allowed_fields();
+	}
+
+	HeaderFields::~HeaderFields()
+	{
+	}
+
 } // namespace EasySip

@@ -8,7 +8,26 @@
 
 namespace EasySip
 {
-//	template<typename T>
+//	MethodMap<InviteMethod> METHOD_INVITE(METHOD_ID_INVITE, "INVITE");
+//	MethodMap<CancelMethod> METHOD_CANCEL(METHOD_ID_CANCEL, "CANCEL");
+//	MethodMap<AckMethod> METHOD_ACK(METHOD_ID_ACK, "ACK");
+//	MethodMap<ByeMethod> METHOD_BYE(METHOD_ID_BYE, "BYE");
+//	MethodMap<RegisterMethod> METHOD_REGISTER(METHOD_ID_REGISTER, "REGISTER");
+//	MethodMap<OptionsMeshod> METHOD_OPTIONS(METHOD_ID_OPTIONS, "OPTIONS");
+//	// Additional requests since SIP 2.0
+//	// RFC-6665
+//	MethodMap<SubscribeMethod> METHOD_SUBSCRIBE(METHOD_ID_SUBSCRIBE, "SUBSCRIBE");
+//	MethodMap<NotifyMethod> METHOD_NOTIFY(METHOD_ID_NOTIFY, "NOTIFY");
+//	MethodMap<MessageMethod> METHOD_MESSAGE(METHOD_ID_MESSAGE, "MESSAGE");
+//	// RFC-6086
+//	MethodMap<InfoMethod> METHOD_INFO(METHOD_ID_INFO, "INFO");
+//	// RFC-3311
+//	MethodMap<UpdateMethod> METHOD_UPDATE(METHOD_ID_UPDATE, "UPDATE");
+//	// RFC-3515
+//	MethodMap<ReferMethod> METHOD_REFER(METHOD_ID_REFER, "REFER");
+//	// RFC-3262
+//	MethodMap<PrackMethod> METHOD_PRACK(METHOD_ID_PRACK, "PRACK");
+
 	class Method
 	{
 	protected:
@@ -24,7 +43,6 @@ namespace EasySip
 		{
 		}
 
-		virtual void parse_header();
 		virtual int append_header(std::string key, std::string value);
 		virtual int append_data(std::string buf);
 		virtual int send_message();
@@ -38,13 +56,12 @@ namespace EasySip
 		InviteMethod()
 		{
 			msg_ = std::make_shared<InviteMessage>();
-			msg_->req_line_.method_ = METHOD_INVITE;
+			msg_->req_line_.method_ = METHOD_INVITE.Name();
 		}
 
 		InviteMethod(RequestMessage &in_msg)
 		{
 			msg_ = std::make_shared<InviteMessage>(in_msg);
-//			msg_->req_line_.method_ = METHOD_INVITE;
 		}
 
 		InviteMethod(std::string in_msg)
@@ -56,7 +73,6 @@ namespace EasySip
 		{
 		}
 
-		void parse_header();
 //		int append_header(std::string key, std::string value);
 		int on_message_receive(Message &in_msg);
 	};

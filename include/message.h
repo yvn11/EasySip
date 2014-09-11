@@ -7,6 +7,7 @@
 
 #include "header_field.h"
 #include "request_message.h"
+#include <iostream>
 
 namespace EasySip
 {
@@ -23,7 +24,6 @@ namespace EasySip
 	{
 	protected:
 		typedef Message Base;
-
 		std::string user_data_;
 		std::string msg_; // message to send or received, which contains header fields and user data
 
@@ -32,6 +32,21 @@ namespace EasySip
 		Message()
 		{
 		}
+
+		Message(std::string msg)
+		: msg_(msg)
+		{
+		}
+
+		std::string Msg()
+		{
+			return msg_;
+		}
+
+//		void Msg(std::string msg)
+//		{
+//			msg_ = msg;
+//		}
 
 		~Message()
 		{
@@ -49,7 +64,19 @@ namespace EasySip
 
 		virtual Message& create();
 		virtual bool is_valid();
-//		virtual void parse_header();
+		/* parse buffered header into formated header fields
+		 */
+		virtual void parse(size_t &pos);
+
+		static int get_method_from_buffer(
+			MethodMapList &allowed_methods, std::string msg, std::string sym = " ");
+
+		static int get_response_code_from_buffer(
+			RespCodeList &allowed_responses, std::string msg, std::string sym = " ");
+
+		static std::vector<std::string> split_by(std::string msg, std::string sym = " ");
+
+		friend std::ostream& operator<< (std::ostream& o, Message& hf);
 	};
 	
 	// ---------------- Request messages --------------------------
@@ -70,38 +97,9 @@ namespace EasySip
 			*this = in_msg;
 		}
 
-		/* parse buffered header into formated header fields
-		 */
-		virtual void parse_header()
-		{
-			size_t pos = 0;
-			// read method
-			pos = msg_.find_first_of(" ", pos);
-			req_line_.method_.Name(msg_.substr(pos, msg_.find_first_of(" ", pos)));
-			// read request-uri
-			pos = msg_.find_first_of(" ", pos);
-			req_line_.request_uri_ = msg_.substr(pos+1, msg_.find_first_of(" ", pos));
-			// read version
-			pos = msg_.find_first_of(" ", pos);
-			req_line_.version_ = msg_.substr(pos+1, msg_.find_first_of(" ", pos));
+		RequestMessage& create();
 
-			std::string field;
-
-			while (pos != msg_.size()-1)
-			{
-				pos = msg_.find_first_of("\n", pos);
-				pos++;
-				// read field
-				size_t pos_end = msg_.find_first_of(":", pos);
-				field = msg_.substr(pos, pos_end);
-				pos = pos_end;
-
-				if (allowed_fields_.find(field) == allowed_fields_.end())
-					continue; // TODO: just ignore??
-
-				
-			}
-		}
+		virtual void parse(size_t &pos);
 	};
 
 	class InviteMessage : public RequestMessage
@@ -110,27 +108,27 @@ namespace EasySip
 
 		InviteMessage()
 		{
-			req_line_.method_ = METHOD_INVITE;
 		}
 
 		InviteMessage(std::string &in_msg)
 		{
+			req_line_.method_ = METHOD_INVITE;
 			msg_ = in_msg;
 		}
 
 		InviteMessage(RequestMessage &in_msg)
 		: RequestMessage(in_msg)
 		{
+			req_line_.method_ = METHOD_INVITE;
 		}
 
 		~InviteMessage()
 		{
 		}
 
-		void parse_header();
-
 		InviteMessage& create();
 		bool is_valid();
+		void parse();
 	};
 
 	class RegisterMessage : public RequestMessage
@@ -334,9 +332,21 @@ namespace EasySip
 		{
 		}
 
-		ResponseMessage(RespCode &resp)
+		ResponseMessage(std::string &msg)
+		{
+			msg_ = msg;
+		}
+
+		ResponseMessage(const RespCode &resp)
 		{
 			RespStatus(resp);
+
+			call_id_.append_field();
+			cseq_.append_field();
+			from_.append_field();
+			to_.append_field();
+			via_.append_field();
+			max_forwards_.append_field();
 		}
 
 		ResponseMessage(RequestMessage &in_msg)

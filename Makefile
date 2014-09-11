@@ -11,7 +11,8 @@ LIBS		=
 include makefiles/predef.mk
 include makefiles/basic.mk
 
-#all: easysip
+all: tests
+#easysip
 
 easysip: $(SHARED_OBJ)
 #	@echo $(MAKEFILE_LIST)
@@ -38,6 +39,15 @@ tests: $(SHARED_OBJ)
 	@echo "===Generating $@===>"
 	@make BUILD=../build -C test all
 
+test/%: $(SHARED_OBJ)
+	@echo
+	@echo "===Generating $@===>"
+	@make BUILD=../build -C test $(shell basename $@)
+
 clean:
+	@find $(BUILD) -type f -regex .*\.\[o\|d\|so] -delete
+	@find $(BUILD) -type f -executable -delete
+
+clean-all:
 	$(RM) $(BUILD)
 

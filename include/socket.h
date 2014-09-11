@@ -15,6 +15,7 @@
 #include <arpa/inet.h>
 #include <error.h>
 #include <string.h>
+#include "except.h"
 
 namespace EasySip
 {
@@ -63,7 +64,7 @@ namespace EasySip
 
 			// TODO: throw exception
 			if (0 > sk_)
-				std::cout << "error: " << strerror(errno) << '\n';
+				std::cerr << "socket: " << strerror(errno) << '\n';
 		}	
 
 		~Socket()
@@ -79,18 +80,26 @@ namespace EasySip
 
 		struct sockaddr_in sk_addr_;
 		std::string addr_;
+
+		struct sockaddr_in self_sk_addr_;
+		std::string self_addr_;
+
 		std::string msg_;
 		int max_rx_;
 
 	public:
 		SocketIp4(int type, int proto = 0)
-		: Socket(AF_INET, type, proto)
+		: Socket(PF_INET, type, proto)
 		{
 			sk_addr_.sin_family = AF_INET;
-			sk_addr_.sin_port = htons(1931);
+			sk_addr_.sin_port = htons(0);
 			sk_addr_.sin_addr.s_addr = htonl(INADDR_ANY);
 
-			max_rx_ = 512;
+			self_sk_addr_.sin_family = AF_INET;
+			self_sk_addr_.sin_port = htons(0);
+			self_sk_addr_.sin_addr.s_addr = htonl(INADDR_ANY);
+
+			max_rx_ = 1024;
 		}
 
 		int Port()
@@ -112,6 +121,27 @@ namespace EasySip
 		{
 			addr_ = addr;
 			inet_aton(addr_.c_str(), (in_addr*)&sk_addr_.sin_addr.s_addr);
+		}
+
+		int SelfPort()
+		{
+			return self_sk_addr_.sin_port;
+		}
+
+		void SelfPort(int port)
+		{
+			self_sk_addr_.sin_port = htons(port);
+		}
+
+		std::string SelfAddr()
+		{
+			return self_addr_;
+		}
+
+		void SelfAddr(std::string addr)
+		{
+			self_addr_ = addr;
+			inet_aton(self_addr_.c_str(), (in_addr*)&self_sk_addr_.sin_addr.s_addr);
 		}
 
 		std::string Message()
@@ -142,13 +172,35 @@ namespace EasySip
 	class SocketIp4UDP : public SocketIp4
 	{
 		bool binded_;
+		bool need_bind_;
 	public:
 		SocketIp4UDP();
+		SocketIp4UDP(std::string addr, int port);
 
 		~SocketIp4UDP();
 
-		void send(std::string msg);
+		void send(const std::string msg);
 
 		int recv(int selfloop = 1);
+
+		void Bind(bool b)
+		{
+			binded_ = b;
+		}
+
+		void NeedBind(bool b)
+		{
+			need_bind_ = b;
+		}
+
+		bool Bind()
+		{
+			return binded_;
+		}
+
+		bool NeedBind()
+		{
+			return need_bind_;
+		}
 	};
 } // namespace EasySip

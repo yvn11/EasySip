@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include <string>
+#include "except.h"
 
 namespace EasySip
 {

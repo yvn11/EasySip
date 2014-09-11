@@ -55,15 +55,7 @@ namespace EasySip
 		return 0;
 	}
 
-	void Method::parse_header()
-	{
-	}
-
 	// Invite
-	void InviteMethod::parse_header()
-	{
-//		msg_->parse_header();
-	}
 
 	int InviteMethod::on_message_receive(Message &in_msg)
 	{

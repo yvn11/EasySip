@@ -95,13 +95,37 @@ int main()
 //	std::cout << ";;;;;;;;;;;;;;;;;;;;;;;\n";
 
 
-	char buf;
+//	char buf;
+//
+//	while (std::getline(std::cin, line))
+//	{
+//		strncpy(&buf, line.c_str(), 1);
+//		buffer += buf;
+//		std::cout << buffer << '\n';
+//	}
 
-	while (std::getline(std::cin, line))
+	std::string msg_ = "123InVITEHEL86OAKJF35\nSG48HBBasdlfkj83439 k";
+//		std::string get_respond_code()
+		{
+			size_t pos, next;
+
+			std::cout << "[" << msg_ << "]\n";
+
+			for (next = pos = 0; next != std::string::npos; pos = next+1)
+			{
+				next = msg_.find_first_of(' ', pos);
+				std::cout << pos << ' ' << next << "|" << msg_.substr(pos, next-pos) << "|\n";
+			}
+		}
+
+	switch (1)
 	{
-		strncpy(&buf, line.c_str(), 1);
-		buffer += buf;
-		std::cout << buffer << '\n';
+		case (1):
+			return 100;
+			std::cout << "he---\n";
+			break;
+		case (3):
+			std::cout << "no\n";
 	}
 
 	return 1;

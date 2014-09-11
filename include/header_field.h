@@ -14,14 +14,12 @@
 #include "uri.h"
 #include "response_code.h"
 #include "request_message.h"
+#include <iostream>
 
 namespace EasySip
 {
-#define SIP_VERSION_2_0 "SIP/2.0"
+	#define SIP_VERSION_2_0 "SIP/2.0"
 
-	template<typename T>
-	T& RefOf(T& t) { return t; }
-	
 	class Param
 	{
 		std::string name_;
@@ -91,46 +89,25 @@ namespace EasySip
 			return true;
 		}
 
+		virtual void generate_values()
+		{
+		}
+
 		void HeaderParam(std::string n, std::string v)
 		{
 			header_params_.set_value_by_name(n, v);
 		}
 
-		friend std::ostream& operator<< (std::ostream& o, HeaderField hf)
-		{
-			o << hf.field_ << ": ";
+		friend std::ostream& operator<< (std::ostream& o, HeaderField& hf);
 
-			for (Values::iterator it = hf.values_.begin();
-				it != hf.values_.end(); it++)
-			{
-				o << *it;
-				
-				if (std::distance(hf.values_.begin(), it) < (int)hf.values_.size())
-					o << " ";
-			}
-			
-			o << hf << "\n";
-
-			return o;
-		}
-
-		std::string operator() ()
-		{
-			std::ostringstream o;
-			o << *this;
-
-			return o.str();
-		}
+		std::string operator() ();
 	};
-	
-	typedef std::shared_ptr<HeaderField> HeaderFieldPtr;
-	#define HeaderFieldPtrNew std::make_shared
 
 	template<typename T>
-	class HeaderFieldList// : public std::vector<std::shared_ptr<T> >
+	class HeaderFieldList : public std::vector<std::shared_ptr<T> >
 	{
 		typedef std::shared_ptr<T> T_PTR;
-		std::vector<T_PTR> hflist_;
+		typedef HeaderFieldList<T> T_SELF;
 
 	public:
 
@@ -145,32 +122,36 @@ namespace EasySip
 		void append_field()
 		{
 			T_PTR p = std::make_shared<T>();
-			hflist_.push_back(p);
+			this->push_back(p);
 		}
 
 		void append_value(std::string val, unsigned int index = 0)
 		{
-			if (index >= hflist_.size())
+			if (index >= this->size())
 				return; // TODO: throw exception
 
-			hflist_.at(index)->values_.push_back(val); 
+			this->at(index)->values_.push_back(val); 
 		}
 
 		void append_param(std::string name, std::string value, unsigned int index = 0)
 		{
-			hflist_.at(index).HeaderParam(name, value);
+			this->at(index).HeaderParam(name, value);
 		}
 
 		std::string Field()
 		{
-			return hflist_.at(0).Field();
+			return this->at(0).Field();
 		}
 
-		bool empty()
+		friend std::ostream& operator<< (std::ostream &o, T_SELF &hlist)
 		{
-			return hflist_.empty();
+			for (typename T_SELF::iterator it = hlist.begin(); it != hlist.end(); it++)
+			{
+				o << **it;
+			}
+	
+			return o;
 		}
-
 	};
 
 	template <typename T>
@@ -185,7 +166,6 @@ namespace EasySip
 	{
 		hf.append_value(value);
 	}
-//	typedef std::map<std::string, HeaderField> HeaderFields;
 
 	// ---------- Mandatory fields ---------------
 	/* Call-ID: 19283kjhj5h
@@ -195,6 +175,8 @@ namespace EasySip
 		HFCallId() : HeaderField("Call-ID", "i")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* CSeq: 35246 INVITE 
@@ -205,21 +187,26 @@ namespace EasySip
 		{
 		}
 
-//		friend std::ostream& operator<< (std::ostream& o, HFCSeq cseq)
-//		{
-//			o << cseq.fields_ << ": " << cseq.values_.at(0) << " " << cseq.values_.at(1) << "\n";
-//			return o;
-//		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 	
 	/* From: Alice <sip:alice@atlanta.com>;tag=87263237
 	 */
 	struct HFFrom : public HeaderField
 	{
+		std::string user_name_;
+		URI uri_;
+
 		HFFrom() : HeaderField("From", "f")
 		{
 			header_params_.append("tag");
 		}
+
+		void generate_values();
+
+		void parse(std::string &msg, size_t &pos);
+
 	};
 
 	/* To: Alice <sip:alice@atlanta.com>;tag=39u292sd7
@@ -230,6 +217,8 @@ namespace EasySip
 		{
 			header_params_.append("tag");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Via: SIP/2.0/UDP <aa.atlanta.com>;branch=38Z89sdhJ;received=192.168.0.50
@@ -239,34 +228,23 @@ namespace EasySip
 	 */
 	struct HFVia : public HeaderField
 	{
-		HFVia() : HeaderField("Via", "v", true)
-		{
-			header_params_.append("alias");
-			header_params_.append("branch");
-			header_params_.append("comp");
-			header_params_.append("keep");
-			header_params_.append("maddr");
-			header_params_.append("oc");
-			header_params_.append("oc-algo");
-			header_params_.append("oc-seq");
-			header_params_.append("oc-validity");
-			header_params_.append("received");
-			header_params_.append("rport");
-			header_params_.append("sigcomp-id");
-			header_params_.append("ttl");
-		}
+		std::string proto_;
+		std::string addr_;
+
+		HFVia();
 
 		std::string version()
 		{
-			if (values_.size() > 0)
-				return values_.at(0).substr(values_.at(0).find_last_of("/"));
+			return proto_.substr(proto_.find_last_of("/"));
 		}
 
 		std::string transmit_protocol()
 		{
-			if (values_.size() > 0)
-				return values_.at(0).substr(values_.at(0).find_last_of("/")+1);
+			return proto_.substr(proto_.find_last_of("/")+1);
 		}
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	// ------------------ Optional fields --------------------
@@ -281,6 +259,8 @@ namespace EasySip
 			header_params_.append("appearance");
 			header_params_.append("purpose");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAllowEvents : public HeaderField
@@ -288,6 +268,8 @@ namespace EasySip
 		HFAllowEvents() : HeaderField("Allow-Events", "u")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFDate : public HeaderField
@@ -295,24 +277,18 @@ namespace EasySip
 		HFDate() : HeaderField("Date", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Contact: <sip:user@example.com?Route=%3Csip:sip.example.com%3E>
 	 */
 	struct HFContact : public HeaderField
 	{
-		HFContact() : HeaderField("Contact", "m")
-		{
-			header_params_.append("expires");
-			header_params_.append("mp");
-			header_params_.append("np");
-			header_params_.append("pub-gruu");
-			header_params_.append("q");
-			header_params_.append("rc");
-			header_params_.append("reg-id");
-			header_params_.append("temp-gruu");
-			header_params_.append("temp-gruu-cookie");
-		}
+		HFContact();
+
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 
 		bool is_value_valid()
 		{
@@ -333,6 +309,8 @@ namespace EasySip
 		HFOrganization() : HeaderField("Organization", true)
 		{
 		}
+//		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Record-Route: <sip:+1-650-555-2222@iftgw.there.com;
@@ -344,6 +322,8 @@ namespace EasySip
 		HFRecordRoute() : HeaderField("Record-Route", true)
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRetryAfter : public HeaderField
@@ -352,6 +332,8 @@ namespace EasySip
 		{
 			header_params_.append("duration");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFSubject : public HeaderField
@@ -359,6 +341,8 @@ namespace EasySip
 		HFSubject() : HeaderField("Subject", "s")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFSupported : public HeaderField
@@ -366,6 +350,8 @@ namespace EasySip
 		HFSupported() : HeaderField("Supported", "k")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFTimestamp : public HeaderField
@@ -373,6 +359,8 @@ namespace EasySip
 		HFTimestamp() : HeaderField("Timestamp")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFUserAgent : public HeaderField
@@ -380,6 +368,8 @@ namespace EasySip
 		HFUserAgent() : HeaderField("User-Agent")
 		{
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAnswerMode : public HeaderField
@@ -388,6 +378,8 @@ namespace EasySip
 		{
 			header_params_.append("require");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPrivAnswerMode : public HeaderField
@@ -396,6 +388,8 @@ namespace EasySip
 		{
 			header_params_.append("require");
 		}
+		void generate_values();
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	// -------------------- Request header -----------------------------
@@ -821,6 +815,8 @@ namespace EasySip
 			o << req.method_.Name() << " " << req.request_uri_ << " " << req.version_;
 			return o;
 		}
+
+		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct ResponseStatus
@@ -923,14 +919,12 @@ namespace EasySip
 		HeaderFieldList<HFExpires> expires_; // in second
 		HeaderFieldList<HFMIMEVersion> mime_version_;
 
-		HeaderFields()
-		{
-			init_allowed_fields();
-		}
+		HeaderFields();
 
-		~HeaderFields()
-		{
-		}
+		~HeaderFields();
+
+//		friend std::ostream& operator<< (std::ostream& o, HeaderFields& hf);
+
 	protected:
 		std::set<std::string> allowed_fields_;
 		void init_allowed_fields();
