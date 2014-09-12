@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string.h>
+#include <memory>
 
 class A
 {
@@ -51,6 +52,11 @@ public:
 		return ret;
 	}
 
+	friend std::ostream& operator<< (std::ostream &o, A a)
+	{
+		o << __PRETTY_FUNCTION__ << "\n";
+		return o;
+	}
 //	void operator() (A a)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << "\n";
@@ -121,12 +127,16 @@ int main()
 	switch (1)
 	{
 		case (1):
-			return 100;
 			std::cout << "he---\n";
 			break;
 		case (3):
 			std::cout << "no\n";
 	}
+
+	std::shared_ptr<A> p;
+	p = std::make_shared<A>();
+	p->show();
+	std::cout << "--------------" << (p == 0) << '\n' << *p;
 
 	return 1;
 }
