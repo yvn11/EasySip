@@ -9,6 +9,7 @@ SRCS		+= .
 LIBS		+= easysip
 LDPATH		+= ../build
 LDFLAGS		+= $(LDPATH:%=-L%)
+#MACROS		+= _GLIBCXX_USE_NANOSLEEP
 
 include ../makefiles/predef.mk
 
