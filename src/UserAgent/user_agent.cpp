@@ -196,7 +196,6 @@ namespace EasySip
 	int UserAgent::start()
 	{
 //		signal(SIGINT, (sighandler_t)&UserAgent::sigint_hdr);
-
 		try
 		{
 			while (run_)
@@ -295,13 +294,14 @@ namespace EasySip
 
 	int UserAgent::on_invite_request(RequestMessage &in_msg)
 	{
-		InviteMessage invite_msg(in_msg);
-		invite_msg.parse();
+//		InviteMessage msg(in_msg);
+		in_msg.parse();
 
-		ResponseMessage rep(invite_msg);
+		ResponseMessage rep(in_msg);
 		rep.ResponseVer(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_TRYING);
 
+		// TODO: tag
 		rep.to_->HeaderParam("tag", "ahelk8.d374");
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
@@ -316,15 +316,13 @@ namespace EasySip
 	
 	int UserAgent::on_register_request(RequestMessage &in_msg)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-		RegisterMessage register_msg(in_msg);
-		register_msg.parse();
+//		RegisterMessage msg(in_msg);
+		in_msg.parse();
 
-		ResponseMessage rep(register_msg);
+		ResponseMessage rep(in_msg);
 		rep.ResponseVer(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_TRYING);
 
-		rep.to_->HeaderParam("tag", "ahelk8.d374");
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
@@ -338,25 +336,85 @@ namespace EasySip
 	
 	int UserAgent::on_bye_request(RequestMessage &in_msg)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		ByeMessage msg(in_msg);
+		in_msg.parse();
+
+		ResponseMessage rep(in_msg);
+		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		// TODO: tag
+		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+//		rep.append_userdata("top of the hill");
+
+		rep.create();
+		sv_udp_.send(rep.Msg());
+
+		// TODO forward procedure
 		return 0;
 	}
 	
 	int UserAgent::on_cancel_request(RequestMessage &in_msg)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		CancelMessage msg(in_msg);
+		in_msg.parse();
+
+		ResponseMessage rep(in_msg);
+		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		// TODO: tag
+		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+//		rep.append_userdata("top of the hill");
+
+		rep.create();
+		sv_udp_.send(rep.Msg());
+
+		// TODO forward procedure
 		return 0;
 	}
 	
 	int UserAgent::on_ack_request(RequestMessage &in_msg)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		AckMessage msg(in_msg);
+		in_msg.parse();
+
+		ResponseMessage rep(in_msg);
+		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		// TODO: tag
+		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+//		rep.append_userdata("top of the hill");
+
+		rep.create();
+		sv_udp_.send(rep.Msg());
+
+		// TODO forward procedure
 		return 0;
 	}
 	
 	int UserAgent::on_options_request(RequestMessage &in_msg)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		AckMessage msg(in_msg);
+		in_msg.parse();
+
+		ResponseMessage rep(in_msg);
+		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		// TODO: tag
+		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+//		rep.append_userdata("top of the hill");
+
+		rep.create();
+		sv_udp_.send(rep.Msg());
+
+		// TODO forward procedure
 		return 0;
 	}
 	

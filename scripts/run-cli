@@ -23,7 +23,10 @@ $res_path/sip3
 #	sleep 1
 #done
 
-cat test/res/sip9 | build/test/ts-udp
+cat test/res/sip73 | build/test/ts-udp #options
+#cat test/res/sip29 | build/test/ts-udp #cancel
+#cat test/res/sip34 | build/test/ts-udp #bye
+#cat test/res/sip9 | build/test/ts-udp
 #cat test/res/sip-resp | build/test/ts-udp
 #cat test/res/sip-invite | build/test/ts-udp
 #cat test/res/sip-register | build/test/ts-udp

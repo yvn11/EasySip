@@ -117,6 +117,7 @@ namespace EasySip
 		RequestMessage& create();
 
 		virtual void parse(size_t &pos);
+
 		virtual void parse()
 		{
 			size_t pos = 0;
@@ -129,14 +130,15 @@ namespace EasySip
 	public:
 
 		InviteMessage()
+		: RequestMessage()
 		{
 			req_line_->method_ = METHOD_INVITE;
 		}
 
 		InviteMessage(std::string &in_msg)
+		: RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_INVITE;
-			msg_ = in_msg;
 		}
 
 		InviteMessage(RequestMessage &in_msg)
@@ -158,11 +160,13 @@ namespace EasySip
 	{
 	public:
 		RegisterMessage()
+		: RequestMessage()
 		{
 			req_line_->method_ = METHOD_REGISTER;
 		}
 
 		RegisterMessage(std::string &in_msg)
+		: RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_REGISTER;
 			msg_ = in_msg;
@@ -185,7 +189,19 @@ namespace EasySip
 	class ByeMessage : public RequestMessage
 	{
 	public:
-		ByeMessage()
+		ByeMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_BYE;
+		}
+
+		ByeMessage(std::string &in_msg)
+		: RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_BYE;
+		}
+
+		ByeMessage(RequestMessage &in_msg)
+		: RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_BYE;
 		}
@@ -201,7 +217,19 @@ namespace EasySip
 	class AckMessage : public RequestMessage
 	{
 	public:
-		AckMessage()
+		AckMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_ACK;
+		}
+
+		AckMessage(std::string &in_msg)
+		: RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_ACK;
+		}
+
+		AckMessage(RequestMessage &in_msg)
+		: RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_ACK;
 		}
@@ -217,7 +245,19 @@ namespace EasySip
 	class CancelMessage : public RequestMessage
 	{
 	public:
-		CancelMessage()
+		CancelMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_CANCEL;
+		}
+
+		CancelMessage(std::string &in_msg)
+		: RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_CANCEL;
+		}
+
+		CancelMessage(RequestMessage &in_msg)
+		: RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_CANCEL;
 		}
@@ -233,7 +273,19 @@ namespace EasySip
 	class OptionsMessage : public RequestMessage
 	{
 	public:
-		OptionsMessage()
+		OptionsMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_OPTIONS;
+		}
+
+		OptionsMessage(std::string &in_msg)
+		: RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_OPTIONS;
+		}
+
+		OptionsMessage(RequestMessage &in_msg)
+		: RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_OPTIONS;
 		}
@@ -249,7 +301,17 @@ namespace EasySip
 	class ReferMessage : public RequestMessage
 	{
 	public:
-		ReferMessage()
+		ReferMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_REFER;
+		}
+
+		ReferMessage(std::string &in_msg) : RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_REFER;
+		}
+
+		ReferMessage(RequestMessage &in_msg) : RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_REFER;
 		}
@@ -265,7 +327,17 @@ namespace EasySip
 	class SubscribeMessage : public RequestMessage
 	{
 	public:
-		SubscribeMessage()
+		SubscribeMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_SUBSCRIBE;
+		}
+
+		SubscribeMessage(std::string &in_msg) : RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_SUBSCRIBE;
+		}
+
+		SubscribeMessage(RequestMessage &in_msg) : RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_SUBSCRIBE;
 		}
@@ -281,7 +353,17 @@ namespace EasySip
 	class NotifyMessage : public RequestMessage
 	{
 	public:
-		NotifyMessage()
+		NotifyMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_NOTIFY;
+		}
+
+		NotifyMessage(std::string &in_msg) : RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_NOTIFY;
+		}
+
+		NotifyMessage(RequestMessage &in_msg) : RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_NOTIFY;
 		}
@@ -297,7 +379,17 @@ namespace EasySip
 	class MessageMessage : public RequestMessage
 	{
 	public:
-		MessageMessage()
+		MessageMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_MESSAGE;
+		}
+
+		MessageMessage(std::string &in_msg) : RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_MESSAGE;
+		}
+
+		MessageMessage(RequestMessage &in_msg) : RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_MESSAGE;
 		}
@@ -313,7 +405,17 @@ namespace EasySip
 	class InfoMessage : public RequestMessage
 	{
 	public:
-		InfoMessage()
+		InfoMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_INFO;
+		}
+
+		InfoMessage(std::string &in_msg) : RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_INFO;
+		}
+
+		InfoMessage(RequestMessage &in_msg) : RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_INFO;
 		}
@@ -329,7 +431,17 @@ namespace EasySip
 	class PrackMessage : public RequestMessage
 	{
 	public:
-		PrackMessage()
+		PrackMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_PRACK;
+		}
+
+		PrackMessage(std::string &in_msg) : RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_PRACK;
+		}
+
+		PrackMessage(RequestMessage &in_msg) : RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_PRACK;
 		}
@@ -345,7 +457,17 @@ namespace EasySip
 	class UpdateMessage : public RequestMessage
 	{
 	public:
-		UpdateMessage()
+		UpdateMessage() : RequestMessage()
+		{
+			req_line_->method_ = METHOD_UPDATE;
+		}
+
+		UpdateMessage(std::string &in_msg) : RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_UPDATE;
+		}
+
+		UpdateMessage(RequestMessage &in_msg) : RequestMessage(in_msg)
 		{
 			req_line_->method_ = METHOD_UPDATE;
 		}

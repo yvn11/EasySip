@@ -107,6 +107,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				CASE_ALPHA_NUM
@@ -227,6 +228,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				case '"':
@@ -235,7 +237,11 @@ namespace EasySip
 
 					if (!in_dquote)
 					{
-						name_ = buffer;
+						buffer += msg.at(pos);
+
+						if (name_.empty())
+							name_ = buffer;
+
 						pos++;
 						buffer.clear();
 						break;
@@ -273,7 +279,7 @@ namespace EasySip
 
 					sp_nr++;
 
-					if (1 == sp_nr)
+					if (name_.empty())
 					{
 						name_ = buffer;
 					}
@@ -407,6 +413,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				CASE_ALPHA_NUM
@@ -475,6 +482,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				CASE_WORD
@@ -558,6 +566,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				CASE_ALPHA_NUM
@@ -1027,6 +1036,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				CASE_DIGIT
@@ -1285,12 +1295,70 @@ namespace EasySip
 
 	void HFWarning::generate_values()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		std::ostringstream o;
+		o << code_ << ' ' << agent_ << ' ' << text_;
+		values_ = o.str();
 	}
 
 	void HFWarning::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		bool run = true, in_dquote = false;
+		std::string buffer;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			if (pos+1 >= msg.size()) break;
+			switch(msg.at(pos))
+			{
+				CASE_ALPHA_NUM
+				case '-':
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case ' ':
+				{
+					if (code_.empty())
+						code_ = buffer;
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '"':
+				{
+					in_dquote = !in_dquote;
+
+					if (!in_dquote)
+					{
+						buffer += msg.at(pos);
+						if (text_.empty())
+							text_ = buffer;
+					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\n':
+				case '\r':
+				{
+					do_if_is_alpha(msg.at(pos+1), run = false)
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					buffer.clear();
+				}
+			}
+		}
+
+		std::cout << *this;
 	}
 
 	HFWWWAuthenticate::HFWWWAuthenticate() : HeaderField("WWW-Authenticate", true)
@@ -1358,6 +1426,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				CASE_DIGIT
@@ -1414,6 +1483,7 @@ namespace EasySip
 
 		while (run)
 		{
+			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
 				CASE_LOWER_ALPHA

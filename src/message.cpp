@@ -251,7 +251,7 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos >= msg_.size()) break;
+			if (pos+1 >= msg_.size()) break;
 			if (content_length_) break;
 
 			switch(msg_.at(pos))

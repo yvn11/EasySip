@@ -89,78 +89,6 @@ namespace EasySip
 		std::string operator() ();
 	};
 
-//	template<typename T>
-//	class HeaderFieldList : public std::vector<std::shared_ptr<T> >
-//	{
-//		typedef std::shared_ptr<T> T_PTR;
-//		typedef HeaderFieldList<T> T_SELF;
-//
-//	public:
-//
-//		HeaderFieldList()
-//		{
-//			
-//		std::cout << __PRETTY_FUNCTION__ << ' ' << this << ' ' << sizeof(*this) << '\n';
-//		}
-//
-//		~HeaderFieldList()
-//		{
-//		}
-//
-//		void append_field()
-//		{
-//		std::cout << __PRETTY_FUNCTION__ << ' ' << this << ' ' << sizeof(*this) << '\n';
-//			T_PTR p = std::make_shared<T>();
-//			this->push_back(p);
-//		}
-//
-////		void append_value(std::string val, unsigned int index = 0)
-////		{
-////			if (index >= this->size())
-////				return; // TODO: throw exception
-////
-////			this->at(index)->values_.push_back(val); 
-////		}
-//
-//		void append_param(std::string name, std::string value, unsigned int index = 0)
-//		{
-//			this->at(index).HeaderParam(name, value);
-//		}
-//
-//		std::string Field()
-//		{
-//			return this->at(0).Field();
-//		}
-//
-//		friend std::ostream& operator<< (std::ostream &o, T_SELF &hlist)
-//		{
-//			for (typename T_SELF::iterator it = hlist.begin(); it != hlist.end(); it++)
-//			{
-//				o << **it;
-//			}
-//	
-//			return o;
-//		}
-//
-//		bool operator< (T_SELF b)
-//		{
-//			return (&this < &b);
-//		}
-//	};
-//
-//	template <typename T>
-//	void append_header(HeaderFieldList<T> &hf, std::string value)
-//	{
-//		hf.append_field();
-//		hf.append_value(value);
-//	}
-//
-//	template <typename T>
-//	void append_value(HeaderFieldList<T> &hf, std::string value)
-//	{
-//		hf.append_value(value);
-//	}
-
 	// ---------- Mandatory fields ---------------
 	/* Call-ID: 19283kjhj5h
 	 */
@@ -715,6 +643,10 @@ namespace EasySip
 
 	struct HFWarning : public HeaderField
 	{
+		std::string code_;
+		std::string agent_; // hostport or pseudonym
+		std::string text_;
+
 		HFWarning() : HeaderField("Warning")
 		{
 		}
