@@ -26,50 +26,6 @@ namespace EasySip
 
 	typedef CodeMap MethodMap;
 
-//	template<typename T>
-//	class MethodMap : public MethodMap_
-//	{
-//	protected:
-//
-//		T method_;
-//
-//	public:
-//
-//		MethodMap(int code, std::string name, T &method)
-//		: CodeMap(code, name), method_(method)
-//		{
-//		}
-//
-//		MethodMap(int code, std::string name)
-//		: CodeMap(code, name)
-//		{
-//		}
-//
-//		~MethodMap()
-//		{
-//		}
-//
-//		T& Method()
-//		{
-//			return RefOf<T>(method_);
-//		}
-//
-//		void Method(T &method)
-//		{
-//			method_ = method;
-//		}
-//
-//		std::string Name()
-//		{
-//			return CodeMap::Name();
-//		}
-//
-//		bool operator== (const MethodMap<T> &mm)
-//		{
-//			return (Code() == mm.Code());
-//		}
-//	};
-
 	enum
 	{
 		METHOD_ID_INVITE,

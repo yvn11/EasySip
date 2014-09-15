@@ -77,11 +77,20 @@ namespace EasySip
 			return (first < cm.first);
 		}
 	
-		void operator= (const CodeMap &cm)
+		CodeMap& operator= (const CodeMap &cm)
 		{
 			first = cm.first;
 			second = cm.second;
+			return *this;
 		}
+
+		CodeMap& operator= (CodeMap &cm)
+		{
+			first = cm.first;
+			second = cm.second;
+			return *this;
+		}
+
 
 		bool operator== (const CodeMap &cm)
 		{
@@ -140,12 +149,12 @@ namespace EasySip
 			return second;
 		}
 
-		void Name(std::string n)
+		void Name(const std::string n)
 		{
 			first = n;
 		}
 
-		void Value(std::string v)
+		void Value(const std::string v)
 		{
 			second = v;
 		}
@@ -168,7 +177,7 @@ namespace EasySip
 		}
 	};
 
-	class Parameters : std::set<Parameter>
+	class Parameters : public std::set<Parameter>
 	{
 	public:
 
@@ -238,7 +247,7 @@ namespace EasySip
 				if (it->Value().empty())
 					continue;
 	
-				if (std::distance(ps.begin(), it) < (int)ps.size()-1)
+				if (std::distance(ps.begin(), it) <= (int)ps.size()-1)
 					o << ";";
 	
 				o << *it;

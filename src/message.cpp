@@ -9,70 +9,74 @@ namespace EasySip
 {
 	std::ostream& operator<< (std::ostream& o, Message& msg)
 	{
-		o << msg.call_id_;
-		o << msg.cseq_;
-		o << msg.from_;
-		o << msg.to_;
-		o << msg.via_;
-		o << msg.alert_info_;
-		o << msg.allow_events_;
-		o << msg.date_;
-		o << msg.contact_;
-		o << msg.organization_;
-		o << msg.record_route_;
-		o << msg.retry_after_;
-		o << msg.subject_;
-		o << msg.supported_;
-		o << msg.timestamp_;
-		o << msg.user_agent_;
-		o << msg.answer_mode_;
-		o << msg.priv_answer_mode_;
-		o << msg.accept_;
-		o << msg.accept_contact_;
-		o << msg.accept_encoding_;
-		o << msg.accept_language_;
-		o << msg.authorization_;
-		o << msg.call_info_;
-		o << msg.event_;
-		o << msg.in_replay_to_;
-		o << msg.join_;
-		o << msg.priority_;
-		o << msg.privacy_;
-		o << msg.proxy_authorization_;
-		o << msg.proxy_require_;
-		o << msg.p_osp_auth_token_;
-		o << msg.p_asserted_identity_;
-		o << msg.p_preferred_identity_;
-		o << msg.max_forwards_;
-		o << msg.reason_;
-		o << msg.refer_to_;
-		o << msg.referred_by_;
-		o << msg.reply_to_;
-		o << msg.replaces_;
-		o << msg.reject_contact_;
-		o << msg.request_disposition_;
-		o << msg.require_;
-		o << msg.route_;
-		o << msg.rack_;
-		o << msg.session_expires_;
-		o << msg.subscription_state_;
-		o << msg.authentication_info_;
-		o << msg.error_info_;
-		o << msg.min_expires_;
-		o << msg.min_se_;
-		o << msg.proxy_authenticate_;
-		o << msg.server_;
-		o << msg.unsupported_;
-		o << msg.warning_;
-		o << msg.www_authenticate_;
-		o << msg.rseq_;
-		o << msg.allow_;
-		o << msg.content_encoding_;
-		o << msg.content_length_;
-		o << msg.content_language_;
-		o << msg.content_type_;
-		o << msg.expires_;
-		o << msg.mime_version_;
+		out_if_not_null(o, msg.call_id_);
+		out_if_not_null(o, msg.cseq_);
+		out_if_not_null(o, msg.from_);
+		out_if_not_null(o, msg.to_);
+
+		for (std::vector<std::shared_ptr<HFVia> >::iterator it = msg.via_.begin();
+			it != msg.via_.end(); it++)
+			o << **it;
+			
+		out_if_not_null(o, msg.alert_info_);
+		out_if_not_null(o, msg.allow_events_);
+		out_if_not_null(o, msg.date_);
+		out_if_not_null(o, msg.contact_);
+		out_if_not_null(o, msg.organization_);
+		out_if_not_null(o, msg.record_route_);
+		out_if_not_null(o, msg.retry_after_);
+		out_if_not_null(o, msg.subject_);
+		out_if_not_null(o, msg.supported_);
+		out_if_not_null(o, msg.timestamp_);
+		out_if_not_null(o, msg.user_agent_);
+		out_if_not_null(o, msg.answer_mode_);
+		out_if_not_null(o, msg.priv_answer_mode_);
+		out_if_not_null(o, msg.accept_);
+		out_if_not_null(o, msg.accept_contact_);
+		out_if_not_null(o, msg.accept_encoding_);
+		out_if_not_null(o, msg.accept_language_);
+		out_if_not_null(o, msg.authorization_);
+		out_if_not_null(o, msg.call_info_);
+		out_if_not_null(o, msg.event_);
+		out_if_not_null(o, msg.in_replay_to_);
+		out_if_not_null(o, msg.join_);
+		out_if_not_null(o, msg.priority_);
+		out_if_not_null(o, msg.privacy_);
+		out_if_not_null(o, msg.proxy_authorization_);
+		out_if_not_null(o, msg.proxy_require_);
+		out_if_not_null(o, msg.p_osp_auth_token_);
+		out_if_not_null(o, msg.p_asserted_identity_);
+		out_if_not_null(o, msg.p_preferred_identity_);
+		out_if_not_null(o, msg.max_forwards_);
+		out_if_not_null(o, msg.reason_);
+		out_if_not_null(o, msg.refer_to_);
+		out_if_not_null(o, msg.referred_by_);
+		out_if_not_null(o, msg.reply_to_);
+		out_if_not_null(o, msg.replaces_);
+		out_if_not_null(o, msg.reject_contact_);
+		out_if_not_null(o, msg.request_disposition_);
+		out_if_not_null(o, msg.require_);
+		out_if_not_null(o, msg.route_);
+		out_if_not_null(o, msg.rack_);
+		out_if_not_null(o, msg.session_expires_);
+		out_if_not_null(o, msg.subscription_state_);
+		out_if_not_null(o, msg.authentication_info_);
+		out_if_not_null(o, msg.error_info_);
+		out_if_not_null(o, msg.min_expires_);
+		out_if_not_null(o, msg.min_se_);
+		out_if_not_null(o, msg.proxy_authenticate_);
+		out_if_not_null(o, msg.server_);
+		out_if_not_null(o, msg.unsupported_);
+		out_if_not_null(o, msg.warning_);
+		out_if_not_null(o, msg.www_authenticate_);
+		out_if_not_null(o, msg.rseq_);
+		out_if_not_null(o, msg.allow_);
+		out_if_not_null(o, msg.content_encoding_);
+		out_if_not_null(o, msg.content_length_);
+		out_if_not_null(o, msg.content_language_);
+		out_if_not_null(o, msg.content_type_);
+		out_if_not_null(o, msg.expires_);
+		out_if_not_null(o, msg.mime_version_);
 
 		o << msg.user_data_;
 
@@ -83,32 +87,26 @@ namespace EasySip
 		if (!is_valid())
 		{	// TODO throw exception
 			std::cerr << "message invalid\n";
-			return RefOf<Message>(*this);
+			return *this;
 		}
 
 		std::ostringstream o;
 		o << user_data_.size();
 
-		content_length_.append_field();
-		content_length_.at(0)->length_ = o.str();//append_value(o.str());
+		content_length_ = std::make_shared<HFContentLength>();//.append_field();
+		content_length_->length_ = o.str();//append_value(o.str());
 
-		return RefOf<Message>(*this);
+		return *this;
 	}
 
 	bool Message::is_valid()
 	{
-		if (call_id_.empty())
-			return false;
-		if (cseq_.empty())
-			return false;
-		if (from_.empty())
-			return false;
-		if (to_.empty())
-			return false;
-		if (via_.empty())
-			return false;
-		if (max_forwards_.empty())
-			return false;
+		if (call_id_ == 0) return false;
+		if (cseq_ == 0) return false;
+		if (from_ == 0) return false;
+		if (to_ == 0) return false;
+		if (via_.empty()) return false;
+		if (max_forwards_ == 0 && resp_status_ == 0) return false;
 
 		return true;
 	}
@@ -167,43 +165,141 @@ namespace EasySip
 		return ret;
 	}
 
+	void Message::parse_dispatch(std::string field, size_t &pos)
+	{
+		if (HFVia().Field() == field || HFVia().Compact() == field)
+		{
+			via_.push_back(std::make_shared<HFVia>());
+			via_.at(via_.size()-1)->parse(msg_, pos);
+			return;
+		}
+
+		parse_dispatch_if_match<HFCallId>(call_id_, field, msg_, pos);
+		parse_dispatch_if_match<HFCSeq>(cseq_, field, msg_, pos);
+		parse_dispatch_if_match<HFFrom>(from_, field, msg_, pos);
+		parse_dispatch_if_match<HFTo>(to_, field, msg_, pos);
+
+		parse_dispatch_if_match<HFAlertInfo>(alert_info_, field, msg_, pos);
+		parse_dispatch_if_match<HFAllowEvents>(allow_events_, field, msg_, pos);
+		parse_dispatch_if_match<HFDate>(date_, field, msg_, pos);
+		parse_dispatch_if_match<HFContact>(contact_, field, msg_, pos);
+		parse_dispatch_if_match<HFOrganization>(organization_, field, msg_, pos);
+		parse_dispatch_if_match<HFRecordRoute>(record_route_, field, msg_, pos);
+		parse_dispatch_if_match<HFRetryAfter>(retry_after_, field, msg_, pos); // in second
+		parse_dispatch_if_match<HFSubject>(subject_, field, msg_, pos);
+		parse_dispatch_if_match<HFSupported>(supported_, field, msg_, pos);
+		parse_dispatch_if_match<HFTimestamp>(timestamp_, field, msg_, pos);
+		parse_dispatch_if_match<HFUserAgent>(user_agent_, field, msg_, pos);
+		parse_dispatch_if_match<HFAnswerMode>(answer_mode_, field, msg_, pos);
+		parse_dispatch_if_match<HFPrivAnswerMode>(priv_answer_mode_, field, msg_, pos);
+		parse_dispatch_if_match<HFAccept>(accept_, field, msg_, pos); // type/sub-type
+		parse_dispatch_if_match<HFAcceptContact>(accept_contact_, field, msg_, pos);
+		parse_dispatch_if_match<HFAcceptEncoding>(accept_encoding_, field, msg_, pos);
+		parse_dispatch_if_match<HFAcceptLanguage>(accept_language_, field, msg_, pos);
+		parse_dispatch_if_match<HFAuthorization>(authorization_, field, msg_, pos);
+		parse_dispatch_if_match<HFCallInfo>(call_info_, field, msg_, pos);
+		parse_dispatch_if_match<HFEvent>(event_, field, msg_, pos);
+		parse_dispatch_if_match<HFInReplyTo>(in_replay_to_, field, msg_, pos);
+		parse_dispatch_if_match<HFJoin>(join_, field, msg_, pos);
+		parse_dispatch_if_match<HFPriority>(priority_, field, msg_, pos);
+		parse_dispatch_if_match<HFPrivacy>(privacy_, field, msg_, pos);
+		parse_dispatch_if_match<HFProxyAuthorization>(proxy_authorization_, field, msg_, pos);
+		parse_dispatch_if_match<HFProxyRequire>(proxy_require_, field, msg_, pos);
+		parse_dispatch_if_match<HFPOSPAuthToken>(p_osp_auth_token_, field, msg_, pos);
+		parse_dispatch_if_match<HFPAssertedIdentity>(p_asserted_identity_, field, msg_, pos);
+		parse_dispatch_if_match<HFPPreferredIdentity>(p_preferred_identity_, field, msg_, pos);
+		parse_dispatch_if_match<HFMaxForwards>(max_forwards_, field, msg_, pos);
+		parse_dispatch_if_match<HFReason>(reason_, field, msg_, pos);
+		parse_dispatch_if_match<HFReferTo>(refer_to_, field, msg_, pos);
+		parse_dispatch_if_match<HFReferredBy>(referred_by_, field, msg_, pos);
+		parse_dispatch_if_match<HFReplyTo>(reply_to_, field, msg_, pos);
+		parse_dispatch_if_match<HFReplaces>(replaces_, field, msg_, pos);
+		parse_dispatch_if_match<HFRejectContact>(reject_contact_, field, msg_, pos);
+		parse_dispatch_if_match<HFRequestDisposition>(request_disposition_, field, msg_, pos);
+		parse_dispatch_if_match<HFRequire>(require_, field, msg_, pos);
+		parse_dispatch_if_match<HFRoute>(route_, field, msg_, pos);
+		parse_dispatch_if_match<HFRack>(rack_, field, msg_, pos);
+		parse_dispatch_if_match<HFSessionExpires>(session_expires_, field, msg_, pos); // in second
+		parse_dispatch_if_match<HFSubscriptionState>(subscription_state_, field, msg_, pos);
+		parse_dispatch_if_match<HFAuthenticationInfo>(authentication_info_, field, msg_, pos);
+		parse_dispatch_if_match<HFErrorInfo>(error_info_, field, msg_, pos);
+		parse_dispatch_if_match<HFMinExpires>(min_expires_, field, msg_, pos);
+		parse_dispatch_if_match<HFMinSE>(min_se_, field, msg_, pos);
+		parse_dispatch_if_match<HFProxyAuthenticate>(proxy_authenticate_, field, msg_, pos);
+		parse_dispatch_if_match<HFServer>(server_, field, msg_, pos);
+		parse_dispatch_if_match<HFUnsupported>(unsupported_, field, msg_, pos);
+		parse_dispatch_if_match<HFWarning>(warning_, field, msg_, pos);
+		parse_dispatch_if_match<HFWWWAuthenticate>(www_authenticate_, field, msg_, pos);
+		parse_dispatch_if_match<HFRSeq>(rseq_, field, msg_, pos);
+		parse_dispatch_if_match<HFAllow>(allow_, field, msg_, pos);
+		parse_dispatch_if_match<HFContentEncoding>(content_encoding_, field, msg_, pos);
+		parse_dispatch_if_match<HFContentLength>(content_length_, field, msg_, pos);
+		parse_dispatch_if_match<HFContentLanguage>(content_language_, field, msg_, pos);
+		parse_dispatch_if_match<HFContentType>(content_type_, field, msg_, pos);
+		parse_dispatch_if_match<HFExpires>(expires_, field, msg_, pos); // in second
+		parse_dispatch_if_match<HFMIMEVersion>(mime_version_, field, msg_, pos);
+	}
+
 	/* parse buffered header into formated header fields
 	 */
 	void Message::parse(size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		if (msg_.empty()) return;
 
-		if (msg_.empty())
-			return;
+		bool run = true;
+		std::string buffer;
 
-		size_t next = pos;
-
-		while (1)
+		while (run)
 		{
-			next = msg_.find_first_of(":", pos);
+			if (pos >= msg_.size()) break;
+			if (content_length_) break;
 
-			if (std::string::npos == next)
-				break;
-
-			std::string field(msg_.substr(pos, next-pos));
-			std::cout << "field:: " << field << '\n';	
-
-			if (field == HFFrom().Field())
+			switch(msg_.at(pos))
 			{
-				from_.append_field();
-				from_.at(0)->parse(msg_, pos);
+				CASE_ALPHA
+				case '-':
+				{
+					buffer += msg_.at(pos++);
+					break;
+				}
+				case '\n':
+				case '\r':
+				{
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ':':
+				{
+					pos++;
+					std::cout << "field: " << buffer << '\n';
+
+					parse_dispatch(buffer, pos);
+					buffer.clear();
+
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg_.at(pos++) << "': " << buffer << "\n";
+					buffer.clear();
+				}
+			}
+		}
+
+		if (content_length_)
+		{
+			size_t i = 1, len = 0;
+			std::istringstream in(content_length_->length_);
+			in >> len;
+	
+			while (pos < msg_.size() && i < len)
+			{
+				buffer += msg_.at(pos++);
 			}
 
-			else if (field == HFVia().Field())
-			{
-				via_.append_field();
-				via_.at(via_.size()-1)->parse(msg_, pos);
-			}
-	//TODO: fields
-	//		else
-			{
-				pos = next + 1;
-			}
+			user_data_ = buffer;
+			std::cout << "user_data_: " << user_data_ << '\n';
 		}
 	}
 
@@ -217,49 +313,47 @@ namespace EasySip
 
 		msg_ = o.str();
 
-		return RefOf<RequestMessage>(*this);
+		return *this;
 	}
 
 	void RequestMessage::parse(size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 
-		if (msg_.empty())
-			return;
+		if (msg_.empty()) return;
 
-		req_line_.parse(msg_, pos);
-		std::cout << "req_line: " << req_line_ << '\n';
+		req_line_->parse(msg_, pos);
 
 		Base::parse(pos);
+
+		std::cout << "--------------------------------\n";
+		std::cout << *req_line_ << '\n';
+		std::cout << *this;
 	}
 
 	InviteMessage& InviteMessage::create()
 	{
-		return RefOf<InviteMessage>(*this);
+		return *this;
 	}
 
 	void InviteMessage::parse()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-
 		size_t pos = 0;
 		RequestMessage::parse(pos);
 	}
 
 	bool InviteMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		if (!Base::is_valid()) return false;
 
-		if (contact_.empty())
-			return false;
+		if (contact_ == 0) return false;
 
 		return true;
 	}
 	// RegisterMessage
 	RegisterMessage& RegisterMessage::create()
 	{
-		return RefOf<RegisterMessage>(*this);
+		return *this;
 	}
 
 	bool RegisterMessage::is_valid()
@@ -271,7 +365,7 @@ namespace EasySip
 	// AckMessage
 	AckMessage& AckMessage::create()
 	{
-		return RefOf<AckMessage>(*this);
+		return *this;
 	}
 
 	bool AckMessage::is_valid()
@@ -283,7 +377,7 @@ namespace EasySip
 	// ByeMessage
 	ByeMessage& ByeMessage::create()
 	{
-		return RefOf<ByeMessage>(*this);
+		return *this;
 	}
 
 	bool ByeMessage::is_valid()
@@ -295,7 +389,7 @@ namespace EasySip
 	// CancelMessage
 	CancelMessage& CancelMessage::create()
 	{
-		return RefOf<CancelMessage>(*this);
+		return *this;
 	}
 	
 	bool CancelMessage::is_valid()
@@ -307,7 +401,7 @@ namespace EasySip
 	// OptionsMessage
 	OptionsMessage& OptionsMessage::create()
 	{
-		return RefOf<OptionsMessage>(*this);
+		return *this;
 	}
 
 	bool OptionsMessage::is_valid()
@@ -320,16 +414,16 @@ namespace EasySip
 	// ReferMessage
 	ReferMessage& ReferMessage::create()
 	{
-		return RefOf<ReferMessage>(*this);
+		return *this;
 	}
 
 	bool ReferMessage::is_valid()
 	{
 		if (!Base::is_valid())
 			return false;
-		if (contact_.empty())
+		if (contact_ == 0)
 			return false;
-		if (refer_to_.empty())
+		if (refer_to_ == 0)
 			return false;
 
 		return true;
@@ -337,18 +431,18 @@ namespace EasySip
 	// SubscribeMessage
 	SubscribeMessage& SubscribeMessage::create()
 	{
-		return RefOf<SubscribeMessage>(*this);
+		return *this;
 	}
 
 	bool SubscribeMessage::is_valid()
 	{
 		if (!Base::is_valid())
 			return false;
-		if (contact_.empty())
+		if (contact_ == 0)
 			return false;
-		if (event_.empty())
+		if (event_ == 0)
 			return false;
-		if (allow_events_.empty())
+		if (allow_events_ == 0)
 			return false;
 
 		return true;
@@ -356,20 +450,20 @@ namespace EasySip
 	// NotifyMessage
 	NotifyMessage& NotifyMessage::create()
 	{
-		return RefOf<NotifyMessage>(*this);
+		return *this;
 	}
 
 	bool NotifyMessage::is_valid()
 	{
 		if (!Base::is_valid())
 			return false;
-		if (contact_.empty())
+		if (contact_ == 0)
 			return false;
-		if (event_.empty())
+		if (event_ == 0)
 			return false;
-		if (allow_events_.empty())
+		if (allow_events_ == 0)
 			return false;
-		if (subscription_state_.empty())
+		if (subscription_state_ == 0)
 			return false;
 
 		return true;
@@ -377,7 +471,7 @@ namespace EasySip
 	// MessageMessage
 	MessageMessage& MessageMessage::create()
 	{
-		return RefOf<MessageMessage>(*this);
+		return *this;
 	}
 
 	bool MessageMessage::is_valid()
@@ -389,7 +483,7 @@ namespace EasySip
 	// InfoMessage
 	InfoMessage& InfoMessage::create()
 	{
-		return RefOf<InfoMessage>(*this);
+		return *this;
 	}
 
 	bool InfoMessage::is_valid()
@@ -401,7 +495,7 @@ namespace EasySip
 	// PrackMessage
 	PrackMessage& PrackMessage::create()
 	{
-		return RefOf<PrackMessage>(*this);
+		return *this;
 	}
 
 	bool PrackMessage::is_valid()
@@ -413,14 +507,14 @@ namespace EasySip
 	// UpdateMessage
 	UpdateMessage& UpdateMessage::create()
 	{
-		return RefOf<UpdateMessage>(*this);
+		return *this;
 	}
 
 	bool UpdateMessage::is_valid()
 	{
 		if (!Base::is_valid())
 			return false;
-		if (contact_.empty())
+		if (contact_ == 0)
 			return false;
 
 		return true;
@@ -431,11 +525,25 @@ namespace EasySip
 		Base::create();
 		std::ostringstream o;
 
-		o << resp_status_ << '\n';
+		o << *resp_status_ << '\n';
 		o << *this;
 
 		msg_ = o.str();
 
-		return RefOf<ResponseMessage>(*this);
+		return *this;
+	}
+
+	void ResponseMessage::parse()
+	{
+		if (msg_.empty()) return;
+
+		size_t pos = 0;
+
+		resp_status_->parse(msg_, pos);
+		Base::parse(pos);
+
+		std::cout << "--------------------------------\n";
+		std::cout << *resp_status_ << '\n';
+		std::cout << *this;
 	}
 } // namespace EasySip

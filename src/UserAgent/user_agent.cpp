@@ -7,15 +7,17 @@
 
 namespace EasySip
 {
-		UserAgent::UserAgent()
-		{
-			init_allowed_methods();
-			init_allowed_responses();
-		}
+	UserAgent::UserAgent()
+	: run_(true)
+	{
+		init_allowed_methods();
+		init_allowed_responses();
+	}
 
-		UserAgent::~UserAgent()
-		{
-		}
+	UserAgent::~UserAgent()
+	{
+	}
+
 	void UserAgent::init_allowed_methods()
 	{
 		allowed_methods_.insert(METHOD_INVITE);
@@ -99,7 +101,7 @@ namespace EasySip
 
 		if (SIP_RESPONSE_TRYING.Code() <= (ret = Message::get_response_code_from_buffer(allowed_responses_, msg)))
 		{
-			return on_receive_rep(msg, ret);
+			return on_receive_resp(msg, ret);
 		}
 
 		//TODO throw exception ??
@@ -171,20 +173,36 @@ namespace EasySip
 		return 0;
 	}
 
-	int UserAgent::on_receive_rep(std::string &msg, const int code)
+	int UserAgent::on_receive_resp(std::string &msg, const int code)
 	{
+		ResponseMessage rep(SIP_RESPONSE_SUCCESSFUL);
+//		rep.append_userdata("top of the hill");
+		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.create();
+		sv_udp_.send(rep.Msg());
+
 		ResponseMessage in_msg(msg);
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		in_msg.parse();
 
 		return 0;
 	}
 
+	void UserAgent::sigint_hdr(int signo)
+	{
+		std::cout << __PRETTY_FUNCTION__ << "Got signal: " << signo << '\n';
+		run_ = false;
+	}
+
 	int UserAgent::start()
 	{
+//		signal(SIGINT, (sighandler_t)&UserAgent::sigint_hdr);
+
 		try
 		{
-			while (sv_udp_.recv(0) > 0 )
+			while (run_)
 			{
+				sv_udp_.recv(0);
+				// TODO: log peer
 				std::cout << "peer: <" << sv_udp_.Addr() << ":" << sv_udp_.Port() << ">\n";
 				std::string msg(sv_udp_.Message());
 				on_receive_message(msg);
@@ -205,12 +223,12 @@ namespace EasySip
 		std::string buffer, line;
 
 		while(std::getline(std::cin, line))
-			buffer += line;
+			buffer += line+'\n';
 
-		std::cout << "send: " << buffer << '\n';
+		std::cout << "send:\n" << buffer << '\n';
 		cli_udp_.send(buffer);
 		cli_udp_.recv(0);
-		std::cout << "receive: " << cli_udp_.Message() << '\n';
+		std::cout << "receive:\n" << cli_udp_.Message() << '\n';
 
 		return 0;
 	}
@@ -277,16 +295,21 @@ namespace EasySip
 
 	int UserAgent::on_invite_request(RequestMessage &in_msg)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		InviteMessage invite_msg(in_msg);
+		invite_msg.parse();
 
-		ResponseMessage rep(SIP_RESPONSE_TRYING);
+		ResponseMessage rep(invite_msg);
+		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_TRYING);
+
+		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
+
 		rep.create();
-//		std::cout << "reply: " << rep.Msg() << '\n';
 		sv_udp_.send(rep.Msg());
 
-		InviteMessage invite(in_msg);
-		invite.parse();
+		// TODO forward procedure
 
 		return 0;
 	}
@@ -294,6 +317,22 @@ namespace EasySip
 	int UserAgent::on_register_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		RegisterMessage register_msg(in_msg);
+		register_msg.parse();
+
+		ResponseMessage rep(register_msg);
+		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_TRYING);
+
+		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+//		rep.append_userdata("top of the hill");
+
+		rep.create();
+		sv_udp_.send(rep.Msg());
+
+		// TODO forward procedure
+
 		return 0;
 	}
 	
@@ -363,7 +402,7 @@ namespace EasySip
 		return 0;
 	}
 
-	int UserAgent::on_response(Message &in_msg)
+	int UserAgent::on_response(std::string &msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;

@@ -55,8 +55,6 @@ namespace EasySip
 
 		do
 		{
-			std::cout << "socket: " << sk_ << '\n';
-
 			if ((ret = recvfrom(sk_, buf, max_rx_, 0,
 				(sockaddr*)&sk_addr_, &len)) == 0)
 			{

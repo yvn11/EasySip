@@ -55,8 +55,8 @@ namespace EasySip
 
 		InviteMethod()
 		{
-			msg_ = std::make_shared<InviteMessage>();
-			msg_->req_line_.method_ = METHOD_INVITE.Name();
+			//msg_ = std::make_shared<InviteMessage>();
+			//msg_->req_line_.method_ = METHOD_INVITE.Name();
 		}
 
 		InviteMethod(RequestMessage &in_msg)

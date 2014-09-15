@@ -54,7 +54,7 @@ namespace EasySip
 
 		MethodMap method()
 		{
-			return req_line_.method_;
+			return req_line_->method_;
 		}
 
 		void append_userdata(std::string buf)
@@ -67,6 +67,20 @@ namespace EasySip
 		/* parse buffered header into formated header fields
 		 */
 		virtual void parse(size_t &pos);
+
+		template<typename T>
+		void parse_dispatch_if_match(
+			std::shared_ptr<T> &f, std::string buf,
+			std::string &msg, size_t &pos)
+		{
+			if (T().Field() == buf || T().Compact() == buf)
+			{
+				 f = std::make_shared<T>();
+				 f->parse(msg, pos);
+			}
+		}
+		
+		virtual void parse_dispatch(std::string field, size_t &pos);
 
 		static int get_method_from_buffer(
 			MethodMapList &allowed_methods, std::string msg, std::string sym = " ");
@@ -85,21 +99,29 @@ namespace EasySip
 	public:
 		RequestMessage()
 		{
+			req_line_ = std::make_shared<RequestLine>();
 		}
 
 		RequestMessage(std::string &in_msg)
 		{
+			req_line_ = std::make_shared<RequestLine>();
 			msg_ = in_msg;
 		}
 
 		RequestMessage(RequestMessage &in_msg)
 		{
+			req_line_ = std::make_shared<RequestLine>();
 			*this = in_msg;
 		}
 
 		RequestMessage& create();
 
 		virtual void parse(size_t &pos);
+		virtual void parse()
+		{
+			size_t pos = 0;
+			parse(pos);
+		}
 	};
 
 	class InviteMessage : public RequestMessage
@@ -108,18 +130,19 @@ namespace EasySip
 
 		InviteMessage()
 		{
+			req_line_->method_ = METHOD_INVITE;
 		}
 
 		InviteMessage(std::string &in_msg)
 		{
-			req_line_.method_ = METHOD_INVITE;
+			req_line_->method_ = METHOD_INVITE;
 			msg_ = in_msg;
 		}
 
 		InviteMessage(RequestMessage &in_msg)
 		: RequestMessage(in_msg)
 		{
-			req_line_.method_ = METHOD_INVITE;
+			req_line_->method_ = METHOD_INVITE;
 		}
 
 		~InviteMessage()
@@ -136,7 +159,19 @@ namespace EasySip
 	public:
 		RegisterMessage()
 		{
-			req_line_.method_ = METHOD_REGISTER;
+			req_line_->method_ = METHOD_REGISTER;
+		}
+
+		RegisterMessage(std::string &in_msg)
+		{
+			req_line_->method_ = METHOD_REGISTER;
+			msg_ = in_msg;
+		}
+
+		RegisterMessage(RequestMessage &in_msg)
+		: RequestMessage(in_msg)
+		{
+			req_line_->method_ = METHOD_REGISTER;
 		}
 
 		~RegisterMessage()
@@ -152,7 +187,7 @@ namespace EasySip
 	public:
 		ByeMessage()
 		{
-			req_line_.method_ = METHOD_BYE;
+			req_line_->method_ = METHOD_BYE;
 		}
 
 		~ByeMessage()
@@ -168,7 +203,7 @@ namespace EasySip
 	public:
 		AckMessage()
 		{
-			req_line_.method_ = METHOD_ACK;
+			req_line_->method_ = METHOD_ACK;
 		}
 
 		~AckMessage()
@@ -184,7 +219,7 @@ namespace EasySip
 	public:
 		CancelMessage()
 		{
-			req_line_.method_ = METHOD_CANCEL;
+			req_line_->method_ = METHOD_CANCEL;
 		}
 
 		~CancelMessage()
@@ -200,7 +235,7 @@ namespace EasySip
 	public:
 		OptionsMessage()
 		{
-			req_line_.method_ = METHOD_OPTIONS;
+			req_line_->method_ = METHOD_OPTIONS;
 		}
 
 		~OptionsMessage()
@@ -216,7 +251,7 @@ namespace EasySip
 	public:
 		ReferMessage()
 		{
-			req_line_.method_ = METHOD_REFER;
+			req_line_->method_ = METHOD_REFER;
 		}
 
 		~ReferMessage()
@@ -232,7 +267,7 @@ namespace EasySip
 	public:
 		SubscribeMessage()
 		{
-			req_line_.method_ = METHOD_SUBSCRIBE;
+			req_line_->method_ = METHOD_SUBSCRIBE;
 		}
 
 		~SubscribeMessage()
@@ -248,7 +283,7 @@ namespace EasySip
 	public:
 		NotifyMessage()
 		{
-			req_line_.method_ = METHOD_NOTIFY;
+			req_line_->method_ = METHOD_NOTIFY;
 		}
 
 		~NotifyMessage()
@@ -264,7 +299,7 @@ namespace EasySip
 	public:
 		MessageMessage()
 		{
-			req_line_.method_ = METHOD_MESSAGE;
+			req_line_->method_ = METHOD_MESSAGE;
 		}
 
 		~MessageMessage()
@@ -280,7 +315,7 @@ namespace EasySip
 	public:
 		InfoMessage()
 		{
-			req_line_.method_ = METHOD_INFO;
+			req_line_->method_ = METHOD_INFO;
 		}
 
 		~InfoMessage()
@@ -296,7 +331,7 @@ namespace EasySip
 	public:
 		PrackMessage()
 		{
-			req_line_.method_ = METHOD_PRACK;
+			req_line_->method_ = METHOD_PRACK;
 		}
 
 		~PrackMessage()
@@ -312,7 +347,7 @@ namespace EasySip
 	public:
 		UpdateMessage()
 		{
-			req_line_.method_ = METHOD_UPDATE;
+			req_line_->method_ = METHOD_UPDATE;
 		}
 
 		~UpdateMessage()
@@ -330,27 +365,32 @@ namespace EasySip
 	public:
 		ResponseMessage()
 		{
+			resp_status_ = std::make_shared<ResponseStatus>();
 		}
 
 		ResponseMessage(std::string &msg)
 		{
+			resp_status_ = std::make_shared<ResponseStatus>();
 			msg_ = msg;
 		}
 
 		ResponseMessage(const RespCode &resp)
 		{
-			RespStatus(resp);
+			resp_status_ = std::make_shared<ResponseStatus>();
+			resp_status_->resp_code_ = resp;
 
-			call_id_.append_field();
-			cseq_.append_field();
-			from_.append_field();
-			to_.append_field();
-			via_.append_field();
-			max_forwards_.append_field();
+			call_id_ = std::make_shared<HFCallId>();
+			cseq_ = std::make_shared<HFCSeq>();
+			from_ = std::make_shared<HFFrom>();
+			to_ = std::make_shared<HFTo>();
+			via_.push_back(std::make_shared<HFVia>());
+			max_forwards_ = std::make_shared<HFMaxForwards>();
 		}
 
 		ResponseMessage(RequestMessage &in_msg)
 		{
+			resp_status_ = std::make_shared<ResponseStatus>();
+
 			call_id_ = in_msg.call_id_;
 			to_ = in_msg.to_;
 			from_ = in_msg.from_;
@@ -364,21 +404,32 @@ namespace EasySip
 		{
 		}
 
-		void RespStatus(ResponseStatus &resp)
-		{
-			resp_status_ = resp;
-		}
-
-		void RespStatus(const RespCode &resp)
-		{
-			resp_status_.resp_code_ = resp;
-		}
-
 		ResponseStatus& RespStatus()
 		{
-			return RefOf<ResponseStatus>(resp_status_);
+			return *resp_status_;
+		}
+
+		void ResponseCode(const RespCode& resp)
+		{
+			resp_status_->resp_code_ = resp;
+		}
+
+		RespCode& ResponseCode()
+		{
+			return resp_status_->resp_code_;
+		}
+
+		void ResponseVer(std::string ver)
+		{
+			resp_status_->version_ = ver;
+		}
+
+		std::string& ResponseVer()
+		{
+			return resp_status_->version_;
 		}
 
 		ResponseMessage& create();
+		void parse();
 	};
 } // namespace EasySip

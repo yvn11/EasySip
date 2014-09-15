@@ -6,12 +6,119 @@
 #pragma once
 
 #include <memory>
+#include <locale>
 #include "mapper.h"
 
 namespace EasySip
 {
+	#define CASE_UPPER_ALPHA \
+				case 'A': \
+				case 'B': \
+				case 'C': \
+				case 'D': \
+				case 'E': \
+				case 'F': \
+				case 'G': \
+				case 'H': \
+				case 'I': \
+				case 'J': \
+				case 'K': \
+				case 'L': \
+				case 'M': \
+				case 'N': \
+				case 'O': \
+				case 'P': \
+				case 'Q': \
+				case 'R': \
+				case 'S': \
+				case 'T': \
+				case 'U': \
+				case 'V': \
+				case 'W': \
+				case 'X': \
+				case 'Y': \
+				case 'Z':
+	#define CASE_LOWER_ALPHA \
+				case 'a': \
+				case 'b': \
+				case 'c': \
+				case 'd': \
+				case 'e': \
+				case 'f': \
+				case 'g': \
+				case 'h': \
+				case 'i': \
+				case 'j': \
+				case 'k': \
+				case 'l': \
+				case 'm': \
+				case 'n': \
+				case 'o': \
+				case 'p': \
+				case 'q': \
+				case 'r': \
+				case 's': \
+				case 't': \
+				case 'u': \
+				case 'v': \
+				case 'w': \
+				case 'x': \
+				case 'y': \
+				case 'z':
+
+	#define CASE_ALPHA \
+			CASE_UPPER_ALPHA \
+			CASE_LOWER_ALPHA 
+
+	#define CASE_DIGIT \
+				case '1': \
+				case '2': \
+				case '3': \
+				case '4': \
+				case '5': \
+				case '6': \
+				case '7': \
+				case '8': \
+				case '9': \
+				case '0': 
+
+	#define CASE_ALPHA_NUM \
+			CASE_ALPHA \
+			CASE_DIGIT 
+
+	#define CASE_WORD \
+				CASE_ALPHA_NUM \
+				case '-': \
+				case '.': \
+				case '!': \
+				case '%': \
+				case '*': \
+				case '_': \
+				case '+': \
+				case 39: \
+				case '~': \
+				case '(': \
+				case ')': \
+				case '<': \
+				case '>': \
+				case ':': \
+				case 92: \
+				case 34: \
+				case '/': \
+				case '[': \
+				case ']': \
+				case '?': \
+				case '{': \
+				case '}': 
+
 	typedef Parameters URIParams;
 	typedef Parameters HeaderParams;
+
+	#define do_if_is_alpha(c, f) 	\
+	{								\
+		std::locale loc;			\
+		if (std::isalpha(c, loc)) { f; }	\
+	}
 
 	struct URI
 	{

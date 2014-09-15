@@ -7,6 +7,7 @@
 
 #include "method.h"
 #include "socket.h"
+#include <signal.h>
 
 namespace EasySip
 {
@@ -19,6 +20,9 @@ namespace EasySip
 		SocketIp4UDP sv_udp_;
 		SocketIp4UDP cli_udp_;
 
+		bool run_;
+
+		void sigint_hdr(int signo);
 	private:
 
 		void init_allowed_methods();
@@ -33,7 +37,7 @@ namespace EasySip
 		virtual int start();
 		virtual int on_receive_message(std::string &msg);
 		virtual int on_receive_req(std::string &msg, const int code);
-		virtual int on_receive_rep(std::string &msg, const int code);
+		virtual int on_receive_resp(std::string &msg, const int code);
 
 		virtual int invite_request();
 		virtual int register_request();
@@ -62,7 +66,7 @@ namespace EasySip
 		virtual int on_info_request(RequestMessage &in_msg);
 		virtual int on_prack_request(RequestMessage &in_msg);
 		virtual int on_update_request(RequestMessage &in_msg);
-		virtual int on_response(Message &in_msg);
+		virtual int on_response(std::string &msg);
 	};
 
 } // namespace EasySip
