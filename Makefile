@@ -8,6 +8,8 @@ INCLUDES	= include build
 SRCS		= src
 LIBS		=
 
+SCM			= git
+
 include makefiles/predef.mk
 include makefiles/basic.mk
 

@@ -11,7 +11,7 @@ PROJECT_ALIAS	= $(shell echo $(PROJECT)|tr '[:upper:]' '[:lower:]')
 PROJECT_DIR		= $(shell pwd)
 BUILD			= $(PROJECT_DIR)/build
 VERSION_HEADER	= $(BUILD)/version.h
-REVISION		= $(shell svn info|grep "Last Changed Rev"|cut -f2 -d:|cut -f2 -d\ ) 
+
 SOURCES			= $(shell find $(SRCS) -iregex ".*\.c\(c\|pp\|++\|xx\)")
 
 CFLAGS			+= -Wall -O0 -g3 --std=c++11 -MP -MMD -fPIC -Wl,--hash-style=sysv
@@ -22,3 +22,10 @@ LIBS			+= pthread
 SHARED_OBJ		= $(BUILD)/lib$(PROJECT_ALIAS).so
 OBJS			= $(patsubst %.cpp, $(BUILD)/%.o, $(SOURCES))
 
+ifeq ($(SCM),svn)
+	REVISION		= $(shell svn info|grep "Last Changed Rev"|cut -f2 -d:|cut -f2 -d\ )
+else ifeq ($(SCM),git)
+	REVISION		= $(shell git log |head -1|cut -f2 -d\ |sed -r 's/(.{5})/\1-/g'|cut -f-8 -d-)
+else
+	REVISION		= None
+endif
