@@ -13,7 +13,7 @@ LDFLAGS		+= $(LDPATH:%=-L%)
 
 include ../makefiles/predef.mk
 
-all: ts-header ts-udp-d ts-udp
+all: ts-udp-d ts-udp
 
 %: %.cpp
 	@echo

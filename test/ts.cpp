@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <memory>
+#include <locale>
 
 class A
 {
@@ -63,6 +64,7 @@ public:
 //		A ret(a.Value());
 //		return ret;
 //	}
+
 };
 
 class B : public A
@@ -78,6 +80,12 @@ public:
 	~B()
 	{}
 };
+
+	#define STRDQUOTE "'""\"""'"
+	#define STRQUOTE "'""\'""'"
+	#define STRBSLASH "'""\\""'"
+
+
 
 int main()
 {
@@ -137,6 +145,16 @@ int main()
 	p = std::make_shared<A>();
 	p->show();
 	std::cout << "--------------" << (p == 0) << '\n' << *p;
+	std::cout << STRDQUOTE << '\n';
+	std::cout << STRQUOTE << '\n';
+	std::cout << STRBSLASH << '\n';
+
+
+	std::string alpha_str;
+	alpha_str = "k";
+	std::locale loc;
+//	std::isalpha(alpha_str.at(0), loc);
+	std::cout << std::isalpha(alpha_str.at(0), loc) << loc.name() << '\n';
 
 	return 1;
 }
