@@ -9,11 +9,10 @@ res_path=./test/res
 #	sleep 2
 #done
 
-#resp_path="
-#$res_path/sip5
-#$res_path/sip14
-#$res_path/sip9
 resp_path="
+$res_path/sip5
+$res_path/sip14
+$res_path/sip9
 $res_path/sip3
 "
 
@@ -24,5 +23,9 @@ $res_path/sip3
 #	sleep 1
 #done
 
-cat test/res/sip-invite | build/test/ts-udp
+cat test/res/sip9 | build/test/ts-udp
+#cat test/res/sip-resp | build/test/ts-udp
+#cat test/res/sip-invite | build/test/ts-udp
+#cat test/res/sip-register | build/test/ts-udp
+#cat test/res/sip3 | build/test/ts-udp
 
