@@ -1,0 +1,13 @@
+INVITE sip:13039263142@Den1.level3.com SIP/2.0
+Via: SIP/2.0/UDP den3.level3.com
+From: sip:13034513355@den3.level3.com
+To: sip:13039263142@Den1.level3.com
+Call-ID: DEN1231999021712095500999@Den1.level3.com
+CSeq: 8348 INVITE
+Contact: <sip:jpeterson@level3.com>
+Content-Length: 562
+Content-Type: multipart/mixed; boundary=unique-boundary-1
+MIME-Version: 1.0
+
+
+

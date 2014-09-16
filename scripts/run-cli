@@ -23,7 +23,8 @@ $res_path/sip3
 #	sleep 1
 #done
 
-cat test/res/sipwarn | build/test/ts-udp
+cat test/res/sip-mimeversion | build/test/ts-udp
+#cat test/res/sipwarn | build/test/ts-udp
 #cat test/res/sip-invite-require | build/test/ts-udp
 #cat test/res/sip-options | build/test/ts-udp
 #cat test/res/sip73 | build/test/ts-udp #options

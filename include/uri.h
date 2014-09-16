@@ -186,28 +186,28 @@ namespace EasySip
 
 		void Initialize()
 		{
-			uri_params_.append("aai");
-			uri_params_.append("bnc");
-			uri_params_.append("cause");
-			uri_params_.append("ccxml");
-			uri_params_.append("comp");
-			uri_params_.append("gr");
-			uri_params_.append("locale");
-			uri_params_.append("lr", false);
-			uri_params_.append("m");
-			uri_params_.append("maddr");
-			uri_params_.append("maxage");
-			uri_params_.append("maxstale");
-			uri_params_.append("method");
-			uri_params_.append("ob");
-			uri_params_.append("postbody");
-			uri_params_.append("repeat");
-			uri_params_.append("sg");
-			uri_params_.append("sigcomp-id");
-			uri_params_.append("target");
-			uri_params_.append("transport");
-			uri_params_.append("ttl");
-			uri_params_.append("user");
+//			uri_params_.append("aai");
+//			uri_params_.append("bnc");
+//			uri_params_.append("cause");
+//			uri_params_.append("ccxml");
+//			uri_params_.append("comp");
+//			uri_params_.append("gr");
+//			uri_params_.append("locale");
+//			uri_params_.append("lr", false);
+//			uri_params_.append("m");
+//			uri_params_.append("maddr");
+//			uri_params_.append("maxage");
+//			uri_params_.append("maxstale");
+//			uri_params_.append("method");
+//			uri_params_.append("ob");
+//			uri_params_.append("postbody");
+//			uri_params_.append("repeat");
+//			uri_params_.append("sg");
+//			uri_params_.append("sigcomp-id");
+//			uri_params_.append("target");
+//			uri_params_.append("transport");
+//			uri_params_.append("ttl");
+//			uri_params_.append("user");
 			// RFC-4240
 //			uri_params_.append("content-type");
 //			uri_params_.append("delay");

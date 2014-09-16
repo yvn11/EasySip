@@ -471,15 +471,11 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFMaxForwards : public HeaderField
+	struct HFMaxForwards : public HFBase_2_
 	{
-		std::string max_fw_;
-
-		HFMaxForwards() : HeaderField("Max-Forwards", true)
+		HFMaxForwards() : HFBase_2_("Max-Forwards", true)
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReason : public HeaderField
@@ -794,6 +790,8 @@ namespace EasySip
 
 	struct HFMIMEVersion : public HeaderField
 	{
+		std::string dotted_value_;
+
 		HFMIMEVersion() : HeaderField("MIME-Version")
 		{
 		}

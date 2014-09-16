@@ -319,8 +319,6 @@ namespace EasySip
 
 	void RequestMessage::parse(size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-
 		if (msg_.empty()) return;
 
 		req_line_->parse(msg_, pos);

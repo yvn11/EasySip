@@ -216,10 +216,9 @@ namespace EasySip
 				if (name == it->first)
 					break;
 	
-			if (it == end())
-				return; // TODO: throw error
-	
-			erase(it);
+			if (it != end())
+				erase(it);
+
 			append(name, value);
 		}
 

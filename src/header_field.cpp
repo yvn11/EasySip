@@ -150,7 +150,7 @@ namespace EasySip
 					{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -187,7 +187,7 @@ namespace EasySip
 					{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -342,7 +342,7 @@ namespace EasySip
 						{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
 						}
@@ -375,7 +375,7 @@ namespace EasySip
 					{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -660,7 +660,7 @@ namespace EasySip
 						{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
 						}
@@ -695,7 +695,7 @@ namespace EasySip
 					{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -1032,61 +1032,6 @@ namespace EasySip
 	void HFPPreferredIdentity::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFMaxForwards::generate_values()
-	{
-		values_ = max_fw_;
-	}
-
-	void HFMaxForwards::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true;
-		std::string buffer;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
-			{
-				CASE_DIGIT
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (max_fw_.empty())
-						max_fw_ = buffer;	
-
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					do_if_is_alpha(msg.at(pos+1), run = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
-					buffer.clear();
-				}
-			}
-		}
-
-		std::cout << *this;
 	}
 
 	void HFReason::generate_values()
@@ -1560,6 +1505,7 @@ namespace EasySip
 			switch(msg.at(pos))
 			{
 				CASE_LOWER_ALPHA
+				CASE_DIGIT
 				case '-':
 				{
 					buffer += msg.at(pos++);
@@ -1572,6 +1518,7 @@ namespace EasySip
 					buffer.clear();
 					break;
 				}
+				case ' ':
 				case '\r':
 				{
 					pos++;
@@ -1583,10 +1530,9 @@ namespace EasySip
 					{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
-						read_head_param = false;
 					}
 
 					if (composite_ty_.empty())
@@ -1626,7 +1572,7 @@ namespace EasySip
 					{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.set_value_by_name(name, value);
+						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -1706,12 +1652,57 @@ namespace EasySip
 
 	void HFMIMEVersion::generate_values()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		values_ = dotted_value_;
 	}
 
 	void HFMIMEVersion::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		bool run = true;
+		std::string buffer;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			if (pos+1 >= msg.size())
+			{
+				if (dotted_value_.empty())
+					dotted_value_ = buffer;
+				break;
+			}
+			switch(msg.at(pos))
+			{
+				CASE_DIGIT
+				case '.':
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (dotted_value_.empty())
+						dotted_value_ = buffer;
+
+					run = false;
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					buffer.clear();
+				}
+			}
+		}
+
+		std::cout << *this;
 	}
 
 	void HeaderFields::init_allowed_fields()
