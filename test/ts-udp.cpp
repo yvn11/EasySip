@@ -1,5 +1,5 @@
-#include "UserAgent/uaclient.h"
-#include "UserAgent/uaserver.h"
+#include "Method/uaclient.h"
+#include "Method/uaserver.h"
 #include <iostream>
 #include <thread>
 

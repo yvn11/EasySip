@@ -82,31 +82,33 @@ namespace EasySip
 
 		return o;
 	}
+
 	Message& Message::create()
 	{
 		if (!is_valid())
-		{	// TODO throw exception
-			std::cerr << "message invalid\n";
+		{
+			// TODO: thown exception and log this
+			std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\n";
 			return *this;
 		}
 
 		std::ostringstream o;
 		o << user_data_.size();
 
-		content_length_ = std::make_shared<HFContentLength>();//.append_field();
-		content_length_->length_ = o.str();//append_value(o.str());
+		content_length_ = std::make_shared<HFContentLength>();
+		content_length_->digit_value_ = o.str();
 
 		return *this;
 	}
 
 	bool Message::is_valid()
 	{
-		if (call_id_ == 0) return false;
-		if (cseq_ == 0) return false;
-		if (from_ == 0) return false;
-		if (to_ == 0) return false;
-		if (via_.empty()) return false;
-		if (max_forwards_ == 0 && resp_status_ == 0) return false;
+		return_false_if_true(call_id_ == 0) 
+		return_false_if_true(cseq_ == 0) 
+		return_false_if_true(from_ == 0) 
+		return_false_if_true(to_ == 0) 
+		return_false_if_true(via_.empty()) 
+//		return_false_if_true(max_forwards_ == 0 && resp_status_ == 0) 
 
 		return true;
 	}
@@ -252,7 +254,7 @@ namespace EasySip
 		while (run)
 		{
 			if (pos+1 >= msg_.size()) break;
-			if (content_length_) break;
+//			if (content_length_) break;
 
 			switch(msg_.at(pos))
 			{
@@ -262,8 +264,8 @@ namespace EasySip
 					buffer += msg_.at(pos++);
 					break;
 				}
-				case '\n':
 				case '\r':
+				case '\n':
 				{
 					pos++;
 					buffer.clear();
@@ -290,7 +292,7 @@ namespace EasySip
 		if (content_length_)
 		{
 			size_t i = 1, len = 0;
-			std::istringstream in(content_length_->length_);
+			std::istringstream in(content_length_->digit_value_);
 			in >> len;
 	
 			while (pos < msg_.size() && i < len)
@@ -299,13 +301,12 @@ namespace EasySip
 			}
 
 			user_data_ = buffer;
-			std::cout << "user_data_: " << user_data_ << '\n';
 		}
 	}
 
 	RequestMessage& RequestMessage::create()
 	{
-		Base::create();
+		//Base::create();
 		std::ostringstream o;
 
 		o << req_line_ << '\n';
@@ -326,196 +327,111 @@ namespace EasySip
 
 		Base::parse(pos);
 
-		std::cout << "--------------------------------\n";
+		if (!is_valid())
+		{
+			std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\n";
+		}
+
+		std::cout << "-request------------------------\n";
 		std::cout << *req_line_ << '\n';
 		std::cout << *this;
-	}
-
-	InviteMessage& InviteMessage::create()
-	{
-		return *this;
-	}
-
-	void InviteMessage::parse()
-	{
-		size_t pos = 0;
-		RequestMessage::parse(pos);
+		std::cout << "--------------------------------\n";
 	}
 
 	bool InviteMessage::is_valid()
 	{
-		if (!Base::is_valid()) return false;
-
-		if (contact_ == 0) return false;
+		return_false_if_true(!Base::is_valid())
+		return_false_if_true(contact_ == 0)
 
 		return true;
 	}
 	// RegisterMessage
-	RegisterMessage& RegisterMessage::create()
-	{
-		return *this;
-	}
-
 	bool RegisterMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		return_false_if_true(!Base::is_valid())
+
+		if (record_route_) delete &record_route_;
+
 		return true;
 	}
 	// AckMessage
-	AckMessage& AckMessage::create()
-	{
-		return *this;
-	}
-
 	bool AckMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		return_false_if_true(!Base::is_valid())
 		return true;
 	}
 	// ByeMessage
-	ByeMessage& ByeMessage::create()
-	{
-		return *this;
-	}
-
 	bool ByeMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		return_false_if_true(!Base::is_valid())
 		return true;
 	}
 	// CancelMessage
-	CancelMessage& CancelMessage::create()
-	{
-		return *this;
-	}
-	
 	bool CancelMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		return_false_if_true(!Base::is_valid())
 		return true;
 	}
 	// OptionsMessage
-	OptionsMessage& OptionsMessage::create()
-	{
-		return *this;
-	}
-
 	bool OptionsMessage::is_valid()
-	{
-		if (!Base::is_valid())
-			return false;
+	{std::cout << "OptionsMessage::is_valid\n";
+		return_false_if_true(!Base::is_valid())
 		return true;
 	}
 
 	// ReferMessage
-	ReferMessage& ReferMessage::create()
-	{
-		return *this;
-	}
-
 	bool ReferMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
-		if (contact_ == 0)
-			return false;
-		if (refer_to_ == 0)
-			return false;
+		return_false_if_true(!Base::is_valid())
+		return_false_if_true(contact_ == 0)
+		return_false_if_true(refer_to_ == 0)
 
 		return true;
 	}
 	// SubscribeMessage
-	SubscribeMessage& SubscribeMessage::create()
-	{
-		return *this;
-	}
-
 	bool SubscribeMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
-		if (contact_ == 0)
-			return false;
-		if (event_ == 0)
-			return false;
-		if (allow_events_ == 0)
-			return false;
+		return_false_if_true(!Base::is_valid())
+		return_false_if_true(contact_ == 0)
+		return_false_if_true(event_ == 0)
+		return_false_if_true(allow_events_ == 0)
 
 		return true;
 	}
 	// NotifyMessage
-	NotifyMessage& NotifyMessage::create()
-	{
-		return *this;
-	}
-
 	bool NotifyMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
-		if (contact_ == 0)
-			return false;
-		if (event_ == 0)
-			return false;
-		if (allow_events_ == 0)
-			return false;
-		if (subscription_state_ == 0)
-			return false;
+		return_false_if_true(!Base::is_valid())
+		return_false_if_true(contact_ == 0)
+		return_false_if_true(event_ == 0)
+		return_false_if_true(allow_events_ == 0)
+		return_false_if_true(subscription_state_ == 0)
 
 		return true;
 	}
 	// MessageMessage
-	MessageMessage& MessageMessage::create()
-	{
-		return *this;
-	}
-
 	bool MessageMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		return_false_if_true(!Base::is_valid())
 		return true;
 	}
 	// InfoMessage
-	InfoMessage& InfoMessage::create()
-	{
-		return *this;
-	}
-
 	bool InfoMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		return_false_if_true(!Base::is_valid())
 		return true;
 	}
 	// PrackMessage
-	PrackMessage& PrackMessage::create()
-	{
-		return *this;
-	}
-
 	bool PrackMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
+		return_false_if_true(!Base::is_valid())
 		return true;
 	}
 	// UpdateMessage
-	UpdateMessage& UpdateMessage::create()
-	{
-		return *this;
-	}
-
 	bool UpdateMessage::is_valid()
 	{
-		if (!Base::is_valid())
-			return false;
-		if (contact_ == 0)
-			return false;
+		return_false_if_true(!Base::is_valid())
+		return_false_if_true(contact_ == 0)
 
 		return true;
 	}
@@ -533,17 +449,16 @@ namespace EasySip
 		return *this;
 	}
 
-	void ResponseMessage::parse()
+	void ResponseMessage::parse(size_t &pos)
 	{
 		if (msg_.empty()) return;
 
-		size_t pos = 0;
-
 		resp_status_->parse(msg_, pos);
 		Base::parse(pos);
-
-		std::cout << "--------------------------------\n";
+		
+		std::cout << "-resonse------------------------\n";
 		std::cout << *resp_status_ << '\n';
 		std::cout << *this;
+		std::cout << "--------------------------------\n";
 	}
 } // namespace EasySip

@@ -1,17 +1,17 @@
 /*
- * include/UserAgent/user_agent.h
+ * include/Method/method.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
 #pragma once
 
-#include "method.h"
+#include "message.h"
 #include "socket.h"
 #include <signal.h>
 
 namespace EasySip
 {
-	class UserAgent// : public Methods
+	class Method
 	{
 	protected:
 
@@ -30,9 +30,9 @@ namespace EasySip
 
 	public:
 
-		UserAgent();
+		Method();
 
-		~UserAgent();
+		~Method();
 
 		virtual int start();
 		virtual int on_receive_message(std::string &msg);

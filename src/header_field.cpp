@@ -111,6 +111,7 @@ namespace EasySip
 			switch(msg.at(pos))
 			{
 				CASE_ALPHA_NUM
+				case ':':
 				case '-':
 				case '.':
 				case '/':
@@ -171,6 +172,10 @@ namespace EasySip
 					break;
 				}
 				case '\r':
+				{
+					pos++;
+					break;
+				}
 				case '\n':
 				{
 					if (sent_by_.empty())
@@ -249,6 +254,7 @@ namespace EasySip
 				}
 				CASE_ALPHA_NUM
 				case '-':
+				case '_':
 				case '.':
 				case '/':
 				case ':':
@@ -358,8 +364,12 @@ namespace EasySip
 					buffer.clear();
 					break;
 				}
-				case '\n':
 				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
 				{
 					if (read_head_param)
 					{
@@ -439,8 +449,12 @@ namespace EasySip
 					buffer.clear();
 					break;
 				}
-				case '\n':
 				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
 				{
 					if (method_.empty())
 						method_ = buffer;
@@ -491,8 +505,12 @@ namespace EasySip
 					buffer += msg.at(pos++);
 					break;
 				}
-				case '\n':
 				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
 				{
 					if (id_.empty())
 						id_ = buffer;
@@ -666,8 +684,12 @@ namespace EasySip
 					buffer.clear();
 					break;
 				}
-				case '\n':
 				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
 				{
 					if (read_head_param)
 					{
@@ -982,16 +1004,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFProxyRequire::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFProxyRequire::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
 	void HFPOSPAuthToken::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1044,8 +1056,12 @@ namespace EasySip
 					buffer += msg.at(pos++);
 					break;
 				}
-				case '\n':
 				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
 				{
 					if (max_fw_.empty())
 						max_fw_ = buffer;	
@@ -1143,14 +1159,80 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRequire::generate_values()
+	void HFBase_3_::generate_values()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		values_.clear();
+
+		for (auto &it : options_)
+		{
+			values_ += it + ' ';
+		}
+
+		values_.erase(values_.size()-1);
 	}
 
-	void HFRequire::parse(std::string &msg, size_t &pos)
+	void HFBase_3_::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		bool run = true;
+		std::string buffer;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			if (pos+1 >= msg.size()) break;
+			switch(msg.at(pos))
+			{
+				CASE_TOKEN
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case ',':
+				{
+					if (buffer.size())
+					{
+						options_.insert(buffer);
+					}
+				}
+				case ' ':
+				case '\t':
+				{
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (buffer.size())
+						options_.insert(buffer);
+
+					if (pos+1 >= msg.size())
+					{
+						run = false;
+						break;
+					}
+
+					do_if_is_alpha(msg.at(pos+1), run = false)
+				
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					buffer.clear();
+				}
+			}
+		}
+
+		std::cout << *this;
 	}
 
 	void HFRoute::generate_values()
@@ -1232,16 +1314,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFMinExpires::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFMinExpires::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
 	void HFMinSE::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1296,14 +1368,25 @@ namespace EasySip
 	void HFWarning::generate_values()
 	{
 		std::ostringstream o;
-		o << code_ << ' ' << agent_ << ' ' << text_;
+
+		for (auto &it : warn_values_)
+		{
+			o << it << ',';
+		}
+
 		values_ = o.str();
+
+		if (values_.size() && values_.at(values_.size()-1) == ',')
+		{
+			values_.erase(values_.size()-1);
+		}
 	}
 
 	void HFWarning::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true, in_dquote = false;
 		std::string buffer;
+		size_t index = 0;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
 
@@ -1312,16 +1395,48 @@ namespace EasySip
 			if (pos+1 >= msg.size()) break;
 			switch(msg.at(pos))
 			{
-				CASE_ALPHA_NUM
-				case '-':
+				CASE_TOKEN
+				case '(':
+				case ')':
+				case ']':
+				case '[':
+				case '<':
+				case '>':
 				{
 					buffer += msg.at(pos++);
 					break;
 				}
+				case '\t':
+				{
+					pos++;
+					buffer.clear();
+					break;
+				}
 				case ' ':
 				{
-					if (code_.empty())
-						code_ = buffer;
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					if (warn_values_.at(index).code_.empty())
+						warn_values_.at(index).code_ = buffer;
+				
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ',':
+				{
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					index++;
+					warn_values_.resize(warn_values_.size()+1);
 					pos++;
 					buffer.clear();
 					break;
@@ -1332,17 +1447,20 @@ namespace EasySip
 
 					if (!in_dquote)
 					{
-						buffer += msg.at(pos);
-						if (text_.empty())
-							text_ = buffer;
+						if (warn_values_.at(index).text_.empty())
+							warn_values_.at(index).text_ = buffer;
 					}
 
 					pos++;
 					buffer.clear();
 					break;
 				}
-				case '\n':
 				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
 				{
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
@@ -1412,51 +1530,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFContentLength::generate_values()
-	{
-		values_ = length_;
-	}
-
-	void HFContentLength::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true;
-		std::string buffer;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
-			{
-				CASE_DIGIT
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '\n':
-				case '\r':
-				{
-					if (length_.empty())
-						length_ = buffer;
-
-					run = false;
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
-					buffer.clear();
-				}
-			}
-		}
-
-		std::cout << *this;
-	}
-
 	void HFContentLanguage::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1499,8 +1572,12 @@ namespace EasySip
 					buffer.clear();
 					break;
 				}
-				case '\n':
 				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
 				{
 					if (read_head_param)
 					{
@@ -1573,14 +1650,58 @@ namespace EasySip
 		std::cout << *this;
 	}
 
-	void HFExpires::generate_values()
+	void HFBase_2_::generate_values()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		values_ = digit_value_;
 	}
 
-	void HFExpires::parse(std::string &msg, size_t &pos)
+	void HFBase_2_::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		bool run = true;
+		std::string buffer;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			if (pos+1 >= msg.size())
+			{
+				if (digit_value_.empty())
+					digit_value_ = buffer;
+				break;
+			}
+			switch(msg.at(pos))
+			{
+				CASE_DIGIT
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (digit_value_.empty())
+						digit_value_ = buffer;
+
+					run = false;
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					buffer.clear();
+				}
+			}
+		}
+
+		std::cout << *this;
 	}
 
 	void HFMIMEVersion::generate_values()
@@ -1595,71 +1716,6 @@ namespace EasySip
 
 	void HeaderFields::init_allowed_fields()
 	{
-//		 allowed_fields_["CallId"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&              call_id_);
-//		 allowed_fields_["CSeq"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                cseq_);
-//		 allowed_fields_["From"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                from_);
-//		 allowed_fields_["To"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                  to_);
-//		 allowed_fields_["Via"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                 via_);
-//		 allowed_fields_["Alert-Info"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&          alert_info_);
-//		 allowed_fields_["Allow-Events"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&        allow_events_);
-//		 allowed_fields_["Date"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                date_);
-//		 allowed_fields_["Contact"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&             contact_);
-//		 allowed_fields_["Organization"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&        organization_);
-//		 allowed_fields_["Record-Route"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&        record_route_);
-//		 allowed_fields_["Retry-After"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&         retry_after_);
-//		 allowed_fields_["Subject"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&             subject_);
-//		 allowed_fields_["Supported"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&           supported_);
-//		 allowed_fields_["Timestamp"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&           timestamp_);
-//		 allowed_fields_["User-Agent"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&          user_agent_);
-//		 allowed_fields_["Answer-Mode"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&         answer_mode_);
-//		 allowed_fields_["Priv-Answer-Mode"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&    priv_answer_mode_);
-//		 allowed_fields_["Accept"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&              accept_);
-//		 allowed_fields_["Accept-Contact"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&      accept_contact_);
-//		 allowed_fields_["Accept-Encoding"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&     accept_encoding_);
-//		 allowed_fields_["Accept-Language"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&     accept_language_);
-//		 allowed_fields_["Authorization"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&       authorization_);
-//		 allowed_fields_["Call-Info"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&           call_info_);
-//		 allowed_fields_["Event"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&               event_);
-//		 allowed_fields_["In-Reply-To"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&         in_replay_to_);
-//		 allowed_fields_["Join"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                join_);
-//		 allowed_fields_["Priority"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&            priority_);
-//		 allowed_fields_["Privacy"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&             privacy_);
-//		 allowed_fields_["Proxy-Authorization"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(& proxy_authorization_);
-//		 allowed_fields_["Proxy-Require"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&       proxy_require_);
-//		 allowed_fields_["P-OSP-AuthToken"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&     p_osp_auth_token_);
-//		 allowed_fields_["PAsserted-Identity"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&  p_asserted_identity_);
-//		 allowed_fields_["PPreferred-Identity"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(& p_preferred_identity_);
-//		 allowed_fields_["Max-Forwards"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&        max_forwards_);
-//		 allowed_fields_["Reason"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&              reason_);
-//		 allowed_fields_["Refer-To"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&            refer_to_);
-//		 allowed_fields_["Referred-By"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&         referred_by_);
-//		 allowed_fields_["Reply-To"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&            reply_to_);
-//		 allowed_fields_["Replaces"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&            replaces_);
-//		 allowed_fields_["Reject-Contact"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&      reject_contact_);
-//		 allowed_fields_["Request-Disposition"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(& request_disposition_);
-//		 allowed_fields_["Require"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&             require_);
-//		 allowed_fields_["Route"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&               route_);
-//		 allowed_fields_["Rack"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                rack_);
-//		 allowed_fields_["Session-Expires"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&     session_expires_);
-//		 allowed_fields_["Subscription-State"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&  subscription_state_);
-//		 allowed_fields_["AuthenticationInfo"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&  authentication_info_);
-//		 allowed_fields_["Error-Info"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&          error_info_);
-//		 allowed_fields_["Min-Expires"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&         min_expires_);
-//		 allowed_fields_["Min-SE"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&              min_se_);
-//		 allowed_fields_["Proxy-Authenticate"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&  proxy_authenticate_);
-//		 allowed_fields_["Server"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&              server_);
-//		 allowed_fields_["Unsupported"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&         unsupported_);
-//		 allowed_fields_["Warning"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&             warning_);
-//		 allowed_fields_["WWW-Authenticate"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&    www_authenticate_);
-//		 allowed_fields_["RSeq"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&                rseq_);
-//		 allowed_fields_["Allow"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&               allow_);
-//		 allowed_fields_["Content-Encoding"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&    content_encoding_);
-//		 allowed_fields_["Content-Length"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&      content_length_);
-//		 allowed_fields_["Content-Language"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&    content_language_);
-//		 allowed_fields_["Content-Type"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&        content_type_);
-//		 allowed_fields_["Expires"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&             expires_);
-//		 allowed_fields_["MIME-Version"] = reinterpret_cast<HeaderFieldList<HeaderField>* >(&        mime_version_);
-
 		allowed_fields_.push_back("CallId");
 		allowed_fields_.push_back("CSeq");
 		allowed_fields_.push_back("From");

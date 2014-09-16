@@ -1,21 +1,21 @@
 /*
- * include/UserAgent/uaserver.h
+ * include/Method/registar.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
 #pragma once
 
-#include "user_agent.h"
+#include "method.h"
 
 namespace EasySip
 {
-	class UAServer : public UserAgent
+	class Registar : public Method
 	{
 	public:
 
-		UAServer();
+		Registar();
 
-		~UAServer()
+		~Registar()
 		{
 		}
 

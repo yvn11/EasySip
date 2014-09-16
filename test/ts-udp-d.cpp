@@ -5,7 +5,7 @@
  */
 #include <iostream>
 #include "socket.h"
-#include "UserAgent/uaserver.h"
+#include "Method/uaserver.h"
 #include <thread>
 
 using namespace EasySip;

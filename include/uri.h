@@ -86,7 +86,7 @@ namespace EasySip
 			CASE_ALPHA \
 			CASE_DIGIT 
 
-	#define CASE_WORD \
+	#define CASE_TOKEN \
 				CASE_ALPHA_NUM \
 				case '-': \
 				case '.': \
@@ -96,7 +96,10 @@ namespace EasySip
 				case '_': \
 				case '+': \
 				case 39: \
-				case '~': \
+				case '~':
+
+	#define CASE_WORD \
+				CASE_TOKEN \
 				case '(': \
 				case ')': \
 				case '<': \
@@ -118,6 +121,11 @@ namespace EasySip
 	{								\
 		std::locale loc;			\
 		if (std::isalpha(c, loc)) { f; }	\
+	}
+
+	#define do_if_is_linefeed(c, f)	\
+	{								\
+		if (c == '\n') { f; }		\
 	}
 
 	struct URI
@@ -148,8 +156,23 @@ namespace EasySip
 
 		friend std::ostream& operator<< (std::ostream &o, URI uri)
 		{
-			if (!uri.uri_.empty())
-				o << "<" << uri.uri_ << uri.uri_params_ << ">";
+			if (uri.uri_.empty()) return o;
+
+			URIParams::iterator it = uri.uri_params_.begin();
+
+			for (; it != uri.uri_params_.end(); it++)
+				if (!(it->Value().empty()))
+					break;
+
+			if (it != uri.uri_params_.end())
+			{
+				o << "<" << uri.uri_ << ">";
+			}
+			else
+			{
+				o << uri.uri_ << uri.uri_params_;
+			}
+
 			return o;
 		}
 

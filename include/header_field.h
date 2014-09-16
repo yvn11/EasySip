@@ -23,6 +23,11 @@ namespace EasySip
 	#define SIP_VERSION_2_0_UDP SIP_VERSION_2_0"/UDP"
 	#define SIP_VERSION SIP_VERSION_2_0
 
+	#define return_false_if_true(c) \
+	{								\
+		if ((c)) return false;	\
+	}
+
 	struct HeaderField
 	{
 		std::string field_;
@@ -123,7 +128,12 @@ namespace EasySip
 		std::string name_;
 		URI uri_;
 
-		HFBase_1_(std::string f, std::string c) : HeaderField(f, c)
+		HFBase_1_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
+		{
+			header_params_.append("tag");
+		}
+
+		HFBase_1_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
 		{
 			header_params_.append("tag");
 		}
@@ -131,6 +141,22 @@ namespace EasySip
 		virtual void generate_values();
 		virtual void parse(std::string &msg, size_t &pos);
 
+	};
+
+	struct HFBase_2_ : public HeaderField
+	{
+		std::string digit_value_;
+
+		HFBase_2_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
+		{
+		}
+
+		HFBase_2_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
+		{
+		}
+
+		virtual void generate_values();
+		virtual void parse(std::string &msg, size_t &pos);
 	};
 	/* From: Alice <sip:alice@atlanta.com>;tag=87263237
 	 */
@@ -417,14 +443,6 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFProxyRequire : public HeaderField
-	{
-		HFProxyRequire() : HeaderField("Proxy-Require", true)
-		{
-		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
-	};
 
 	struct HFPOSPAuthToken : public HeaderField
 	{
@@ -531,15 +549,44 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	/* Require: 100rel
-	 */
-	struct HFRequire : public HeaderField
+
+//	struct comparitor_string
+//	{
+//		bool operator() (const std::string &a, const std::string &b)
+//		{
+//			return (a == b);
+//		}
+//	};
+
+	struct HFBase_3_ : public HeaderField
 	{
-		HFRequire() : HeaderField("Require", true)
+		std::set<std::string> options_;
+
+		HFBase_3_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+
+		HFBase_3_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
+		{
+		}
+
+		virtual void generate_values();
+		virtual void parse(std::string &msg, size_t &pos);
+	};
+	/* Require: 100rel
+	 */
+	struct HFRequire : public HFBase_3_
+	{
+		HFRequire() : HFBase_3_("Require", true)
+		{
+		}
+	};
+
+	struct HFProxyRequire : public HFBase_3_
+	{
+		HFProxyRequire() : HFBase_3_("Proxy-Require", true)
+		{
+		}
 	};
 
 	struct HFRoute : public HeaderField
@@ -595,14 +642,6 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFMinExpires : public HeaderField
-	{
-		HFMinExpires() : HeaderField("Min-Expires")
-		{
-		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
-	};
 
 	struct HFMinSE : public HeaderField
 	{
@@ -643,12 +682,31 @@ namespace EasySip
 
 	struct HFWarning : public HeaderField
 	{
-		std::string code_;
-		std::string agent_; // hostport or pseudonym
-		std::string text_;
+		struct WarningValue
+		{
+			std::string code_;
+			std::string agent_;
+			std::string text_;
+
+			friend std::ostream& operator<< (std::ostream &o, WarningValue &w)
+			{
+				o << w.code_;
+
+				if (w.agent_.size())
+					o << ' ' << w.agent_;
+
+				if (w.text_.size())
+					o << " \"" << w.text_ << '"';
+
+				return o;
+			}
+		};
+
+		std::vector<WarningValue> warn_values_;
 
 		HFWarning() : HeaderField("Warning")
 		{
+			warn_values_.resize(1);
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -689,15 +747,13 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFContentLength : public HeaderField
+	struct HFContentLength : public HFBase_2_
 	{
-		std::string length_;
+//		std::string length_;
 
-		HFContentLength() : HeaderField("Content-Length", "l", true)
+		HFContentLength() : HFBase_2_("Content-Length", "l", true)
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFContentLanguage : public HeaderField
@@ -721,13 +777,19 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFExpires : public HeaderField
+
+	struct HFMinExpires : public HFBase_2_
 	{
-		HFExpires() : HeaderField("Expires")
+		HFMinExpires() : HFBase_2_("Min-Expires")
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+	};
+
+	struct HFExpires : public HFBase_2_
+	{
+		HFExpires() : HFBase_2_("Expires")
+		{
+		}
 	};
 
 	struct HFMIMEVersion : public HeaderField

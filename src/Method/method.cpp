@@ -1,24 +1,24 @@
 /*
- * src/UserAgent/user_agent.cpp
+ * src/Method/method.cpp
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
-#include "UserAgent/user_agent.h"
+#include "Method/method.h"
 
 namespace EasySip
 {
-	UserAgent::UserAgent()
+	Method::Method()
 	: run_(true)
 	{
 		init_allowed_methods();
 		init_allowed_responses();
 	}
 
-	UserAgent::~UserAgent()
+	Method::~Method()
 	{
 	}
 
-	void UserAgent::init_allowed_methods()
+	void Method::init_allowed_methods()
 	{
 		allowed_methods_.insert(METHOD_INVITE);
 		allowed_methods_.insert(METHOD_CANCEL);
@@ -35,7 +35,7 @@ namespace EasySip
 		allowed_methods_.insert(METHOD_PRACK);
 	}
 
-	void UserAgent::init_allowed_responses()
+	void Method::init_allowed_responses()
 	{
 		allowed_responses_.insert(SIP_RESPONSE_TRYING);
 		allowed_responses_.insert(SIP_RESPONSE_RINGING);
@@ -90,7 +90,7 @@ namespace EasySip
 		allowed_responses_.insert(SIP_RESPONSE_GLOBAL_NOT_ACCEPTABLE);
 	}
 
-	int UserAgent::on_receive_message(std::string &msg)
+	int Method::on_receive_message(std::string &msg)
 	{
 		int ret;
 
@@ -108,7 +108,7 @@ namespace EasySip
 		return -1;
 	}
 
-	int UserAgent::on_receive_req(std::string &msg, const int code)
+	int Method::on_receive_req(std::string &msg, const int code)
 	{
 		RequestMessage in_msg(msg);
 
@@ -173,13 +173,13 @@ namespace EasySip
 		return 0;
 	}
 
-	int UserAgent::on_receive_resp(std::string &msg, const int code)
+	int Method::on_receive_resp(std::string &msg, const int code)
 	{
-		ResponseMessage rep(SIP_RESPONSE_SUCCESSFUL);
-//		rep.append_userdata("top of the hill");
-		rep.ResponseVer(SIP_VERSION_2_0);
-		rep.create();
-		sv_udp_.send(rep.Msg());
+//		ResponseMessage rep(SIP_RESPONSE_SUCCESSFUL);
+////		rep.append_userdata("top of the hill");
+//		rep.ResponseVer(SIP_VERSION_2_0);
+//		rep.create();
+//		sv_udp_.send(rep.Msg());
 
 		ResponseMessage in_msg(msg);
 		in_msg.parse();
@@ -187,15 +187,15 @@ namespace EasySip
 		return 0;
 	}
 
-	void UserAgent::sigint_hdr(int signo)
+	void Method::sigint_hdr(int signo)
 	{
 		std::cout << __PRETTY_FUNCTION__ << "Got signal: " << signo << '\n';
 		run_ = false;
 	}
 
-	int UserAgent::start()
+	int Method::start()
 	{
-//		signal(SIGINT, (sighandler_t)&UserAgent::sigint_hdr);
+//		signal(SIGINT, (sighandler_t)&Method::sigint_hdr);
 		try
 		{
 			while (run_)
@@ -216,9 +216,8 @@ namespace EasySip
 		return 0;
 	}
 
-	int UserAgent::invite_request()
+	int Method::invite_request()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
 		std::string buffer, line;
 
 		while(std::getline(std::cin, line))
@@ -227,72 +226,76 @@ namespace EasySip
 		std::cout << "send:\n" << buffer << '\n';
 		cli_udp_.send(buffer);
 		cli_udp_.recv(0);
-		std::cout << "receive:\n" << cli_udp_.Message() << '\n';
+
+		
+		on_receive_message(cli_udp_.Message());
+//		std::cout << "receive:\n" << cli_udp_.Message() << '\n';
+		
 
 		return 0;
 	}
 
-	int UserAgent::register_request()
+	int Method::register_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::bye_request()
+	int Method::bye_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::cancel_request()
+	int Method::cancel_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::update_request()
+	int Method::update_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::info_request()
+	int Method::info_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::ack_request()
+	int Method::ack_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::message_request()
+	int Method::message_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::subscribe_request()
+	int Method::subscribe_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::notify_request()
+	int Method::notify_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::refer_request()
+	int Method::refer_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::options_request()
+	int Method::options_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::prack_request()
+	int Method::prack_request()
 	{
 		return 0;
 	}
 
-	int UserAgent::on_invite_request(RequestMessage &in_msg)
+	int Method::on_invite_request(RequestMessage &in_msg)
 	{
 //		InviteMessage msg(in_msg);
 		in_msg.parse();
@@ -314,7 +317,7 @@ namespace EasySip
 		return 0;
 	}
 	
-	int UserAgent::on_register_request(RequestMessage &in_msg)
+	int Method::on_register_request(RequestMessage &in_msg)
 	{
 //		RegisterMessage msg(in_msg);
 		in_msg.parse();
@@ -334,7 +337,7 @@ namespace EasySip
 		return 0;
 	}
 	
-	int UserAgent::on_bye_request(RequestMessage &in_msg)
+	int Method::on_bye_request(RequestMessage &in_msg)
 	{
 //		ByeMessage msg(in_msg);
 		in_msg.parse();
@@ -355,7 +358,7 @@ namespace EasySip
 		return 0;
 	}
 	
-	int UserAgent::on_cancel_request(RequestMessage &in_msg)
+	int Method::on_cancel_request(RequestMessage &in_msg)
 	{
 //		CancelMessage msg(in_msg);
 		in_msg.parse();
@@ -376,7 +379,7 @@ namespace EasySip
 		return 0;
 	}
 	
-	int UserAgent::on_ack_request(RequestMessage &in_msg)
+	int Method::on_ack_request(RequestMessage &in_msg)
 	{
 //		AckMessage msg(in_msg);
 		in_msg.parse();
@@ -397,7 +400,7 @@ namespace EasySip
 		return 0;
 	}
 	
-	int UserAgent::on_options_request(RequestMessage &in_msg)
+	int Method::on_options_request(RequestMessage &in_msg)
 	{
 //		AckMessage msg(in_msg);
 		in_msg.parse();
@@ -418,55 +421,55 @@ namespace EasySip
 		return 0;
 	}
 	
-	int UserAgent::on_subscribe_request(RequestMessage &in_msg)
+	int Method::on_subscribe_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 	
-	int UserAgent::on_notify_request(RequestMessage &in_msg)
+	int Method::on_notify_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 	
-	int UserAgent::on_info_request(RequestMessage &in_msg)
+	int Method::on_info_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 	
-	int UserAgent::on_update_request(RequestMessage &in_msg)
+	int Method::on_update_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 	
-	int UserAgent::on_refer_request(RequestMessage &in_msg)
+	int Method::on_refer_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 	
-	int UserAgent::on_message_request(RequestMessage &in_msg)
+	int Method::on_message_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 	
-	int UserAgent::on_prack_request(RequestMessage &in_msg)
+	int Method::on_prack_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 
-	int UserAgent::on_response(std::string &msg)
+	int Method::on_response(std::string &msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;
 	}
 
-//	int UserAgent::on_rx_req_exception(RequestMessage &in_msg)
+//	int Method::on_rx_req_exception(RequestMessage &in_msg)
 //	{
 //		// ---------------------------------------------
 //		ResponseMessage resp_msg = in_msg;

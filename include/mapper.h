@@ -251,7 +251,6 @@ namespace EasySip
 					o << ";";
 	
 				o << *it;
-	
 			}
 	
 			return o;

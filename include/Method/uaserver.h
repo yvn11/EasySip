@@ -1,20 +1,21 @@
 /*
- * include/UserAgent/uaclient.h
+ * include/Method/uaserver.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
 #pragma once
 
-#include "user_agent.h"
+#include "method.h"
 
 namespace EasySip
-{	
-	class UAClient : public UserAgent
+{
+	class UAServer : public Method
 	{
 	public:
-		UAClient();
 
-		~UAClient()
+		UAServer();
+
+		~UAServer()
 		{
 		}
 
@@ -46,6 +47,7 @@ namespace EasySip
 //		virtual int on_prack_request(RequestMessage &in_msg);
 //		virtual int on_update_request(RequestMessage &in_msg);
 //		virtual int on_response(Message &in_msg);
+//		virtual int on_rx_req_exception(RequestMessage &in_msg);
 	};
 
 } // namespace EasySip

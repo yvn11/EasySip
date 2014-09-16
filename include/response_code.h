@@ -10,6 +10,8 @@
 namespace EasySip
 {
 	typedef CodeMap RespCode;
+	typedef CodeMap WarnCode;
+	typedef std::set<RespCode> RespCodeList;
 	
 	// RFC-3261
 	// 1xx provisional
@@ -70,5 +72,23 @@ namespace EasySip
 	const RespCode SIP_RESPONSE_GLOBAL_NOT_EXIST(604, "Does not exist anywhere");
 	const RespCode SIP_RESPONSE_GLOBAL_NOT_ACCEPTABLE(606, "Not Acceptable");
 
-	typedef std::set<RespCode> RespCodeList;
+	// Warning codes in response (Warning hearder field)
+	// RFC-3261
+	const WarnCode SIP_WARNING_300(300, "Incompatible network protocol");
+	const WarnCode SIP_WARNING_301(301, "Incompatible network address formats");
+	const WarnCode SIP_WARNING_302(302, "Incompatible transport protocol");
+	const WarnCode SIP_WARNING_303(303, "Incompatible bandwidth units");
+	const WarnCode SIP_WARNING_304(304, "Media type not available");
+	const WarnCode SIP_WARNING_305(305, "Incompatible media format");
+	const WarnCode SIP_WARNING_306(306, "Attribute not understood");
+	const WarnCode SIP_WARNING_307(307, "Session description parmeter not understood");
+	const WarnCode SIP_WARNING_330(330, "Multicast not available");
+	const WarnCode SIP_WARNING_331(331, "Unicast not available");
+	const WarnCode SIP_WARNING_370(370, "Insufficient bandwidth");
+	// RFC-5630
+	const WarnCode SIP_WARNING_380(380, "SIPS Not Allowed");
+	const WarnCode SIP_WARNING_381(381, "SIPS Required");
+	// RFC-3261
+	const WarnCode SIP_WARNING_399(399, "Miscellaneous warning");
+
 } // namespace EasySip

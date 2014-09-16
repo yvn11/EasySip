@@ -1,0 +1,12 @@
+SIP/2.0 606 Not Acceptable
+Via: SIP/2.0/UDP c.bell-tel.com
+From: A. Bell <sip:a.g.bell@bell-tel.com>;tag=3
+To: T. Watson <sip:t.watson@ieee.org> ;tag=7434264
+Call-ID: 14142@c.bell-tel.com
+CSeq: 1 INVITE
+Warning: 370 "Insufficient bandwidth (only have ISDN)",
+  305 "Incompatible media format",
+  330 "Multicast not available"
+Content-Type: application/sdp
+Content-Length: 258
+

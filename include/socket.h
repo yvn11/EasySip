@@ -144,7 +144,7 @@ namespace EasySip
 			inet_aton(self_addr_.c_str(), (in_addr*)&self_sk_addr_.sin_addr.s_addr);
 		}
 
-		std::string Message()
+		std::string& Message()
 		{
 			return msg_;
 		}

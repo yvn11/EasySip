@@ -6,8 +6,6 @@
 #pragma once
 
 #include "header_field.h"
-#include "request_message.h"
-#include <iostream>
 
 namespace EasySip
 {
@@ -151,9 +149,7 @@ namespace EasySip
 		{
 		}
 
-		InviteMessage& create();
 		bool is_valid();
-		void parse();
 	};
 
 	class RegisterMessage : public RequestMessage
@@ -182,8 +178,22 @@ namespace EasySip
 		{
 		}
 
-		RegisterMessage& create();
 		bool is_valid();
+		bool is_all_registerations_appliable()
+		{
+			if (!expires_)
+			{
+				return true;
+			}
+			else if ("0" == expires_->digit_value_)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	};
 
 	class ByeMessage : public RequestMessage
@@ -210,7 +220,6 @@ namespace EasySip
 		{
 		}
 
-		ByeMessage& create();
 		bool is_valid();
 	};
 
@@ -238,7 +247,6 @@ namespace EasySip
 		{
 		}
 
-		AckMessage& create();
 		bool is_valid();
 	};
 
@@ -266,7 +274,6 @@ namespace EasySip
 		{
 		}
 
-		CancelMessage& create();
 		bool is_valid();
 	};
 
@@ -294,7 +301,6 @@ namespace EasySip
 		{
 		}
 
-		OptionsMessage& create();
 		bool is_valid();
 	};
 
@@ -320,7 +326,6 @@ namespace EasySip
 		{
 		}
 
-		ReferMessage& create();
 		bool is_valid();
 	};
 
@@ -346,7 +351,6 @@ namespace EasySip
 		{
 		}
 
-		SubscribeMessage& create();
 		bool is_valid();
 	};
 
@@ -372,7 +376,6 @@ namespace EasySip
 		{
 		}
 
-		NotifyMessage& create();
 		bool is_valid();
 	};
 
@@ -398,7 +401,6 @@ namespace EasySip
 		{
 		}
 
-		MessageMessage& create();
 		bool is_valid();
 	};
 
@@ -424,7 +426,6 @@ namespace EasySip
 		{
 		}
 
-		InfoMessage& create();
 		bool is_valid();
 	};
 
@@ -450,7 +451,6 @@ namespace EasySip
 		{
 		}
 
-		PrackMessage& create();
 		bool is_valid();
 	};
 
@@ -476,7 +476,6 @@ namespace EasySip
 		{
 		}
 
-		UpdateMessage& create();
 		bool is_valid();
 	};
 
@@ -552,6 +551,11 @@ namespace EasySip
 		}
 
 		ResponseMessage& create();
-		void parse();
+		virtual void parse(size_t &pos);
+		virtual void parse()
+		{
+			size_t pos = 0;
+			parse(pos);
+		}
 	};
 } // namespace EasySip

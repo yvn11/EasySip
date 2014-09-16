@@ -1,9 +1,9 @@
 /*
- * src/UserAgent/uaserver.cpp
+ * src/Method/uaserver.cpp
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
-#include "UserAgent/uaserver.h"
+#include "Method/uaserver.h"
 #include "socket.h"
 
 namespace EasySip
@@ -11,12 +11,12 @@ namespace EasySip
 	UAServer::UAServer()
 	{
 		// TODO: configurable
-		//sv_udp_.SelfAddr("192.168.0.116");
-		sv_udp_.SelfAddr("192.168.2.8");
+		sv_udp_.SelfAddr("192.168.0.116");
+		//sv_udp_.SelfAddr("192.168.2.8");
 		sv_udp_.SelfPort(1971);
 
-		//cli_udp_.Addr("192.168.0.116");
-		cli_udp_.Addr("192.168.2.8");
+		cli_udp_.Addr("192.168.0.116");
+		//cli_udp_.Addr("192.168.2.8");
 		cli_udp_.Port(9898);
 		cli_udp_.NeedBind(false);
 	}
