@@ -130,12 +130,12 @@ namespace EasySip
 
 		HFBase_1_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
 		{
-			header_params_.append("tag");
+//			header_params_.append("tag");
 		}
 
 		HFBase_1_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
 		{
-			header_params_.append("tag");
+//			header_params_.append("tag");
 		}
 
 		virtual void generate_values();
@@ -211,8 +211,8 @@ namespace EasySip
 	{
 		HFAlertInfo() : HeaderField("Alert-Info", true)
 		{
-			header_params_.append("appearance");
-			header_params_.append("purpose");
+//			header_params_.append("appearance");
+//			header_params_.append("purpose");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -274,7 +274,7 @@ namespace EasySip
 	{
 		HFRetryAfter() : HeaderField("Retry-After")
 		{
-			header_params_.append("duration");
+//			header_params_.append("duration");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -320,7 +320,7 @@ namespace EasySip
 	{
 		HFAnswerMode() : HeaderField("Answer-Mode")
 		{
-			header_params_.append("require");
+//			header_params_.append("require");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -330,7 +330,7 @@ namespace EasySip
 	{
 		HFPrivAnswerMode() : HeaderField("Priv-Answer-Mode")
 		{
-			header_params_.append("require");
+//			header_params_.append("require");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -341,7 +341,7 @@ namespace EasySip
 	{
 		HFAccept() : HeaderField("Accept") // type/sub-type
 		{
-			header_params_.append("q");
+//			header_params_.append("q");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -360,7 +360,7 @@ namespace EasySip
 	{
 		HFAcceptEncoding() : HeaderField("Accept-Encoding")
 		{
-			header_params_.append("q");
+//			header_params_.append("q");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -370,7 +370,7 @@ namespace EasySip
 	{
 		HFAcceptLanguage() : HeaderField("Accept-Language")
 		{
-			header_params_.append("q");
+//			header_params_.append("q");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -482,8 +482,8 @@ namespace EasySip
 	{
 		HFReason() : HeaderField("Reason", true)
 		{
-			header_params_.append("cause");
-			header_params_.append("text");
+//			header_params_.append("cause");
+//			header_params_.append("text");
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);

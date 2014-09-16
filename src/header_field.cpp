@@ -78,19 +78,19 @@ namespace EasySip
 
 	HFVia::HFVia() : HeaderField("Via", "v", true)
 	{
-		header_params_.append("alias");
-		header_params_.append("branch");
-		header_params_.append("comp");
-		header_params_.append("keep");
-		header_params_.append("maddr");
-		header_params_.append("oc");
-		header_params_.append("oc-algo");
-		header_params_.append("oc-seq");
-		header_params_.append("oc-validity");
-		header_params_.append("received");
-		header_params_.append("rport");
-		header_params_.append("sigcomp-id");
-		header_params_.append("ttl");
+//		header_params_.append("alias");
+//		header_params_.append("branch");
+//		header_params_.append("comp");
+//		header_params_.append("keep");
+//		header_params_.append("maddr");
+//		header_params_.append("oc");
+//		header_params_.append("oc-algo");
+//		header_params_.append("oc-seq");
+//		header_params_.append("oc-validity");
+//		header_params_.append("received");
+//		header_params_.append("rport");
+//		header_params_.append("sigcomp-id");
+//		header_params_.append("ttl");
 	}
 
 	void HFVia::generate_values()

@@ -283,8 +283,15 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg_.at(pos++) << "': " << buffer << "\n";
-					buffer.clear();
+					if (content_length_)
+					{
+						run = false;
+					}
+					else
+					{
+						std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg_.at(pos++) << "': " << buffer << "\n";
+						buffer.clear();
+					}
 				}
 			}
 		}
