@@ -21,7 +21,8 @@ namespace EasySip
 	class Message : public HeaderFields
 	{
 	protected:
-		typedef Message Base;
+
+		typedef Message Ancestor;
 		std::string user_data_;
 		std::string msg_; // message to send or received, which contains header fields and user data
 
@@ -41,11 +42,6 @@ namespace EasySip
 			return msg_;
 		}
 
-//		void Msg(std::string msg)
-//		{
-//			msg_ = msg;
-//		}
-
 		~Message()
 		{
 		}
@@ -62,22 +58,22 @@ namespace EasySip
 
 		virtual Message& create();
 		virtual bool is_valid();
-		/* parse buffered header into formated header fields
-		 */
+
 		virtual void parse(size_t &pos);
 
 		template<typename T>
-		void parse_dispatch_if_match(
-			std::shared_ptr<T> &f, std::string buf,
-			std::string &msg, size_t &pos)
+		void set_hf_value(
+			std::vector<std::shared_ptr<T> > &f, std::string val)
 		{
-			if (T().Field() == buf || T().Compact() == buf)
-			{
-				 f = std::make_shared<T>();
-				 f->parse(msg, pos);
-			}
+			f.push_back(std::make_shared<T>());
+			f.at(f.size()-1)->values_ = val;
 		}
-		
+
+		#define parse_field(f, msg, pos) \
+		{ \
+			f.at(f.size()-1)->parse(msg, pos); \
+		}
+
 		virtual void parse_dispatch(std::string field, size_t &pos);
 
 		static int get_method_from_buffer(
@@ -89,6 +85,72 @@ namespace EasySip
 		static std::vector<std::string> split_by(std::string msg, std::string sym = " ");
 
 		friend std::ostream& operator<< (std::ostream& o, Message& hf);
+
+		// shotcut for each header field
+	 	HFCallId& add_call_id();
+	 	HFCSeq& add_cseq();
+	 	HFFrom& add_from();
+	 	HFTo& add_to();
+	 	HFVia& add_via();
+	 	HFAlertInfo& add_alert_info();
+	 	HFAllowEvents& add_allow_events();
+	 	HFDate& add_date();
+	 	HFContact& add_contact();
+	 	HFOrganization& add_organization();
+	 	HFRecordRoute& add_record_route();
+	 	HFRetryAfter& add_retry_after();
+	 	HFSubject& add_subject();
+	 	HFSupported& add_supported();
+	 	HFTimestamp& add_timestamp();
+	 	HFUserAgent& add_user_agent();
+	 	HFAnswerMode& add_answer_mode();
+	 	HFPrivAnswerMode& add_priv_answer_mode();
+	 	HFAccept& add_accept();
+	 	HFAcceptContact& add_accept_contact();
+	 	HFAcceptEncoding& add_accept_encoding();
+	 	HFAcceptLanguage& add_accept_language();
+	 	HFAuthorization& add_authorization();
+	 	HFCallInfo& add_call_info();
+	 	HFEvent& add_event();
+	 	HFInReplyTo& add_in_replay_to();
+	 	HFJoin& add_join();
+	 	HFPriority& add_priority();
+	 	HFPrivacy& add_privacy();
+	 	HFProxyAuthorization& add_proxy_authorization();
+	 	HFProxyRequire& add_proxy_require();
+	 	HFPOSPAuthToken& add_p_osp_auth_token();
+	 	HFPAssertedIdentity& add_p_asserted_identity();
+	 	HFPPreferredIdentity& add_p_preferred_identity();
+	 	HFMaxForwards& add_max_forwards();
+	 	HFReason& add_reason();
+	 	HFReferTo& add_refer_to();
+	 	HFReferredBy& add_referred_by();
+	 	HFReplyTo& add_reply_to();
+	 	HFReplaces& add_replaces();
+	 	HFRejectContact& add_reject_contact();
+	 	HFRequestDisposition& add_request_disposition();
+	 	HFRequire& add_require();
+	 	HFRoute& add_route();
+	 	HFRack& add_rack();
+	 	HFSessionExpires& add_session_expires();
+	 	HFSubscriptionState& add_subscription_state();
+	 	HFAuthenticationInfo& add_authentication_info();
+	 	HFErrorInfo& add_error_info();
+	 	HFMinExpires& add_min_expires();
+	 	HFMinSE& add_min_se();
+	 	HFProxyAuthenticate& add_proxy_authenticate();
+	 	HFServer& add_server();
+	 	HFUnsupported& add_unsupported();
+	 	HFWarning& add_warning();
+	 	HFWWWAuthenticate& add_www_authenticate();
+	 	HFRSeq& add_rseq();
+	 	HFAllow& add_allow();
+	 	HFContentEncoding& add_content_encoding();
+	 	HFContentLength& add_content_length();
+	 	HFContentLanguage& add_content_language();
+	 	HFContentType& add_content_type();
+	 	HFExpires& add_expires();
+	 	HFMIMEVersion& add_mime_version();
 	};
 	
 	// ---------------- Request messages --------------------------
@@ -179,21 +241,6 @@ namespace EasySip
 		}
 
 		bool is_valid();
-		bool is_all_registerations_appliable()
-		{
-			if (!expires_)
-			{
-				return true;
-			}
-			else if ("0" == expires_->digit_value_)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
 	};
 
 	class ByeMessage : public RequestMessage
@@ -499,13 +546,6 @@ namespace EasySip
 		{
 			resp_status_ = std::make_shared<ResponseStatus>();
 			resp_status_->resp_code_ = resp;
-
-			call_id_ = std::make_shared<HFCallId>();
-			cseq_ = std::make_shared<HFCSeq>();
-			from_ = std::make_shared<HFFrom>();
-			to_ = std::make_shared<HFTo>();
-			via_.push_back(std::make_shared<HFVia>());
-			max_forwards_ = std::make_shared<HFMaxForwards>();
 		}
 
 		ResponseMessage(RequestMessage &in_msg)
@@ -518,7 +558,6 @@ namespace EasySip
 			cseq_ = in_msg.cseq_;
 
 			via_ = in_msg.via_;
-			// TODO: append via_;
 		}
 
 		~ResponseMessage()
@@ -550,12 +589,14 @@ namespace EasySip
 			return resp_status_->version_;
 		}
 
-		ResponseMessage& create();
+		virtual ResponseMessage& create();
+
 		virtual void parse(size_t &pos);
 		virtual void parse()
 		{
 			size_t pos = 0;
 			parse(pos);
 		}
+
 	};
 } // namespace EasySip

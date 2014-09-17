@@ -2,6 +2,7 @@
 #include <string.h>
 #include <memory>
 #include <locale>
+#include <unordered_map>
 
 class A
 {
@@ -144,17 +145,15 @@ int main()
 	std::shared_ptr<A> p;
 	p = std::make_shared<A>();
 	p->show();
-	std::cout << "--------------" << (p == 0) << '\n' << *p;
-	std::cout << STRDQUOTE << '\n';
-	std::cout << STRQUOTE << '\n';
-	std::cout << STRBSLASH << '\n';
+
+	std::unordered_map<std::string, std::string> buck;
+
+	buck["hello"] = "now";
+	std::string hstr("hello");
+
+	std::cout << buck.hash_function()(hstr) << '\n';
 
 
-	std::string alpha_str;
-	alpha_str = "k";
-	std::locale loc;
-//	std::isalpha(alpha_str.at(0), loc);
-	std::cout << std::isalpha(alpha_str.at(0), loc) << loc.name() << '\n';
 
 	return 1;
 }

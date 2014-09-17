@@ -98,11 +98,95 @@ namespace EasySip
 //		return 0;
 //	}
 //	
-//	int Registar::on_register_request(RequestMessage &in_msg)
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
-//	}
+	int Registar::on_register_request(RequestMessage &in_msg)
+	{
+		in_msg.parse();
+
+		ResponseMessage rep(in_msg);
+		rep.ResponseVer(SIP_VERSION_2_0);
+
+		// TODO: looking for server, determine whether proxy (Request-URI)
+
+		// TODO: Check HFRequire for extensions
+
+		// TODO: authenticate the UAC, if no auth-mechanism available , check HFFrom address
+
+		// TODO: check if the authenticated user is authorized to modfy registrations for AOR.
+		//		check the database where map user names to a list of AOR.
+		//		if not authorized, reply with 403 response code and quit
+		rep.ResponseCode(SIP_RESPONSE_FORBIDDEN);
+		sv_udp_.send(rep.create().Msg());
+		return 0;
+
+		// TODO: get AOR from HFTo.
+		//		if AOR not valid for domain in Request-URI, reply with 404 response code and quit
+		rep.ResponseCode(SIP_RESPONSE_NOT_FOUND);
+		sv_udp_.send(rep.create().Msg());
+		return 0;
+
+		// check HFContact
+		if (in_msg.contact_.size())
+		{
+			if (1 < in_msg.contact_.size())
+			{
+				rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);
+				sv_udp_.send(rep.create().Msg());
+				return 0;
+			}
+
+			for (auto &it : in_msg.contact_.at(0)->uris_)
+			{
+				if (it.uri_ == "*")
+				{
+					if (in_msg.expires_.size() && in_msg.expires_.at(0)->digit_value_ != "0")
+					{
+						rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);
+						sv_udp_.send(rep.create().Msg());
+						return 0;
+					}
+				}
+			}
+
+		// TODO: check HFCallId, whether agrees with each binding stored
+		//		if not, remove the binding
+		//		else 
+		//			if the in_msg.cseq_ > binding.cseq_
+		//			else abort update, request failed
+		
+			int seconds;
+
+			std::string expire = in_msg.contact_.at(0)->header_params_.get_value_by_name("expires");
+
+			if (expire.empty())
+			{
+				if (in_msg.expires_.size())
+				{
+					expire = in_msg.expires_.at(0)->expire();
+				}
+				else
+				{
+					// TODO: expire = local expireation
+				}
+			}
+
+			std::istringstream is(expire);
+			is >> seconds;
+
+			if (seconds > 0 && seconds < ONE_HOUR/* TODO && expire < local-min-registrar-timeout */)
+			{
+				rep.ResponseCode(SIP_RESPONSE_INTERVAL_TOO_BRIEF);
+				rep.add_min_expires().add_value("45");/* TODO: min-expire value*/
+				sv_udp_.send(rep.create().Msg());
+				return 0;
+			}
+		}
+
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+		// TODO: append HFContact in current bindings with expires param
+		//		append HFDate
+		sv_udp_.send(rep.create().Msg());
+		return 0;
+	}
 //	
 //	int Registar::on_bye_request(RequestMessage &in_msg)
 //	{

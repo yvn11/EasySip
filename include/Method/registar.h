@@ -11,6 +11,10 @@ namespace EasySip
 {
 	class Registar : public Method
 	{
+	protected:
+
+		std::set<URI> uri_binds_;
+
 	public:
 
 		Registar();
@@ -34,7 +38,7 @@ namespace EasySip
 //		virtual int prack_request();
 //
 //		virtual int on_invite_request(RequestMessage &in_msg);
-//		virtual int on_register_request(RequestMessage &in_msg);
+		virtual int on_register_request(RequestMessage &in_msg);
 //		virtual int on_bye_request(RequestMessage &in_msg);
 //		virtual int on_ack_request(RequestMessage &in_msg);
 //		virtual int on_cancel_request(RequestMessage &in_msg);

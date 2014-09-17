@@ -34,7 +34,7 @@ $(BUILD)/%.o : %.cpp
 	@echo
 	@echo "===Generating $@===>"
 	$(MKDIR) $(dir $@)
-	$(CXX) $(CFLAGS) $(LDFLAGS) $(INCLUDES:%=-I%) $(MACROS:%=-D%) $(LIBS:%=-l%) -c -o $@ $^
+	$(CXX) $(CFLAGS) $(LDFLAGS) $(INCLUDES:%=-I%) $(MACROS:%=-D%) $(LIBS:%=-l%) -c -o $@ $<
 
 tests: $(SHARED_OBJ)
 	@echo

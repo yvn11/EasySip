@@ -28,6 +28,76 @@ namespace EasySip
 		if ((c)) return false;	\
 	}
 
+	#define ONE_HOUR 60*60 // in second
+
+	enum
+	{
+		HF_CALLID = 1,
+		HF_CSEQ,
+		HF_FROM,
+		HF_TO,
+		HF_VIA,
+		HF_ALERT_INFO,
+		HF_ALLOW_EVENTS,
+		HF_DATE,
+		HF_CONTACT,
+		HF_ORGANIZATION,
+		HF_RECORD_ROUTE,
+		HF_RETRY_AFTER,
+		HF_SUBJECT,
+		HF_SUPPORTED,
+		HF_TIMESTAMP,
+		HF_USER_AGENT,
+		HF_ANSWER_MODE,
+		HF_PRIV_ANSWER_MODE,
+		HF_ACCEPT,
+		HF_ACCEPT_CONTACT,
+		HF_ACCEPT_ENCODING,
+		HF_ACCEPT_LANGUAGE,
+		HF_AUTHORIZATION,
+		HF_CALL_INFO,
+		HF_EVENT,
+		HF_IN_REPLY_TO,
+		HF_JOIN,
+		HF_PRIORITY,
+		HF_PRIVACY,
+		HF_PROXY_AUTHORIZATION,
+		HF_PROXY_REQUIRE,
+		HF_P_OSP_AUTHTOKEN,
+		HF_PASSERTED_IDENTITY,
+		HF_PPREFERRED_IDENTITY,
+		HF_MAX_FORWARDS,
+		HF_REASON,
+		HF_REFER_TO,
+		HF_REFERRED_BY,
+		HF_REPLY_TO,
+		HF_REPLACES,
+		HF_REJECT_CONTACT,
+		HF_REQUEST_DISPOSITION,
+		HF_REQUIRE,
+		HF_ROUTE,
+		HF_RACK,
+		HF_SESSION_EXPIRES,
+		HF_SUBSCRIPTION_STATE,
+		HF_AUTHENTICATIONINFO,
+		HF_ERROR_INFO,
+		HF_MIN_EXPIRES,
+		HF_MIN_SE,
+		HF_PROXY_AUTHENTICATE,
+		HF_SERVER,
+		HF_UNSUPPORTED,
+		HF_WARNING,
+		HF_WWW_AUTHENTICATE,
+		HF_RSEQ,
+		HF_ALLOW,
+		HF_CONTENT_ENCODING,
+		HF_CONTENT_LENGTH,
+		HF_CONTENT_LANGUAGE,
+		HF_CONTENT_TYPE,
+		HF_EXPIRES,
+		HF_MIME_VERSION,
+	};	
+
 	struct HeaderField
 	{
 		std::string field_;
@@ -157,6 +227,12 @@ namespace EasySip
 
 		virtual void generate_values();
 		virtual void parse(std::string &msg, size_t &pos);
+
+		virtual HFBase_2_& add_value(std::string val)
+		{
+			digit_value_ = val;
+			return *this;
+		}
 	};
 	/* From: Alice <sip:alice@atlanta.com>;tag=87263237
 	 */
@@ -164,6 +240,16 @@ namespace EasySip
 	{
 		HFFrom() : HFBase_1_("From", "f")
 		{
+		}
+
+		std::string& name()
+		{
+			return name_;
+		}
+
+		URI& uri()
+		{
+			return uri_;
 		}
 	};
 
@@ -173,6 +259,16 @@ namespace EasySip
 	{
 		HFTo() : HFBase_1_("To", "t")
 		{
+		}
+
+		std::string& name()
+		{
+			return name_;
+		}
+
+		URI& uri()
+		{
+			return uri_;
 		}
 	};
 
@@ -187,16 +283,6 @@ namespace EasySip
 		std::string sent_by_;
 
 		HFVia();
-
-//		std::string version()
-//		{
-//			return proto_.substr(proto_.find_last_of("/"));
-//		}
-//
-//		std::string transmit_protocol()
-//		{
-//			return proto_.substr(proto_.find_last_of("/")+1);
-//		}
 
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
@@ -240,7 +326,7 @@ namespace EasySip
 	 */
 	struct HFContact : public HeaderField
 	{
-		URI uri_;
+		std::vector<URI> uris_;
 
 		HFContact();
 
@@ -336,15 +422,51 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
+//	const char* accept_types[] =
+//	{
+//		"text", "image", "audio", "video", "application",
+//		"message", "multipart"
+//	};
 	// -------------------- Request header -----------------------------
 	struct HFAccept : public HeaderField
 	{
+		struct AcceptRange
+		{
+			std::string type_;
+			std::string subtype_;
+
+			AcceptRange()
+			{
+			}
+
+			AcceptRange(std::string type, std::string subtype)
+			: type_(type), subtype_(subtype)
+			{
+			}
+
+			friend std::ostream& operator<< (std::ostream &o, AcceptRange &r)
+			{
+				o << r.type_ << '/' << r.subtype_;
+				return o;
+			}
+		};
+
+		std::vector<AcceptRange> ranges_;
+
 		HFAccept() : HeaderField("Accept") // type/sub-type
 		{
+			ranges_.resize(1);
 //			header_params_.append("q");
 		}
+
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
+
+		HFAccept& add_value(std::string type, std::string subtype)
+		{
+			ranges_.push_back(AcceptRange(type, subtype));
+			return *this;
+		}
 	};
 
 	struct HFAcceptContact : public HeaderField
@@ -475,6 +597,16 @@ namespace EasySip
 	{
 		HFMaxForwards() : HFBase_2_("Max-Forwards", true)
 		{
+		}
+
+		std::string max_forwards()
+		{
+			return digit_value_;
+		}
+
+		void max_forwards(std::string val)
+		{
+			digit_value_ = val;
 		}
 	};
 
@@ -727,11 +859,19 @@ namespace EasySip
 
 	struct HFAllow : public HeaderField
 	{
+		std::vector<std::string> allows_;
+
 		HFAllow() : HeaderField("Allow")
 		{
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
+
+		HFAllow& add_value(std::string val)
+		{
+			allows_.push_back(val);
+			return *this;
+		}
 	};
 
 	struct HFContentEncoding : public HeaderField
@@ -745,10 +885,18 @@ namespace EasySip
 
 	struct HFContentLength : public HFBase_2_
 	{
-//		std::string length_;
-
 		HFContentLength() : HFBase_2_("Content-Length", "l", true)
 		{
+		}
+
+		std::string length()
+		{
+			return digit_value_;
+		}
+
+		void length(std::string val)
+		{
+			digit_value_ = val;
 		}
 	};
 
@@ -785,6 +933,16 @@ namespace EasySip
 	{
 		HFExpires() : HFBase_2_("Expires")
 		{
+		}
+
+		std::string expire()
+		{
+			return digit_value_;
+		}
+
+		void expire(std::string val)
+		{
+			digit_value_ = val;
 		}
 	};
 
@@ -862,168 +1020,94 @@ namespace EasySip
 		}
 	};
 
-	#define out_if_not_null(o, hf) { if (hf) o << *hf; }
-	#define out_if_not_empty(o, hf) {		\
-		for o << hf;		\
+	#define out_if_not_empty(o, hf)	\
+	{								\
+		for (auto &it : hf) o << *it;	\
 	}
+
+	typedef std::map<std::string, size_t> T_HF_MAP;
 
 	struct HeaderFields
 	{
-		typedef std::vector<std::string> T_HF_MAP;
-
 		std::shared_ptr<RequestLine> req_line_;
 		std::shared_ptr<ResponseStatus> resp_status_;
 		// mandatory
-		std::shared_ptr<HFCallId> call_id_;
-		std::shared_ptr<HFCSeq> cseq_;
-		std::shared_ptr<HFFrom> from_;
-		std::shared_ptr<HFTo> to_;
+		std::vector<std::shared_ptr<HFCallId> > call_id_;
+		std::vector<std::shared_ptr<HFCSeq> > cseq_;
+		std::vector<std::shared_ptr<HFFrom> > from_;
+		std::vector<std::shared_ptr<HFTo> > to_;
 		std::vector<std::shared_ptr<HFVia> > via_;
 		// Optional
-		std::shared_ptr<HFAlertInfo> alert_info_;
-		std::shared_ptr<HFAllowEvents> allow_events_;
-		std::shared_ptr<HFDate> date_;
-		std::shared_ptr<HFContact> contact_;
-		std::shared_ptr<HFOrganization> organization_;
-		std::shared_ptr<HFRecordRoute> record_route_;
-		std::shared_ptr<HFRetryAfter> retry_after_; // in second
-		std::shared_ptr<HFSubject> subject_;
-		std::shared_ptr<HFSupported> supported_;
-		std::shared_ptr<HFTimestamp> timestamp_;
-		std::shared_ptr<HFUserAgent> user_agent_;
-		std::shared_ptr<HFAnswerMode> answer_mode_;
-		std::shared_ptr<HFPrivAnswerMode> priv_answer_mode_;
+		std::vector<std::shared_ptr<HFAlertInfo> > alert_info_;
+		std::vector<std::shared_ptr<HFAllowEvents> > allow_events_;
+		std::vector<std::shared_ptr<HFDate> > date_;
+		std::vector<std::shared_ptr<HFContact> > contact_;
+		std::vector<std::shared_ptr<HFOrganization> > organization_;
+		std::vector<std::shared_ptr<HFRecordRoute> > record_route_;
+		std::vector<std::shared_ptr<HFRetryAfter> > retry_after_; // in second
+		std::vector<std::shared_ptr<HFSubject> > subject_;
+		std::vector<std::shared_ptr<HFSupported> > supported_;
+		std::vector<std::shared_ptr<HFTimestamp> > timestamp_;
+		std::vector<std::shared_ptr<HFUserAgent> > user_agent_;
+		std::vector<std::shared_ptr<HFAnswerMode> > answer_mode_;
+		std::vector<std::shared_ptr<HFPrivAnswerMode> > priv_answer_mode_;
 		// request header fields
-		std::shared_ptr<HFAccept> accept_; // type/sub-type
-		std::shared_ptr<HFAcceptContact> accept_contact_;
-		std::shared_ptr<HFAcceptEncoding> accept_encoding_;
-		std::shared_ptr<HFAcceptLanguage> accept_language_;
-		std::shared_ptr<HFAuthorization> authorization_;
-		std::shared_ptr<HFCallInfo> call_info_;
-		std::shared_ptr<HFEvent> event_;
-		std::shared_ptr<HFInReplyTo> in_replay_to_;
-		std::shared_ptr<HFJoin> join_;
-		std::shared_ptr<HFPriority> priority_;
-		std::shared_ptr<HFPrivacy> privacy_;
-		std::shared_ptr<HFProxyAuthorization> proxy_authorization_;
-		std::shared_ptr<HFProxyRequire> proxy_require_;
-		std::shared_ptr<HFPOSPAuthToken> p_osp_auth_token_;
-		std::shared_ptr<HFPAssertedIdentity> p_asserted_identity_;
-		std::shared_ptr<HFPPreferredIdentity> p_preferred_identity_;
-		std::shared_ptr<HFMaxForwards> max_forwards_;
-		std::shared_ptr<HFReason> reason_;
-		std::shared_ptr<HFReferTo> refer_to_;
-		std::shared_ptr<HFReferredBy> referred_by_;
-		std::shared_ptr<HFReplyTo> reply_to_;
-		std::shared_ptr<HFReplaces> replaces_;
-		std::shared_ptr<HFRejectContact> reject_contact_;
-		std::shared_ptr<HFRequestDisposition> request_disposition_;
-		std::shared_ptr<HFRequire> require_;
-		std::shared_ptr<HFRoute> route_;
-		std::shared_ptr<HFRack> rack_;
-		std::shared_ptr<HFSessionExpires> session_expires_; // in second
-		std::shared_ptr<HFSubscriptionState> subscription_state_;
+		std::vector<std::shared_ptr<HFAccept> > accept_; // type/sub-type
+		std::vector<std::shared_ptr<HFAcceptContact> > accept_contact_;
+		std::vector<std::shared_ptr<HFAcceptEncoding> > accept_encoding_;
+		std::vector<std::shared_ptr<HFAcceptLanguage> > accept_language_;
+		std::vector<std::shared_ptr<HFAuthorization> > authorization_;
+		std::vector<std::shared_ptr<HFCallInfo> > call_info_;
+		std::vector<std::shared_ptr<HFEvent> > event_;
+		std::vector<std::shared_ptr<HFInReplyTo> > in_replay_to_;
+		std::vector<std::shared_ptr<HFJoin> > join_;
+		std::vector<std::shared_ptr<HFPriority> > priority_;
+		std::vector<std::shared_ptr<HFPrivacy> > privacy_;
+		std::vector<std::shared_ptr<HFProxyAuthorization> > proxy_authorization_;
+		std::vector<std::shared_ptr<HFProxyRequire> > proxy_require_;
+		std::vector<std::shared_ptr<HFPOSPAuthToken> > p_osp_auth_token_;
+		std::vector<std::shared_ptr<HFPAssertedIdentity> > p_asserted_identity_;
+		std::vector<std::shared_ptr<HFPPreferredIdentity> > p_preferred_identity_;
+		std::vector<std::shared_ptr<HFMaxForwards> > max_forwards_;
+		std::vector<std::shared_ptr<HFReason> > reason_;
+		std::vector<std::shared_ptr<HFReferTo> > refer_to_;
+		std::vector<std::shared_ptr<HFReferredBy> > referred_by_;
+		std::vector<std::shared_ptr<HFReplyTo> > reply_to_;
+		std::vector<std::shared_ptr<HFReplaces> > replaces_;
+		std::vector<std::shared_ptr<HFRejectContact> > reject_contact_;
+		std::vector<std::shared_ptr<HFRequestDisposition> > request_disposition_;
+		std::vector<std::shared_ptr<HFRequire> > require_;
+		std::vector<std::shared_ptr<HFRoute> > route_;
+		std::vector<std::shared_ptr<HFRack> > rack_;
+		std::vector<std::shared_ptr<HFSessionExpires> > session_expires_; // in second
+		std::vector<std::shared_ptr<HFSubscriptionState> > subscription_state_;
 		// response header fields
-		std::shared_ptr<HFAuthenticationInfo> authentication_info_;
-		std::shared_ptr<HFErrorInfo> error_info_;
-		std::shared_ptr<HFMinExpires> min_expires_;
-		std::shared_ptr<HFMinSE> min_se_;
-		std::shared_ptr<HFProxyAuthenticate> proxy_authenticate_;
-		std::shared_ptr<HFServer> server_;
-		std::shared_ptr<HFUnsupported> unsupported_;
-		std::shared_ptr<HFWarning> warning_;
-		std::shared_ptr<HFWWWAuthenticate> www_authenticate_;
-		std::shared_ptr<HFRSeq> rseq_;
+		std::vector<std::shared_ptr<HFAuthenticationInfo> > authentication_info_;
+		std::vector<std::shared_ptr<HFErrorInfo> > error_info_;
+		std::vector<std::shared_ptr<HFMinExpires> > min_expires_;
+		std::vector<std::shared_ptr<HFMinSE> > min_se_;
+		std::vector<std::shared_ptr<HFProxyAuthenticate> > proxy_authenticate_;
+		std::vector<std::shared_ptr<HFServer> > server_;
+		std::vector<std::shared_ptr<HFUnsupported> > unsupported_;
+		std::vector<std::shared_ptr<HFWarning> > warning_;
+		std::vector<std::shared_ptr<HFWWWAuthenticate> > www_authenticate_;
+		std::vector<std::shared_ptr<HFRSeq> > rseq_;
 		// message header fields
-		std::shared_ptr<HFAllow> allow_;
-		std::shared_ptr<HFContentEncoding> content_encoding_;
-		std::shared_ptr<HFContentLength> content_length_;
-		std::shared_ptr<HFContentLanguage> content_language_;
-		std::shared_ptr<HFContentType> content_type_;
-		std::shared_ptr<HFExpires> expires_; // in second
-		std::shared_ptr<HFMIMEVersion> mime_version_;
-
-
-
-//		// mandatory
-//		HeaderFieldList<HFCallId> call_id_;
-//		HeaderFieldList<HFCSeq> cseq_;
-//		HeaderFieldList<HFFrom> from_;
-//		HeaderFieldList<HFTo> to_;
-//		HeaderFieldList<HFVia> via_;
-//		// Optional
-//		HeaderFieldList<HFAlertInfo> alert_info_;
-//		HeaderFieldList<HFAllowEvents> allow_events_;
-//		HeaderFieldList<HFDate> date_;
-//		HeaderFieldList<HFContact> contact_;
-//		HeaderFieldList<HFOrganization> organization_;
-//		HeaderFieldList<HFRecordRoute> record_route_;
-//		HeaderFieldList<HFRetryAfter> retry_after_; // in second
-//		HeaderFieldList<HFSubject> subject_;
-//		HeaderFieldList<HFSupported> supported_;
-//		HeaderFieldList<HFTimestamp> timestamp_;
-//		HeaderFieldList<HFUserAgent> user_agent_;
-//		HeaderFieldList<HFAnswerMode> answer_mode_;
-//		HeaderFieldList<HFPrivAnswerMode> priv_answer_mode_;
-//		// request header fields
-//		HeaderFieldList<HFAccept> accept_; // type/sub-type
-//		HeaderFieldList<HFAcceptContact> accept_contact_;
-//		HeaderFieldList<HFAcceptEncoding> accept_encoding_;
-//		HeaderFieldList<HFAcceptLanguage> accept_language_;
-//		HeaderFieldList<HFAuthorization> authorization_;
-//		HeaderFieldList<HFCallInfo> call_info_;
-//		HeaderFieldList<HFEvent> event_;
-//		HeaderFieldList<HFInReplyTo> in_replay_to_;
-//		HeaderFieldList<HFJoin> join_;
-//		HeaderFieldList<HFPriority> priority_;
-//		HeaderFieldList<HFPrivacy> privacy_;
-//		HeaderFieldList<HFProxyAuthorization> proxy_authorization_;
-//		HeaderFieldList<HFProxyRequire> proxy_require_;
-//		HeaderFieldList<HFPOSPAuthToken> p_osp_auth_token_;
-//		HeaderFieldList<HFPAssertedIdentity> p_asserted_identity_;
-//		HeaderFieldList<HFPPreferredIdentity> p_preferred_identity_;
-//		HeaderFieldList<HFMaxForwards> max_forwards_;
-//		HeaderFieldList<HFReason> reason_;
-//		HeaderFieldList<HFReferTo> refer_to_;
-//		HeaderFieldList<HFReferredBy> referred_by_;
-//		HeaderFieldList<HFReplyTo> reply_to_;
-//		HeaderFieldList<HFReplaces> replaces_;
-//		HeaderFieldList<HFRejectContact> reject_contact_;
-//		HeaderFieldList<HFRequestDisposition> request_disposition_;
-//		HeaderFieldList<HFRequire> require_;
-//		HeaderFieldList<HFRoute> route_;
-//		HeaderFieldList<HFRack> rack_;
-//		HeaderFieldList<HFSessionExpires> session_expires_; // in second
-//		HeaderFieldList<HFSubscriptionState> subscription_state_;
-//		// response header fields
-//		HeaderFieldList<HFAuthenticationInfo> authentication_info_;
-//		HeaderFieldList<HFErrorInfo> error_info_;
-//		HeaderFieldList<HFMinExpires> min_expires_;
-//		HeaderFieldList<HFMinSE> min_se_;
-//		HeaderFieldList<HFProxyAuthenticate> proxy_authenticate_;
-//		HeaderFieldList<HFServer> server_;
-//		HeaderFieldList<HFUnsupported> unsupported_;
-//		HeaderFieldList<HFWarning> warning_;
-//		HeaderFieldList<HFWWWAuthenticate> www_authenticate_;
-//		HeaderFieldList<HFRSeq> rseq_;
-//		// message header fields
-//		HeaderFieldList<HFAllow> allow_;
-//		HeaderFieldList<HFContentEncoding> content_encoding_;
-//		HeaderFieldList<HFContentLength> content_length_;
-//		HeaderFieldList<HFContentLanguage> content_language_;
-//		HeaderFieldList<HFContentType> content_type_;
-//		HeaderFieldList<HFExpires> expires_; // in second
-//		HeaderFieldList<HFMIMEVersion> mime_version_;
+		std::vector<std::shared_ptr<HFAllow> > allow_;
+		std::vector<std::shared_ptr<HFContentEncoding> > content_encoding_;
+		std::vector<std::shared_ptr<HFContentLength> > content_length_;
+		std::vector<std::shared_ptr<HFContentLanguage> > content_language_;
+		std::vector<std::shared_ptr<HFContentType> > content_type_;
+		std::vector<std::shared_ptr<HFExpires> > expires_; // in second
+		std::vector<std::shared_ptr<HFMIMEVersion> > mime_version_;
 
 		HeaderFields();
 
 		~HeaderFields();
 
-//		friend std::ostream& operator<< (std::ostream& o, HeaderFields& hf);
-
-	protected:
-		T_HF_MAP allowed_fields_;
-		void init_allowed_fields();
+	public:
+		static T_HF_MAP allowed_fields_;
+		static void init_allowed_fields();
 	};
 
 } // namespace EasySip

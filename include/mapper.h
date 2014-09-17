@@ -203,9 +203,11 @@ namespace EasySip
 	
 		bool has_name(std::string name)
 		{
-			Parameter p(name);
+			for (auto &it : *this)
+				if (name == it.first)
+					return true;
 	
-			return (find(p) == end() ? false : true);
+			return false;
 		}
 	
 		void set_value_by_name(std::string name, std::string value)

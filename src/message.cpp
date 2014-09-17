@@ -7,76 +7,479 @@
 
 namespace EasySip
 {
+//	HFAccept& Message::add_accept()
+//	{
+//		accept_.push_back(std::make_shared<HFAccept>());
+//		return *accept_.at(accept_.size()-1);
+//	}
+//
+//	HFVia& Message::add_via()
+//	{
+//		via_.push_back(std::make_shared<HFVia>());
+//		return *via_.at(via_.size()-1);
+//	}
+//
+//	HFAllow& Message::add_allow()
+//	{
+//		allow_.push_back(std::make_shared<HFAllow>());
+//		return *allow_.at(via_.size()-1);
+//	}
+//
+//	HFMinExpires& Message::add_min_expires()
+//	{
+//		min_expires_.push_back(std::make_shared<HFMinExpires>());
+//		return *min_expires_.at(min_expires_.size()-1);
+//	}
+	HFCallId& Message::add_call_id()
+	{
+		call_id_.push_back(std::make_shared<HFCallId>());
+		return *call_id_.at(call_id_.size()-1);
+	}
+
+	HFCSeq& Message::add_cseq()
+	{
+		cseq_.push_back(std::make_shared<HFCSeq>());
+		return *cseq_.at(cseq_.size()-1);
+	}
+
+	HFFrom& Message::add_from()
+	{
+		from_.push_back(std::make_shared<HFFrom>());
+		return *from_.at(from_.size()-1);
+	}
+
+	HFTo& Message::add_to()
+	{
+		to_.push_back(std::make_shared<HFTo>());
+		return *to_.at(to_.size()-1);
+	}
+
+	HFVia& Message::add_via()
+	{
+		via_.push_back(std::make_shared<HFVia>());
+		return *via_.at(via_.size()-1);
+	}
+
+	HFAlertInfo& Message::add_alert_info()
+	{
+		alert_info_.push_back(std::make_shared<HFAlertInfo>());
+		return *alert_info_.at(alert_info_.size()-1);
+	}
+
+	HFAllowEvents& Message::add_allow_events()
+	{
+		allow_events_.push_back(std::make_shared<HFAllowEvents>());
+		return *allow_events_.at(allow_events_.size()-1);
+	}
+
+	HFDate& Message::add_date()
+	{
+		date_.push_back(std::make_shared<HFDate>());
+		return *date_.at(date_.size()-1);
+	}
+
+	HFContact& Message::add_contact()
+	{
+		contact_.push_back(std::make_shared<HFContact>());
+		return *contact_.at(contact_.size()-1);
+	}
+
+	HFOrganization& Message::add_organization()
+	{
+		organization_.push_back(std::make_shared<HFOrganization>());
+		return *organization_.at(organization_.size()-1);
+	}
+
+	HFRecordRoute& Message::add_record_route()
+	{
+		record_route_.push_back(std::make_shared<HFRecordRoute>());
+		return *record_route_.at(record_route_.size()-1);
+	}
+
+	HFRetryAfter& Message::add_retry_after()
+	{
+		retry_after_.push_back(std::make_shared<HFRetryAfter>());
+		return *retry_after_.at(retry_after_.size()-1);
+	}
+
+	HFSubject& Message::add_subject()
+	{
+		subject_.push_back(std::make_shared<HFSubject>());
+		return *subject_.at(subject_.size()-1);
+	}
+
+	HFSupported& Message::add_supported()
+	{
+		supported_.push_back(std::make_shared<HFSupported>());
+		return *supported_.at(supported_.size()-1);
+	}
+
+	HFTimestamp& Message::add_timestamp()
+	{
+		timestamp_.push_back(std::make_shared<HFTimestamp>());
+		return *timestamp_.at(timestamp_.size()-1);
+	}
+
+	HFUserAgent& Message::add_user_agent()
+	{
+		user_agent_.push_back(std::make_shared<HFUserAgent>());
+		return *user_agent_.at(user_agent_.size()-1);
+	}
+
+	HFAnswerMode& Message::add_answer_mode()
+	{
+		answer_mode_.push_back(std::make_shared<HFAnswerMode>());
+		return *answer_mode_.at(answer_mode_.size()-1);
+	}
+
+	HFPrivAnswerMode& Message::add_priv_answer_mode()
+	{
+		priv_answer_mode_.push_back(std::make_shared<HFPrivAnswerMode>());
+		return *priv_answer_mode_.at(priv_answer_mode_.size()-1);
+	}
+
+	HFAccept& Message::add_accept()
+	{
+		accept_.push_back(std::make_shared<HFAccept>());
+		return *accept_.at(accept_.size()-1);
+	}
+
+	HFAcceptContact& Message::add_accept_contact()
+	{
+		accept_contact_.push_back(std::make_shared<HFAcceptContact>());
+		return *accept_contact_.at(accept_contact_.size()-1);
+	}
+
+	HFAcceptEncoding& Message::add_accept_encoding()
+	{
+		accept_encoding_.push_back(std::make_shared<HFAcceptEncoding>());
+		return *accept_encoding_.at(accept_encoding_.size()-1);
+	}
+
+	HFAcceptLanguage& Message::add_accept_language()
+	{
+		accept_language_.push_back(std::make_shared<HFAcceptLanguage>());
+		return *accept_language_.at(accept_language_.size()-1);
+	}
+
+	HFAuthorization& Message::add_authorization()
+	{
+		authorization_.push_back(std::make_shared<HFAuthorization>());
+		return *authorization_.at(authorization_.size()-1);
+	}
+
+	HFCallInfo& Message::add_call_info()
+	{
+		call_info_.push_back(std::make_shared<HFCallInfo>());
+		return *call_info_.at(call_info_.size()-1);
+	}
+
+	HFEvent& Message::add_event()
+	{
+		event_.push_back(std::make_shared<HFEvent>());
+		return *event_.at(event_.size()-1);
+	}
+
+	HFInReplyTo& Message::add_in_replay_to()
+	{
+		in_replay_to_.push_back(std::make_shared<HFInReplyTo>());
+		return *in_replay_to_.at(in_replay_to_.size()-1);
+	}
+
+	HFJoin& Message::add_join()
+	{
+		join_.push_back(std::make_shared<HFJoin>());
+		return *join_.at(join_.size()-1);
+	}
+
+	HFPriority& Message::add_priority()
+	{
+		priority_.push_back(std::make_shared<HFPriority>());
+		return *priority_.at(priority_.size()-1);
+	}
+
+	HFPrivacy& Message::add_privacy()
+	{
+		privacy_.push_back(std::make_shared<HFPrivacy>());
+		return *privacy_.at(privacy_.size()-1);
+	}
+
+	HFProxyAuthorization& Message::add_proxy_authorization()
+	{
+		proxy_authorization_.push_back(std::make_shared<HFProxyAuthorization>());
+		return *proxy_authorization_.at(proxy_authorization_.size()-1);
+	}
+
+	HFProxyRequire& Message::add_proxy_require()
+	{
+		proxy_require_.push_back(std::make_shared<HFProxyRequire>());
+		return *proxy_require_.at(proxy_require_.size()-1);
+	}
+
+	HFPOSPAuthToken& Message::add_p_osp_auth_token()
+	{
+		p_osp_auth_token_.push_back(std::make_shared<HFPOSPAuthToken>());
+		return *p_osp_auth_token_.at(p_osp_auth_token_.size()-1);
+	}
+
+	HFPAssertedIdentity& Message::add_p_asserted_identity()
+	{
+		p_asserted_identity_.push_back(std::make_shared<HFPAssertedIdentity>());
+		return *p_asserted_identity_.at(p_asserted_identity_.size()-1);
+	}
+
+	HFPPreferredIdentity& Message::add_p_preferred_identity()
+	{
+		p_preferred_identity_.push_back(std::make_shared<HFPPreferredIdentity>());
+		return *p_preferred_identity_.at(p_preferred_identity_.size()-1);
+	}
+
+	HFMaxForwards& Message::add_max_forwards()
+	{
+		max_forwards_.push_back(std::make_shared<HFMaxForwards>());
+		return *max_forwards_.at(max_forwards_.size()-1);
+	}
+
+	HFReason& Message::add_reason()
+	{
+		reason_.push_back(std::make_shared<HFReason>());
+		return *reason_.at(reason_.size()-1);
+	}
+
+	HFReferTo& Message::add_refer_to()
+	{
+		refer_to_.push_back(std::make_shared<HFReferTo>());
+		return *refer_to_.at(refer_to_.size()-1);
+	}
+
+	HFReferredBy& Message::add_referred_by()
+	{
+		referred_by_.push_back(std::make_shared<HFReferredBy>());
+		return *referred_by_.at(referred_by_.size()-1);
+	}
+
+	HFReplyTo& Message::add_reply_to()
+	{
+		reply_to_.push_back(std::make_shared<HFReplyTo>());
+		return *reply_to_.at(reply_to_.size()-1);
+	}
+
+	HFReplaces& Message::add_replaces()
+	{
+		replaces_.push_back(std::make_shared<HFReplaces>());
+		return *replaces_.at(replaces_.size()-1);
+	}
+
+	HFRejectContact& Message::add_reject_contact()
+	{
+		reject_contact_.push_back(std::make_shared<HFRejectContact>());
+		return *reject_contact_.at(reject_contact_.size()-1);
+	}
+
+	HFRequestDisposition& Message::add_request_disposition()
+	{
+		request_disposition_.push_back(std::make_shared<HFRequestDisposition>());
+		return *request_disposition_.at(request_disposition_.size()-1);
+	}
+
+	HFRequire& Message::add_require()
+	{
+		require_.push_back(std::make_shared<HFRequire>());
+		return *require_.at(require_.size()-1);
+	}
+
+	HFRoute& Message::add_route()
+	{
+		route_.push_back(std::make_shared<HFRoute>());
+		return *route_.at(route_.size()-1);
+	}
+
+	HFRack& Message::add_rack()
+	{
+		rack_.push_back(std::make_shared<HFRack>());
+		return *rack_.at(rack_.size()-1);
+	}
+
+	HFSessionExpires& Message::add_session_expires()
+	{
+		session_expires_.push_back(std::make_shared<HFSessionExpires>());
+		return *session_expires_.at(session_expires_.size()-1);
+	}
+
+	HFSubscriptionState& Message::add_subscription_state()
+	{
+		subscription_state_.push_back(std::make_shared<HFSubscriptionState>());
+		return *subscription_state_.at(subscription_state_.size()-1);
+	}
+
+	HFAuthenticationInfo& Message::add_authentication_info()
+	{
+		authentication_info_.push_back(std::make_shared<HFAuthenticationInfo>());
+		return *authentication_info_.at(authentication_info_.size()-1);
+	}
+
+	HFErrorInfo& Message::add_error_info()
+	{
+		error_info_.push_back(std::make_shared<HFErrorInfo>());
+		return *error_info_.at(error_info_.size()-1);
+	}
+
+	HFMinExpires& Message::add_min_expires()
+	{
+		min_expires_.push_back(std::make_shared<HFMinExpires>());
+		return *min_expires_.at(min_expires_.size()-1);
+	}
+
+	HFMinSE& Message::add_min_se()
+	{
+		min_se_.push_back(std::make_shared<HFMinSE>());
+		return *min_se_.at(min_se_.size()-1);
+	}
+
+	HFProxyAuthenticate& Message::add_proxy_authenticate()
+	{
+		proxy_authenticate_.push_back(std::make_shared<HFProxyAuthenticate>());
+		return *proxy_authenticate_.at(proxy_authenticate_.size()-1);
+	}
+
+	HFServer& Message::add_server()
+	{
+		server_.push_back(std::make_shared<HFServer>());
+		return *server_.at(server_.size()-1);
+	}
+
+	HFUnsupported& Message::add_unsupported()
+	{
+		unsupported_.push_back(std::make_shared<HFUnsupported>());
+		return *unsupported_.at(unsupported_.size()-1);
+	}
+
+	HFWarning& Message::add_warning()
+	{
+		warning_.push_back(std::make_shared<HFWarning>());
+		return *warning_.at(warning_.size()-1);
+	}
+
+	HFWWWAuthenticate& Message::add_www_authenticate()
+	{
+		www_authenticate_.push_back(std::make_shared<HFWWWAuthenticate>());
+		return *www_authenticate_.at(www_authenticate_.size()-1);
+	}
+
+	HFRSeq& Message::add_rseq()
+	{
+		rseq_.push_back(std::make_shared<HFRSeq>());
+		return *rseq_.at(rseq_.size()-1);
+	}
+
+	HFAllow& Message::add_allow()
+	{
+		allow_.push_back(std::make_shared<HFAllow>());
+		return *allow_.at(allow_.size()-1);
+	}
+
+	HFContentEncoding& Message::add_content_encoding()
+	{
+		content_encoding_.push_back(std::make_shared<HFContentEncoding>());
+		return *content_encoding_.at(content_encoding_.size()-1);
+	}
+
+	HFContentLength& Message::add_content_length()
+	{
+		content_length_.push_back(std::make_shared<HFContentLength>());
+		return *content_length_.at(content_length_.size()-1);
+	}
+
+	HFContentLanguage& Message::add_content_language()
+	{
+		content_language_.push_back(std::make_shared<HFContentLanguage>());
+		return *content_language_.at(content_language_.size()-1);
+	}
+
+	HFContentType& Message::add_content_type()
+	{
+		content_type_.push_back(std::make_shared<HFContentType>());
+		return *content_type_.at(content_type_.size()-1);
+	}
+
+	HFExpires& Message::add_expires()
+	{
+		expires_.push_back(std::make_shared<HFExpires>());
+		return *expires_.at(expires_.size()-1);
+	}
+
+	HFMIMEVersion& Message::add_mime_version()
+	{
+		mime_version_.push_back(std::make_shared<HFMIMEVersion>());
+		return *mime_version_.at(mime_version_.size()-1);
+	}
+
+
 	std::ostream& operator<< (std::ostream& o, Message& msg)
 	{
-		out_if_not_null(o, msg.call_id_);
-		out_if_not_null(o, msg.cseq_);
-		out_if_not_null(o, msg.from_);
-		out_if_not_null(o, msg.to_);
-
-		for (std::vector<std::shared_ptr<HFVia> >::iterator it = msg.via_.begin();
-			it != msg.via_.end(); it++)
-			o << **it;
-			
-		out_if_not_null(o, msg.alert_info_);
-		out_if_not_null(o, msg.allow_events_);
-		out_if_not_null(o, msg.date_);
-		out_if_not_null(o, msg.contact_);
-		out_if_not_null(o, msg.organization_);
-		out_if_not_null(o, msg.record_route_);
-		out_if_not_null(o, msg.retry_after_);
-		out_if_not_null(o, msg.subject_);
-		out_if_not_null(o, msg.supported_);
-		out_if_not_null(o, msg.timestamp_);
-		out_if_not_null(o, msg.user_agent_);
-		out_if_not_null(o, msg.answer_mode_);
-		out_if_not_null(o, msg.priv_answer_mode_);
-		out_if_not_null(o, msg.accept_);
-		out_if_not_null(o, msg.accept_contact_);
-		out_if_not_null(o, msg.accept_encoding_);
-		out_if_not_null(o, msg.accept_language_);
-		out_if_not_null(o, msg.authorization_);
-		out_if_not_null(o, msg.call_info_);
-		out_if_not_null(o, msg.event_);
-		out_if_not_null(o, msg.in_replay_to_);
-		out_if_not_null(o, msg.join_);
-		out_if_not_null(o, msg.priority_);
-		out_if_not_null(o, msg.privacy_);
-		out_if_not_null(o, msg.proxy_authorization_);
-		out_if_not_null(o, msg.proxy_require_);
-		out_if_not_null(o, msg.p_osp_auth_token_);
-		out_if_not_null(o, msg.p_asserted_identity_);
-		out_if_not_null(o, msg.p_preferred_identity_);
-		out_if_not_null(o, msg.max_forwards_);
-		out_if_not_null(o, msg.reason_);
-		out_if_not_null(o, msg.refer_to_);
-		out_if_not_null(o, msg.referred_by_);
-		out_if_not_null(o, msg.reply_to_);
-		out_if_not_null(o, msg.replaces_);
-		out_if_not_null(o, msg.reject_contact_);
-		out_if_not_null(o, msg.request_disposition_);
-		out_if_not_null(o, msg.require_);
-		out_if_not_null(o, msg.route_);
-		out_if_not_null(o, msg.rack_);
-		out_if_not_null(o, msg.session_expires_);
-		out_if_not_null(o, msg.subscription_state_);
-		out_if_not_null(o, msg.authentication_info_);
-		out_if_not_null(o, msg.error_info_);
-		out_if_not_null(o, msg.min_expires_);
-		out_if_not_null(o, msg.min_se_);
-		out_if_not_null(o, msg.proxy_authenticate_);
-		out_if_not_null(o, msg.server_);
-		out_if_not_null(o, msg.unsupported_);
-		out_if_not_null(o, msg.warning_);
-		out_if_not_null(o, msg.www_authenticate_);
-		out_if_not_null(o, msg.rseq_);
-		out_if_not_null(o, msg.allow_);
-		out_if_not_null(o, msg.content_encoding_);
-		out_if_not_null(o, msg.content_length_);
-		out_if_not_null(o, msg.content_language_);
-		out_if_not_null(o, msg.content_type_);
-		out_if_not_null(o, msg.expires_);
-		out_if_not_null(o, msg.mime_version_);
+		out_if_not_empty(o, msg.call_id_);
+		out_if_not_empty(o, msg.cseq_);
+		out_if_not_empty(o, msg.from_);
+		out_if_not_empty(o, msg.to_);
+		out_if_not_empty(o, msg.alert_info_);
+		out_if_not_empty(o, msg.allow_events_);
+		out_if_not_empty(o, msg.date_);
+		out_if_not_empty(o, msg.contact_);
+		out_if_not_empty(o, msg.organization_);
+		out_if_not_empty(o, msg.record_route_);
+		out_if_not_empty(o, msg.retry_after_);
+		out_if_not_empty(o, msg.subject_);
+		out_if_not_empty(o, msg.supported_);
+		out_if_not_empty(o, msg.timestamp_);
+		out_if_not_empty(o, msg.user_agent_);
+		out_if_not_empty(o, msg.answer_mode_);
+		out_if_not_empty(o, msg.priv_answer_mode_);
+		out_if_not_empty(o, msg.accept_);
+		out_if_not_empty(o, msg.accept_contact_);
+		out_if_not_empty(o, msg.accept_encoding_);
+		out_if_not_empty(o, msg.accept_language_);
+		out_if_not_empty(o, msg.authorization_);
+		out_if_not_empty(o, msg.call_info_);
+		out_if_not_empty(o, msg.event_);
+		out_if_not_empty(o, msg.in_replay_to_);
+		out_if_not_empty(o, msg.join_);
+		out_if_not_empty(o, msg.priority_);
+		out_if_not_empty(o, msg.privacy_);
+		out_if_not_empty(o, msg.proxy_authorization_);
+		out_if_not_empty(o, msg.proxy_require_);
+		out_if_not_empty(o, msg.p_osp_auth_token_);
+		out_if_not_empty(o, msg.p_asserted_identity_);
+		out_if_not_empty(o, msg.p_preferred_identity_);
+		out_if_not_empty(o, msg.max_forwards_);
+		out_if_not_empty(o, msg.reason_);
+		out_if_not_empty(o, msg.refer_to_);
+		out_if_not_empty(o, msg.referred_by_);
+		out_if_not_empty(o, msg.reply_to_);
+		out_if_not_empty(o, msg.replaces_);
+		out_if_not_empty(o, msg.reject_contact_);
+		out_if_not_empty(o, msg.request_disposition_);
+		out_if_not_empty(o, msg.require_);
+		out_if_not_empty(o, msg.route_);
+		out_if_not_empty(o, msg.rack_);
+		out_if_not_empty(o, msg.session_expires_);
+		out_if_not_empty(o, msg.subscription_state_);
+		out_if_not_empty(o, msg.authentication_info_);
+		out_if_not_empty(o, msg.error_info_);
+		out_if_not_empty(o, msg.min_expires_);
+		out_if_not_empty(o, msg.min_se_);
+		out_if_not_empty(o, msg.proxy_authenticate_);
+		out_if_not_empty(o, msg.server_);
+		out_if_not_empty(o, msg.unsupported_);
+		out_if_not_empty(o, msg.warning_);
+		out_if_not_empty(o, msg.www_authenticate_);
+		out_if_not_empty(o, msg.rseq_);
+		out_if_not_empty(o, msg.allow_);
+		out_if_not_empty(o, msg.content_encoding_);
+		out_if_not_empty(o, msg.content_length_);
+		out_if_not_empty(o, msg.content_language_);
+		out_if_not_empty(o, msg.content_type_);
+		out_if_not_empty(o, msg.expires_);
+		out_if_not_empty(o, msg.mime_version_);
 
 		o << msg.user_data_;
 
@@ -92,23 +495,23 @@ namespace EasySip
 			return *this;
 		}
 
-		std::ostringstream o;
-		o << user_data_.size();
-
-		content_length_ = std::make_shared<HFContentLength>();
-		content_length_->digit_value_ = o.str();
+//		std::ostringstream o;
+//		o << user_data_.size();
+//
+//		content_length_.push_back(std::make_shared<HFContentLength>());
+//		content_length_.at(0)->length(o.str());
 
 		return *this;
 	}
 
 	bool Message::is_valid()
 	{
-		return_false_if_true(call_id_ == 0) 
-		return_false_if_true(cseq_ == 0) 
-		return_false_if_true(from_ == 0) 
-		return_false_if_true(to_ == 0) 
+		return_false_if_true(call_id_.empty()) 
+		return_false_if_true(cseq_.empty()) 
+		return_false_if_true(from_.empty()) 
+		return_false_if_true(to_.empty()) 
 		return_false_if_true(via_.empty()) 
-//		return_false_if_true(max_forwards_ == 0 && resp_status_ == 0) 
+//		return_false_if_true(max_forwards_.empty() && resp_status_.empty()) 
 
 		return true;
 	}
@@ -116,13 +519,12 @@ namespace EasySip
 	int Message::get_method_from_buffer(
 		MethodMapList &allowed_methods, std::string msg, std::string sym)
 	{
-		MethodMapList::iterator it;
 		std::string ret = msg.substr(0, msg.find_first_of(sym));
 
-		for (it = allowed_methods.begin(); it != allowed_methods.end(); it++)
+		for (auto &it : allowed_methods)
 		{
-			if (ret == it->Name())
-				return it->Code();
+			if (ret == it.second)
+				return it.Code();
 		}
 
 		return -1;
@@ -169,77 +571,77 @@ namespace EasySip
 
 	void Message::parse_dispatch(std::string field, size_t &pos)
 	{
-		if (HFVia().Field() == field || HFVia().Compact() == field)
+		switch(allowed_fields_[field])
 		{
-			via_.push_back(std::make_shared<HFVia>());
-			via_.at(via_.size()-1)->parse(msg_, pos);
-			return;
+			case HF_CALLID:             add_call_id().parse(msg_, pos); break;
+			case HF_CSEQ:               add_cseq().parse(msg_, pos); break;
+			case HF_FROM:               add_from().parse(msg_, pos); break;
+			case HF_TO:                 add_to().parse(msg_, pos); break;
+			case HF_VIA:                add_via().parse(msg_, pos); break;
+			case HF_ALERT_INFO:         add_alert_info().parse(msg_, pos); break;
+			case HF_ALLOW_EVENTS:       add_allow_events().parse(msg_, pos); break;
+			case HF_DATE:               add_date().parse(msg_, pos); break;
+			case HF_CONTACT:            add_contact().parse(msg_, pos); break;
+			case HF_ORGANIZATION:       add_organization().parse(msg_, pos); break;
+			case HF_RECORD_ROUTE:       add_record_route().parse(msg_, pos); break;
+			case HF_RETRY_AFTER:        add_retry_after().parse(msg_, pos); break;
+			case HF_SUBJECT:            add_subject().parse(msg_, pos); break;
+			case HF_SUPPORTED:          add_supported().parse(msg_, pos); break;
+			case HF_TIMESTAMP:          add_timestamp().parse(msg_, pos); break;
+			case HF_USER_AGENT:         add_user_agent().parse(msg_, pos); break;
+			case HF_ANSWER_MODE:        add_answer_mode().parse(msg_, pos); break;
+			case HF_PRIV_ANSWER_MODE:   add_priv_answer_mode().parse(msg_, pos); break;
+			case HF_ACCEPT:             add_accept().parse(msg_, pos); break;
+			case HF_ACCEPT_CONTACT:     add_accept_contact().parse(msg_, pos); break;
+			case HF_ACCEPT_ENCODING:    add_accept_encoding().parse(msg_, pos); break;
+			case HF_ACCEPT_LANGUAGE:    add_accept_language().parse(msg_, pos); break;
+			case HF_AUTHORIZATION:      add_authorization().parse(msg_, pos); break;
+			case HF_CALL_INFO:          add_call_info().parse(msg_, pos); break;
+			case HF_EVENT:              add_event().parse(msg_, pos); break;
+			case HF_IN_REPLY_TO:        add_in_replay_to().parse(msg_, pos); break;
+			case HF_JOIN:               add_join().parse(msg_, pos); break;
+			case HF_PRIORITY:           add_priority().parse(msg_, pos); break;
+			case HF_PRIVACY:            add_privacy().parse(msg_, pos); break;
+			case HF_PROXY_AUTHORIZATION:add_proxy_authorization().parse(msg_, pos); break;
+			case HF_PROXY_REQUIRE:      add_proxy_require().parse(msg_, pos); break;
+			case HF_P_OSP_AUTHTOKEN:    add_p_osp_auth_token().parse(msg_, pos); break;
+			case HF_PASSERTED_IDENTITY: add_p_asserted_identity().parse(msg_, pos); break;
+			case HF_PPREFERRED_IDENTITY:add_p_preferred_identity().parse(msg_, pos); break;
+			case HF_MAX_FORWARDS:       add_max_forwards().parse(msg_, pos); break;
+			case HF_REASON:             add_reason().parse(msg_, pos); break;
+			case HF_REFER_TO:           add_refer_to().parse(msg_, pos); break;
+			case HF_REFERRED_BY:        add_referred_by().parse(msg_, pos); break;
+			case HF_REPLY_TO:           add_reply_to().parse(msg_, pos); break;
+			case HF_REPLACES:           add_replaces().parse(msg_, pos); break;
+			case HF_REJECT_CONTACT:     add_reject_contact().parse(msg_, pos); break;
+			case HF_REQUEST_DISPOSITION:add_request_disposition().parse(msg_, pos); break;
+			case HF_REQUIRE:            add_require().parse(msg_, pos); break;
+			case HF_ROUTE:              add_route().parse(msg_, pos); break;
+			case HF_RACK:               add_rack().parse(msg_, pos); break;
+			case HF_SESSION_EXPIRES:    add_session_expires().parse(msg_, pos); break;
+			case HF_SUBSCRIPTION_STATE: add_subscription_state().parse(msg_, pos); break;
+			case HF_AUTHENTICATIONINFO: add_authentication_info().parse(msg_, pos); break;
+			case HF_ERROR_INFO:         add_error_info().parse(msg_, pos); break;
+			case HF_MIN_EXPIRES:        add_min_expires().parse(msg_, pos); break;
+			case HF_MIN_SE:             add_min_se().parse(msg_, pos); break;
+			case HF_PROXY_AUTHENTICATE: add_proxy_authenticate().parse(msg_, pos); break;
+			case HF_SERVER:             add_server().parse(msg_, pos); break;
+			case HF_UNSUPPORTED:        add_unsupported().parse(msg_, pos); break;
+			case HF_WARNING:            add_warning().parse(msg_, pos); break;
+			case HF_WWW_AUTHENTICATE:   add_www_authenticate().parse(msg_, pos); break;
+			case HF_RSEQ:               add_rseq().parse(msg_, pos); break;
+			case HF_ALLOW:              add_allow().parse(msg_, pos); break;
+			case HF_CONTENT_ENCODING:   add_content_encoding().parse(msg_, pos); break;
+			case HF_CONTENT_LENGTH:     add_content_length().parse(msg_, pos); break;
+			case HF_CONTENT_LANGUAGE:   add_content_language().parse(msg_, pos); break;
+			case HF_CONTENT_TYPE:       add_content_type().parse(msg_, pos); break;
+			case HF_EXPIRES:            add_expires().parse(msg_, pos); break;
+			case HF_MIME_VERSION:       add_mime_version().parse(msg_, pos); break;
+			default:
+			{
+				std::cerr << "Unexpected header: " << field << '\n';
+			}
 		}
-
-		parse_dispatch_if_match<HFCallId>(call_id_, field, msg_, pos);
-		parse_dispatch_if_match<HFCSeq>(cseq_, field, msg_, pos);
-		parse_dispatch_if_match<HFFrom>(from_, field, msg_, pos);
-		parse_dispatch_if_match<HFTo>(to_, field, msg_, pos);
-
-		parse_dispatch_if_match<HFAlertInfo>(alert_info_, field, msg_, pos);
-		parse_dispatch_if_match<HFAllowEvents>(allow_events_, field, msg_, pos);
-		parse_dispatch_if_match<HFDate>(date_, field, msg_, pos);
-		parse_dispatch_if_match<HFContact>(contact_, field, msg_, pos);
-		parse_dispatch_if_match<HFOrganization>(organization_, field, msg_, pos);
-		parse_dispatch_if_match<HFRecordRoute>(record_route_, field, msg_, pos);
-		parse_dispatch_if_match<HFRetryAfter>(retry_after_, field, msg_, pos); // in second
-		parse_dispatch_if_match<HFSubject>(subject_, field, msg_, pos);
-		parse_dispatch_if_match<HFSupported>(supported_, field, msg_, pos);
-		parse_dispatch_if_match<HFTimestamp>(timestamp_, field, msg_, pos);
-		parse_dispatch_if_match<HFUserAgent>(user_agent_, field, msg_, pos);
-		parse_dispatch_if_match<HFAnswerMode>(answer_mode_, field, msg_, pos);
-		parse_dispatch_if_match<HFPrivAnswerMode>(priv_answer_mode_, field, msg_, pos);
-		parse_dispatch_if_match<HFAccept>(accept_, field, msg_, pos); // type/sub-type
-		parse_dispatch_if_match<HFAcceptContact>(accept_contact_, field, msg_, pos);
-		parse_dispatch_if_match<HFAcceptEncoding>(accept_encoding_, field, msg_, pos);
-		parse_dispatch_if_match<HFAcceptLanguage>(accept_language_, field, msg_, pos);
-		parse_dispatch_if_match<HFAuthorization>(authorization_, field, msg_, pos);
-		parse_dispatch_if_match<HFCallInfo>(call_info_, field, msg_, pos);
-		parse_dispatch_if_match<HFEvent>(event_, field, msg_, pos);
-		parse_dispatch_if_match<HFInReplyTo>(in_replay_to_, field, msg_, pos);
-		parse_dispatch_if_match<HFJoin>(join_, field, msg_, pos);
-		parse_dispatch_if_match<HFPriority>(priority_, field, msg_, pos);
-		parse_dispatch_if_match<HFPrivacy>(privacy_, field, msg_, pos);
-		parse_dispatch_if_match<HFProxyAuthorization>(proxy_authorization_, field, msg_, pos);
-		parse_dispatch_if_match<HFProxyRequire>(proxy_require_, field, msg_, pos);
-		parse_dispatch_if_match<HFPOSPAuthToken>(p_osp_auth_token_, field, msg_, pos);
-		parse_dispatch_if_match<HFPAssertedIdentity>(p_asserted_identity_, field, msg_, pos);
-		parse_dispatch_if_match<HFPPreferredIdentity>(p_preferred_identity_, field, msg_, pos);
-		parse_dispatch_if_match<HFMaxForwards>(max_forwards_, field, msg_, pos);
-		parse_dispatch_if_match<HFReason>(reason_, field, msg_, pos);
-		parse_dispatch_if_match<HFReferTo>(refer_to_, field, msg_, pos);
-		parse_dispatch_if_match<HFReferredBy>(referred_by_, field, msg_, pos);
-		parse_dispatch_if_match<HFReplyTo>(reply_to_, field, msg_, pos);
-		parse_dispatch_if_match<HFReplaces>(replaces_, field, msg_, pos);
-		parse_dispatch_if_match<HFRejectContact>(reject_contact_, field, msg_, pos);
-		parse_dispatch_if_match<HFRequestDisposition>(request_disposition_, field, msg_, pos);
-		parse_dispatch_if_match<HFRequire>(require_, field, msg_, pos);
-		parse_dispatch_if_match<HFRoute>(route_, field, msg_, pos);
-		parse_dispatch_if_match<HFRack>(rack_, field, msg_, pos);
-		parse_dispatch_if_match<HFSessionExpires>(session_expires_, field, msg_, pos); // in second
-		parse_dispatch_if_match<HFSubscriptionState>(subscription_state_, field, msg_, pos);
-		parse_dispatch_if_match<HFAuthenticationInfo>(authentication_info_, field, msg_, pos);
-		parse_dispatch_if_match<HFErrorInfo>(error_info_, field, msg_, pos);
-		parse_dispatch_if_match<HFMinExpires>(min_expires_, field, msg_, pos);
-		parse_dispatch_if_match<HFMinSE>(min_se_, field, msg_, pos);
-		parse_dispatch_if_match<HFProxyAuthenticate>(proxy_authenticate_, field, msg_, pos);
-		parse_dispatch_if_match<HFServer>(server_, field, msg_, pos);
-		parse_dispatch_if_match<HFUnsupported>(unsupported_, field, msg_, pos);
-		parse_dispatch_if_match<HFWarning>(warning_, field, msg_, pos);
-		parse_dispatch_if_match<HFWWWAuthenticate>(www_authenticate_, field, msg_, pos);
-		parse_dispatch_if_match<HFRSeq>(rseq_, field, msg_, pos);
-		parse_dispatch_if_match<HFAllow>(allow_, field, msg_, pos);
-		parse_dispatch_if_match<HFContentEncoding>(content_encoding_, field, msg_, pos);
-		parse_dispatch_if_match<HFContentLength>(content_length_, field, msg_, pos);
-		parse_dispatch_if_match<HFContentLanguage>(content_language_, field, msg_, pos);
-		parse_dispatch_if_match<HFContentType>(content_type_, field, msg_, pos);
-		parse_dispatch_if_match<HFExpires>(expires_, field, msg_, pos); // in second
-		parse_dispatch_if_match<HFMIMEVersion>(mime_version_, field, msg_, pos);
 	}
 
 	/* parse buffered header into formated header fields
@@ -254,7 +656,6 @@ namespace EasySip
 		while (run)
 		{
 			if (pos+1 >= msg_.size()) break;
-//			if (content_length_) break;
 
 			switch(msg_.at(pos))
 			{
@@ -283,7 +684,7 @@ namespace EasySip
 				}
 				default:
 				{
-					if (content_length_)
+					if (content_length_.size())
 					{
 						run = false;
 					}
@@ -296,10 +697,10 @@ namespace EasySip
 			}
 		}
 
-		if (content_length_)
+		if (content_length_.size())
 		{
 			size_t i = 1, len = 0;
-			std::istringstream in(content_length_->digit_value_);
+			std::istringstream in(content_length_.at(0)->length());
 			in >> len;
 	
 			while (pos < msg_.size() && i < len)
@@ -313,7 +714,7 @@ namespace EasySip
 
 	RequestMessage& RequestMessage::create()
 	{
-		//Base::create();
+		//Ancestor::create();
 		std::ostringstream o;
 
 		o << req_line_ << '\n';
@@ -330,7 +731,7 @@ namespace EasySip
 
 		req_line_->parse(msg_, pos);
 
-		Base::parse(pos);
+		Ancestor::parse(pos);
 
 		if (!is_valid())
 		{
@@ -338,119 +739,117 @@ namespace EasySip
 		}
 
 		std::cout << "-request------------------------\n";
-		std::cout << *req_line_ << '\n';
-		std::cout << *this;
+		std::cout << *req_line_ << '\n' << *this;
 		std::cout << "--------------------------------\n";
 	}
 
 	bool InviteMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
-		return_false_if_true(contact_ == 0)
+		return_false_if_true(!Ancestor::is_valid())
+		return_false_if_true(contact_.empty())
 
 		return true;
 	}
 	// RegisterMessage
 	bool RegisterMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
+		return_false_if_true(!Ancestor::is_valid())
 
-		if (record_route_) delete &record_route_;
+		if (record_route_.size()) record_route_.clear();
 
 		return true;
 	}
 	// AckMessage
 	bool AckMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
+		return_false_if_true(!Ancestor::is_valid())
 		return true;
 	}
 	// ByeMessage
 	bool ByeMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
+		return_false_if_true(!Ancestor::is_valid())
 		return true;
 	}
 	// CancelMessage
 	bool CancelMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
+		return_false_if_true(!Ancestor::is_valid())
 		return true;
 	}
 	// OptionsMessage
 	bool OptionsMessage::is_valid()
-	{std::cout << "OptionsMessage::is_valid\n";
-		return_false_if_true(!Base::is_valid())
+	{
+		return_false_if_true(!Ancestor::is_valid())
 		return true;
 	}
 
 	// ReferMessage
 	bool ReferMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
-		return_false_if_true(contact_ == 0)
-		return_false_if_true(refer_to_ == 0)
+		return_false_if_true(!Ancestor::is_valid())
+		return_false_if_true(contact_.empty())
+		return_false_if_true(refer_to_.empty())
 
 		return true;
 	}
 	// SubscribeMessage
 	bool SubscribeMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
-		return_false_if_true(contact_ == 0)
-		return_false_if_true(event_ == 0)
-		return_false_if_true(allow_events_ == 0)
+		return_false_if_true(!Ancestor::is_valid())
+		return_false_if_true(contact_.empty())
+		return_false_if_true(event_.empty())
+		return_false_if_true(allow_events_.empty())
 
 		return true;
 	}
 	// NotifyMessage
 	bool NotifyMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
-		return_false_if_true(contact_ == 0)
-		return_false_if_true(event_ == 0)
-		return_false_if_true(allow_events_ == 0)
-		return_false_if_true(subscription_state_ == 0)
+		return_false_if_true(!Ancestor::is_valid())
+		return_false_if_true(contact_.empty())
+		return_false_if_true(event_.empty())
+		return_false_if_true(allow_events_.empty())
+		return_false_if_true(subscription_state_.empty())
 
 		return true;
 	}
 	// MessageMessage
 	bool MessageMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
+		return_false_if_true(!Ancestor::is_valid())
 		return true;
 	}
 	// InfoMessage
 	bool InfoMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
+		return_false_if_true(!Ancestor::is_valid())
 		return true;
 	}
 	// PrackMessage
 	bool PrackMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
+		return_false_if_true(!Ancestor::is_valid())
 		return true;
 	}
 	// UpdateMessage
 	bool UpdateMessage::is_valid()
 	{
-		return_false_if_true(!Base::is_valid())
-		return_false_if_true(contact_ == 0)
+		return_false_if_true(!Ancestor::is_valid())
+		return_false_if_true(contact_.empty())
 
 		return true;
 	}
 
 	ResponseMessage& ResponseMessage::create()
 	{
-		Base::create();
+		Ancestor::create();
 		std::ostringstream o;
 
 		o << *resp_status_ << '\n';
 		o << *this;
 
 		msg_ = o.str();
-
 		return *this;
 	}
 
@@ -459,11 +858,11 @@ namespace EasySip
 		if (msg_.empty()) return;
 
 		resp_status_->parse(msg_, pos);
-		Base::parse(pos);
+		Ancestor::parse(pos);
 		
 		std::cout << "-resonse------------------------\n";
-		std::cout << *resp_status_ << '\n';
-		std::cout << *this;
+		std::cout << *resp_status_ << '\n' << std::cout << *this;
 		std::cout << "--------------------------------\n";
 	}
+
 } // namespace EasySip

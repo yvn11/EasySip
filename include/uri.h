@@ -133,6 +133,8 @@ namespace EasySip
 		std::string uri_;
 		URIParams uri_params_;
 
+		std::string scheme_;
+
 		URI()
 		{
 			Initialize();
@@ -182,6 +184,12 @@ namespace EasySip
 			o << *this;
 
 			return o.str();
+		}
+
+		std::string canonical_form()
+		{
+			// TODO: convert escaped chars
+			return  "";
 		}
 
 		void Initialize()

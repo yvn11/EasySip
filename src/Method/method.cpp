@@ -10,6 +10,7 @@ namespace EasySip
 	Method::Method()
 	: run_(true)
 	{
+		HeaderFields::init_allowed_fields();
 		init_allowed_methods();
 		init_allowed_responses();
 	}
@@ -229,8 +230,6 @@ namespace EasySip
 
 		
 		on_receive_message(cli_udp_.Message());
-//		std::cout << "receive:\n" << cli_udp_.Message() << '\n';
-		
 
 		return 0;
 	}
@@ -287,6 +286,17 @@ namespace EasySip
 
 	int Method::options_request()
 	{
+		std::string buffer, line;
+
+		while(std::getline(std::cin, line))
+			buffer += line+'\n';
+
+		std::cout << "send:\n" << buffer << '\n';
+		cli_udp_.send(buffer);
+		cli_udp_.recv(0);
+		
+		on_receive_message(cli_udp_.Message());
+
 		return 0;
 	}
 
@@ -305,7 +315,7 @@ namespace EasySip
 		rep.ResponseCode(SIP_RESPONSE_TRYING);
 
 		// TODO: tag
-		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
@@ -347,7 +357,7 @@ namespace EasySip
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
 		// TODO: tag
-		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
@@ -368,7 +378,7 @@ namespace EasySip
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
 		// TODO: tag
-		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
@@ -389,7 +399,7 @@ namespace EasySip
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
 		// TODO: tag
-		rep.to_->HeaderParam("tag", "ahelk8.d374");
+		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
@@ -402,17 +412,26 @@ namespace EasySip
 	
 	int Method::on_options_request(RequestMessage &in_msg)
 	{
-//		AckMessage msg(in_msg);
 		in_msg.parse();
 
 		ResponseMessage rep(in_msg);
+
 		rep.ResponseVer(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
-		// TODO: tag
-		rep.to_->HeaderParam("tag", "ahelk8.d374");
-		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
-//		rep.append_userdata("top of the hill");
+//		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+		rep.add_via().HeaderParam("received", sv_udp_.Addr());
+
+		rep.add_accept().add_value("text", "plain")
+		.add_value("text", "html")
+		.add_value("application", "sdp")
+		.add_value("multipart", "sdp");
+
+		rep.add_allow();
+
+		for (auto &it : allowed_methods_)
+			(*rep.allow_.end())->add_value(it.Name());
+
 
 		rep.create();
 		sv_udp_.send(rep.Msg());
