@@ -134,7 +134,7 @@ namespace EasySip
 				return 0;
 			}
 
-			for (auto &it : in_msg.contact_.at(0)->uris_)
+			for (auto &it : in_msg.contact_.at(0)->cons_)
 			{
 				if (it.uri_ == "*")
 				{

@@ -13,7 +13,7 @@ namespace EasySip
 	{
 	protected:
 
-		std::set<URI> uri_binds_;
+		std::set<Contact> uri_binds_;
 
 	public:
 

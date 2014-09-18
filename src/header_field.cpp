@@ -64,8 +64,8 @@ namespace EasySip
 		o << hf.field_ << ": ";
 		hf.generate_values();
 
-		o << hf.Values();
-		o << hf.header_params_ << "\n";
+		o << hf.Values() << "\n";
+//		o << hf.header_params_ << "\n";
 
 		return o;
 	}
@@ -97,13 +97,16 @@ namespace EasySip
 
 	void HFVia::generate_values()
 	{
-		values_ = sent_proto_ + ' ' + sent_by_;
+		std::ostringstream o;
+
+		o << sent_proto_ << ' ' << sent_by_ << header_params_;
+		values_ = o.str();
 	}
 
 	void HFVia::parse(std::string &msg, size_t &pos)
 	{
 		bool read_head_param = false, run = true;
-		std::string buffer, name, value;
+		std::string buffer, key, value;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
 
@@ -111,20 +114,13 @@ namespace EasySip
 		{
 			if (pos+1 >= msg.size()) break;
 
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
-				CASE_ALPHA_NUM
+				CASE_TOKEN//ALPHA_NUM
 				case ':':
-				case '-':
-				case '.':
 				case '/':
 				{
 					buffer += msg.at(pos++);
-					break;
-				}
-				case '\t':
-				{
-					pos++;
 					break;
 				}
 				case ' ':
@@ -138,26 +134,28 @@ namespace EasySip
 						sent_by_ = buffer;
 					}
 	
-					pos++;
 					buffer.clear();
+				}
+				case '\t':
+				case '\r':
+				{
+					pos++;
 					break;
 				}
 				case ';':
 				{
-					if (sent_by_.empty())
-					{
-						sent_by_ = buffer;
-					}
-
 					if (read_head_param)
 					{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
+						header_params_.append(key, buffer);//.set_value_by_name(key, value);
+						key.clear();
 					}
 					else
 					{
+						if (sent_by_.empty())
+						{
+							sent_by_ = buffer;
+						}
+						
 						read_head_param = true;
 					}
 	
@@ -167,228 +165,29 @@ namespace EasySip
 				}
 				case '=':
 				{
-					name = buffer;
+					key = buffer;
 	
 					pos++;
 					buffer.clear();
-					break;
-				}
-				case '\r':
-				{
-					pos++;
 					break;
 				}
 				case '\n':
 				{
-					if (sent_by_.empty())
-					{
-						sent_by_ = buffer;
-					}
-
 					if (read_head_param)
 					{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
-					}
-
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					do_if_is_alpha(msg.at(pos+1), run = false;read_head_param = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' :" << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
-	}
-
-	void HFBase_1_::generate_values()
-	{
-		std::ostringstream o;
-
-		o << name_ << ' ' << uri_;
-		values_ = o.str();
-	}
-
-	void HFBase_1_::parse(std::string &msg, size_t &pos)
-	{
-		size_t sp_nr = 0;
-		bool read_head_param = false, run = true, read_uri = false, in_dquote = false, read_uri_param = false;
-		std::string buffer, name, value;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
-			{
-				case '"':
-				{
-					in_dquote = !in_dquote;
-
-					if (!in_dquote)
-					{
-						buffer += msg.at(pos);
-
-						if (name_.empty())
-							name_ = buffer;
-
-						pos++;
-						buffer.clear();
-						break;
-					}
-				}
-				CASE_ALPHA_NUM
-				case '-':
-				case '_':
-				case '.':
-				case '/':
-				case ':':
-				case '@':
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '\t':
-				{
-					pos++;
-					break;
-				}
-				case ' ':
-				{
-					if ('.' == msg.at(pos-1))
-					{
-						buffer += msg.at(pos++);
-						break;
-					}
-
-					if ('>' == msg.at(pos-1))
-					{
-						pos++;
-						buffer.clear();
-						break;
-					}
-
-					sp_nr++;
-
-					if (name_.empty())
-					{
-						name_ = buffer;
-					}
-					else if (uri_.uri_.empty())
-					{
-						uri_.uri_ = buffer;
-					}
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '<':
-				{
-					read_uri = true;
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '>':
-				{
-					read_uri = false;
-					read_uri_param = false;
-					uri_.uri_ = buffer;
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case ';':
-				{
-					if (uri_.uri_.empty())
-					{
-						uri_.uri_ = buffer;
-					}
-
-					if (read_uri)
-					{
-						if (read_uri_param)
-						{
-						value = buffer;
-						uri_.set_param(name, value);
-						name.clear();
-						value.clear();
-						}
-						else
-						{
-							read_uri_param = true;
-						}
+						header_params_.append(key, buffer);//.set_value_by_name(key, value);
+						key.clear();
+						read_head_param = false;
 					}
 					else
 					{
-						if (read_head_param)
+						if (sent_by_.empty())
 						{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
-						}
-						else
-						{
-							read_head_param = true;
+							sent_by_ = buffer;
 						}
 					}
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '=':
-				{
-					name = buffer;
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (read_head_param)
-					{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
-					}
 
-					if (uri_.uri_.empty())
-					{
-						uri_.uri_ = buffer;
-					}
-
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					do_if_is_alpha(msg.at(pos+1), run = false;read_head_param = false)
+					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
 					buffer.clear();
@@ -406,7 +205,11 @@ namespace EasySip
 
 	void HFCSeq::generate_values()
 	{
-		values_ = cseq_ + ' ' + method_;
+		std::ostringstream o;
+
+		o << cseq_ << ' ' << method_ << header_params_;
+
+		values_ = o.str();
 	}
 
 	void HFCSeq::parse(std::string &msg, size_t &pos)
@@ -420,7 +223,7 @@ namespace EasySip
 		while (run)
 		{
 			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_ALPHA_NUM
 				{
@@ -479,7 +282,11 @@ namespace EasySip
 
 	void HFCallId::generate_values()
 	{
-		values_ = id_;
+		std::ostringstream o;
+
+		o << id_ << header_params_;
+
+		values_ = o.str();
 	}
 
 	void HFCallId::parse(std::string &msg, size_t &pos)
@@ -492,7 +299,7 @@ namespace EasySip
 		while (run)
 		{
 			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_WORD
 				case '@':
@@ -562,37 +369,58 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFContact::generate_values()
+	void HFBase_1_::generate_values()
 	{
+		char sym = ',';
 		std::ostringstream o;
 
-		for (auto &it : uris_)
-			o << it << ',';
+		for (auto &it : cons_)
+			o << it << sym;
 
 		values_ = o.str();
 
-		if (values_.at(values_.size()-1) == ',')
+		if (values_.at(values_.size()-1) == sym)
 			values_.erase(values_.size()-1);
+
+		std::ostringstream p;
+		p << header_params_;
+
+		values_ += p.str();
 	}
 
-	void HFContact::parse(std::string &msg, size_t &pos)
+	void HFBase_1_::parse(std::string &msg, size_t &pos)
 	{
-		bool read_head_param = false, run = true, read_uri = false, read_uri_param = false;
-		std::string buffer, name, value;
-		size_t index = 0;
+		bool read_head_param = false, run = true, in_aquote = false, in_dquote = false;
+		std::string buffer, key;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
 
 		while (run)
 		{
 			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
+
+			switch (msg.at(pos))
 			{
-				CASE_ALPHA_NUM
-				case '*':
-				case '-':
-				case '.':
+				case '"':
+				{
+					in_dquote = !in_dquote;
+
+					buffer += msg.at(pos++);
+
+					if (!in_dquote)
+					{
+						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+							cons_.resize(cons_.size()+1);
+
+						if (cons_.at(cons_.size()-1).name_.empty())
+							cons_.at(cons_.size()-1).name_ = buffer;
+						buffer.clear();
+					}
+					break;
+				}
+				CASE_TOKEN
 				case '/':
+				case '?':
 				case ':':
 				case '@':
 				{
@@ -601,26 +429,30 @@ namespace EasySip
 				}
 				case '<':
 				{
-					read_uri = true;
+					in_aquote = true;
 					pos++;
 					buffer.clear();
 					break;
 				}
 				case '>':
 				{
-					read_uri = false;
+					in_aquote = false;
 
-					if (read_uri_param)
+					if (buffer.size())
 					{
-						value = buffer;
-						uris_.at(index).set_param(name, value);
-						name.clear();
-						value.clear();
-						read_uri_param = false;
-					}
-					else
-					{
-						uris_.at(index).uri_ = buffer;
+						if (key.size())
+						{
+							cons_.at(cons_.size()-1).add_param(key, buffer);
+							key.clear();
+						}
+						else
+						{
+							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+								cons_.resize(cons_.size()+1);
+	
+							if (cons_.at(cons_.size()-1).uri_.empty())
+								cons_.at(cons_.size()-1).uri_ = buffer;
+						}
 					}
 
 					pos++;
@@ -629,44 +461,49 @@ namespace EasySip
 				}
 				case ',':
 				{
-					index++;
-					uris_.resize(uris_.size()+1);
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					if (buffer.size())
+					{
+						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+							cons_.resize(cons_.size()+1);
+
+						if (cons_.at(cons_.size()-1).uri_.empty())
+							cons_.at(cons_.size()-1).uri_ = buffer;
+					}
+
 					pos++;
 					buffer.clear();
 					break;
 				}
 				case ';':
 				{
-					if (uris_.at(index).uri_.empty())
+					if (in_aquote)
 					{
-						uris_.at(index).uri_ = buffer;
-					}
-
-					if (read_uri)
-					{
-						if (read_uri_param)
-						{
-						value = buffer;
-						uris_.at(index).set_param(name, value);
-						name.clear();
-						value.clear();
-						}
-						else
-						{
-							read_uri_param = true;
-						}
+						if (cons_.empty())
+							cons_.resize(cons_.size()+1);
+						cons_.at(cons_.size()-1).set_param(key, buffer);
+						key.clear();
 					}
 					else
 					{
 						if (read_head_param)
 						{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
+							header_params_.append(key, buffer);
+							key.clear();
 						}
 						else
 						{
+							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+								cons_.resize(cons_.size()+1);
+
+							if (cons_.at(cons_.size()-1).uri_.empty())
+								cons_.at(cons_.size()-1).uri_ = buffer;
+
 							read_head_param = true;
 						}
 					}
@@ -677,15 +514,37 @@ namespace EasySip
 				}
 				case '=':
 				{
-					if (!read_uri_param)
-						read_head_param = true;
-					name = buffer;
+					key = buffer;
 	
-					pos++;
 					buffer.clear();
+					pos++;
 					break;
 				}
 				case ' ':
+				{
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					if (in_aquote)
+					{
+						pos++;
+						break;
+					}
+
+					if (buffer.size())
+					{
+						if (cons_.empty() || !cons_.at(cons_.size()-1).name_.empty())
+							cons_.resize(cons_.size()+1);
+
+						if (cons_.at(cons_.size()-1).name_.empty())
+							cons_.at(cons_.size()-1).name_ = buffer;
+					}
+
+					buffer.clear();
+				}
 				case '\t':
 				case '\r':
 				{
@@ -696,22 +555,20 @@ namespace EasySip
 				{
 					if (read_head_param)
 					{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
+						header_params_.append(key, buffer);
+						key.clear();
+						read_head_param = false;
 					}
-
-					if (uris_.at(index).uri_.empty())
-						uris_.at(index).uri_ = buffer;
-
-					if (pos+1 >= msg.size())
+					else
 					{
-						run = false;
-						break;
+						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+							cons_.resize(cons_.size()+1);
+
+						if (cons_.at(cons_.size()-1).uri_.empty())
+							cons_.at(cons_.size()-1).uri_ = buffer;
 					}
 
-					do_if_is_alpha(msg.at(pos+1), run = false;read_head_param = false)
+					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
 					buffer.clear();
@@ -727,9 +584,8 @@ namespace EasySip
 		}
 	}
 
-	HFContact::HFContact() : HeaderField("Contact", "m")
+	HFContact::HFContact() : HFBase_1_("Contact", "m")
 	{
-		uris_.resize(1);
 //		header_params_.append("expires");
 //		header_params_.append("mp");
 //		header_params_.append("np");
@@ -771,15 +627,15 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFSubject::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFSubject::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
+//	void HFSubject::generate_values()
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
+//
+//	void HFSubject::parse(std::string &msg, size_t &pos)
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
 
 	void HFBase_3_::generate_values()
 	{
@@ -790,6 +646,11 @@ namespace EasySip
 
 		if (values_.size() && values_.at(values_.size()-1) == sym_)
 			values_.erase(values_.size()-1);
+
+		std::ostringstream p;
+		p << header_params_;
+
+		values_ += p.str();
 	}
 
 	void HFBase_3_::parse(std::string &msg, size_t &pos)
@@ -804,7 +665,7 @@ namespace EasySip
 		{
 			if (pos+1 >= msg.size()) break;
 
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_TOKEN
 				{
@@ -923,6 +784,11 @@ namespace EasySip
 
 		if (values_.size() && values_.at(values_.size()-1) == ',')
 			values_.erase(values_.size()-1);
+
+		std::ostringstream p;
+		p << header_params_;
+
+		values_ += p.str();
 	}
 
 	void HFAccept::parse(std::string &msg, size_t &pos)
@@ -936,7 +802,7 @@ namespace EasySip
 		while (run)
 		{
 			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_ALPHA_NUM
 				case '*':
@@ -1129,12 +995,212 @@ namespace EasySip
 
 	void HFCallInfo::generate_values()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		std::ostringstream o;
+
+		for (auto &it : cons_)
+		{
+			o << '<' << it << '>' << header_params_ << ',';
+		}
+
+		values_ = o.str();
+
+		if (values_.size() && values_.at(values_.size()-1) == ',')
+			values_.erase(values_.size()-1);
+
+		values_ += '\n';
 	}
 
 	void HFCallInfo::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		bool read_head_param = false, run = true, in_aquote = false, in_dquote = false;
+		std::string buffer, key;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			if (pos+1 >= msg.size()) break;
+
+			switch (msg.at(pos))
+			{
+				case '"':
+				{
+					in_dquote = !in_dquote;
+
+					buffer += msg.at(pos++);
+
+					if (!in_dquote)
+					{
+						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+							cons_.resize(cons_.size()+1);
+
+						if (cons_.at(cons_.size()-1).name_.empty())
+							cons_.at(cons_.size()-1).name_ = buffer;
+
+						buffer.clear();
+					}
+
+					break;
+				}
+				CASE_TOKEN
+				case '/':
+				case '?':
+				case ':':
+				case '@':
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case '<':
+				{
+					in_aquote = true;
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '>':
+				{
+					in_aquote = false;
+
+					if (buffer.size())
+					{
+						if (key.size())
+						{
+							//cons_.at(cons_.size()-1).add_param(key, buffer);
+							//key.clear();
+							header_params_.append(key, buffer);
+							key.clear();
+						}
+						else
+						{
+							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+								cons_.resize(cons_.size()+1);
+	
+							if (cons_.at(cons_.size()-1).uri_.empty())
+								cons_.at(cons_.size()-1).uri_ = buffer;
+						}
+					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ',':
+				{
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					if (buffer.size())
+					{
+						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+							cons_.resize(cons_.size()+1);
+
+						if (cons_.at(cons_.size()-1).uri_.empty())
+							cons_.at(cons_.size()-1).uri_ = buffer;
+					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ';':
+				{
+					if (in_aquote)
+					{
+						//if (cons_.empty())
+						//	cons_.resize(cons_.size()+1);
+						//cons_.at(cons_.size()-1).set_param(key, buffer);
+						//key.clear();
+						header_params_.append(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						if (read_head_param)
+						{
+							header_params_.append(key, buffer);
+							key.clear();
+						}
+						else
+						{
+							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+								cons_.resize(cons_.size()+1);
+
+							if (cons_.at(cons_.size()-1).uri_.empty())
+								cons_.at(cons_.size()-1).uri_ = buffer;
+
+							read_head_param = true;
+						}
+					}
+	
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '=':
+				{
+					key = buffer;
+	
+					buffer.clear();
+					pos++;
+					break;
+				}
+				case ' ':
+				{
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					if (in_aquote)
+					{
+						pos++;
+						break;
+					}
+
+					buffer.clear();
+				}
+				case '\t':
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (read_head_param)
+					{
+						header_params_.append(key, buffer);
+						key.clear();
+						read_head_param = false;
+					}
+					else
+					{
+						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
+							cons_.resize(cons_.size()+1);
+
+						if (cons_.at(cons_.size()-1).uri_.empty())
+							cons_.at(cons_.size()-1).uri_ = buffer;
+					}
+
+					do_if_is_alpha(msg.at(pos+1), run = false)
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
+					buffer.clear();
+				}
+			}
+		}
 	}
 
 	HFEvent::HFEvent() : HeaderField("Event", "o")
@@ -1331,81 +1397,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-//	void HFBase_3_::generate_values()
-//	{
-//		values_.clear();
-//
-//		for (auto &it : options_)
-//		{
-//			values_ += it + ' ';
-//		}
-//
-//		values_.erase(values_.size()-1);
-//	}
-//
-//	void HFBase_3_::parse(std::string &msg, size_t &pos)
-//	{
-//		bool run = true;
-//		std::string buffer;
-//
-//		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-//
-//		while (run)
-//		{
-//			if (pos+1 >= msg.size()) break;
-//			switch(msg.at(pos))
-//			{
-//				CASE_TOKEN
-//				{
-//					buffer += msg.at(pos++);
-//					break;
-//				}
-//				case ',':
-//				{
-//					if (buffer.size())
-//					{
-//						options_.insert(buffer);
-//					}
-//				}
-//				case ' ':
-//				case '\t':
-//				{
-//					pos++;
-//					buffer.clear();
-//					break;
-//				}
-//				case '\r':
-//				{
-//					pos++;
-//					break;
-//				}
-//				case '\n':
-//				{
-//					if (buffer.size())
-//						options_.insert(buffer);
-//
-//					if (pos+1 >= msg.size())
-//					{
-//						run = false;
-//						break;
-//					}
-//
-//					do_if_is_alpha(msg.at(pos+1), run = false)
-//				
-//					pos++;
-//					buffer.clear();
-//					break;
-//				}
-//				default:
-//				{
-//					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
-//					pos++;
-//					buffer.clear();
-//				}
-//			}
-//		}
-//	}
-
 	void HFRoute::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1438,12 +1429,12 @@ namespace EasySip
 
 	HFSubscriptionState::HFSubscriptionState() : HeaderField("Subscription-State")
 	{
-		header_params_.append("adaptive-min-rate");
-		header_params_.append("expires");
-		header_params_.append("max-rate");
-		header_params_.append("min-rate");
-		header_params_.append("reason");
-		header_params_.append("retry-after");
+//		header_params_.append("adaptive-min-rate");
+//		header_params_.append("expires");
+//		header_params_.append("max-rate");
+//		header_params_.append("min-rate");
+//		header_params_.append("reason");
+//		header_params_.append("retry-after");
 	}
 
 	void HFSubscriptionState::generate_values()
@@ -1458,11 +1449,11 @@ namespace EasySip
 
 	HFAuthenticationInfo::HFAuthenticationInfo() : HeaderField("Authentication-Info")
 	{
-		header_params_.append("cnonce");
-		header_params_.append("nc");
-		header_params_.append("nextnonce");
-		header_params_.append("qop");
-		header_params_.append("rspauth");
+//		header_params_.append("cnonce");
+//		header_params_.append("nc");
+//		header_params_.append("nextnonce");
+//		header_params_.append("qop");
+//		header_params_.append("rspauth");
 	}
 
 	void HFAuthenticationInfo::generate_values()
@@ -1497,13 +1488,13 @@ namespace EasySip
 
 	HFProxyAuthenticate::HFProxyAuthenticate() : HeaderField("Proxy-Authenticate", true)
 	{
-		header_params_.append("algorithm");
-		header_params_.append("domain");
-		header_params_.append("nonce");
-		header_params_.append("opaque");
-		header_params_.append("qop");
-		header_params_.append("realm");
-		header_params_.append("stale");
+//		header_params_.append("algorithm");
+//		header_params_.append("domain");
+//		header_params_.append("nonce");
+//		header_params_.append("opaque");
+//		header_params_.append("qop");
+//		header_params_.append("realm");
+//		header_params_.append("stale");
 	}
 
 	void HFProxyAuthenticate::generate_values()
@@ -1515,114 +1506,6 @@ namespace EasySip
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
-
-//	void HFServer::generate_values()
-//	{
-//		values_.clear();
-//
-//		for (auto &it : server_vals_)
-//		{
-//			values_ +=  it + ' ';
-//		}
-//
-//		if (values_.size() && values_.at(values_.size()-1) == ' ')
-//			values_.erase(values_.size()-1);
-//	}
-//
-//	void HFServer::parse(std::string &msg, size_t &pos)
-//	{
-//		bool run = true, in_dquote = false;
-//		std::string buffer;
-//		size_t index = 0;
-//
-//		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-//
-//		while (run)
-//		{
-//			if (pos+1 >= msg.size()) break;
-//			switch(msg.at(pos))
-//			{
-//				case '"':
-//				{
-//					in_dquote = !in_dquote;
-//
-//					buffer += msg.at(pos++);
-//					break;
-//				}
-//				CASE_TOKEN
-//				case '(':
-//				case ')':
-//				case ']':
-//				case '[':
-//				case '<':
-//				case '>':
-//				{
-//					buffer += msg.at(pos++);
-//					break;
-//				}
-//				case '\t':
-//				{
-//					pos++;
-//					buffer.clear();
-//					break;
-//				}
-//				case ' ':
-//				{
-//					if (in_dquote)
-//					{
-//						buffer += msg.at(pos++);
-//						break;
-//					}
-//
-//					if (buffer.size())
-//					{
-//						if (index >= server_vals_.size())
-//							server_vals_.resize(server_vals_.size()+1);
-//
-//						if (server_vals_.at(index).empty())
-//							server_vals_.at(index) = buffer;
-//					}
-//				
-//					pos++;
-//					buffer.clear();
-//					break;
-//				}
-//				case ',':
-//				{
-//					if (in_dquote)
-//					{
-//						buffer += msg.at(pos++);
-//						break;
-//					}
-//
-//					index++;
-//					server_vals_.resize(server_vals_.size()+1);
-//					pos++;
-//					buffer.clear();
-//					break;
-//				}
-//				case '\r':
-//				{
-//					pos++;
-//					break;
-//				}
-//				case '\n':
-//				{
-//					do_if_is_alpha(msg.at(pos+1), run = false)
-//
-//					pos++;
-//					buffer.clear();
-//					break;
-//				}
-//				default:
-//				{
-//					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
-//					pos++;
-//					buffer.clear();
-//				}
-//			}
-//		}
-//	}
 
 	void HFUnsupported::generate_values()
 	{
@@ -1647,6 +1530,10 @@ namespace EasySip
 		{
 			values_.erase(values_.size()-1);
 		}
+		
+		std::stringstream p;
+		p << header_params_;
+		values_ += p.str();
 	}
 
 	void HFWarning::parse(std::string &msg, size_t &pos)
@@ -1660,7 +1547,7 @@ namespace EasySip
 		while (run)
 		{
 			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_TOKEN
 				case '(':
@@ -1778,6 +1665,7 @@ namespace EasySip
 
 	HFWWWAuthenticate::HFWWWAuthenticate() : HeaderField("WWW-Authenticate", true)
 	{
+		digest_cln_.Sym(",");
 //		header_params_.append("algorithm");
 //		header_params_.append("domain");
 //		header_params_.append("nonce");
@@ -1797,11 +1685,7 @@ namespace EasySip
 		values_ += ' ';
 
 		std::ostringstream o;
-
-		for (auto &it : digest_cln_)
-		{
-			o << it << ',';
-		}
+		o << digest_cln_;
 
 		values_ += o.str();
 
@@ -1809,6 +1693,10 @@ namespace EasySip
 		{
 			values_.erase(values_.size()-1);
 		}
+
+		std::stringstream p;
+		p << header_params_;
+		values_ += p.str();
 	}
 
 	void HFWWWAuthenticate::parse(std::string &msg, size_t &pos)
@@ -1822,7 +1710,7 @@ namespace EasySip
 		{
 			if (pos+1 >= msg.size()) break;
 
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				case '"':
 				{
@@ -1867,12 +1755,12 @@ namespace EasySip
 					}
 					if (name.size())
 					{
-						digest_cln_.push_back(DigestCln(name, buffer));
+						digest_cln_.append(name, buffer);
 						name.clear();
 					}
 					else
 					{
-						digest_cln_.push_back(DigestCln(buffer, ""));
+						digest_cln_.append(buffer, "");
 					}
 
 					pos++;
@@ -1892,12 +1780,12 @@ namespace EasySip
 					}
 					else if (name.size())
 					{
-						digest_cln_.push_back(DigestCln(name, buffer));
+						digest_cln_.append(name, buffer);
 						name.clear();
 					}
 					else
 					{
-						digest_cln_.push_back(DigestCln(buffer, ""));
+						digest_cln_.append(buffer, "");
 					}
 
 					do_if_is_alpha(msg.at(pos+1), run = false)
@@ -1963,7 +1851,7 @@ namespace EasySip
 		while (run)
 		{
 			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_LOWER_ALPHA
 				CASE_DIGIT
@@ -2058,6 +1946,11 @@ namespace EasySip
 	void HFBase_2_::generate_values()
 	{
 		values_ = digit_value_;
+
+		std::stringstream p;
+		p << header_params_;
+
+		values_ += p.str();
 	}
 
 	void HFBase_2_::parse(std::string &msg, size_t &pos)
@@ -2075,7 +1968,7 @@ namespace EasySip
 					digit_value_ = buffer;
 				break;
 			}
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_DIGIT
 				{
@@ -2111,6 +2004,9 @@ namespace EasySip
 	void HFMIMEVersion::generate_values()
 	{
 		values_ = dotted_value_;
+		std::stringstream p;
+		p << header_params_;
+		values_ += p.str();
 	}
 
 	void HFMIMEVersion::parse(std::string &msg, size_t &pos)
@@ -2128,7 +2024,7 @@ namespace EasySip
 					dotted_value_ = buffer;
 				break;
 			}
-			switch(msg.at(pos))
+			switch (msg.at(pos))
 			{
 				CASE_DIGIT
 				case '.':

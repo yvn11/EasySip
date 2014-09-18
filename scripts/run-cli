@@ -23,6 +23,8 @@ $res_path/sip3
 #	sleep 1
 #done
 
+cat test/res/sip2 | build/test/ts-udp cancel ;exit
+cat test/res/sipcont | build/test/ts-udp cancel ;exit
 cat test/res/sip4 | build/test/ts-udp cancel ;exit
 cat test/res/sip-mimeversion | build/test/ts-udp # ;exit 0
 cat test/res/sipwarn | build/test/ts-udp

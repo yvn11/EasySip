@@ -1,5 +1,5 @@
 /*
- * include/mapper.h
+ * include/parameter.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
@@ -15,9 +15,6 @@ namespace EasySip
 {
 	template<typename T>
 	T& RefOf(T& t) { return t; }
-
-	typedef std::vector<std::string> Values;
-	typedef std::map<std::string, std::string> ValueMap;
 
 	class CodeMap : public std::pair<int, std::string>
 	{
@@ -116,30 +113,24 @@ namespace EasySip
 		}
 	};
 
-	typedef std::vector<std::string> Values;
-	typedef std::map<std::string, std::string> ValueMap;
-
 	class Parameter : public std::pair<std::string, std::string>
 	{
-		bool need_value_;
-
 	public:
-		Parameter() : need_value_(true)
+		Parameter()
 		{
 		}
 
-		Parameter(std::string name, std::string value = "", bool need_value = true)
+		Parameter(std::string name, std::string value = "")
 		{
 			first = name;
 			second = value;
-			need_value_ = need_value;
 		}
 
 		~Parameter()
 		{
 		}
 
-		std::string Name()
+		std::string Name() const
 		{
 			return first;
 		}
@@ -168,7 +159,7 @@ namespace EasySip
 		{
 			o << p.Name();
 	
-			if (p.need_value_ && p.Value().size())
+			if (p.Value().size())
 			{
 				o << "=" << p.Value();
 			}
@@ -177,11 +168,17 @@ namespace EasySip
 		}
 	};
 
-	class Parameters : public std::set<Parameter>
+	class Parameters : public std::vector<Parameter>
 	{
+		std::string sym_;
+
 	public:
 
-		Parameters()
+		Parameters(std::string sym) : sym_(sym)
+		{
+		}
+
+		Parameters() : sym_(";")
 		{
 		}
 
@@ -189,16 +186,24 @@ namespace EasySip
 		{
 		}
 
-		void append(std::string name, bool need_value)
+		void Sym(std::string sym)
 		{
-			Parameter p(name, "", true);
-			insert(p);
+			sym_ = sym;
+		}
+
+		std::string Sym() const
+		{
+			return sym_;
+		}
+
+		void append(std::string name)
+		{
+			push_back(Parameter(name, ""));
 		}
 	
-		void append(std::string name, std::string value = "", bool need_value = true)
+		void append(std::string name, std::string value)
 		{
-			Parameter p(name, value, need_value);
-			insert(p);
+			push_back(Parameter(name, value));
 		}
 	
 		bool has_name(std::string name)
@@ -212,14 +217,14 @@ namespace EasySip
 	
 		void set_value_by_name(std::string name, std::string value)
 		{
-			iterator it;
-	
-			for (it = begin(); it != end(); it++)
-				if (name == it->first)
-					break;
-	
-			if (it != end())
-				erase(it);
+			for (auto &it : *this)
+			{
+				if (name == it.first)
+				{
+					it.second = value;
+					return;
+				}
+			}
 
 			append(name, value);
 		}
@@ -233,23 +238,17 @@ namespace EasySip
 					break;
 	
 			if (it == end())
-				return std::string(); // TODO: throw error
+				return std::string();
 
 			return it->second;	
 		}
 	
 		friend std::ostream& operator<< (std::ostream &o, Parameters &ps)
 		{
-			if (ps.empty())
-				return o;
-	
 			for (Parameters::iterator it = ps.begin(); it != ps.end(); it++)
 			{
-				if (it->Value().empty())
-					continue;
-	
 				if (std::distance(ps.begin(), it) <= (int)ps.size()-1)
-					o << ";";
+					o << ps.Sym();
 	
 				o << *it;
 			}

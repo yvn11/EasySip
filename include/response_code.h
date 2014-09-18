@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include "mapper.h"
+#include "parameter.h"
 
 namespace EasySip
 {

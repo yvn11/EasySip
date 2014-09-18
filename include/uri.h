@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <locale>
-#include "mapper.h"
+#include "parameter.h"
 
 namespace EasySip
 {
@@ -114,86 +114,51 @@ namespace EasySip
 				case '{': \
 				case '}': 
 
-	typedef Parameters URIParams;
-	typedef Parameters HeaderParams;
-
 	#define do_if_is_alpha(c, f) 	\
 	{								\
 		std::locale loc;			\
 		if (std::isalpha(c, loc)) { f; }	\
 	}
 
-	#define do_if_is_linefeed(c, f)	\
-	{								\
-		if (c == '\n') { f; }		\
-	}
-
-	struct URI
+	struct Contact
 	{
+		std::string name_;
 		std::string uri_;
-		URIParams uri_params_;
+		Parameters params_;
 
-		std::string scheme_;
-
-		URI()
-		{
-			Initialize();
-		}
-
-		~URI()
+		Contact()
 		{
 		}
 
-		// set value of exist parameter pair
-		void set_param(std::string name, std::string value)
+		Contact(std::string name, std::string uri)
+		: name_(name), uri_(uri)
 		{
-			uri_params_.set_value_by_name(name, value);
 		}
 
-		// create new parameter
-		void add_param(std::string name, std::string value = "", bool need_value = true)
+		friend std::ostream& operator<< (std::ostream &o, Contact &c)
 		{
-			uri_params_.append(name, value, need_value);
-		}
+			if (c.name_.size() || c.params_.size())
+				o << c.name_ << " <";
 
-		friend std::ostream& operator<< (std::ostream &o, URI uri)
-		{
-			if (uri.uri_.empty()) return o;
+			o << c.uri_ << c.params_;
 
-			URIParams::iterator it = uri.uri_params_.begin();
-
-			for (; it != uri.uri_params_.end(); it++)
-				if (!(it->Value().empty()))
-					break;
-
-			if (it != uri.uri_params_.end())
-			{
-				o << "<" << uri.uri_ << ">";
-			}
-			else
-			{
-				o << uri.uri_ << uri.uri_params_;
-			}
+			if (c.name_.size() || c.params_.size())
+				o << ">";
 
 			return o;
 		}
 
-		std::string operator() ()
+		void set_param(std::string name, std::string value)
 		{
-			std::ostringstream o;
-			o << *this;
-
-			return o.str();
+			params_.set_value_by_name(name, value);
 		}
 
-		std::string canonical_form()
+		void add_param(std::string name, std::string value = "")
 		{
-			// TODO: convert escaped chars
-			return  "";
+			params_.append(name, value);
 		}
+	};
 
-		void Initialize()
-		{
 //			uri_params_.append("aai");
 //			uri_params_.append("bnc");
 //			uri_params_.append("cause");
@@ -216,7 +181,7 @@ namespace EasySip
 //			uri_params_.append("transport");
 //			uri_params_.append("ttl");
 //			uri_params_.append("user");
-			// RFC-4240
+//			// RFC-4240
 //			uri_params_.append("content-type");
 //			uri_params_.append("delay");
 //			uri_params_.append("duration");
@@ -224,9 +189,6 @@ namespace EasySip
 //			uri_params_.append("param");
 //			uri_params_.append("play");
 //			uri_params_.append("voicexml");
-		}
-
-	};
 
 
 } // namespace EasySip
