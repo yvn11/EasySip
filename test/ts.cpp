@@ -154,7 +154,6 @@ int main()
 	std::cout << buck.hash_function()(hstr) << '\n';
 
 
-
 	return 1;
 }
 

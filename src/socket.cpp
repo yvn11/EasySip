@@ -11,6 +11,55 @@
 
 namespace EasySip
 {
+	std::string Socket::get_ip_addr()
+	{
+		std::string ret;
+	    struct ifaddrs *ifaddrs = NULL, *ifaddr = NULL;
+	    void *tmpAddrPtr = NULL;
+		int prot, len;
+	
+	    getifaddrs(&ifaddrs);
+	
+	    for (ifaddr = ifaddrs; ifaddr; ifaddr = ifaddr->ifa_next)
+		{
+	        if (!ifaddr->ifa_addr)
+			{
+	            continue;
+	        }
+
+			if (ifaddr->ifa_addr->sa_family == AF_INET)
+			{
+	            tmpAddrPtr = &((struct sockaddr_in *)ifaddr->ifa_addr)->sin_addr;
+	            len = INET_ADDRSTRLEN;
+	            prot = AF_INET;
+	        }
+			else if (ifaddr->ifa_addr->sa_family == AF_INET6)
+			{
+	            tmpAddrPtr = &((struct sockaddr_in6 *)ifaddr->ifa_addr)->sin6_addr;
+	            len = INET6_ADDRSTRLEN;
+				prot = AF_INET6;
+				break;
+	        }
+			else
+			{
+				continue;
+			}
+
+
+			char addressBuffer[len];
+            inet_ntop(prot, tmpAddrPtr, addressBuffer, len);
+	        std::cout << ifaddr->ifa_name << "ip: " << addressBuffer << '\n';
+			ret = addressBuffer;
+	    }
+
+	    if (ifaddrs)
+		{
+			freeifaddrs(ifaddrs);
+		}
+
+	    return ret;
+	}
+
 	SocketIp4UDP::SocketIp4UDP()
 	: SocketIp4(SOCK_DGRAM), binded_(false), need_bind_(true)
 	{

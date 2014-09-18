@@ -61,13 +61,13 @@ namespace EasySip
 
 		virtual void parse(size_t &pos);
 
-		template<typename T>
-		void set_hf_value(
-			std::vector<std::shared_ptr<T> > &f, std::string val)
-		{
-			f.push_back(std::make_shared<T>());
-			f.at(f.size()-1)->values_ = val;
-		}
+//		template<typename T>
+//		void set_hf_value(
+//			std::vector<std::shared_ptr<T> > &f, std::string val)
+//		{
+//			f.push_back(std::make_shared<T>());
+//			f.at(f.size()-1)->values_ = val;
+//		}
 
 		#define parse_field(f, msg, pos) \
 		{ \

@@ -11,11 +11,13 @@ namespace EasySip
 		UAClient::UAClient()
 		{
 			//sv_udp_.SelfAddr("192.168.0.116");
-			sv_udp_.SelfAddr("192.168.2.8");
+			//sv_udp_.SelfAddr("192.168.2.8");
+			sv_udp_.SelfAddr(Socket::get_ip_addr());//"192.168.0.116");
 			sv_udp_.SelfPort(2039);
 
 			//cli_udp_.Addr("192.168.0.116");
-			cli_udp_.Addr("192.168.2.8");
+			//cli_udp_.Addr("192.168.2.8");
+			cli_udp_.Addr(Socket::get_ip_addr());//"192.168.0.116");
 			cli_udp_.Port(1971);
 			cli_udp_.NeedBind(false);
 		}

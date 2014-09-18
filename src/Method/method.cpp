@@ -168,7 +168,10 @@ namespace EasySip
 			{
 				return on_prack_request(in_msg);
 			}
-			default:;
+			default:
+			{
+				std::cerr << "Unexpected request: " << code << '\n';
+			}
 		}
 
 		return 0;
@@ -419,19 +422,18 @@ namespace EasySip
 		rep.ResponseVer(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
-//		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 		rep.add_via().HeaderParam("received", sv_udp_.Addr());
 
-		rep.add_accept().add_value("text", "plain")
+		rep.add_accept()
+		.add_value("text", "plain")
 		.add_value("text", "html")
 		.add_value("application", "sdp")
 		.add_value("multipart", "sdp");
 
 		rep.add_allow();
 
-		for (auto &it : allowed_methods_)
-			(*rep.allow_.end())->add_value(it.Name());
-
+		for (auto &it : allowed_methods_) {std::cout << it << '\n';
+			rep.allow_.at(rep.allow_.size()-1)->add_value(it.Name());}
 
 		rep.create();
 		sv_udp_.send(rep.Msg());

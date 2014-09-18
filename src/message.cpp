@@ -7,10 +7,28 @@
 
 namespace EasySip
 {
-//	HFAccept& Message::add_accept()
+//	HFCallId& Message::add_call_id()
 //	{
-//		accept_.push_back(std::make_shared<HFAccept>());
-//		return *accept_.at(accept_.size()-1);
+//		call_id_.push_back(std::make_shared<HFCallId>());
+//		return *call_id_.at(call_id_.size()-1);
+//	}
+//
+//	HFCSeq& Message::add_cseq()
+//	{
+//		cseq_.push_back(std::make_shared<HFCSeq>());
+//		return *cseq_.at(cseq_.size()-1);
+//	}
+//
+//	HFFrom& Message::add_from()
+//	{
+//		from_.push_back(std::make_shared<HFFrom>());
+//		return *from_.at(from_.size()-1);
+//	}
+//
+//	HFTo& Message::add_to()
+//	{
+//		to_.push_back(std::make_shared<HFTo>());
+//		return *to_.at(to_.size()-1);
 //	}
 //
 //	HFVia& Message::add_via()
@@ -19,10 +37,268 @@ namespace EasySip
 //		return *via_.at(via_.size()-1);
 //	}
 //
-//	HFAllow& Message::add_allow()
+//	HFAlertInfo& Message::add_alert_info()
 //	{
-//		allow_.push_back(std::make_shared<HFAllow>());
-//		return *allow_.at(via_.size()-1);
+//		alert_info_.push_back(std::make_shared<HFAlertInfo>());
+//		return *alert_info_.at(alert_info_.size()-1);
+//	}
+//
+//	HFAllowEvents& Message::add_allow_events()
+//	{
+//		allow_events_.push_back(std::make_shared<HFAllowEvents>());
+//		return *allow_events_.at(allow_events_.size()-1);
+//	}
+//
+//	HFDate& Message::add_date()
+//	{
+//		date_.push_back(std::make_shared<HFDate>());
+//		return *date_.at(date_.size()-1);
+//	}
+//
+//	HFContact& Message::add_contact()
+//	{
+//		contact_.push_back(std::make_shared<HFContact>());
+//		return *contact_.at(contact_.size()-1);
+//	}
+//
+//	HFOrganization& Message::add_organization()
+//	{
+//		organization_.push_back(std::make_shared<HFOrganization>());
+//		return *organization_.at(organization_.size()-1);
+//	}
+//
+//	HFRecordRoute& Message::add_record_route()
+//	{
+//		record_route_.push_back(std::make_shared<HFRecordRoute>());
+//		return *record_route_.at(record_route_.size()-1);
+//	}
+//
+//	HFRetryAfter& Message::add_retry_after()
+//	{
+//		retry_after_.push_back(std::make_shared<HFRetryAfter>());
+//		return *retry_after_.at(retry_after_.size()-1);
+//	}
+//
+//	HFSubject& Message::add_subject()
+//	{
+//		subject_.push_back(std::make_shared<HFSubject>());
+//		return *subject_.at(subject_.size()-1);
+//	}
+//
+//	HFSupported& Message::add_supported()
+//	{
+//		supported_.push_back(std::make_shared<HFSupported>());
+//		return *supported_.at(supported_.size()-1);
+//	}
+//
+//	HFTimestamp& Message::add_timestamp()
+//	{
+//		timestamp_.push_back(std::make_shared<HFTimestamp>());
+//		return *timestamp_.at(timestamp_.size()-1);
+//	}
+//
+//	HFUserAgent& Message::add_user_agent()
+//	{
+//		user_agent_.push_back(std::make_shared<HFUserAgent>());
+//		return *user_agent_.at(user_agent_.size()-1);
+//	}
+//
+//	HFAnswerMode& Message::add_answer_mode()
+//	{
+//		answer_mode_.push_back(std::make_shared<HFAnswerMode>());
+//		return *answer_mode_.at(answer_mode_.size()-1);
+//	}
+//
+//	HFPrivAnswerMode& Message::add_priv_answer_mode()
+//	{
+//		priv_answer_mode_.push_back(std::make_shared<HFPrivAnswerMode>());
+//		return *priv_answer_mode_.at(priv_answer_mode_.size()-1);
+//	}
+//
+//	HFAccept& Message::add_accept()
+//	{
+//		accept_.push_back(std::make_shared<HFAccept>());
+//		return *accept_.at(accept_.size()-1);
+//	}
+//
+//	HFAcceptContact& Message::add_accept_contact()
+//	{
+//		accept_contact_.push_back(std::make_shared<HFAcceptContact>());
+//		return *accept_contact_.at(accept_contact_.size()-1);
+//	}
+//
+//	HFAcceptEncoding& Message::add_accept_encoding()
+//	{
+//		accept_encoding_.push_back(std::make_shared<HFAcceptEncoding>());
+//		return *accept_encoding_.at(accept_encoding_.size()-1);
+//	}
+//
+//	HFAcceptLanguage& Message::add_accept_language()
+//	{
+//		accept_language_.push_back(std::make_shared<HFAcceptLanguage>());
+//		return *accept_language_.at(accept_language_.size()-1);
+//	}
+//
+//	HFAuthorization& Message::add_authorization()
+//	{
+//		authorization_.push_back(std::make_shared<HFAuthorization>());
+//		return *authorization_.at(authorization_.size()-1);
+//	}
+//
+//	HFCallInfo& Message::add_call_info()
+//	{
+//		call_info_.push_back(std::make_shared<HFCallInfo>());
+//		return *call_info_.at(call_info_.size()-1);
+//	}
+//
+//	HFEvent& Message::add_event()
+//	{
+//		event_.push_back(std::make_shared<HFEvent>());
+//		return *event_.at(event_.size()-1);
+//	}
+//
+//	HFInReplyTo& Message::add_in_replay_to()
+//	{
+//		in_replay_to_.push_back(std::make_shared<HFInReplyTo>());
+//		return *in_replay_to_.at(in_replay_to_.size()-1);
+//	}
+//
+//	HFJoin& Message::add_join()
+//	{
+//		join_.push_back(std::make_shared<HFJoin>());
+//		return *join_.at(join_.size()-1);
+//	}
+//
+//	HFPriority& Message::add_priority()
+//	{
+//		priority_.push_back(std::make_shared<HFPriority>());
+//		return *priority_.at(priority_.size()-1);
+//	}
+//
+//	HFPrivacy& Message::add_privacy()
+//	{
+//		privacy_.push_back(std::make_shared<HFPrivacy>());
+//		return *privacy_.at(privacy_.size()-1);
+//	}
+//
+//	HFProxyAuthorization& Message::add_proxy_authorization()
+//	{
+//		proxy_authorization_.push_back(std::make_shared<HFProxyAuthorization>());
+//		return *proxy_authorization_.at(proxy_authorization_.size()-1);
+//	}
+//
+//	HFProxyRequire& Message::add_proxy_require()
+//	{
+//		proxy_require_.push_back(std::make_shared<HFProxyRequire>());
+//		return *proxy_require_.at(proxy_require_.size()-1);
+//	}
+//
+//	HFPOSPAuthToken& Message::add_p_osp_auth_token()
+//	{
+//		p_osp_auth_token_.push_back(std::make_shared<HFPOSPAuthToken>());
+//		return *p_osp_auth_token_.at(p_osp_auth_token_.size()-1);
+//	}
+//
+//	HFPAssertedIdentity& Message::add_p_asserted_identity()
+//	{
+//		p_asserted_identity_.push_back(std::make_shared<HFPAssertedIdentity>());
+//		return *p_asserted_identity_.at(p_asserted_identity_.size()-1);
+//	}
+//
+//	HFPPreferredIdentity& Message::add_p_preferred_identity()
+//	{
+//		p_preferred_identity_.push_back(std::make_shared<HFPPreferredIdentity>());
+//		return *p_preferred_identity_.at(p_preferred_identity_.size()-1);
+//	}
+//
+//	HFMaxForwards& Message::add_max_forwards()
+//	{
+//		max_forwards_.push_back(std::make_shared<HFMaxForwards>());
+//		return *max_forwards_.at(max_forwards_.size()-1);
+//	}
+//
+//	HFReason& Message::add_reason()
+//	{
+//		reason_.push_back(std::make_shared<HFReason>());
+//		return *reason_.at(reason_.size()-1);
+//	}
+//
+//	HFReferTo& Message::add_refer_to()
+//	{
+//		refer_to_.push_back(std::make_shared<HFReferTo>());
+//		return *refer_to_.at(refer_to_.size()-1);
+//	}
+//
+//	HFReferredBy& Message::add_referred_by()
+//	{
+//		referred_by_.push_back(std::make_shared<HFReferredBy>());
+//		return *referred_by_.at(referred_by_.size()-1);
+//	}
+//
+//	HFReplyTo& Message::add_reply_to()
+//	{
+//		reply_to_.push_back(std::make_shared<HFReplyTo>());
+//		return *reply_to_.at(reply_to_.size()-1);
+//	}
+//
+//	HFReplaces& Message::add_replaces()
+//	{
+//		replaces_.push_back(std::make_shared<HFReplaces>());
+//		return *replaces_.at(replaces_.size()-1);
+//	}
+//
+//	HFRejectContact& Message::add_reject_contact()
+//	{
+//		reject_contact_.push_back(std::make_shared<HFRejectContact>());
+//		return *reject_contact_.at(reject_contact_.size()-1);
+//	}
+//
+//	HFRequestDisposition& Message::add_request_disposition()
+//	{
+//		request_disposition_.push_back(std::make_shared<HFRequestDisposition>());
+//		return *request_disposition_.at(request_disposition_.size()-1);
+//	}
+//
+//	HFRequire& Message::add_require()
+//	{
+//		require_.push_back(std::make_shared<HFRequire>());
+//		return *require_.at(require_.size()-1);
+//	}
+//
+//	HFRoute& Message::add_route()
+//	{
+//		route_.push_back(std::make_shared<HFRoute>());
+//		return *route_.at(route_.size()-1);
+//	}
+//
+//	HFRack& Message::add_rack()
+//	{
+//		rack_.push_back(std::make_shared<HFRack>());
+//		return *rack_.at(rack_.size()-1);
+//	}
+//
+//	HFSessionExpires& Message::add_session_expires()
+//	{
+//		session_expires_.push_back(std::make_shared<HFSessionExpires>());
+//		return *session_expires_.at(session_expires_.size()-1);
+//	}
+//
+//	HFSubscriptionState& Message::add_subscription_state()
+//	{
+//		subscription_state_.push_back(std::make_shared<HFSubscriptionState>());
+//		return *subscription_state_.at(subscription_state_.size()-1);
+//	}
+//
+//	HFAuthenticationInfo& Message::add_authentication_info()
+//	{
+//		authentication_info_.push_back(std::make_shared<HFAuthenticationInfo>());
+//		return *authentication_info_.at(authentication_info_.size()-1);
+//	}
+//
+//	HFErrorInfo& Message::add_error_info()
+//	{
+//		error_info_.push_back(std::make_shared<HFErrorInfo>());
+//		return *error_info_.at(error_info_.size()-1);
 //	}
 //
 //	HFMinExpires& Message::add_min_expires()
@@ -30,387 +306,471 @@ namespace EasySip
 //		min_expires_.push_back(std::make_shared<HFMinExpires>());
 //		return *min_expires_.at(min_expires_.size()-1);
 //	}
+//
+//	HFMinSE& Message::add_min_se()
+//	{
+//		min_se_.push_back(std::make_shared<HFMinSE>());
+//		return *min_se_.at(min_se_.size()-1);
+//	}
+//
+//	HFProxyAuthenticate& Message::add_proxy_authenticate()
+//	{
+//		proxy_authenticate_.push_back(std::make_shared<HFProxyAuthenticate>());
+//		return *proxy_authenticate_.at(proxy_authenticate_.size()-1);
+//	}
+//
+//	HFServer& Message::add_server()
+//	{
+//		server_.push_back(std::make_shared<HFServer>());
+//		return *server_.at(server_.size()-1);
+//	}
+//
+//	HFUnsupported& Message::add_unsupported()
+//	{
+//		unsupported_.push_back(std::make_shared<HFUnsupported>());
+//		return *unsupported_.at(unsupported_.size()-1);
+//	}
+//
+//	HFWarning& Message::add_warning()
+//	{
+//		warning_.push_back(std::make_shared<HFWarning>());
+//		return *warning_.at(warning_.size()-1);
+//	}
+//
+//	HFWWWAuthenticate& Message::add_www_authenticate()
+//	{
+//		www_authenticate_.push_back(std::make_shared<HFWWWAuthenticate>());
+//		return *www_authenticate_.at(www_authenticate_.size()-1);
+//	}
+//
+//	HFRSeq& Message::add_rseq()
+//	{
+//		rseq_.push_back(std::make_shared<HFRSeq>());
+//		return *rseq_.at(rseq_.size()-1);
+//	}
+//
+//	HFAllow& Message::add_allow()
+//	{
+//		allow_.push_back(std::make_shared<HFAllow>());
+//		return *allow_.at(allow_.size()-1);
+//	}
+//
+//	HFContentEncoding& Message::add_content_encoding()
+//	{
+//		content_encoding_.push_back(std::make_shared<HFContentEncoding>());
+//		return *content_encoding_.at(content_encoding_.size()-1);
+//	}
+//
+//	HFContentLength& Message::add_content_length()
+//	{
+//		content_length_.push_back(std::make_shared<HFContentLength>());
+//		return *content_length_.at(content_length_.size()-1);
+//	}
+//
+//	HFContentLanguage& Message::add_content_language()
+//	{
+//		content_language_.push_back(std::make_shared<HFContentLanguage>());
+//		return *content_language_.at(content_language_.size()-1);
+//	}
+//
+//	HFContentType& Message::add_content_type()
+//	{
+//		content_type_.push_back(std::make_shared<HFContentType>());
+//		return *content_type_.at(content_type_.size()-1);
+//	}
+//
+//	HFExpires& Message::add_expires()
+//	{
+//		expires_.push_back(std::make_shared<HFExpires>());
+//		return *expires_.at(expires_.size()-1);
+//	}
+//
+//	HFMIMEVersion& Message::add_mime_version()
+//	{
+//		mime_version_.push_back(std::make_shared<HFMIMEVersion>());
+//		return *mime_version_.at(mime_version_.size()-1);
+//	}
 	HFCallId& Message::add_call_id()
 	{
-		call_id_.push_back(std::make_shared<HFCallId>());
+		call_id_.push_back(new HFCallId);
 		return *call_id_.at(call_id_.size()-1);
 	}
 
 	HFCSeq& Message::add_cseq()
 	{
-		cseq_.push_back(std::make_shared<HFCSeq>());
+		cseq_.push_back(new HFCSeq);
 		return *cseq_.at(cseq_.size()-1);
 	}
 
 	HFFrom& Message::add_from()
 	{
-		from_.push_back(std::make_shared<HFFrom>());
+		from_.push_back(new HFFrom);
 		return *from_.at(from_.size()-1);
 	}
 
 	HFTo& Message::add_to()
 	{
-		to_.push_back(std::make_shared<HFTo>());
+		to_.push_back(new HFTo);
 		return *to_.at(to_.size()-1);
 	}
 
 	HFVia& Message::add_via()
 	{
-		via_.push_back(std::make_shared<HFVia>());
+		via_.push_back(new HFVia);
 		return *via_.at(via_.size()-1);
 	}
 
 	HFAlertInfo& Message::add_alert_info()
 	{
-		alert_info_.push_back(std::make_shared<HFAlertInfo>());
+		alert_info_.push_back(new HFAlertInfo);
 		return *alert_info_.at(alert_info_.size()-1);
 	}
 
 	HFAllowEvents& Message::add_allow_events()
 	{
-		allow_events_.push_back(std::make_shared<HFAllowEvents>());
+		allow_events_.push_back(new HFAllowEvents);
 		return *allow_events_.at(allow_events_.size()-1);
 	}
 
 	HFDate& Message::add_date()
 	{
-		date_.push_back(std::make_shared<HFDate>());
+		date_.push_back(new HFDate);
 		return *date_.at(date_.size()-1);
 	}
 
 	HFContact& Message::add_contact()
 	{
-		contact_.push_back(std::make_shared<HFContact>());
+		contact_.push_back(new HFContact);
 		return *contact_.at(contact_.size()-1);
 	}
 
 	HFOrganization& Message::add_organization()
 	{
-		organization_.push_back(std::make_shared<HFOrganization>());
+		organization_.push_back(new HFOrganization);
 		return *organization_.at(organization_.size()-1);
 	}
 
 	HFRecordRoute& Message::add_record_route()
 	{
-		record_route_.push_back(std::make_shared<HFRecordRoute>());
+		record_route_.push_back(new HFRecordRoute);
 		return *record_route_.at(record_route_.size()-1);
 	}
 
 	HFRetryAfter& Message::add_retry_after()
 	{
-		retry_after_.push_back(std::make_shared<HFRetryAfter>());
+		retry_after_.push_back(new HFRetryAfter);
 		return *retry_after_.at(retry_after_.size()-1);
 	}
 
 	HFSubject& Message::add_subject()
 	{
-		subject_.push_back(std::make_shared<HFSubject>());
+		subject_.push_back(new HFSubject);
 		return *subject_.at(subject_.size()-1);
 	}
 
 	HFSupported& Message::add_supported()
 	{
-		supported_.push_back(std::make_shared<HFSupported>());
+		supported_.push_back(new HFSupported);
 		return *supported_.at(supported_.size()-1);
 	}
 
 	HFTimestamp& Message::add_timestamp()
 	{
-		timestamp_.push_back(std::make_shared<HFTimestamp>());
+		timestamp_.push_back(new HFTimestamp);
 		return *timestamp_.at(timestamp_.size()-1);
 	}
 
 	HFUserAgent& Message::add_user_agent()
 	{
-		user_agent_.push_back(std::make_shared<HFUserAgent>());
+		user_agent_.push_back(new HFUserAgent);
 		return *user_agent_.at(user_agent_.size()-1);
 	}
 
 	HFAnswerMode& Message::add_answer_mode()
 	{
-		answer_mode_.push_back(std::make_shared<HFAnswerMode>());
+		answer_mode_.push_back(new HFAnswerMode);
 		return *answer_mode_.at(answer_mode_.size()-1);
 	}
 
 	HFPrivAnswerMode& Message::add_priv_answer_mode()
 	{
-		priv_answer_mode_.push_back(std::make_shared<HFPrivAnswerMode>());
+		priv_answer_mode_.push_back(new HFPrivAnswerMode);
 		return *priv_answer_mode_.at(priv_answer_mode_.size()-1);
 	}
 
 	HFAccept& Message::add_accept()
 	{
-		accept_.push_back(std::make_shared<HFAccept>());
+		accept_.push_back(new HFAccept);
 		return *accept_.at(accept_.size()-1);
 	}
 
 	HFAcceptContact& Message::add_accept_contact()
 	{
-		accept_contact_.push_back(std::make_shared<HFAcceptContact>());
+		accept_contact_.push_back(new HFAcceptContact);
 		return *accept_contact_.at(accept_contact_.size()-1);
 	}
 
 	HFAcceptEncoding& Message::add_accept_encoding()
 	{
-		accept_encoding_.push_back(std::make_shared<HFAcceptEncoding>());
+		accept_encoding_.push_back(new HFAcceptEncoding);
 		return *accept_encoding_.at(accept_encoding_.size()-1);
 	}
 
 	HFAcceptLanguage& Message::add_accept_language()
 	{
-		accept_language_.push_back(std::make_shared<HFAcceptLanguage>());
+		accept_language_.push_back(new HFAcceptLanguage);
 		return *accept_language_.at(accept_language_.size()-1);
 	}
 
 	HFAuthorization& Message::add_authorization()
 	{
-		authorization_.push_back(std::make_shared<HFAuthorization>());
+		authorization_.push_back(new HFAuthorization);
 		return *authorization_.at(authorization_.size()-1);
 	}
 
 	HFCallInfo& Message::add_call_info()
 	{
-		call_info_.push_back(std::make_shared<HFCallInfo>());
+		call_info_.push_back(new HFCallInfo);
 		return *call_info_.at(call_info_.size()-1);
 	}
 
 	HFEvent& Message::add_event()
 	{
-		event_.push_back(std::make_shared<HFEvent>());
+		event_.push_back(new HFEvent);
 		return *event_.at(event_.size()-1);
 	}
 
 	HFInReplyTo& Message::add_in_replay_to()
 	{
-		in_replay_to_.push_back(std::make_shared<HFInReplyTo>());
+		in_replay_to_.push_back(new HFInReplyTo);
 		return *in_replay_to_.at(in_replay_to_.size()-1);
 	}
 
 	HFJoin& Message::add_join()
 	{
-		join_.push_back(std::make_shared<HFJoin>());
+		join_.push_back(new HFJoin);
 		return *join_.at(join_.size()-1);
 	}
 
 	HFPriority& Message::add_priority()
 	{
-		priority_.push_back(std::make_shared<HFPriority>());
+		priority_.push_back(new HFPriority);
 		return *priority_.at(priority_.size()-1);
 	}
 
 	HFPrivacy& Message::add_privacy()
 	{
-		privacy_.push_back(std::make_shared<HFPrivacy>());
+		privacy_.push_back(new HFPrivacy);
 		return *privacy_.at(privacy_.size()-1);
 	}
 
 	HFProxyAuthorization& Message::add_proxy_authorization()
 	{
-		proxy_authorization_.push_back(std::make_shared<HFProxyAuthorization>());
+		proxy_authorization_.push_back(new HFProxyAuthorization);
 		return *proxy_authorization_.at(proxy_authorization_.size()-1);
 	}
 
 	HFProxyRequire& Message::add_proxy_require()
 	{
-		proxy_require_.push_back(std::make_shared<HFProxyRequire>());
+		proxy_require_.push_back(new HFProxyRequire);
 		return *proxy_require_.at(proxy_require_.size()-1);
 	}
 
 	HFPOSPAuthToken& Message::add_p_osp_auth_token()
 	{
-		p_osp_auth_token_.push_back(std::make_shared<HFPOSPAuthToken>());
+		p_osp_auth_token_.push_back(new HFPOSPAuthToken);
 		return *p_osp_auth_token_.at(p_osp_auth_token_.size()-1);
 	}
 
 	HFPAssertedIdentity& Message::add_p_asserted_identity()
 	{
-		p_asserted_identity_.push_back(std::make_shared<HFPAssertedIdentity>());
+		p_asserted_identity_.push_back(new HFPAssertedIdentity);
 		return *p_asserted_identity_.at(p_asserted_identity_.size()-1);
 	}
 
 	HFPPreferredIdentity& Message::add_p_preferred_identity()
 	{
-		p_preferred_identity_.push_back(std::make_shared<HFPPreferredIdentity>());
+		p_preferred_identity_.push_back(new HFPPreferredIdentity);
 		return *p_preferred_identity_.at(p_preferred_identity_.size()-1);
 	}
 
 	HFMaxForwards& Message::add_max_forwards()
 	{
-		max_forwards_.push_back(std::make_shared<HFMaxForwards>());
+		max_forwards_.push_back(new HFMaxForwards);
 		return *max_forwards_.at(max_forwards_.size()-1);
 	}
 
 	HFReason& Message::add_reason()
 	{
-		reason_.push_back(std::make_shared<HFReason>());
+		reason_.push_back(new HFReason);
 		return *reason_.at(reason_.size()-1);
 	}
 
 	HFReferTo& Message::add_refer_to()
 	{
-		refer_to_.push_back(std::make_shared<HFReferTo>());
+		refer_to_.push_back(new HFReferTo);
 		return *refer_to_.at(refer_to_.size()-1);
 	}
 
 	HFReferredBy& Message::add_referred_by()
 	{
-		referred_by_.push_back(std::make_shared<HFReferredBy>());
+		referred_by_.push_back(new HFReferredBy);
 		return *referred_by_.at(referred_by_.size()-1);
 	}
 
 	HFReplyTo& Message::add_reply_to()
 	{
-		reply_to_.push_back(std::make_shared<HFReplyTo>());
+		reply_to_.push_back(new HFReplyTo);
 		return *reply_to_.at(reply_to_.size()-1);
 	}
 
 	HFReplaces& Message::add_replaces()
 	{
-		replaces_.push_back(std::make_shared<HFReplaces>());
+		replaces_.push_back(new HFReplaces);
 		return *replaces_.at(replaces_.size()-1);
 	}
 
 	HFRejectContact& Message::add_reject_contact()
 	{
-		reject_contact_.push_back(std::make_shared<HFRejectContact>());
+		reject_contact_.push_back(new HFRejectContact);
 		return *reject_contact_.at(reject_contact_.size()-1);
 	}
 
 	HFRequestDisposition& Message::add_request_disposition()
 	{
-		request_disposition_.push_back(std::make_shared<HFRequestDisposition>());
+		request_disposition_.push_back(new HFRequestDisposition);
 		return *request_disposition_.at(request_disposition_.size()-1);
 	}
 
 	HFRequire& Message::add_require()
 	{
-		require_.push_back(std::make_shared<HFRequire>());
+		require_.push_back(new HFRequire);
 		return *require_.at(require_.size()-1);
 	}
 
 	HFRoute& Message::add_route()
 	{
-		route_.push_back(std::make_shared<HFRoute>());
+		route_.push_back(new HFRoute);
 		return *route_.at(route_.size()-1);
 	}
 
 	HFRack& Message::add_rack()
 	{
-		rack_.push_back(std::make_shared<HFRack>());
+		rack_.push_back(new HFRack);
 		return *rack_.at(rack_.size()-1);
 	}
 
 	HFSessionExpires& Message::add_session_expires()
 	{
-		session_expires_.push_back(std::make_shared<HFSessionExpires>());
+		session_expires_.push_back(new HFSessionExpires);
 		return *session_expires_.at(session_expires_.size()-1);
 	}
 
 	HFSubscriptionState& Message::add_subscription_state()
 	{
-		subscription_state_.push_back(std::make_shared<HFSubscriptionState>());
+		subscription_state_.push_back(new HFSubscriptionState);
 		return *subscription_state_.at(subscription_state_.size()-1);
 	}
 
 	HFAuthenticationInfo& Message::add_authentication_info()
 	{
-		authentication_info_.push_back(std::make_shared<HFAuthenticationInfo>());
+		authentication_info_.push_back(new HFAuthenticationInfo);
 		return *authentication_info_.at(authentication_info_.size()-1);
 	}
 
 	HFErrorInfo& Message::add_error_info()
 	{
-		error_info_.push_back(std::make_shared<HFErrorInfo>());
+		error_info_.push_back(new HFErrorInfo);
 		return *error_info_.at(error_info_.size()-1);
 	}
 
 	HFMinExpires& Message::add_min_expires()
 	{
-		min_expires_.push_back(std::make_shared<HFMinExpires>());
+		min_expires_.push_back(new HFMinExpires);
 		return *min_expires_.at(min_expires_.size()-1);
 	}
 
 	HFMinSE& Message::add_min_se()
 	{
-		min_se_.push_back(std::make_shared<HFMinSE>());
+		min_se_.push_back(new HFMinSE);
 		return *min_se_.at(min_se_.size()-1);
 	}
 
 	HFProxyAuthenticate& Message::add_proxy_authenticate()
 	{
-		proxy_authenticate_.push_back(std::make_shared<HFProxyAuthenticate>());
+		proxy_authenticate_.push_back(new HFProxyAuthenticate);
 		return *proxy_authenticate_.at(proxy_authenticate_.size()-1);
 	}
 
 	HFServer& Message::add_server()
 	{
-		server_.push_back(std::make_shared<HFServer>());
+		server_.push_back(new HFServer);
 		return *server_.at(server_.size()-1);
 	}
 
 	HFUnsupported& Message::add_unsupported()
 	{
-		unsupported_.push_back(std::make_shared<HFUnsupported>());
+		unsupported_.push_back(new HFUnsupported);
 		return *unsupported_.at(unsupported_.size()-1);
 	}
 
 	HFWarning& Message::add_warning()
 	{
-		warning_.push_back(std::make_shared<HFWarning>());
+		warning_.push_back(new HFWarning);
 		return *warning_.at(warning_.size()-1);
 	}
 
 	HFWWWAuthenticate& Message::add_www_authenticate()
 	{
-		www_authenticate_.push_back(std::make_shared<HFWWWAuthenticate>());
+		www_authenticate_.push_back(new HFWWWAuthenticate);
 		return *www_authenticate_.at(www_authenticate_.size()-1);
 	}
 
 	HFRSeq& Message::add_rseq()
 	{
-		rseq_.push_back(std::make_shared<HFRSeq>());
+		rseq_.push_back(new HFRSeq);
 		return *rseq_.at(rseq_.size()-1);
 	}
 
 	HFAllow& Message::add_allow()
 	{
-		allow_.push_back(std::make_shared<HFAllow>());
+		allow_.push_back(new HFAllow);
 		return *allow_.at(allow_.size()-1);
 	}
 
 	HFContentEncoding& Message::add_content_encoding()
 	{
-		content_encoding_.push_back(std::make_shared<HFContentEncoding>());
+		content_encoding_.push_back(new HFContentEncoding);
 		return *content_encoding_.at(content_encoding_.size()-1);
 	}
 
 	HFContentLength& Message::add_content_length()
 	{
-		content_length_.push_back(std::make_shared<HFContentLength>());
+		content_length_.push_back(new HFContentLength);
 		return *content_length_.at(content_length_.size()-1);
 	}
 
 	HFContentLanguage& Message::add_content_language()
 	{
-		content_language_.push_back(std::make_shared<HFContentLanguage>());
+		content_language_.push_back(new HFContentLanguage);
 		return *content_language_.at(content_language_.size()-1);
 	}
 
 	HFContentType& Message::add_content_type()
 	{
-		content_type_.push_back(std::make_shared<HFContentType>());
+		content_type_.push_back(new HFContentType);
 		return *content_type_.at(content_type_.size()-1);
 	}
 
 	HFExpires& Message::add_expires()
 	{
-		expires_.push_back(std::make_shared<HFExpires>());
+		expires_.push_back(new HFExpires);
 		return *expires_.at(expires_.size()-1);
 	}
 
 	HFMIMEVersion& Message::add_mime_version()
 	{
-		mime_version_.push_back(std::make_shared<HFMIMEVersion>());
+		mime_version_.push_back(new HFMIMEVersion);
 		return *mime_version_.at(mime_version_.size()-1);
 	}
 
@@ -675,7 +1035,6 @@ namespace EasySip
 				case ':':
 				{
 					pos++;
-					std::cout << "field: " << buffer << '\n';
 
 					parse_dispatch(buffer, pos);
 					buffer.clear();
@@ -690,7 +1049,8 @@ namespace EasySip
 					}
 					else
 					{
-						std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg_.at(pos++) << "': " << buffer << "\n";
+						std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg_.at(pos) << '(' << (int)msg_.at(pos)<< ")': " << buffer << "\n";
+						pos++;
 						buffer.clear();
 					}
 				}
@@ -730,7 +1090,6 @@ namespace EasySip
 		if (msg_.empty()) return;
 
 		req_line_->parse(msg_, pos);
-
 		Ancestor::parse(pos);
 
 		if (!is_valid())
@@ -859,9 +1218,14 @@ namespace EasySip
 
 		resp_status_->parse(msg_, pos);
 		Ancestor::parse(pos);
+
+		if (!is_valid())
+		{
+			std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\n";
+		}
 		
 		std::cout << "-resonse------------------------\n";
-		std::cout << *resp_status_ << '\n' << std::cout << *this;
+		std::cout << *resp_status_ << '\n' << *this;
 		std::cout << "--------------------------------\n";
 	}
 

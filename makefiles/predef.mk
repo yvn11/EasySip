@@ -14,7 +14,7 @@ VERSION_HEADER	= $(BUILD)/version.h
 
 SOURCES			= $(shell find $(SRCS) -iregex ".*\.c\(c\|pp\|++\|xx\)")
 
-CFLAGS			+= -Wall -O0 -g --std=c++11 -fPIC -Wl,--hash-style=sysv -MP -MMD #--verbose
+CFLAGS			+= -Wall -O0 -g --std=c++11 -fPIC -Wl,--hash-style=sysv -MP -MMD #-fstats#--verbose
 LDFLAGS			+=
 MACROS			+=
 LIBS			+= pthread

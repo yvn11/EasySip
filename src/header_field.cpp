@@ -7,6 +7,8 @@
 
 namespace EasySip
 {
+	T_HF_MAP HeaderFields::allowed_fields_;
+
 	void RequestLine::parse(std::string &msg, size_t &pos)
 	{
 		size_t next = 0;
@@ -205,7 +207,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "' :" << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' :" << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -323,7 +326,6 @@ namespace EasySip
 						if (read_uri_param)
 						{
 						value = buffer;
-						std::cout << name << ':' << value << '\n';
 						uri_.set_param(name, value);
 						name.clear();
 						value.clear();
@@ -338,7 +340,6 @@ namespace EasySip
 						if (read_head_param)
 						{
 						value = buffer;
-						std::cout << name << ':' << value << '\n';
 						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
@@ -371,7 +372,6 @@ namespace EasySip
 					if (read_head_param)
 					{
 						value = buffer;
-						std::cout << name << ':' << value << '\n';
 						header_params_.append(name, value);//.set_value_by_name(name, value);
 						name.clear();
 						value.clear();
@@ -396,7 +396,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "' :" << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' :" << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -468,7 +469,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "' : " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' : " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -522,7 +524,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "' : " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' : " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -716,7 +719,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -777,14 +781,93 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFSupported::generate_values()
+	void HFBase_3_::generate_values()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		values_.clear();
+
+		for (auto &it : opts_)
+			values_ +=  it + sym_;
+
+		if (values_.size() && values_.at(values_.size()-1) == sym_)
+			values_.erase(values_.size()-1);
 	}
 
-	void HFSupported::parse(std::string &msg, size_t &pos)
+	void HFBase_3_::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		bool run = true;
+		std::string buffer;
+		size_t index = 0;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			if (pos+1 >= msg.size()) break;
+
+			switch(msg.at(pos))
+			{
+				CASE_TOKEN
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case '\t':
+				case ' ':
+				case ',':
+				{
+					if (sym_ != msg.at(pos))
+					{
+						pos++;
+						buffer.clear();
+						break;
+					}
+
+					if (buffer.size())
+					{
+						if (index >= opts_.size())
+							opts_.resize(opts_.size()+1);
+
+						if (opts_.at(index).empty())
+							opts_.at(index) = buffer;
+
+						index++;
+					}
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (buffer.size())
+					{
+						if (index >= opts_.size())
+							opts_.resize(opts_.size()+1);
+
+						if (opts_.at(index).empty())
+							opts_.at(index) = buffer;
+
+						index++;
+					}
+
+					do_if_is_alpha(msg.at(pos+1), run = false)
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
+					buffer.clear();
+				}
+			}
+		}
 	}
 
 	void HFTimestamp::generate_values()
@@ -838,7 +921,7 @@ namespace EasySip
 
 		values_ = o.str();
 
-		if (values_.at(values_.size()-1) == ',')
+		if (values_.size() && values_.at(values_.size()-1) == ',')
 			values_.erase(values_.size()-1);
 	}
 
@@ -866,17 +949,30 @@ namespace EasySip
 				}
 				case ',':
 				{
-					index++;
-					ranges_.resize(ranges_.size()+1);
+					if (buffer.size())
+					{
+						if (index >= ranges_.size())
+							ranges_.resize(ranges_.size()+1);
+	
+						if (ranges_.at(index).subtype_.empty())
+							ranges_.at(index).subtype_ = buffer;
+
+						index++;
+					}
+
 					pos++;
 					buffer.clear();
 					break;
 				}
 				case '/':
 				{
-					if (ranges_.at(index).type_.empty())
+					if (buffer.size())
 					{
-						ranges_.at(index).type_ = buffer;
+						if (index >= ranges_.size())
+							ranges_.resize(ranges_.size()+1);
+
+						if (ranges_.at(index).type_.empty())
+							ranges_.at(index).type_ = buffer;
 					}
 
 					pos++;
@@ -885,9 +981,15 @@ namespace EasySip
 				}
 				case ';':
 				{
-					if (ranges_.at(index).subtype_.empty())
+					if (buffer.size())
 					{
-						ranges_.at(index).subtype_ = buffer;
+						if (index >= ranges_.size())
+							ranges_.resize(ranges_.size()+1);
+	
+						if (ranges_.at(index).subtype_.empty())
+							ranges_.at(index).subtype_ = buffer;
+
+						index++;
 					}
 
 					if (read_head_param)
@@ -931,9 +1033,15 @@ namespace EasySip
 						value.clear();
 					}
 
-					if (ranges_.at(index).subtype_.empty())
+					if (buffer.size())
 					{
-						ranges_.at(index).subtype_ = buffer;
+						if (index >= ranges_.size())
+							ranges_.resize(ranges_.size()+1);
+	
+						if (ranges_.at(index).subtype_.empty())
+							ranges_.at(index).subtype_ = buffer;
+
+						index++;
 					}
 
 					if (pos+1 >= msg.size())
@@ -950,7 +1058,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -1222,79 +1331,80 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFBase_3_::generate_values()
-	{
-		values_.clear();
-
-		for (auto &it : options_)
-		{
-			values_ += it + ' ';
-		}
-
-		values_.erase(values_.size()-1);
-	}
-
-	void HFBase_3_::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true;
-		std::string buffer;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
-			{
-				CASE_TOKEN
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case ',':
-				{
-					if (buffer.size())
-					{
-						options_.insert(buffer);
-					}
-				}
-				case ' ':
-				case '\t':
-				{
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (buffer.size())
-						options_.insert(buffer);
-
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					do_if_is_alpha(msg.at(pos+1), run = false)
-				
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
-					buffer.clear();
-				}
-			}
-		}
-	}
+//	void HFBase_3_::generate_values()
+//	{
+//		values_.clear();
+//
+//		for (auto &it : options_)
+//		{
+//			values_ += it + ' ';
+//		}
+//
+//		values_.erase(values_.size()-1);
+//	}
+//
+//	void HFBase_3_::parse(std::string &msg, size_t &pos)
+//	{
+//		bool run = true;
+//		std::string buffer;
+//
+//		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+//
+//		while (run)
+//		{
+//			if (pos+1 >= msg.size()) break;
+//			switch(msg.at(pos))
+//			{
+//				CASE_TOKEN
+//				{
+//					buffer += msg.at(pos++);
+//					break;
+//				}
+//				case ',':
+//				{
+//					if (buffer.size())
+//					{
+//						options_.insert(buffer);
+//					}
+//				}
+//				case ' ':
+//				case '\t':
+//				{
+//					pos++;
+//					buffer.clear();
+//					break;
+//				}
+//				case '\r':
+//				{
+//					pos++;
+//					break;
+//				}
+//				case '\n':
+//				{
+//					if (buffer.size())
+//						options_.insert(buffer);
+//
+//					if (pos+1 >= msg.size())
+//					{
+//						run = false;
+//						break;
+//					}
+//
+//					do_if_is_alpha(msg.at(pos+1), run = false)
+//				
+//					pos++;
+//					buffer.clear();
+//					break;
+//				}
+//				default:
+//				{
+//					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+//					pos++;
+//					buffer.clear();
+//				}
+//			}
+//		}
+//	}
 
 	void HFRoute::generate_values()
 	{
@@ -1406,15 +1516,113 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFServer::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFServer::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
+//	void HFServer::generate_values()
+//	{
+//		values_.clear();
+//
+//		for (auto &it : server_vals_)
+//		{
+//			values_ +=  it + ' ';
+//		}
+//
+//		if (values_.size() && values_.at(values_.size()-1) == ' ')
+//			values_.erase(values_.size()-1);
+//	}
+//
+//	void HFServer::parse(std::string &msg, size_t &pos)
+//	{
+//		bool run = true, in_dquote = false;
+//		std::string buffer;
+//		size_t index = 0;
+//
+//		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+//
+//		while (run)
+//		{
+//			if (pos+1 >= msg.size()) break;
+//			switch(msg.at(pos))
+//			{
+//				case '"':
+//				{
+//					in_dquote = !in_dquote;
+//
+//					buffer += msg.at(pos++);
+//					break;
+//				}
+//				CASE_TOKEN
+//				case '(':
+//				case ')':
+//				case ']':
+//				case '[':
+//				case '<':
+//				case '>':
+//				{
+//					buffer += msg.at(pos++);
+//					break;
+//				}
+//				case '\t':
+//				{
+//					pos++;
+//					buffer.clear();
+//					break;
+//				}
+//				case ' ':
+//				{
+//					if (in_dquote)
+//					{
+//						buffer += msg.at(pos++);
+//						break;
+//					}
+//
+//					if (buffer.size())
+//					{
+//						if (index >= server_vals_.size())
+//							server_vals_.resize(server_vals_.size()+1);
+//
+//						if (server_vals_.at(index).empty())
+//							server_vals_.at(index) = buffer;
+//					}
+//				
+//					pos++;
+//					buffer.clear();
+//					break;
+//				}
+//				case ',':
+//				{
+//					if (in_dquote)
+//					{
+//						buffer += msg.at(pos++);
+//						break;
+//					}
+//
+//					index++;
+//					server_vals_.resize(server_vals_.size()+1);
+//					pos++;
+//					buffer.clear();
+//					break;
+//				}
+//				case '\r':
+//				{
+//					pos++;
+//					break;
+//				}
+//				case '\n':
+//				{
+//					do_if_is_alpha(msg.at(pos+1), run = false)
+//
+//					pos++;
+//					buffer.clear();
+//					break;
+//				}
+//				default:
+//				{
+//					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+//					pos++;
+//					buffer.clear();
+//				}
+//			}
+//		}
+//	}
 
 	void HFUnsupported::generate_values()
 	{
@@ -1430,10 +1638,8 @@ namespace EasySip
 	{
 		std::ostringstream o;
 
-		for (auto &it : warn_values_)
-		{
+		for (auto &it : warn_vals_)
 			o << it << ',';
-		}
 
 		values_ = o.str();
 
@@ -1481,8 +1687,14 @@ namespace EasySip
 						break;
 					}
 
-					if (warn_values_.at(index).code_.empty())
-						warn_values_.at(index).code_ = buffer;
+					if (buffer.size())
+					{
+						if (index >= warn_vals_.size())
+							warn_vals_.resize(warn_vals_.size()+1);
+
+						if (warn_vals_.at(index).code_.empty())
+							warn_vals_.at(index).code_ = buffer;
+					}
 				
 					pos++;
 					buffer.clear();
@@ -1496,8 +1708,16 @@ namespace EasySip
 						break;
 					}
 
-					index++;
-					warn_values_.resize(warn_values_.size()+1);
+					if (buffer.size())
+					{
+						if (index >= warn_vals_.size())
+							warn_vals_.resize(warn_vals_.size()+1);
+
+						if (warn_vals_.at(index).text_.empty())
+							warn_vals_.at(index).text_ = buffer;
+						index++;
+					}
+
 					pos++;
 					buffer.clear();
 					break;
@@ -1508,8 +1728,15 @@ namespace EasySip
 
 					if (!in_dquote)
 					{
-						if (warn_values_.at(index).text_.empty())
-							warn_values_.at(index).text_ = buffer;
+						if (buffer.size())
+						{
+							if (index >= warn_vals_.size())
+								warn_vals_.resize(warn_vals_.size()+1);
+	
+							if (warn_vals_.at(index).text_.empty())
+								warn_vals_.at(index).text_ = buffer;
+							index++;
+						}
 					}
 
 					pos++;
@@ -1523,6 +1750,16 @@ namespace EasySip
 				}
 				case '\n':
 				{
+					if (buffer.size())
+					{
+						if (index >= warn_vals_.size())
+							warn_vals_.resize(warn_vals_.size()+1);
+
+						if (warn_vals_.at(index).text_.empty())
+							warn_vals_.at(index).text_ = buffer;
+						index++;
+					}
+
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -1531,7 +1768,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -1540,23 +1778,142 @@ namespace EasySip
 
 	HFWWWAuthenticate::HFWWWAuthenticate() : HeaderField("WWW-Authenticate", true)
 	{
-		header_params_.append("algorithm");
-		header_params_.append("domain");
-		header_params_.append("nonce");
-		header_params_.append("opaque");
-		header_params_.append("qop");
-		header_params_.append("realm");
-		header_params_.append("stale");
+//		header_params_.append("algorithm");
+//		header_params_.append("domain");
+//		header_params_.append("nonce");
+//		header_params_.append("opaque");
+//		header_params_.append("qop");
+//		header_params_.append("realm");
+//		header_params_.append("stale");
 	}
 
 	void HFWWWAuthenticate::generate_values()
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		values_ = challenge_;
+
+		if (digest_cln_.empty())
+			return;
+
+		values_ += ' ';
+
+		std::ostringstream o;
+
+		for (auto &it : digest_cln_)
+		{
+			o << it << ',';
+		}
+
+		values_ += o.str();
+
+		if (values_.size() && values_.at(values_.size()-1) == ',')
+		{
+			values_.erase(values_.size()-1);
+		}
 	}
 
 	void HFWWWAuthenticate::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		bool run = true, in_dquote = false;
+		std::string buffer, name;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			if (pos+1 >= msg.size()) break;
+
+			switch(msg.at(pos))
+			{
+				case '"':
+				{
+					in_dquote = !in_dquote;
+				}
+				CASE_TOKEN
+				case ':':
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case '=':
+				{
+					name = buffer;
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\t':
+				case ' ':
+				{
+					if (challenge_.size() || in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					if (buffer.size())
+						challenge_ = buffer;
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ',':
+				{
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+					if (name.size())
+					{
+						digest_cln_.push_back(DigestCln(name, buffer));
+						name.clear();
+					}
+					else
+					{
+						digest_cln_.push_back(DigestCln(buffer, ""));
+					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (challenge_.empty())
+					{
+						challenge_ = buffer;
+					}
+					else if (name.size())
+					{
+						digest_cln_.push_back(DigestCln(name, buffer));
+						name.clear();
+					}
+					else
+					{
+						digest_cln_.push_back(DigestCln(buffer, ""));
+					}
+
+					do_if_is_alpha(msg.at(pos+1), run = false)
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
+					buffer.clear();
+				}
+			}
+		}
 	}
 
 	void HFRSeq::generate_values()
@@ -1567,125 +1924,6 @@ namespace EasySip
 	void HFRSeq::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFAllow::generate_values()
-	{
-		std::ostringstream o;
-
-		for (auto &it : allows_)
-		{
-			o << it << ',';
-		}
-
-		values_ = o.str();
-
-		if (values_.at(values_.size()-1) == ',')
-			values_.erase(values_.size()-1);
-	}
-
-	void HFAllow::parse(std::string &msg, size_t &pos)
-	{
-		bool read_head_param = false, run = true;
-		std::string buffer, name, value;
-		size_t index = 0;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			if (pos+1 >= msg.size()) break;
-			switch(msg.at(pos))
-			{
-				CASE_ALPHA_NUM
-				case '*':
-				case '-':
-				case '.':
-				case '/':
-				case ':':
-				case '@':
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case ',':
-				{
-					index++;
-					allows_.resize(allows_.size()+1);
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case ';':
-				{
-					if (allows_.at(index).empty())
-					{
-						allows_.at(index) = buffer;
-					}
-
-					if (read_head_param)
-					{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
-					}
-					else
-					{
-						read_head_param = true;
-					}
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '=':
-				{
-					name = buffer;
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case ' ':
-				case '\t':
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (read_head_param)
-					{
-						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
-						name.clear();
-						value.clear();
-					}
-
-					if (allows_.at(index).empty())
-						allows_.at(index) = buffer;
-
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					do_if_is_alpha(msg.at(pos+1), run = false;read_head_param = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
-					buffer.clear();
-				}
-			}
-		}
 	}
 
 	void HFContentEncoding::generate_values()
@@ -1809,7 +2047,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -1861,7 +2100,8 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
@@ -1914,14 +2154,14 @@ namespace EasySip
 				}
 				default:
 				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos++) << "': " << buffer << "\n";
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
 					buffer.clear();
 				}
 			}
 		}
 	}
 
-	T_HF_MAP HeaderFields::allowed_fields_;
 
 	void HeaderFields::init_allowed_fields()
 	{
@@ -1989,14 +2229,78 @@ namespace EasySip
 		allowed_fields_["Content-Type"]     	= HF_CONTENT_TYPE;
 		allowed_fields_["Expires"]          	= HF_EXPIRES;
 		allowed_fields_["MIME-Version"]     	= HF_MIME_VERSION;
-     	}
+   	}
 
-        HeaderFields::HeaderFields()
-      	{
-       	}
+	HeaderFields::HeaderFields()
+	{
+	}
 
-		HeaderFields::~HeaderFields()
-       	{
-       	}
+	HeaderFields::~HeaderFields()
+    {
+//			for (auto &it : call_id_) { delete it; }
+//			for (auto &it : cseq_) { delete it; }
+//			for (auto &it : from_) { delete it; }
+//			for (auto &it : to_) { delete it; }
+//			for (auto &it : via_) { delete it; }
+//			for (auto &it : alert_info_) { delete it; }
+//			for (auto &it : allow_events_) { delete it; }
+//			for (auto &it : date_) { delete it; }
+//			for (auto &it : contact_) { delete it; }
+//			for (auto &it : organization_) { delete it; }
+//			for (auto &it : record_route_) { delete it; }
+//			for (auto &it : retry_after_) { delete it; }
+//			for (auto &it : subject_) { delete it; }
+//			for (auto &it : supported_) { delete it; }
+//			for (auto &it : timestamp_) { delete it; }
+//			for (auto &it : user_agent_) { delete it; }
+//			for (auto &it : answer_mode_) { delete it; }
+//			for (auto &it : priv_answer_mode_) { delete it; }
+//			for (auto &it : accept_) { delete it; }
+//			for (auto &it : accept_contact_) { delete it; }
+//			for (auto &it : accept_encoding_) { delete it; }
+//			for (auto &it : accept_language_) { delete it; }
+//			for (auto &it : authorization_) { delete it; }
+//			for (auto &it : call_info_) { delete it; }
+//			for (auto &it : event_) { delete it; }
+//			for (auto &it : in_replay_to_) { delete it; }
+//			for (auto &it : join_) { delete it; }
+//			for (auto &it : priority_) { delete it; }
+//			for (auto &it : privacy_) { delete it; }
+//			for (auto &it : proxy_authorization_) { delete it; }
+//			for (auto &it : proxy_require_) { delete it; }
+//			for (auto &it : p_osp_auth_token_) { delete it; }
+//			for (auto &it : p_asserted_identity_) { delete it; }
+//			for (auto &it : p_preferred_identity_) { delete it; }
+//			for (auto &it : max_forwards_) { delete it; }
+//			for (auto &it : reason_) { delete it; }
+//			for (auto &it : refer_to_) { delete it; }
+//			for (auto &it : referred_by_) { delete it; }
+//			for (auto &it : reply_to_) { delete it; }
+//			for (auto &it : replaces_) { delete it; }
+//			for (auto &it : reject_contact_) { delete it; }
+//			for (auto &it : request_disposition_) { delete it; }
+//			for (auto &it : require_) { delete it; }
+//			for (auto &it : route_) { delete it; }
+//			for (auto &it : rack_) { delete it; }
+//			for (auto &it : session_expires_) { delete it; }
+//			for (auto &it : subscription_state_) { delete it; }
+//			for (auto &it : authentication_info_) { delete it; }
+//			for (auto &it : error_info_) { delete it; }
+//			for (auto &it : min_expires_) { delete it; }
+//			for (auto &it : min_se_) { delete it; }
+//			for (auto &it : proxy_authenticate_) { delete it; }
+//			for (auto &it : server_) { delete it; }
+//			for (auto &it : unsupported_) { delete it; }
+//			for (auto &it : warning_) { delete it; }
+//			for (auto &it : www_authenticate_) { delete it; }
+//			for (auto &it : rseq_) { delete it; }
+//			for (auto &it : allow_) { delete it; }
+//			for (auto &it : content_encoding_) { delete it; }
+//			for (auto &it : content_length_) { delete it; }
+//			for (auto &it : content_language_) { delete it; }
+//			for (auto &it : content_type_) { delete it; }
+//			for (auto &it : expires_) { delete it; }
+//			for (auto &it : mime_version_) { delete it; }
+	}
 
 } // namespace EasySip

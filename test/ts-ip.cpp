@@ -5,7 +5,8 @@
 #include <string.h> 
 #include <arpa/inet.h>
 
-int main (int argc, const char * argv[]) {
+int main (int argc, const char * argv[])
+{
     struct ifaddrs * ifAddrStruct=NULL;
     struct ifaddrs * ifa=NULL;
     void * tmpAddrPtr=NULL;
