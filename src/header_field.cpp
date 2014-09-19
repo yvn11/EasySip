@@ -15,7 +15,7 @@ namespace EasySip
 		// read method
 		if ((next = msg.find_first_of(" ", pos)) != std::string::npos)
 		{
-			method_.Name(msg.substr(pos, next-pos));
+			method_.name(msg.substr(pos, next-pos));
 			pos = next + 1;
 		}
 		// read request-uri
@@ -54,7 +54,7 @@ namespace EasySip
 		// read reason
 		if ((next = msg.find_first_of("\n", pos)) != std::string::npos)
 		{
-			resp_code_.Name(msg.substr(pos, next-pos));
+			resp_code_.name(msg.substr(pos, next-pos));
 			pos = next + 1;
 		}
 	}
@@ -374,8 +374,12 @@ namespace EasySip
 		char sym = ',';
 		std::ostringstream o;
 
+		cons_.cleanup_empty_uri();
+
 		for (auto &it : cons_)
+		{
 			o << it << sym;
+		}
 
 		values_ = o.str();
 
@@ -409,11 +413,7 @@ namespace EasySip
 
 					if (!in_dquote)
 					{
-						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-							cons_.resize(cons_.size()+1);
-
-						if (cons_.at(cons_.size()-1).name_.empty())
-							cons_.at(cons_.size()-1).name_ = buffer;
+						add_name(buffer);
 						buffer.clear();
 					}
 					break;
@@ -438,21 +438,14 @@ namespace EasySip
 				{
 					in_aquote = false;
 
-					if (buffer.size())
+					if (key.size())
 					{
-						if (key.size())
-						{
-							cons_.at(cons_.size()-1).add_param(key, buffer);
-							key.clear();
-						}
-						else
-						{
-							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-								cons_.resize(cons_.size()+1);
-	
-							if (cons_.at(cons_.size()-1).uri_.empty())
-								cons_.at(cons_.size()-1).uri_ = buffer;
-						}
+						add_param(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						add_uri(buffer);
 					}
 
 					pos++;
@@ -467,13 +460,14 @@ namespace EasySip
 						break;
 					}
 
-					if (buffer.size())
+					if (key.size())
 					{
-						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-							cons_.resize(cons_.size()+1);
-
-						if (cons_.at(cons_.size()-1).uri_.empty())
-							cons_.at(cons_.size()-1).uri_ = buffer;
+						add_param(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						add_uri(buffer);
 					}
 
 					pos++;
@@ -484,9 +478,7 @@ namespace EasySip
 				{
 					if (in_aquote)
 					{
-						if (cons_.empty())
-							cons_.resize(cons_.size()+1);
-						cons_.at(cons_.size()-1).set_param(key, buffer);
+						add_param(key, buffer);
 						key.clear();
 					}
 					else
@@ -498,12 +490,7 @@ namespace EasySip
 						}
 						else
 						{
-							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-								cons_.resize(cons_.size()+1);
-
-							if (cons_.at(cons_.size()-1).uri_.empty())
-								cons_.at(cons_.size()-1).uri_ = buffer;
-
+							add_uri(buffer);
 							read_head_param = true;
 						}
 					}
@@ -536,11 +523,7 @@ namespace EasySip
 
 					if (buffer.size())
 					{
-						if (cons_.empty() || !cons_.at(cons_.size()-1).name_.empty())
-							cons_.resize(cons_.size()+1);
-
-						if (cons_.at(cons_.size()-1).name_.empty())
-							cons_.at(cons_.size()-1).name_ = buffer;
+						add_name(buffer);
 					}
 
 					buffer.clear();
@@ -553,7 +536,7 @@ namespace EasySip
 				}
 				case '\n':
 				{
-					if (read_head_param)
+					if (key.size() && read_head_param)
 					{
 						header_params_.append(key, buffer);
 						key.clear();
@@ -561,11 +544,7 @@ namespace EasySip
 					}
 					else
 					{
-						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-							cons_.resize(cons_.size()+1);
-
-						if (cons_.at(cons_.size()-1).uri_.empty())
-							cons_.at(cons_.size()-1).uri_ = buffer;
+						add_uri(buffer);
 					}
 
 					do_if_is_alpha(msg.at(pos+1), run = false)
@@ -952,15 +931,15 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFAcceptLanguage::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFAcceptLanguage::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
+//	void HFAcceptLanguage::generate_values()
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
+//
+//	void HFAcceptLanguage::parse(std::string &msg, size_t &pos)
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
 
 	HFAuthorization::HFAuthorization() : HeaderField("Authorization")
 	{
@@ -987,7 +966,7 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	HFCallInfo::HFCallInfo() : HeaderField("Call-Info", true)
+	HFCallInfo::HFCallInfo() : HFBase_1_("Call-Info", true)
 	{
 //		header_params_.append("m");
 //		header_params_.append("purpose");
@@ -997,22 +976,22 @@ namespace EasySip
 	{
 		std::ostringstream o;
 
+		cons_.cleanup_empty_uri();
+
 		for (auto &it : cons_)
 		{
-			o << '<' << it << '>' << header_params_ << ',';
+			o << '<' << it.uri() << '>' << it.params() << ',';
 		}
 
 		values_ = o.str();
 
 		if (values_.size() && values_.at(values_.size()-1) == ',')
 			values_.erase(values_.size()-1);
-
-		values_ += '\n';
 	}
 
 	void HFCallInfo::parse(std::string &msg, size_t &pos)
 	{
-		bool read_head_param = false, run = true, in_aquote = false, in_dquote = false;
+		bool run = true, in_aquote = false, in_dquote = false;
 		std::string buffer, key;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
@@ -1026,17 +1005,11 @@ namespace EasySip
 				case '"':
 				{
 					in_dquote = !in_dquote;
-
 					buffer += msg.at(pos++);
 
 					if (!in_dquote)
 					{
-						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-							cons_.resize(cons_.size()+1);
-
-						if (cons_.at(cons_.size()-1).name_.empty())
-							cons_.at(cons_.size()-1).name_ = buffer;
-
+						add_name(buffer);
 						buffer.clear();
 					}
 
@@ -1066,18 +1039,12 @@ namespace EasySip
 					{
 						if (key.size())
 						{
-							//cons_.at(cons_.size()-1).add_param(key, buffer);
-							//key.clear();
-							header_params_.append(key, buffer);
+							add_param(key, buffer);
 							key.clear();
 						}
 						else
 						{
-							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-								cons_.resize(cons_.size()+1);
-	
-							if (cons_.at(cons_.size()-1).uri_.empty())
-								cons_.at(cons_.size()-1).uri_ = buffer;
+							add_uri(buffer);
 						}
 					}
 
@@ -1095,11 +1062,15 @@ namespace EasySip
 
 					if (buffer.size())
 					{
-						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-							cons_.resize(cons_.size()+1);
-
-						if (cons_.at(cons_.size()-1).uri_.empty())
-							cons_.at(cons_.size()-1).uri_ = buffer;
+						if (key.size())
+						{
+							add_param(key, buffer);
+							key.clear();
+						}
+						else
+						{
+							add_uri(buffer);
+						}
 					}
 
 					pos++;
@@ -1108,32 +1079,15 @@ namespace EasySip
 				}
 				case ';':
 				{
-					if (in_aquote)
+					if (key.size())
 					{
-						//if (cons_.empty())
-						//	cons_.resize(cons_.size()+1);
-						//cons_.at(cons_.size()-1).set_param(key, buffer);
-						//key.clear();
-						header_params_.append(key, buffer);
+						add_param(key, buffer);
 						key.clear();
 					}
 					else
 					{
-						if (read_head_param)
-						{
-							header_params_.append(key, buffer);
-							key.clear();
-						}
-						else
-						{
-							if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-								cons_.resize(cons_.size()+1);
-
-							if (cons_.at(cons_.size()-1).uri_.empty())
-								cons_.at(cons_.size()-1).uri_ = buffer;
-
-							read_head_param = true;
-						}
+						if (buffer.size())
+							add_uri(buffer);
 					}
 	
 					pos++;
@@ -1156,7 +1110,7 @@ namespace EasySip
 						break;
 					}
 
-					if (in_aquote)
+					if (in_aquote || key.size())
 					{
 						pos++;
 						break;
@@ -1172,19 +1126,14 @@ namespace EasySip
 				}
 				case '\n':
 				{
-					if (read_head_param)
+					if (key.size())
 					{
-						header_params_.append(key, buffer);
+						add_param(key, buffer);
 						key.clear();
-						read_head_param = false;
 					}
 					else
 					{
-						if (cons_.empty() || !cons_.at(cons_.size()-1).uri_.empty())
-							cons_.resize(cons_.size()+1);
-
-						if (cons_.at(cons_.size()-1).uri_.empty())
-							cons_.at(cons_.size()-1).uri_ = buffer;
+						add_uri(buffer);
 					}
 
 					do_if_is_alpha(msg.at(pos+1), run = false)

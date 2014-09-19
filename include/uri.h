@@ -8,6 +8,7 @@
 #include <memory>
 #include <locale>
 #include "parameter.h"
+#include <iostream>
 
 namespace EasySip
 {
@@ -120,45 +121,68 @@ namespace EasySip
 		if (std::isalpha(c, loc)) { f; }	\
 	}
 
-	struct Contact
+	class Contact : public ItemWithParams
 	{
-		std::string name_;
-		std::string uri_;
-		Parameters params_;
-
+	public:
 		Contact()
 		{
+			items_.resize(2);
 		}
 
 		Contact(std::string name, std::string uri)
-		: name_(name), uri_(uri)
 		{
+			items_.push_back(name);
+			items_.push_back(uri);
+		}
+
+		std::string& name()
+		{
+			return items_.at(0);
+		}
+
+		std::string& uri()
+		{
+			return items_.at(1);
+		}
+
+		void name(std::string name)
+		{
+			items_.at(0) = name;
+		}
+
+		void uri(std::string uri)
+		{
+			items_.at(1) = uri;
 		}
 
 		friend std::ostream& operator<< (std::ostream &o, Contact &c)
 		{
-			if (c.name_.size() || c.params_.size())
-				o << c.name_ << " <";
+			if (c.name().size() || c.params().size())
+				o << c.name() << " <";
 
-			o << c.uri_ << c.params_;
+			o << c.uri() << c.params();
 
-			if (c.name_.size() || c.params_.size())
+			if (c.name().size() || c.params().size())
 				o << ">";
 
 			return o;
 		}
 
-		void set_param(std::string name, std::string value)
-		{
-			params_.set_value_by_name(name, value);
-		}
-
-		void add_param(std::string name, std::string value = "")
-		{
-			params_.append(name, value);
-		}
 	};
 
+	struct ContactList : public std::vector<Contact>
+	{
+		void cleanup_empty_uri()
+		{
+			for (iterator it = begin(); it != end();)
+			{
+				if (it->uri().empty())
+					erase(it);
+				else
+					it++;
+			}
+		}
+	};
 //			uri_params_.append("aai");
 //			uri_params_.append("bnc");
 //			uri_params_.append("cause");

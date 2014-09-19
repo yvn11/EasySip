@@ -25,7 +25,7 @@ namespace EasySip
 			first = c;
 		}
 
-		void Name(std::string n)
+		void name(std::string n)
 		{
 			second = n;
 		}
@@ -37,7 +37,7 @@ namespace EasySip
 			return first;
 		}
 
-		std::string Name() const
+		std::string name() const
 		{
 			return second;
 		}
@@ -130,38 +130,38 @@ namespace EasySip
 		{
 		}
 
-		std::string Name() const
+		std::string name() const
 		{
 			return first;
 		}
 
-		std::string Value() const
+		std::string value() const
 		{
 			return second;
 		}
 
-		void Name(const std::string n)
+		void name(const std::string n)
 		{
 			first = n;
 		}
 
-		void Value(const std::string v)
+		void value(const std::string v)
 		{
 			second = v;
 		}
 
 		friend bool operator< (Parameter a, Parameter b)
 		{
-			return a.Name() < b.Name();
+			return a.name() < b.name();
 		}
 
 		friend std::ostream& operator<< (std::ostream &o, Parameter p)
 		{
-			o << p.Name();
+			o << p.name();
 	
-			if (p.Value().size())
+			if (p.value().size())
 			{
-				o << "=" << p.Value();
+				o << "=" << p.value();
 			}
 	
 			return o;
@@ -196,25 +196,28 @@ namespace EasySip
 			return sym_;
 		}
 
-		void append(std::string name)
-		{
-			push_back(Parameter(name, ""));
-		}
-	
 		void append(std::string name, std::string value)
 		{
-			push_back(Parameter(name, value));
+			if (!has_name(name))
+				push_back(Parameter(name, value));
+		}
+
+		void append(std::string name)
+		{
+			append(name, "");
 		}
 	
 		bool has_name(std::string name)
 		{
 			for (auto &it : *this)
+			{
 				if (name == it.first)
 					return true;
+			}
 	
 			return false;
 		}
-	
+
 		void set_value_by_name(std::string name, std::string value)
 		{
 			for (auto &it : *this)
@@ -247,13 +250,53 @@ namespace EasySip
 		{
 			for (Parameters::iterator it = ps.begin(); it != ps.end(); it++)
 			{
-				if (std::distance(ps.begin(), it) <= (int)ps.size()-1)
+				if (std::distance(ps.begin(), it) < (int)ps.size())
 					o << ps.Sym();
 	
 				o << *it;
 			}
 	
 			return o;
+		}
+	};
+
+	struct ItemWithParams
+	{
+		std::vector<std::string> items_;
+		Parameters params_;
+
+		ItemWithParams()
+		{
+		}
+
+		ItemWithParams(std::string item)
+		{
+			items_.push_back(item);
+		}
+
+		Parameters& params()
+		{
+			return params_;
+		}
+
+		friend std::ostream& operator<< (std::ostream &o, ItemWithParams &c)
+		{
+			for (auto &it : c.items_)
+				o << it;
+
+			o << c.params_;
+
+			return o;
+		}
+
+		void set_param(std::string name, std::string value)
+		{
+			params_.set_value_by_name(name, value);
+		}
+
+		void add_param(std::string name, std::string value = "")
+		{
+			params_.append(name, value);
 		}
 	};
 } // namespace EasiSip

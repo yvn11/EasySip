@@ -231,7 +231,7 @@ namespace EasySip
 		cli_udp_.send(buffer);
 		cli_udp_.recv(0);
 
-		
+		std::cout << cli_udp_.Message() << '\n';
 		on_receive_message(cli_udp_.Message());
 
 		return 0;
@@ -322,8 +322,7 @@ namespace EasySip
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
-		rep.create();
-		sv_udp_.send(rep.Msg());
+		sv_udp_.send(rep.create().Msg());
 
 		// TODO forward procedure
 
@@ -342,8 +341,7 @@ namespace EasySip
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
-		rep.create();
-		sv_udp_.send(rep.Msg());
+		sv_udp_.send(rep.create().Msg());
 
 		// TODO forward procedure
 
@@ -364,8 +362,7 @@ namespace EasySip
 		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
-		rep.create();
-		sv_udp_.send(rep.Msg());
+		sv_udp_.send(rep.create().Msg());
 
 		// TODO forward procedure
 		return 0;
@@ -432,8 +429,8 @@ namespace EasySip
 
 		rep.add_allow();
 
-		for (auto &it : allowed_methods_) {std::cout << it << '\n';
-			rep.allow_.at(rep.allow_.size()-1)->add_value(it.Name());}
+		for (auto &it : allowed_methods_) {
+			rep.allow_.at(rep.allow_.size()-1)->add_value(it.name());}
 
 		rep.create();
 		sv_udp_.send(rep.Msg());
@@ -500,7 +497,7 @@ namespace EasySip
 //		resp_msg.allow_.append_field();
 //
 //		for (MethodMapList::iterator it = allowed_methods_.begin(); it != allowed_methods_.end(); it++)
-//			resp_msg.allow_.append_value(it->Name());
+//			resp_msg.allow_.append_value(it->name());
 //
 //		// ---------------------------------------------
 //

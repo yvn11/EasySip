@@ -195,7 +195,7 @@ namespace EasySip
 	
 	struct HFBase_1_ : public HeaderField
 	{
-		std::vector<Contact> cons_;
+		ContactList cons_;
 
 		HFBase_1_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
 		{
@@ -209,6 +209,32 @@ namespace EasySip
 
 		virtual void generate_values();
 		virtual void parse(std::string &msg, size_t &pos);
+
+		void add_param(std::string key, std::string value = "")
+		{
+			if (cons_.empty())
+				cons_.resize(cons_.size()+1);
+
+			cons_.at(cons_.size()-1).add_param(key, value);
+		}
+
+		void add_uri(std::string uri)
+		{
+			if (cons_.empty() || !cons_.at(cons_.size()-1).uri().empty())
+				cons_.resize(cons_.size()+1);
+
+			if (cons_.at(cons_.size()-1).uri().empty())
+				cons_.at(cons_.size()-1).uri(uri);
+		}
+
+		void add_name(std::string name)
+		{
+			if (cons_.empty() || !cons_.at(cons_.size()-1).name().empty())
+				cons_.resize(cons_.size()+1);
+
+			if (cons_.at(cons_.size()-1).name().empty())
+				cons_.at(cons_.size()-1).name(name);
+		}
 	};
 
 	struct HFBase_2_ : public HeaderField
@@ -267,12 +293,12 @@ namespace EasySip
 
 		std::string& name()
 		{
-			return cons_.at(0).name_;
+			return cons_.at(0).name();
 		}
 
 		std::string& uri()
 		{
-			return cons_.at(0).uri_;
+			return cons_.at(0).uri();
 		}
 	};
 
@@ -286,12 +312,12 @@ namespace EasySip
 
 		std::string& name()
 		{
-			return cons_.at(0).name_;
+			return cons_.at(0).name();
 		}
 
 		std::string& uri()
 		{
-			return cons_.at(0).uri_;
+			return cons_.at(0).name();
 		}
 	};
 
@@ -508,14 +534,14 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFAcceptLanguage : public HeaderField
+	struct HFAcceptLanguage : public HFBase_1_//HeaderField
 	{
-		HFAcceptLanguage() : HeaderField("Accept-Language")
+		HFAcceptLanguage() : HFBase_1_("Accept-Language")
 		{
 //			header_params_.append("q");
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+//		void generate_values();
+//		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAuthorization : public HeaderField
@@ -526,9 +552,9 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFCallInfo : public HeaderField
+	struct HFCallInfo : public HFBase_1_//eaderField
 	{
-		std::vector<Contact> cons_;
+//		ContactList cons_;
 
 		HFCallInfo();
 
@@ -961,13 +987,13 @@ namespace EasySip
 		{
 			std::ostringstream ret;
 			
-			ret << method_.Name() << " " << request_uri_ << " " << version_ << "\n";
+			ret << method_.name() << " " << request_uri_ << " " << version_ << "\n";
 			return ret.str();
 		}
 
 		friend std::ostream& operator<< (std::ostream &o, RequestLine req)
 		{
-			o << req.method_.Name() << " " << req.request_uri_ << " " << req.version_;
+			o << req.method_.name() << " " << req.request_uri_ << " " << req.version_;
 			return o;
 		}
 

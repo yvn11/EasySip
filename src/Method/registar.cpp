@@ -136,7 +136,7 @@ namespace EasySip
 
 			for (auto &it : in_msg.contact_.at(0)->cons_)
 			{
-				if (it.uri_ == "*")
+				if (it.uri() == "*")
 				{
 					if (in_msg.expires_.size() && in_msg.expires_.at(0)->digit_value_ != "0")
 					{

@@ -16,7 +16,7 @@ namespace EasySip
 	public:
 
 		Timer(Timer &tm)
-		:value_(tm.Value())
+		:value_(tm.value())
 		{
 		}
 	
@@ -34,12 +34,12 @@ namespace EasySip
 		{
 		}
 	
-		void Value(std::string value)
+		void value(std::string value)
 		{
 			value_ = time_string_to_ulong(value);
 		}
 	
-		std::string Value()
+		std::string value()
 		{
 			return timer_ulong_to_string(value_);
 		}
@@ -164,10 +164,10 @@ namespace EasySip
 		{
 		}
 
-		void Value(std::string value)
+		void value(std::string value)
 		{
 			// TODO: check >3min
-			Base::Value(value);
+			Base::value(value);
 		}
 	};
 
@@ -258,7 +258,7 @@ namespace EasySip
 		typedef Timer Base;
 
 		TI_WAIT_FOR_ACK_RETRAN()
-		: Timer(T4_MAX_DURATION_OF_MSG().Value()) // TODO: UDP: T4, TCP/SCTP =0s
+		: Timer(T4_MAX_DURATION_OF_MSG().value()) // TODO: UDP: T4, TCP/SCTP =0s
 		{
 		}
 	
@@ -290,7 +290,7 @@ namespace EasySip
 		typedef Timer Base;
 
 		TK_WAIT_FOR_RESP_RETRAN()
-		: Timer(T4_MAX_DURATION_OF_MSG().Value()) // TODO: UDP: 64*T1, TCP/SCTP =0s
+		: Timer(T4_MAX_DURATION_OF_MSG().value()) // TODO: UDP: 64*T1, TCP/SCTP =0s
 		{
 		}
 	
