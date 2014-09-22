@@ -162,6 +162,12 @@ namespace EasySip
 		friend std::ostream& operator<< (std::ostream& o, HeaderField& hf);
 
 		std::string operator() ();
+
+		void remove_tail_symbol(char sym)
+		{
+			if (values_.size() && values_.at(values_.size()-1) == sym)
+				values_.erase(values_.size()-1);
+		}
 	};
 
 	// ---------- Mandatory fields ---------------
@@ -176,6 +182,17 @@ namespace EasySip
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
+
+		bool operator== (HFCallId& val)
+		{
+			return (id_ == val.id_);
+		}
+
+		HFCallId& add_id(std::string val)
+		{
+			id_ = val;
+			return *this;
+		}
 	};
 
 	/* CSeq: 35246 INVITE 
@@ -191,6 +208,18 @@ namespace EasySip
 
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
+
+		HFCSeq& add_seq(std::string seq)
+		{
+			cseq_ = seq;
+			return *this;
+		}
+
+		HFCSeq& add_method(std::string val)
+		{
+			method_ = val;
+			return *this;
+		}
 	};
 	
 	struct HFBase_1_ : public HeaderField
@@ -210,30 +239,36 @@ namespace EasySip
 		virtual void generate_values();
 		virtual void parse(std::string &msg, size_t &pos);
 
-		void add_param(std::string key, std::string value = "")
+		HFBase_1_& add_param(std::string key, std::string value = "")
 		{
 			if (cons_.empty())
 				cons_.resize(cons_.size()+1);
 
 			cons_.at(cons_.size()-1).add_param(key, value);
+
+			return *this;
 		}
 
-		void add_uri(std::string uri)
+		HFBase_1_& add_uri(std::string uri)
 		{
 			if (cons_.empty() || !cons_.at(cons_.size()-1).uri().empty())
 				cons_.resize(cons_.size()+1);
 
 			if (cons_.at(cons_.size()-1).uri().empty())
 				cons_.at(cons_.size()-1).uri(uri);
+
+			return *this;
 		}
 
-		void add_name(std::string name)
+		HFBase_1_& add_name(std::string name)
 		{
 			if (cons_.empty() || !cons_.at(cons_.size()-1).name().empty())
 				cons_.resize(cons_.size()+1);
 
 			if (cons_.at(cons_.size()-1).name().empty())
 				cons_.at(cons_.size()-1).name(name);
+
+			return *this;
 		}
 	};
 
@@ -291,14 +326,23 @@ namespace EasySip
 		{
 		}
 
-		std::string& name()
+		std::string name()
 		{
+			if (cons_.empty())
+				return std::string();
 			return cons_.at(0).name();
 		}
 
-		std::string& uri()
+		std::string uri()
 		{
+			if (cons_.empty())
+				return std::string();
 			return cons_.at(0).uri();
+		}
+
+		std::string tag()
+		{
+			return header_params_.get_value_by_name("tag");
 		}
 	};
 
@@ -310,14 +354,23 @@ namespace EasySip
 		{
 		}
 
-		std::string& name()
+		std::string name()
 		{
+			if (cons_.empty())
+				return std::string();
 			return cons_.at(0).name();
 		}
 
-		std::string& uri()
+		std::string uri()
 		{
+			if (cons_.empty())
+				return std::string();
 			return cons_.at(0).name();
+		}
+
+		std::string tag()
+		{
+			return header_params_.get_value_by_name("tag");
 		}
 	};
 
@@ -335,6 +388,18 @@ namespace EasySip
 
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
+
+		HFVia& add_proto(std::string proto)
+		{
+			sent_proto_ = proto;
+			return *this;
+		}
+
+		HFVia& add_sentby(std::string by)
+		{
+			sent_by_ = by;
+			return *this;
+		}
 	};
 
 	// ------------------ Optional fields --------------------
@@ -373,14 +438,14 @@ namespace EasySip
 
 	/* Contact: <sip:user@example.com?Route=%3Csip:sip.example.com%3E>
 	 */
-	struct HFContact : public HFBase_1_//HeaderField
+	struct HFContact : public HFBase_1_
 	{
-//		std::vector<Contact> cons_;
-
 		HFContact();
 
-//		void generate_values();
-//		void parse(std::string &msg, size_t &pos);
+		ContactList& cons()
+		{
+			return cons_;
+		}
 	};
 
 	struct HFOrganization : public HeaderField
@@ -396,13 +461,13 @@ namespace EasySip
 	 * 		maddr=ss1.wcom.com>
 	 * Record-Route: <sip:139.23.1.44;lr>
 	 */
-	struct HFRecordRoute : public HeaderField
+	struct HFRecordRoute : public HFBase_1_
 	{
-		HFRecordRoute() : HeaderField("Record-Route", true)
+		HFRecordRoute() : HFBase_1_("Record-Route", true)
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+//		void generate_values();
+//		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRetryAfter : public HeaderField
@@ -534,7 +599,7 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFAcceptLanguage : public HFBase_1_//HeaderField
+	struct HFAcceptLanguage : public HFBase_1_
 	{
 		HFAcceptLanguage() : HFBase_1_("Accept-Language")
 		{
@@ -552,9 +617,8 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFCallInfo : public HFBase_1_//eaderField
+	struct HFCallInfo : public HFBase_1_
 	{
-//		ContactList cons_;
 
 		HFCallInfo();
 
@@ -741,13 +805,13 @@ namespace EasySip
 		}
 	};
 
-	struct HFRoute : public HeaderField
+	struct HFRoute : public HFBase_1_
 	{
-		HFRoute() : HeaderField("Route", true)
+		HFRoute() : HFBase_1_("Route", true)
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+//		void generate_values();
+//		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRack : public HeaderField
@@ -1042,79 +1106,80 @@ namespace EasySip
 
 	typedef std::map<std::string, size_t> T_HF_MAP;
 
+
 	struct HeaderFields
 	{
 		std::shared_ptr<RequestLine> req_line_;
 		std::shared_ptr<ResponseStatus> resp_status_;
 		// mandatory
-		std::vector<HFCallId*> call_id_;
-		std::vector<HFCSeq*> cseq_;
-		std::vector<HFFrom*> from_;
-		std::vector<HFTo*> to_;
-		std::vector<HFVia*> via_;
+		PtsOf<HFCallId> call_id_;
+		PtsOf<HFCSeq> cseq_;
+		PtsOf<HFFrom> from_;
+		PtsOf<HFTo> to_;
+		PtsOf<HFVia> via_;
 		// Optional
-		std::vector<HFAlertInfo*> alert_info_;
-		std::vector<HFAllowEvents*> allow_events_;
-		std::vector<HFDate*> date_;
-		std::vector<HFContact*> contact_;
-		std::vector<HFOrganization*> organization_;
-		std::vector<HFRecordRoute*> record_route_;
-		std::vector<HFRetryAfter*> retry_after_; // in second
-		std::vector<HFSubject*> subject_;
-		std::vector<HFSupported*> supported_;
-		std::vector<HFTimestamp*> timestamp_;
-		std::vector<HFUserAgent*> user_agent_;
-		std::vector<HFAnswerMode*> answer_mode_;
-		std::vector<HFPrivAnswerMode*> priv_answer_mode_;
+		PtsOf<HFAlertInfo> alert_info_;
+		PtsOf<HFAllowEvents> allow_events_;
+		PtsOf<HFDate> date_;
+		PtsOf<HFContact> contact_;
+		PtsOf<HFOrganization> organization_;
+		PtsOf<HFRecordRoute> record_route_;
+		PtsOf<HFRetryAfter> retry_after_; // in second
+		PtsOf<HFSubject> subject_;
+		PtsOf<HFSupported> supported_;
+		PtsOf<HFTimestamp> timestamp_;
+		PtsOf<HFUserAgent> user_agent_;
+		PtsOf<HFAnswerMode> answer_mode_;
+		PtsOf<HFPrivAnswerMode> priv_answer_mode_;
 		// request header fields
-		std::vector<HFAccept*> accept_; // type/sub-type
-		std::vector<HFAcceptContact*> accept_contact_;
-		std::vector<HFAcceptEncoding*> accept_encoding_;
-		std::vector<HFAcceptLanguage*> accept_language_;
-		std::vector<HFAuthorization*> authorization_;
-		std::vector<HFCallInfo*> call_info_;
-		std::vector<HFEvent*> event_;
-		std::vector<HFInReplyTo*> in_replay_to_;
-		std::vector<HFJoin*> join_;
-		std::vector<HFPriority*> priority_;
-		std::vector<HFPrivacy*> privacy_;
-		std::vector<HFProxyAuthorization*> proxy_authorization_;
-		std::vector<HFProxyRequire*> proxy_require_;
-		std::vector<HFPOSPAuthToken*> p_osp_auth_token_;
-		std::vector<HFPAssertedIdentity*> p_asserted_identity_;
-		std::vector<HFPPreferredIdentity*> p_preferred_identity_;
-		std::vector<HFMaxForwards*> max_forwards_;
-		std::vector<HFReason*> reason_;
-		std::vector<HFReferTo*> refer_to_;
-		std::vector<HFReferredBy*> referred_by_;
-		std::vector<HFReplyTo*> reply_to_;
-		std::vector<HFReplaces*> replaces_;
-		std::vector<HFRejectContact*> reject_contact_;
-		std::vector<HFRequestDisposition*> request_disposition_;
-		std::vector<HFRequire*> require_;
-		std::vector<HFRoute*> route_;
-		std::vector<HFRack*> rack_;
-		std::vector<HFSessionExpires*> session_expires_; // in second
-		std::vector<HFSubscriptionState*> subscription_state_;
+		PtsOf<HFAccept> accept_; // type/sub-type
+		PtsOf<HFAcceptContact> accept_contact_;
+		PtsOf<HFAcceptEncoding> accept_encoding_;
+		PtsOf<HFAcceptLanguage> accept_language_;
+		PtsOf<HFAuthorization> authorization_;
+		PtsOf<HFCallInfo> call_info_;
+		PtsOf<HFEvent> event_;
+		PtsOf<HFInReplyTo> in_replay_to_;
+		PtsOf<HFJoin> join_;
+		PtsOf<HFPriority> priority_;
+		PtsOf<HFPrivacy> privacy_;
+		PtsOf<HFProxyAuthorization> proxy_authorization_;
+		PtsOf<HFProxyRequire> proxy_require_;
+		PtsOf<HFPOSPAuthToken> p_osp_auth_token_;
+		PtsOf<HFPAssertedIdentity> p_asserted_identity_;
+		PtsOf<HFPPreferredIdentity> p_preferred_identity_;
+		PtsOf<HFMaxForwards> max_forwards_;
+		PtsOf<HFReason> reason_;
+		PtsOf<HFReferTo> refer_to_;
+		PtsOf<HFReferredBy> referred_by_;
+		PtsOf<HFReplyTo> reply_to_;
+		PtsOf<HFReplaces> replaces_;
+		PtsOf<HFRejectContact> reject_contact_;
+		PtsOf<HFRequestDisposition> request_disposition_;
+		PtsOf<HFRequire> require_;
+		PtsOf<HFRoute> route_;
+		PtsOf<HFRack> rack_;
+		PtsOf<HFSessionExpires> session_expires_; // in second
+		PtsOf<HFSubscriptionState> subscription_state_;
 		// response header fields
-		std::vector<HFAuthenticationInfo*> authentication_info_;
-		std::vector<HFErrorInfo*> error_info_;
-		std::vector<HFMinExpires*> min_expires_;
-		std::vector<HFMinSE*> min_se_;
-		std::vector<HFProxyAuthenticate*> proxy_authenticate_;
-		std::vector<HFServer*> server_;
-		std::vector<HFUnsupported*> unsupported_;
-		std::vector<HFWarning*> warning_;
-		std::vector<HFWWWAuthenticate*> www_authenticate_;
-		std::vector<HFRSeq*> rseq_;
+		PtsOf<HFAuthenticationInfo> authentication_info_;
+		PtsOf<HFErrorInfo> error_info_;
+		PtsOf<HFMinExpires> min_expires_;
+		PtsOf<HFMinSE> min_se_;
+		PtsOf<HFProxyAuthenticate> proxy_authenticate_;
+		PtsOf<HFServer> server_;
+		PtsOf<HFUnsupported> unsupported_;
+		PtsOf<HFWarning> warning_;
+		PtsOf<HFWWWAuthenticate> www_authenticate_;
+		PtsOf<HFRSeq> rseq_;
 		// message header fields
-		std::vector<HFAllow*> allow_;
-		std::vector<HFContentEncoding*> content_encoding_;
-		std::vector<HFContentLength*> content_length_;
-		std::vector<HFContentLanguage*> content_language_;
-		std::vector<HFContentType*> content_type_;
-		std::vector<HFExpires*> expires_; // in second
-		std::vector<HFMIMEVersion*> mime_version_;
+		PtsOf<HFAllow> allow_;
+		PtsOf<HFContentEncoding> content_encoding_;
+		PtsOf<HFContentLength> content_length_;
+		PtsOf<HFContentLanguage> content_language_;
+		PtsOf<HFContentType> content_type_;
+		PtsOf<HFExpires> expires_; // in second
+		PtsOf<HFMIMEVersion> mime_version_;
 
 		HeaderFields();
 
@@ -1123,6 +1188,8 @@ namespace EasySip
 	public:
 		static T_HF_MAP allowed_fields_;
 		static void init_allowed_fields();
+
+
 	};
 
 } // namespace EasySip

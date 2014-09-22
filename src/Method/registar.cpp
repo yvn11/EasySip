@@ -103,7 +103,7 @@ namespace EasySip
 		in_msg.parse();
 
 		ResponseMessage rep(in_msg);
-		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.SipVersion(SIP_VERSION_2_0);
 
 		// TODO: looking for server, determine whether proxy (Request-URI)
 

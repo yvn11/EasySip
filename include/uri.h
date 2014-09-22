@@ -182,6 +182,11 @@ namespace EasySip
 					it++;
 			}
 		}
+
+		void append(ContactList& c)
+		{
+			insert(end(), c.begin(), c.end());
+		}
 	};
 //			uri_params_.append("aai");
 //			uri_params_.append("bnc");

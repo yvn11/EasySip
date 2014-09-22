@@ -116,7 +116,7 @@ namespace EasySip
 			sk_addr_.sin_port = htons(port);
 		}
 
-		std::string Addr()
+		std::string& Addr()
 		{
 			return addr_;
 		}

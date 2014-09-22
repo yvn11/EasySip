@@ -7,390 +7,773 @@
 
 namespace EasySip
 {
+//	HFCallId& Message::add_call_id()
+//	{
+//		call_id_.push_back(new HFCallId);
+//		return *call_id_.at(call_id_.size()-1);
+//	}
+//
+//	HFCSeq& Message::add_cseq()
+//	{
+//		cseq_.push_back(new HFCSeq);
+//		return *cseq_.at(cseq_.size()-1);
+//	}
+//
+//	HFFrom& Message::add_from()
+//	{
+//		from_.push_back(new HFFrom);
+//		return *from_.at(from_.size()-1);
+//	}
+//
+//	HFTo& Message::add_to()
+//	{
+//		to_.push_back(new HFTo);
+//		return *to_.at(to_.size()-1);
+//	}
+//
+//	HFVia& Message::add_via()
+//	{
+//		via_.push_back(new HFVia);
+//		return *via_.at(via_.size()-1);
+//	}
+//
+//	HFAlertInfo& Message::add_alert_info()
+//	{
+//		alert_info_.push_back(new HFAlertInfo);
+//		return *alert_info_.at(alert_info_.size()-1);
+//	}
+//
+//	HFAllowEvents& Message::add_allow_events()
+//	{
+//		allow_events_.push_back(new HFAllowEvents);
+//		return *allow_events_.at(allow_events_.size()-1);
+//	}
+//
+//	HFDate& Message::add_date()
+//	{
+//		date_.push_back(new HFDate);
+//		return *date_.at(date_.size()-1);
+//	}
+//
+//	HFContact& Message::add_contact()
+//	{
+//		contact_.push_back(new HFContact);
+//		return *contact_.at(contact_.size()-1);
+//	}
+//
+//	HFOrganization& Message::add_organization()
+//	{
+//		organization_.push_back(new HFOrganization);
+//		return *organization_.at(organization_.size()-1);
+//	}
+//
+//	HFRecordRoute& Message::add_record_route()
+//	{
+//		record_route_.push_back(new HFRecordRoute);
+//		return *record_route_.at(record_route_.size()-1);
+//	}
+//
+//	HFRetryAfter& Message::add_retry_after()
+//	{
+//		retry_after_.push_back(new HFRetryAfter);
+//		return *retry_after_.at(retry_after_.size()-1);
+//	}
+//
+//	HFSubject& Message::add_subject()
+//	{
+//		subject_.push_back(new HFSubject);
+//		return *subject_.at(subject_.size()-1);
+//	}
+//
+//	HFSupported& Message::add_supported()
+//	{
+//		supported_.push_back(new HFSupported);
+//		return *supported_.at(supported_.size()-1);
+//	}
+//
+//	HFTimestamp& Message::add_timestamp()
+//	{
+//		timestamp_.push_back(new HFTimestamp);
+//		return *timestamp_.at(timestamp_.size()-1);
+//	}
+//
+//	HFUserAgent& Message::add_user_agent()
+//	{
+//		user_agent_.push_back(new HFUserAgent);
+//		return *user_agent_.at(user_agent_.size()-1);
+//	}
+//
+//	HFAnswerMode& Message::add_answer_mode()
+//	{
+//		answer_mode_.push_back(new HFAnswerMode);
+//		return *answer_mode_.at(answer_mode_.size()-1);
+//	}
+//
+//	HFPrivAnswerMode& Message::add_priv_answer_mode()
+//	{
+//		priv_answer_mode_.push_back(new HFPrivAnswerMode);
+//		return *priv_answer_mode_.at(priv_answer_mode_.size()-1);
+//	}
+//
+//	HFAccept& Message::add_accept()
+//	{
+//		accept_.push_back(new HFAccept);
+//		return *accept_.at(accept_.size()-1);
+//	}
+//
+//	HFAcceptContact& Message::add_accept_contact()
+//	{
+//		accept_contact_.push_back(new HFAcceptContact);
+//		return *accept_contact_.at(accept_contact_.size()-1);
+//	}
+//
+//	HFAcceptEncoding& Message::add_accept_encoding()
+//	{
+//		accept_encoding_.push_back(new HFAcceptEncoding);
+//		return *accept_encoding_.at(accept_encoding_.size()-1);
+//	}
+//
+//	HFAcceptLanguage& Message::add_accept_language()
+//	{
+//		accept_language_.push_back(new HFAcceptLanguage);
+//		return *accept_language_.at(accept_language_.size()-1);
+//	}
+//
+//	HFAuthorization& Message::add_authorization()
+//	{
+//		authorization_.push_back(new HFAuthorization);
+//		return *authorization_.at(authorization_.size()-1);
+//	}
+//
+//	HFCallInfo& Message::add_call_info()
+//	{
+//		call_info_.push_back(new HFCallInfo);
+//		return *call_info_.at(call_info_.size()-1);
+//	}
+//
+//	HFEvent& Message::add_event()
+//	{
+//		event_.push_back(new HFEvent);
+//		return *event_.at(event_.size()-1);
+//	}
+//
+//	HFInReplyTo& Message::add_in_replay_to()
+//	{
+//		in_replay_to_.push_back(new HFInReplyTo);
+//		return *in_replay_to_.at(in_replay_to_.size()-1);
+//	}
+//
+//	HFJoin& Message::add_join()
+//	{
+//		join_.push_back(new HFJoin);
+//		return *join_.at(join_.size()-1);
+//	}
+//
+//	HFPriority& Message::add_priority()
+//	{
+//		priority_.push_back(new HFPriority);
+//		return *priority_.at(priority_.size()-1);
+//	}
+//
+//	HFPrivacy& Message::add_privacy()
+//	{
+//		privacy_.push_back(new HFPrivacy);
+//		return *privacy_.at(privacy_.size()-1);
+//	}
+//
+//	HFProxyAuthorization& Message::add_proxy_authorization()
+//	{
+//		proxy_authorization_.push_back(new HFProxyAuthorization);
+//		return *proxy_authorization_.at(proxy_authorization_.size()-1);
+//	}
+//
+//	HFProxyRequire& Message::add_proxy_require()
+//	{
+//		proxy_require_.push_back(new HFProxyRequire);
+//		return *proxy_require_.at(proxy_require_.size()-1);
+//	}
+//
+//	HFPOSPAuthToken& Message::add_p_osp_auth_token()
+//	{
+//		p_osp_auth_token_.push_back(new HFPOSPAuthToken);
+//		return *p_osp_auth_token_.at(p_osp_auth_token_.size()-1);
+//	}
+//
+//	HFPAssertedIdentity& Message::add_p_asserted_identity()
+//	{
+//		p_asserted_identity_.push_back(new HFPAssertedIdentity);
+//		return *p_asserted_identity_.at(p_asserted_identity_.size()-1);
+//	}
+//
+//	HFPPreferredIdentity& Message::add_p_preferred_identity()
+//	{
+//		p_preferred_identity_.push_back(new HFPPreferredIdentity);
+//		return *p_preferred_identity_.at(p_preferred_identity_.size()-1);
+//	}
+//
+//	HFMaxForwards& Message::add_max_forwards()
+//	{
+//		max_forwards_.push_back(new HFMaxForwards);
+//		return *max_forwards_.at(max_forwards_.size()-1);
+//	}
+//
+//	HFReason& Message::add_reason()
+//	{
+//		reason_.push_back(new HFReason);
+//		return *reason_.at(reason_.size()-1);
+//	}
+//
+//	HFReferTo& Message::add_refer_to()
+//	{
+//		refer_to_.push_back(new HFReferTo);
+//		return *refer_to_.at(refer_to_.size()-1);
+//	}
+//
+//	HFReferredBy& Message::add_referred_by()
+//	{
+//		referred_by_.push_back(new HFReferredBy);
+//		return *referred_by_.at(referred_by_.size()-1);
+//	}
+//
+//	HFReplyTo& Message::add_reply_to()
+//	{
+//		reply_to_.push_back(new HFReplyTo);
+//		return *reply_to_.at(reply_to_.size()-1);
+//	}
+//
+//	HFReplaces& Message::add_replaces()
+//	{
+//		replaces_.push_back(new HFReplaces);
+//		return *replaces_.at(replaces_.size()-1);
+//	}
+//
+//	HFRejectContact& Message::add_reject_contact()
+//	{
+//		reject_contact_.push_back(new HFRejectContact);
+//		return *reject_contact_.at(reject_contact_.size()-1);
+//	}
+//
+//	HFRequestDisposition& Message::add_request_disposition()
+//	{
+//		request_disposition_.push_back(new HFRequestDisposition);
+//		return *request_disposition_.at(request_disposition_.size()-1);
+//	}
+//
+//	HFRequire& Message::add_require()
+//	{
+//		require_.push_back(new HFRequire);
+//		return *require_.at(require_.size()-1);
+//	}
+//
+//	HFRoute& Message::add_route()
+//	{
+//		route_.push_back(new HFRoute);
+//		return *route_.at(route_.size()-1);
+//	}
+//
+//	HFRack& Message::add_rack()
+//	{
+//		rack_.push_back(new HFRack);
+//		return *rack_.at(rack_.size()-1);
+//	}
+//
+//	HFSessionExpires& Message::add_session_expires()
+//	{
+//		session_expires_.push_back(new HFSessionExpires);
+//		return *session_expires_.at(session_expires_.size()-1);
+//	}
+//
+//	HFSubscriptionState& Message::add_subscription_state()
+//	{
+//		subscription_state_.push_back(new HFSubscriptionState);
+//		return *subscription_state_.at(subscription_state_.size()-1);
+//	}
+//
+//	HFAuthenticationInfo& Message::add_authentication_info()
+//	{
+//		authentication_info_.push_back(new HFAuthenticationInfo);
+//		return *authentication_info_.at(authentication_info_.size()-1);
+//	}
+//
+//	HFErrorInfo& Message::add_error_info()
+//	{
+//		error_info_.push_back(new HFErrorInfo);
+//		return *error_info_.at(error_info_.size()-1);
+//	}
+//
+//	HFMinExpires& Message::add_min_expires()
+//	{
+//		min_expires_.push_back(new HFMinExpires);
+//		return *min_expires_.at(min_expires_.size()-1);
+//	}
+//
+//	HFMinSE& Message::add_min_se()
+//	{
+//		min_se_.push_back(new HFMinSE);
+//		return *min_se_.at(min_se_.size()-1);
+//	}
+//
+//	HFProxyAuthenticate& Message::add_proxy_authenticate()
+//	{
+//		proxy_authenticate_.push_back(new HFProxyAuthenticate);
+//		return *proxy_authenticate_.at(proxy_authenticate_.size()-1);
+//	}
+//
+//	HFServer& Message::add_server()
+//	{
+//		server_.push_back(new HFServer);
+//		return *server_.at(server_.size()-1);
+//	}
+//
+//	HFUnsupported& Message::add_unsupported()
+//	{
+//		unsupported_.push_back(new HFUnsupported);
+//		return *unsupported_.at(unsupported_.size()-1);
+//	}
+//
+//	HFWarning& Message::add_warning()
+//	{
+//		warning_.push_back(new HFWarning);
+//		return *warning_.at(warning_.size()-1);
+//	}
+//
+//	HFWWWAuthenticate& Message::add_www_authenticate()
+//	{
+//		www_authenticate_.push_back(new HFWWWAuthenticate);
+//		return *www_authenticate_.at(www_authenticate_.size()-1);
+//	}
+//
+//	HFRSeq& Message::add_rseq()
+//	{
+//		rseq_.push_back(new HFRSeq);
+//		return *rseq_.at(rseq_.size()-1);
+//	}
+//
+//	HFAllow& Message::add_allow()
+//	{
+//		allow_.push_back(new HFAllow);
+//		return *allow_.at(allow_.size()-1);
+//	}
+//
+//	HFContentEncoding& Message::add_content_encoding()
+//	{
+//		content_encoding_.push_back(new HFContentEncoding);
+//		return *content_encoding_.at(content_encoding_.size()-1);
+//	}
+//
+//	HFContentLength& Message::add_content_length()
+//	{
+//		content_length_.push_back(new HFContentLength);
+//		return *content_length_.at(content_length_.size()-1);
+//	}
+//
+//	HFContentLanguage& Message::add_content_language()
+//	{
+//		content_language_.push_back(new HFContentLanguage);
+//		return *content_language_.at(content_language_.size()-1);
+//	}
+//
+//	HFContentType& Message::add_content_type()
+//	{
+//		content_type_.push_back(new HFContentType);
+//		return *content_type_.at(content_type_.size()-1);
+//	}
+//
+//	HFExpires& Message::add_expires()
+//	{
+//		expires_.push_back(new HFExpires);
+//		return *expires_.at(expires_.size()-1);
+//	}
+//
+//	HFMIMEVersion& Message::add_mime_version()
+//	{
+//		mime_version_.push_back(new HFMIMEVersion);
+//		return *mime_version_.at(mime_version_.size()-1);
+//	}
+
 	HFCallId& Message::add_call_id()
 	{
 		call_id_.push_back(new HFCallId);
-		return *call_id_.at(call_id_.size()-1);
+		return *call_id_.last();
 	}
 
 	HFCSeq& Message::add_cseq()
 	{
 		cseq_.push_back(new HFCSeq);
-		return *cseq_.at(cseq_.size()-1);
+		return *cseq_.last();
 	}
 
 	HFFrom& Message::add_from()
 	{
 		from_.push_back(new HFFrom);
-		return *from_.at(from_.size()-1);
+		return *from_.last();
 	}
 
 	HFTo& Message::add_to()
 	{
 		to_.push_back(new HFTo);
-		return *to_.at(to_.size()-1);
+		return *to_.last();
 	}
 
 	HFVia& Message::add_via()
 	{
 		via_.push_back(new HFVia);
-		return *via_.at(via_.size()-1);
+		return *via_.last();
 	}
 
 	HFAlertInfo& Message::add_alert_info()
 	{
 		alert_info_.push_back(new HFAlertInfo);
-		return *alert_info_.at(alert_info_.size()-1);
+		return *alert_info_.last();
 	}
 
 	HFAllowEvents& Message::add_allow_events()
 	{
 		allow_events_.push_back(new HFAllowEvents);
-		return *allow_events_.at(allow_events_.size()-1);
+		return *allow_events_.last();
 	}
 
 	HFDate& Message::add_date()
 	{
 		date_.push_back(new HFDate);
-		return *date_.at(date_.size()-1);
+		return *date_.last();
 	}
 
 	HFContact& Message::add_contact()
 	{
 		contact_.push_back(new HFContact);
-		return *contact_.at(contact_.size()-1);
+		return *contact_.last();
 	}
 
 	HFOrganization& Message::add_organization()
 	{
 		organization_.push_back(new HFOrganization);
-		return *organization_.at(organization_.size()-1);
+		return *organization_.last();
 	}
 
 	HFRecordRoute& Message::add_record_route()
 	{
 		record_route_.push_back(new HFRecordRoute);
-		return *record_route_.at(record_route_.size()-1);
+		return *record_route_.last();
 	}
 
 	HFRetryAfter& Message::add_retry_after()
 	{
 		retry_after_.push_back(new HFRetryAfter);
-		return *retry_after_.at(retry_after_.size()-1);
+		return *retry_after_.last();
 	}
 
 	HFSubject& Message::add_subject()
 	{
 		subject_.push_back(new HFSubject);
-		return *subject_.at(subject_.size()-1);
+		return *subject_.last();
 	}
 
 	HFSupported& Message::add_supported()
 	{
 		supported_.push_back(new HFSupported);
-		return *supported_.at(supported_.size()-1);
+		return *supported_.last();
 	}
 
 	HFTimestamp& Message::add_timestamp()
 	{
 		timestamp_.push_back(new HFTimestamp);
-		return *timestamp_.at(timestamp_.size()-1);
+		return *timestamp_.last();
 	}
 
 	HFUserAgent& Message::add_user_agent()
 	{
 		user_agent_.push_back(new HFUserAgent);
-		return *user_agent_.at(user_agent_.size()-1);
+		return *user_agent_.last();
 	}
 
 	HFAnswerMode& Message::add_answer_mode()
 	{
 		answer_mode_.push_back(new HFAnswerMode);
-		return *answer_mode_.at(answer_mode_.size()-1);
+		return *answer_mode_.last();
 	}
 
 	HFPrivAnswerMode& Message::add_priv_answer_mode()
 	{
 		priv_answer_mode_.push_back(new HFPrivAnswerMode);
-		return *priv_answer_mode_.at(priv_answer_mode_.size()-1);
+		return *priv_answer_mode_.last();
 	}
 
 	HFAccept& Message::add_accept()
 	{
 		accept_.push_back(new HFAccept);
-		return *accept_.at(accept_.size()-1);
+		return *accept_.last();
 	}
 
 	HFAcceptContact& Message::add_accept_contact()
 	{
 		accept_contact_.push_back(new HFAcceptContact);
-		return *accept_contact_.at(accept_contact_.size()-1);
+		return *accept_contact_.last();
 	}
 
 	HFAcceptEncoding& Message::add_accept_encoding()
 	{
 		accept_encoding_.push_back(new HFAcceptEncoding);
-		return *accept_encoding_.at(accept_encoding_.size()-1);
+		return *accept_encoding_.last();
 	}
 
 	HFAcceptLanguage& Message::add_accept_language()
 	{
 		accept_language_.push_back(new HFAcceptLanguage);
-		return *accept_language_.at(accept_language_.size()-1);
+		return *accept_language_.last();
 	}
 
 	HFAuthorization& Message::add_authorization()
 	{
 		authorization_.push_back(new HFAuthorization);
-		return *authorization_.at(authorization_.size()-1);
+		return *authorization_.last();
 	}
 
 	HFCallInfo& Message::add_call_info()
 	{
 		call_info_.push_back(new HFCallInfo);
-		return *call_info_.at(call_info_.size()-1);
+		return *call_info_.last();
 	}
 
 	HFEvent& Message::add_event()
 	{
 		event_.push_back(new HFEvent);
-		return *event_.at(event_.size()-1);
+		return *event_.last();
 	}
 
 	HFInReplyTo& Message::add_in_replay_to()
 	{
 		in_replay_to_.push_back(new HFInReplyTo);
-		return *in_replay_to_.at(in_replay_to_.size()-1);
+		return *in_replay_to_.last();
 	}
 
 	HFJoin& Message::add_join()
 	{
 		join_.push_back(new HFJoin);
-		return *join_.at(join_.size()-1);
+		return *join_.last();
 	}
 
 	HFPriority& Message::add_priority()
 	{
 		priority_.push_back(new HFPriority);
-		return *priority_.at(priority_.size()-1);
+		return *priority_.last();
 	}
 
 	HFPrivacy& Message::add_privacy()
 	{
 		privacy_.push_back(new HFPrivacy);
-		return *privacy_.at(privacy_.size()-1);
+		return *privacy_.last();
 	}
 
 	HFProxyAuthorization& Message::add_proxy_authorization()
 	{
 		proxy_authorization_.push_back(new HFProxyAuthorization);
-		return *proxy_authorization_.at(proxy_authorization_.size()-1);
+		return *proxy_authorization_.last();
 	}
 
 	HFProxyRequire& Message::add_proxy_require()
 	{
 		proxy_require_.push_back(new HFProxyRequire);
-		return *proxy_require_.at(proxy_require_.size()-1);
+		return *proxy_require_.last();
 	}
 
 	HFPOSPAuthToken& Message::add_p_osp_auth_token()
 	{
 		p_osp_auth_token_.push_back(new HFPOSPAuthToken);
-		return *p_osp_auth_token_.at(p_osp_auth_token_.size()-1);
+		return *p_osp_auth_token_.last();
 	}
 
 	HFPAssertedIdentity& Message::add_p_asserted_identity()
 	{
 		p_asserted_identity_.push_back(new HFPAssertedIdentity);
-		return *p_asserted_identity_.at(p_asserted_identity_.size()-1);
+		return *p_asserted_identity_.last();
 	}
 
 	HFPPreferredIdentity& Message::add_p_preferred_identity()
 	{
 		p_preferred_identity_.push_back(new HFPPreferredIdentity);
-		return *p_preferred_identity_.at(p_preferred_identity_.size()-1);
+		return *p_preferred_identity_.last();
 	}
 
 	HFMaxForwards& Message::add_max_forwards()
 	{
 		max_forwards_.push_back(new HFMaxForwards);
-		return *max_forwards_.at(max_forwards_.size()-1);
+		return *max_forwards_.last();
 	}
 
 	HFReason& Message::add_reason()
 	{
 		reason_.push_back(new HFReason);
-		return *reason_.at(reason_.size()-1);
+		return *reason_.last();
 	}
 
 	HFReferTo& Message::add_refer_to()
 	{
 		refer_to_.push_back(new HFReferTo);
-		return *refer_to_.at(refer_to_.size()-1);
+		return *refer_to_.last();
 	}
 
 	HFReferredBy& Message::add_referred_by()
 	{
 		referred_by_.push_back(new HFReferredBy);
-		return *referred_by_.at(referred_by_.size()-1);
+		return *referred_by_.last();
 	}
 
 	HFReplyTo& Message::add_reply_to()
 	{
 		reply_to_.push_back(new HFReplyTo);
-		return *reply_to_.at(reply_to_.size()-1);
+		return *reply_to_.last();
 	}
 
 	HFReplaces& Message::add_replaces()
 	{
 		replaces_.push_back(new HFReplaces);
-		return *replaces_.at(replaces_.size()-1);
+		return *replaces_.last();
 	}
 
 	HFRejectContact& Message::add_reject_contact()
 	{
 		reject_contact_.push_back(new HFRejectContact);
-		return *reject_contact_.at(reject_contact_.size()-1);
+		return *reject_contact_.last();
 	}
 
 	HFRequestDisposition& Message::add_request_disposition()
 	{
 		request_disposition_.push_back(new HFRequestDisposition);
-		return *request_disposition_.at(request_disposition_.size()-1);
+		return *request_disposition_.last();
 	}
 
 	HFRequire& Message::add_require()
 	{
 		require_.push_back(new HFRequire);
-		return *require_.at(require_.size()-1);
+		return *require_.last();
 	}
 
 	HFRoute& Message::add_route()
 	{
 		route_.push_back(new HFRoute);
-		return *route_.at(route_.size()-1);
+		return *route_.last();
 	}
 
 	HFRack& Message::add_rack()
 	{
 		rack_.push_back(new HFRack);
-		return *rack_.at(rack_.size()-1);
+		return *rack_.last();
 	}
 
 	HFSessionExpires& Message::add_session_expires()
 	{
 		session_expires_.push_back(new HFSessionExpires);
-		return *session_expires_.at(session_expires_.size()-1);
+		return *session_expires_.last();
 	}
 
 	HFSubscriptionState& Message::add_subscription_state()
 	{
 		subscription_state_.push_back(new HFSubscriptionState);
-		return *subscription_state_.at(subscription_state_.size()-1);
+		return *subscription_state_.last();
 	}
 
 	HFAuthenticationInfo& Message::add_authentication_info()
 	{
 		authentication_info_.push_back(new HFAuthenticationInfo);
-		return *authentication_info_.at(authentication_info_.size()-1);
+		return *authentication_info_.last();
 	}
 
 	HFErrorInfo& Message::add_error_info()
 	{
 		error_info_.push_back(new HFErrorInfo);
-		return *error_info_.at(error_info_.size()-1);
+		return *error_info_.last();
 	}
 
 	HFMinExpires& Message::add_min_expires()
 	{
 		min_expires_.push_back(new HFMinExpires);
-		return *min_expires_.at(min_expires_.size()-1);
+		return *min_expires_.last();
 	}
 
 	HFMinSE& Message::add_min_se()
 	{
 		min_se_.push_back(new HFMinSE);
-		return *min_se_.at(min_se_.size()-1);
+		return *min_se_.last();
 	}
 
 	HFProxyAuthenticate& Message::add_proxy_authenticate()
 	{
 		proxy_authenticate_.push_back(new HFProxyAuthenticate);
-		return *proxy_authenticate_.at(proxy_authenticate_.size()-1);
+		return *proxy_authenticate_.last();
 	}
 
 	HFServer& Message::add_server()
 	{
 		server_.push_back(new HFServer);
-		return *server_.at(server_.size()-1);
+		return *server_.last();
 	}
 
 	HFUnsupported& Message::add_unsupported()
 	{
 		unsupported_.push_back(new HFUnsupported);
-		return *unsupported_.at(unsupported_.size()-1);
+		return *unsupported_.last();
 	}
 
 	HFWarning& Message::add_warning()
 	{
 		warning_.push_back(new HFWarning);
-		return *warning_.at(warning_.size()-1);
+		return *warning_.last();
 	}
 
 	HFWWWAuthenticate& Message::add_www_authenticate()
 	{
 		www_authenticate_.push_back(new HFWWWAuthenticate);
-		return *www_authenticate_.at(www_authenticate_.size()-1);
+		return *www_authenticate_.last();
 	}
 
 	HFRSeq& Message::add_rseq()
 	{
 		rseq_.push_back(new HFRSeq);
-		return *rseq_.at(rseq_.size()-1);
+		return *rseq_.last();
 	}
 
 	HFAllow& Message::add_allow()
 	{
 		allow_.push_back(new HFAllow);
-		return *allow_.at(allow_.size()-1);
+		return *allow_.last();
 	}
 
 	HFContentEncoding& Message::add_content_encoding()
 	{
 		content_encoding_.push_back(new HFContentEncoding);
-		return *content_encoding_.at(content_encoding_.size()-1);
+		return *content_encoding_.last();
 	}
 
 	HFContentLength& Message::add_content_length()
 	{
 		content_length_.push_back(new HFContentLength);
-		return *content_length_.at(content_length_.size()-1);
+		return *content_length_.last();
 	}
 
 	HFContentLanguage& Message::add_content_language()
 	{
 		content_language_.push_back(new HFContentLanguage);
-		return *content_language_.at(content_language_.size()-1);
+		return *content_language_.last();
 	}
 
 	HFContentType& Message::add_content_type()
 	{
 		content_type_.push_back(new HFContentType);
-		return *content_type_.at(content_type_.size()-1);
+		return *content_type_.last();
 	}
 
 	HFExpires& Message::add_expires()
 	{
 		expires_.push_back(new HFExpires);
-		return *expires_.at(expires_.size()-1);
+		return *expires_.last();
 	}
 
 	HFMIMEVersion& Message::add_mime_version()
 	{
 		mime_version_.push_back(new HFMIMEVersion);
-		return *mime_version_.at(mime_version_.size()-1);
+		return *mime_version_.last();
 	}
-
 
 	std::ostream& operator<< (std::ostream& o, Message& msg)
 	{
@@ -687,14 +1070,15 @@ namespace EasySip
 
 	RequestMessage& RequestMessage::create()
 	{
-		//Ancestor::create();
+		Ancestor::create();
 		std::ostringstream o;
 
-		std::ostringstream len;
-		len << user_data_.size();
-		add_content_length().length(len.str());
+//		std::ostringstream len;
+//		len << user_data_.size();
+//		add_content_length().length(len.str());
 
-		o << req_line_ << '\n' << *this;
+		o << *req_line_ << '\n';
+		o << *this;
 
 		msg_ = o.str();
 
@@ -714,7 +1098,8 @@ namespace EasySip
 		}
 
 		std::cout << "-request------------------------\n";
-		std::cout << *req_line_ << '\n' << *this;
+		std::cout << *req_line_ << '\n';
+		std::cout << *this;
 		std::cout << "--------------------------------\n";
 	}
 
@@ -821,11 +1206,12 @@ namespace EasySip
 		Ancestor::create();
 		std::ostringstream o;
 
-		std::ostringstream len;
-		len << user_data_.size();
-		add_content_length().length(len.str());
+//		std::ostringstream len;
+//		len << user_data_.size();
+//		add_content_length().length(len.str());
 
-		o << *resp_status_ << '\n' << *this;
+		o << *resp_status_ << "\r\n";
+		o << *this;
 
 		msg_ = o.str();
 		return *this;
@@ -844,7 +1230,8 @@ namespace EasySip
 		}
 		
 		std::cout << "-resonse------------------------\n";
-		std::cout << *resp_status_ << '\n' << *this;
+		std::cout << *resp_status_ << "\r\n";
+		std::cout << *this;
 		std::cout << "--------------------------------\n";
 	}
 

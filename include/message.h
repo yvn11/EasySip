@@ -23,6 +23,7 @@ namespace EasySip
 	protected:
 
 		typedef Message Ancestor;
+
 		std::string user_data_;
 		std::string msg_; // message to send or received, which contains header fields and user data
 
@@ -61,14 +62,6 @@ namespace EasySip
 
 		virtual void parse(size_t &pos);
 
-//		template<typename T>
-//		void set_hf_value(
-//			std::vector<std::shared_ptr<T> > &f, std::string val)
-//		{
-//			f.push_back(std::make_shared<T>());
-//			f.at(f.size()-1)->values_ = val;
-//		}
-
 		#define parse_field(f, msg, pos) \
 		{ \
 			f.at(f.size()-1)->parse(msg, pos); \
@@ -85,6 +78,7 @@ namespace EasySip
 		static std::vector<std::string> split_by(std::string msg, std::string sym = " ");
 
 		friend std::ostream& operator<< (std::ostream& o, Message& hf);
+
 
 		// shotcut for each header field
 	 	HFCallId& add_call_id();
@@ -182,6 +176,31 @@ namespace EasySip
 		{
 			size_t pos = 0;
 			parse(pos);
+		}
+
+		void SipVersion(std::string ver)
+		{
+			req_line_->version_ = ver;
+		}
+
+		std::string SipVersion()
+		{
+			return req_line_->version_;
+		}
+
+		void RequestURI(std::string ver)
+		{
+			req_line_->request_uri_ = ver;
+		}
+
+		std::string RequestURI()
+		{
+			return req_line_->request_uri_;
+		}
+	
+		std::string Method()
+		{
+			return req_line_->method_.name();
 		}
 	};
 
@@ -579,12 +598,12 @@ namespace EasySip
 			return resp_status_->resp_code_;
 		}
 
-		void ResponseVer(std::string ver)
+		void SipVersion(std::string ver)
 		{
 			resp_status_->version_ = ver;
 		}
 
-		std::string& ResponseVer()
+		std::string& SipVersion()
 		{
 			return resp_status_->version_;
 		}
@@ -599,4 +618,20 @@ namespace EasySip
 		}
 
 	};
+
+//	class MessageQueue : public std::queue<Message>
+//	{
+//	public:
+//		void append(Message &msg)
+//		{
+//		}
+//
+//		void append(RequestMessage &msg)
+//		{
+//		}
+//
+//		void append(ResponseMessage &msg)
+//		{
+//		}
+//	};
 } // namespace EasySip

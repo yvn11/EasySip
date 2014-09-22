@@ -181,7 +181,7 @@ namespace EasySip
 	{
 //		ResponseMessage rep(SIP_RESPONSE_SUCCESSFUL);
 ////		rep.append_userdata("top of the hill");
-//		rep.ResponseVer(SIP_VERSION_2_0);
+//		rep.SipVersion(SIP_VERSION_2_0);
 //		rep.create();
 //		sv_udp_.send(rep.Msg());
 
@@ -191,15 +191,8 @@ namespace EasySip
 		return 0;
 	}
 
-	void Method::sigint_hdr(int signo)
-	{
-		std::cout << __PRETTY_FUNCTION__ << "Got signal: " << signo << '\n';
-		run_ = false;
-	}
-
 	int Method::start()
 	{
-//		signal(SIGINT, (sighandler_t)&Method::sigint_hdr);
 		try
 		{
 			while (run_)
@@ -227,11 +220,10 @@ namespace EasySip
 		while(std::getline(std::cin, line))
 			buffer += line+'\n';
 
-		std::cout << "send:\n" << buffer << '\n';
+		std::cout << "<-----------------send:\n" << buffer << "--------------------->\n";
 		cli_udp_.send(buffer);
 		cli_udp_.recv(0);
 
-		std::cout << cli_udp_.Message() << '\n';
 		on_receive_message(cli_udp_.Message());
 
 		return 0;
@@ -314,12 +306,12 @@ namespace EasySip
 		in_msg.parse();
 
 		ResponseMessage rep(in_msg);
-		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_TRYING);
 
 		// TODO: tag
 		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+		rep.via_.last()->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
 		sv_udp_.send(rep.create().Msg());
@@ -335,10 +327,10 @@ namespace EasySip
 		in_msg.parse();
 
 		ResponseMessage rep(in_msg);
-		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_TRYING);
 
-		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+		rep.via_.last()->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
 		sv_udp_.send(rep.create().Msg());
@@ -354,12 +346,12 @@ namespace EasySip
 		in_msg.parse();
 
 		ResponseMessage rep(in_msg);
-		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
 		// TODO: tag
 		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+		rep.via_.last()->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
 		sv_udp_.send(rep.create().Msg());
@@ -374,12 +366,12 @@ namespace EasySip
 		in_msg.parse();
 
 		ResponseMessage rep(in_msg);
-		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
 		// TODO: tag
 		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+		rep.via_.last()->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
 		rep.create();
@@ -395,12 +387,12 @@ namespace EasySip
 		in_msg.parse();
 
 		ResponseMessage rep(in_msg);
-		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
 		// TODO: tag
 		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-		rep.via_.at(rep.via_.size()-1)->HeaderParam("received", sv_udp_.Addr());
+		rep.via_.last()->HeaderParam("received", sv_udp_.Addr());
 //		rep.append_userdata("top of the hill");
 
 		rep.create();
@@ -416,7 +408,7 @@ namespace EasySip
 
 		ResponseMessage rep(in_msg);
 
-		rep.ResponseVer(SIP_VERSION_2_0);
+		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
 		rep.add_via().HeaderParam("received", sv_udp_.Addr());
@@ -430,7 +422,7 @@ namespace EasySip
 		rep.add_allow();
 
 		for (auto &it : allowed_methods_) {
-			rep.allow_.at(rep.allow_.size()-1)->add_value(it.name());}
+			rep.allow_.last()->add_value(it.name());}
 
 		rep.create();
 		sv_udp_.send(rep.Msg());

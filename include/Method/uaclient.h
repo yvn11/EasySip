@@ -18,7 +18,7 @@ namespace EasySip
 		{
 		}
 
-//		virtual int invite_request();
+		virtual int invite_request();
 //		virtual int register_request();
 //		virtual int bye_request();
 //		virtual int cancel_request();

@@ -64,7 +64,8 @@ namespace EasySip
 		o << hf.field_ << ": ";
 		hf.generate_values();
 
-		o << hf.Values() << "\n";
+		o << hf.Values();
+		o << "\r\n";
 //		o << hf.header_params_ << "\n";
 
 		return o;
@@ -112,8 +113,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
-
 			switch (msg.at(pos))
 			{
 				CASE_TOKEN//ALPHA_NUM
@@ -146,7 +145,7 @@ namespace EasySip
 				{
 					if (read_head_param)
 					{
-						header_params_.append(key, buffer);//.set_value_by_name(key, value);
+						header_params_.append(key, buffer);
 						key.clear();
 					}
 					else
@@ -175,7 +174,7 @@ namespace EasySip
 				{
 					if (read_head_param)
 					{
-						header_params_.append(key, buffer);//.set_value_by_name(key, value);
+						header_params_.append(key, buffer);
 						key.clear();
 						read_head_param = false;
 					}
@@ -187,6 +186,7 @@ namespace EasySip
 						}
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -222,7 +222,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
 			switch (msg.at(pos))
 			{
 				CASE_ALPHA_NUM
@@ -264,6 +263,7 @@ namespace EasySip
 						break;
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -298,7 +298,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
 			switch (msg.at(pos))
 			{
 				CASE_WORD
@@ -323,6 +322,7 @@ namespace EasySip
 						break;
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -383,8 +383,7 @@ namespace EasySip
 
 		values_ = o.str();
 
-		if (values_.at(values_.size()-1) == sym)
-			values_.erase(values_.size()-1);
+		remove_tail_symbol(sym);
 
 		std::ostringstream p;
 		p << header_params_;
@@ -401,8 +400,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
-
 			switch (msg.at(pos))
 			{
 				case '"':
@@ -478,8 +475,16 @@ namespace EasySip
 				{
 					if (in_aquote)
 					{
-						add_param(key, buffer);
-						key.clear();
+						if (key.empty())
+						{
+							add_uri(buffer);
+							read_head_param = true;
+						}
+						else
+						{
+							add_param(key, buffer);
+							key.clear();
+						}
 					}
 					else
 					{
@@ -525,7 +530,6 @@ namespace EasySip
 					{
 						add_name(buffer);
 					}
-
 					buffer.clear();
 				}
 				case '\t':
@@ -547,6 +551,7 @@ namespace EasySip
 						add_uri(buffer);
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -586,15 +591,15 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRecordRoute::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFRecordRoute::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
+//	void HFRecordRoute::generate_values()
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
+//
+//	void HFRecordRoute::parse(std::string &msg, size_t &pos)
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
 
 	void HFRetryAfter::generate_values()
 	{
@@ -623,8 +628,7 @@ namespace EasySip
 		for (auto &it : opts_)
 			values_ +=  it + sym_;
 
-		if (values_.size() && values_.at(values_.size()-1) == sym_)
-			values_.erase(values_.size()-1);
+		remove_tail_symbol(sym_);
 
 		std::ostringstream p;
 		p << header_params_;
@@ -642,8 +646,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
-
 			switch (msg.at(pos))
 			{
 				CASE_TOKEN
@@ -694,6 +696,7 @@ namespace EasySip
 						index++;
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -752,17 +755,17 @@ namespace EasySip
 
 	void HFAccept::generate_values()
 	{
+		char sym = ',';
 		std::ostringstream o;
 
 		for (auto &it : ranges_)
 		{
-			o << it << ',';
+			o << it << sym;
 		}
 
 		values_ = o.str();
 
-		if (values_.size() && values_.at(values_.size()-1) == ',')
-			values_.erase(values_.size()-1);
+		remove_tail_symbol(sym);
 
 		std::ostringstream p;
 		p << header_params_;
@@ -780,7 +783,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
 			switch (msg.at(pos))
 			{
 				CASE_ALPHA_NUM
@@ -840,7 +842,7 @@ namespace EasySip
 					if (read_head_param)
 					{
 						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
+						header_params_.append(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -873,7 +875,7 @@ namespace EasySip
 					if (read_head_param)
 					{
 						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
+						header_params_.append(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -895,6 +897,7 @@ namespace EasySip
 						break;
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false;read_head_param = false)
 
 					pos++;
@@ -974,19 +977,19 @@ namespace EasySip
 
 	void HFCallInfo::generate_values()
 	{
+		char sym = ',';
 		std::ostringstream o;
 
 		cons_.cleanup_empty_uri();
 
 		for (auto &it : cons_)
 		{
-			o << '<' << it.uri() << '>' << it.params() << ',';
+			o << '<' << it.uri() << '>' << it.params() << sym;
 		}
 
 		values_ = o.str();
 
-		if (values_.size() && values_.at(values_.size()-1) == ',')
-			values_.erase(values_.size()-1);
+		remove_tail_symbol(sym);
 	}
 
 	void HFCallInfo::parse(std::string &msg, size_t &pos)
@@ -998,8 +1001,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
-
 			switch (msg.at(pos))
 			{
 				case '"':
@@ -1136,6 +1137,7 @@ namespace EasySip
 						add_uri(buffer);
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -1346,15 +1348,15 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRoute::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFRoute::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
+//	void HFRoute::generate_values()
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
+//
+//	void HFRoute::parse(std::string &msg, size_t &pos)
+//	{
+//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//	}
 
 	void HFRack::generate_values()
 	{
@@ -1468,17 +1470,15 @@ namespace EasySip
 
 	void HFWarning::generate_values()
 	{
+		char sym = ',';
 		std::ostringstream o;
 
 		for (auto &it : warn_vals_)
-			o << it << ',';
+			o << it << sym;
 
 		values_ = o.str();
 
-		if (values_.size() && values_.at(values_.size()-1) == ',')
-		{
-			values_.erase(values_.size()-1);
-		}
+		remove_tail_symbol(sym);
 		
 		std::stringstream p;
 		p << header_params_;
@@ -1495,7 +1495,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
 			switch (msg.at(pos))
 			{
 				CASE_TOKEN
@@ -1596,6 +1595,7 @@ namespace EasySip
 						index++;
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -1626,24 +1626,22 @@ namespace EasySip
 
 	void HFWWWAuthenticate::generate_values()
 	{
+		char sym = ' ';
 		values_ = challenge_;
 
 		if (digest_cln_.empty())
 			return;
 
-		values_ += ' ';
+		values_ += sym;
 
 		std::ostringstream o;
 		o << digest_cln_;
 
 		values_ += o.str();
 
-		if (values_.size() && values_.at(values_.size()-1) == ',')
-		{
-			values_.erase(values_.size()-1);
-		}
+		remove_tail_symbol(sym);
 
-		std::stringstream p;
+		std::ostringstream p;
 		p << header_params_;
 		values_ += p.str();
 	}
@@ -1657,8 +1655,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
-
 			switch (msg.at(pos))
 			{
 				case '"':
@@ -1737,6 +1733,7 @@ namespace EasySip
 						digest_cln_.append(buffer, "");
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -1799,7 +1796,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size()) break;
 			switch (msg.at(pos))
 			{
 				CASE_LOWER_ALPHA
@@ -1828,7 +1824,7 @@ namespace EasySip
 					{
 						value = buffer;
 						std::cout << name << ':' << value << '\n';
-						header_params_.append(name, value);//.set_value_by_name(name, value);
+						header_params_.append(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -1845,6 +1841,7 @@ namespace EasySip
 						break;
 					}
 
+					if (pos+1 >= msg.size()) { run = false; break; }
 					do_if_is_alpha(msg.at(pos+1), run = false)
 
 					pos++;
@@ -1869,7 +1866,7 @@ namespace EasySip
 					if (read_head_param)
 					{
 						value = buffer;
-						header_params_.append(name, value);//.set_value_by_name(name, value);
+						header_params_.append(name, value);
 						name.clear();
 						value.clear();
 					}
@@ -1911,12 +1908,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size())
-			{
-				if (digit_value_.empty())
-					digit_value_ = buffer;
-				break;
-			}
 			switch (msg.at(pos))
 			{
 				CASE_DIGIT
@@ -1967,12 +1958,6 @@ namespace EasySip
 
 		while (run)
 		{
-			if (pos+1 >= msg.size())
-			{
-				if (dotted_value_.empty())
-					dotted_value_ = buffer;
-				break;
-			}
 			switch (msg.at(pos))
 			{
 				CASE_DIGIT

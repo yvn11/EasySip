@@ -7,6 +7,7 @@
 
 #include "message.h"
 #include "socket.h"
+#include "dialog.h"
 #include <signal.h>
 
 namespace EasySip
@@ -21,8 +22,9 @@ namespace EasySip
 		SocketIp4UDP cli_udp_;
 
 		bool run_;
+		Dialogs dialogs_;
 
-		void sigint_hdr(int signo);
+//		void sigint_hdr(int signo);
 	private:
 
 		void init_allowed_methods();
