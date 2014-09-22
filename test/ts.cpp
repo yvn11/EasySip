@@ -3,6 +3,7 @@
 #include <memory>
 #include <locale>
 #include <unordered_map>
+#include <algorithm>
 
 class A
 {
@@ -153,7 +154,23 @@ int main()
 
 	std::cout << buck.hash_function()(hstr) << '\n';
 
+	std::vector<int> digits, buf;
 
+	for (int i = 0; i < 10; i++)
+	{
+		buf.push_back(i);
+	}
+
+	digits = buf;
+	std::reverse(digits.begin(), digits.end());
+
+	for (auto &i : digits)
+		std::cout << i << ';';
+
+	digits.insert(digits.end(), buf.begin(), buf.end());
+
+	for (auto &i : digits)
+		std::cout << i << ';';
 	return 1;
 }
 

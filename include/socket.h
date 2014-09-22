@@ -108,7 +108,7 @@ namespace EasySip
 
 		int Port()
 		{
-			return sk_addr_.sin_port;
+			return ntohs(sk_addr_.sin_port);
 		}
 
 		void Port(int port)
@@ -129,7 +129,7 @@ namespace EasySip
 
 		int SelfPort()
 		{
-			return self_sk_addr_.sin_port;
+			return ntohs(self_sk_addr_.sin_port);
 		}
 
 		void SelfPort(int port)
@@ -158,6 +158,11 @@ namespace EasySip
 			msg_ = msg;
 		}
 
+		void clear_msg()
+		{
+			msg_.clear();
+		}
+
 		int MaxRx()
 		{
 			return max_rx_;
@@ -171,6 +176,12 @@ namespace EasySip
 		~SocketIp4()
 		{
 		}
+
+		friend std::ostream& operator<< (std::ostream &o, SocketIp4 sk)
+		{
+			return o << sk.SelfAddr() << ":" << sk.SelfPort() << '\n'
+				<< sk.Addr() << ":" << sk.Port();
+		}
 	};
 
 	class SocketIp4UDP : public SocketIp4
@@ -183,9 +194,11 @@ namespace EasySip
 
 		~SocketIp4UDP();
 
-		void send(const std::string msg);
+		int setup_server();
 
-		int recv(int selfloop = 1);
+		void send_buffer(const std::string msg);
+
+		int recv_buffer(int selfloop = 1);
 
 		void Bind(bool b)
 		{

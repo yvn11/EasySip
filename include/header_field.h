@@ -140,14 +140,8 @@ namespace EasySip
 		}
 
 		virtual void generate_values() = 0;
-//		{
-//			std::cout << __PRETTY_FUNCTION__ << '\n';
-//		}
 
 		virtual void parse(std::string &msg, size_t &pos) = 0;
-//		{
-//			std::cout << __PRETTY_FUNCTION__ << '\n';
-//		}
 
 		std::string Values()
 		{
@@ -220,6 +214,19 @@ namespace EasySip
 			method_ = val;
 			return *this;
 		}
+
+		void inc_seq()
+		{
+			unsigned int seq;
+
+			std::istringstream i(cseq_);
+			i >> seq;
+			seq++;
+
+			std::ostringstream o;
+			o << seq;
+			cseq_ = seq;
+		}
 	};
 	
 	struct HFBase_1_ : public HeaderField
@@ -242,31 +249,32 @@ namespace EasySip
 		HFBase_1_& add_param(std::string key, std::string value = "")
 		{
 			if (cons_.empty())
-				cons_.resize(cons_.size()+1);
+				cons_.append_item();
 
-			cons_.at(cons_.size()-1).add_param(key, value);
+			if (key.size())
+				cons_.last()->add_param(key, value);
 
 			return *this;
 		}
 
 		HFBase_1_& add_uri(std::string uri)
 		{
-			if (cons_.empty() || !cons_.at(cons_.size()-1).uri().empty())
-				cons_.resize(cons_.size()+1);
+			if (cons_.empty() || !cons_.last()->uri().empty())
+				cons_.append_item();
 
-			if (cons_.at(cons_.size()-1).uri().empty())
-				cons_.at(cons_.size()-1).uri(uri);
+			if (cons_.last()->uri().empty())
+				cons_.last()->uri(uri);
 
 			return *this;
 		}
 
 		HFBase_1_& add_name(std::string name)
 		{
-			if (cons_.empty() || !cons_.at(cons_.size()-1).name().empty())
-				cons_.resize(cons_.size()+1);
+			if (cons_.empty() || !cons_.last()->name().empty())
+				cons_.append_item();
 
-			if (cons_.at(cons_.size()-1).name().empty())
-				cons_.at(cons_.size()-1).name(name);
+			if (cons_.last()->name().empty())
+				cons_.last()->name(name);
 
 			return *this;
 		}
@@ -330,14 +338,14 @@ namespace EasySip
 		{
 			if (cons_.empty())
 				return std::string();
-			return cons_.at(0).name();
+			return cons_.at(0)->name();
 		}
 
 		std::string uri()
 		{
 			if (cons_.empty())
 				return std::string();
-			return cons_.at(0).uri();
+			return cons_.at(0)->uri();
 		}
 
 		std::string tag()
@@ -358,14 +366,14 @@ namespace EasySip
 		{
 			if (cons_.empty())
 				return std::string();
-			return cons_.at(0).name();
+			return cons_.at(0)->name();
 		}
 
 		std::string uri()
 		{
 			if (cons_.empty())
 				return std::string();
-			return cons_.at(0).name();
+			return cons_.at(0)->name();
 		}
 
 		std::string tag()
@@ -466,8 +474,6 @@ namespace EasySip
 		HFRecordRoute() : HFBase_1_("Record-Route", true)
 		{
 		}
-//		void generate_values();
-//		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRetryAfter : public HeaderField
@@ -810,8 +816,6 @@ namespace EasySip
 		HFRoute() : HFBase_1_("Route", true)
 		{
 		}
-//		void generate_values();
-//		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRack : public HeaderField

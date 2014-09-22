@@ -170,23 +170,40 @@ namespace EasySip
 
 	};
 
-	struct ContactList : public std::vector<Contact>
+	struct ContactList : public PtsOf<Contact>
 	{
 		void cleanup_empty_uri()
 		{
 			for (iterator it = begin(); it != end();)
 			{
-				if (it->uri().empty())
+				if ((*it)->uri().empty())
 					erase(it);
 				else
 					it++;
 			}
 		}
 
+		void append(std::string uri, std::string name = "")
+		{
+			if (uri.empty()) return;
+
+			append_item();
+			last()->uri(uri);
+
+			if (name.size())
+				last()->name(name);
+		}
+
 		void append(ContactList& c)
 		{
 			insert(end(), c.begin(), c.end());
 		}
+
+		void append(ContactList::iterator from, ContactList::iterator to)
+		{
+			insert(end(), from, to);
+		}
+
 	};
 //			uri_params_.append("aai");
 //			uri_params_.append("bnc");

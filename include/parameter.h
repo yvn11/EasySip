@@ -192,5 +192,10 @@ namespace EasySip
 		{
 			params_.append(name, value);
 		}
+
+		bool has_param(std::string name)
+		{
+			return params_.has_name(name);
+		}
 	};
 } // namespace EasiSip

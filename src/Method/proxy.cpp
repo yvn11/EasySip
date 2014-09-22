@@ -11,14 +11,9 @@ namespace EasySip
 	Proxy::Proxy()
 	{
 		// TODO: configurable
-		sv_udp_.SelfAddr("192.168.0.116");
-		//sv_udp_.SelfAddr("192.168.2.8");
-		sv_udp_.SelfPort(3561);
-
-		cli_udp_.Addr("192.168.0.116");
-		//cli_udp_.Addr("192.168.2.8");
-		cli_udp_.Port(1971);
-		cli_udp_.NeedBind(false);
+		udp_.SelfAddr(Socket::get_ip_addr());
+		udp_.SelfPort(7831);
+		udp_.setup_server();
 	}
 
 //	int Proxy::invite_request()
@@ -90,7 +85,7 @@ namespace EasySip
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
 //		ResponseMessage rep(SIP_RESPONSE_TRYING);
-//		udp_.send(rep.Msg());
+//		udp_.send_buffer(rep.Msg());
 //
 //		InviteMethod invite(in_msg);
 //		invite.parse();

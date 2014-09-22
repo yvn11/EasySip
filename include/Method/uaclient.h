@@ -29,7 +29,7 @@ namespace EasySip
 //		virtual int subscribe_request();
 //		virtual int notify_request();
 //		virtual int refer_request();
-//		virtual int options_request();
+		virtual int options_request();
 //		virtual int prack_request();
 //
 //		virtual int on_invite_request(RequestMessage &in_msg);
@@ -46,6 +46,10 @@ namespace EasySip
 //		virtual int on_prack_request(RequestMessage &in_msg);
 //		virtual int on_update_request(RequestMessage &in_msg);
 //		virtual int on_response(Message &in_msg);
+
+		virtual void send_msg();
+		virtual void recv_msg();
+		virtual int loop();
 	};
 
 } // namespace EasySip

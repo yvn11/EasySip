@@ -9,6 +9,7 @@
 #include <set>
 #include <map>
 #include <vector>
+#include <iostream>
 
 namespace EasySip
 {

@@ -4,6 +4,7 @@
  * Author: Zex <top_zlynch@yahoo.com>
  */
 #include "socket.h"
+#include "buffer.h"
 
 // port reuse
 //unsigned int yes = 1;
@@ -46,10 +47,10 @@ namespace EasySip
 			}
 
 
-			char addressBuffer[len];
-            inet_ntop(prot, tmpAddrPtr, addressBuffer, len);
-	        std::cout << ifaddr->ifa_name << "ip: " << addressBuffer << '\n';
-			ret = addressBuffer;
+			Buffer addr_buf(len);
+            inet_ntop(prot, tmpAddrPtr, addr_buf.data(), addr_buf.len());
+	        std::cout << "IF: " << ifaddr->ifa_name << " IP: " << addr_buf.data() << '\n';
+			ret = addr_buf.data();
 	    }
 
 	    if (ifaddrs)
@@ -76,13 +77,13 @@ namespace EasySip
 	{
 	}
 
-	void SocketIp4UDP::send(const std::string msg)
+	void SocketIp4UDP::send_buffer(const std::string msg)
 	{
 		sendto(sk_,  msg.c_str(), msg.size(), 0,
 			(sockaddr*)&sk_addr_, sizeof(sk_addr_));
 	}
 
-	int SocketIp4UDP::recv(int selfloop)
+	int SocketIp4UDP::setup_server()
 	{
 		int ret;
 
@@ -97,15 +98,20 @@ namespace EasySip
 			binded_ = true;
 		}
 
-		char *buf = new char [max_rx_];
-		memset(buf, 0, max_rx_);
+		return ret;
+	}
 
+	int SocketIp4UDP::recv_buffer(int selfloop)
+	{
+		int ret;
+		Buffer buf(max_rx_);
 		socklen_t len = sizeof(sk_addr_);
 
 		do
 		{
-			if ((ret = recvfrom(sk_, buf, max_rx_, 0,
+			if ((ret = recvfrom(sk_, buf.data(), buf.len(), 0,
 				(sockaddr*)&sk_addr_, &len)) == 0)
+//			if ((ret = recv(sk_, buf.data(), buf.len(), 0)) == 0)
 			{
 				break;
 			}
@@ -118,13 +124,10 @@ namespace EasySip
 			else
 			{
 				addr_ = inet_ntoa(sk_addr_.sin_addr);
-				msg_ = buf;
+				msg_ = buf.data();
 			}
 
 		} while (selfloop);
-
-		delete buf;
-		buf = 0;
 
 		return ret;
 	}

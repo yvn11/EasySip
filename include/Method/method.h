@@ -9,6 +9,8 @@
 #include "socket.h"
 #include "dialog.h"
 #include <signal.h>
+#include <queue>
+#include <thread>
 
 namespace EasySip
 {
@@ -18,13 +20,12 @@ namespace EasySip
 
 		MethodMapList allowed_methods_;
 		RespCodeList allowed_responses_;
-		SocketIp4UDP sv_udp_;
-		SocketIp4UDP cli_udp_;
+		SocketIp4UDP udp_;
 
 		bool run_;
 		Dialogs dialogs_;
-
-//		void sigint_hdr(int signo);
+		std::queue<std::string> msgq_;
+		
 	private:
 
 		void init_allowed_methods();
@@ -69,6 +70,12 @@ namespace EasySip
 		virtual int on_prack_request(RequestMessage &in_msg);
 		virtual int on_update_request(RequestMessage &in_msg);
 		virtual int on_response(std::string &msg);
+
+	public://protected:
+
+		virtual void send_msg();
+		virtual void recv_msg();
+		virtual int loop();
 	};
 
 } // namespace EasySip

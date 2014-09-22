@@ -10,16 +10,12 @@ namespace EasySip
 {
 	UAClient::UAClient()
 	{
-		//sv_udp_.SelfAddr("192.168.0.116");
-		//sv_udp_.SelfAddr("192.168.2.8");
-		sv_udp_.SelfAddr(Socket::get_ip_addr());//"192.168.0.116");
-		sv_udp_.SelfPort(2039);
-
-		//cli_udp_.Addr("192.168.0.116");
-		//cli_udp_.Addr("192.168.2.8");
-		cli_udp_.Addr(Socket::get_ip_addr());//"192.168.0.116");
-		cli_udp_.Port(1971);
-		cli_udp_.NeedBind(false);
+		udp_.SelfAddr(Socket::get_ip_addr());
+		udp_.SelfPort(2039);
+//		udp_.setup_server();//NeedBind(false);
+		udp_.Addr(Socket::get_ip_addr());
+		udp_.Port(1971);
+		udp_.NeedBind(false);
 	}
 
 	int UAClient::invite_request()
@@ -27,44 +23,45 @@ namespace EasySip
 		InviteMessage req;
 
 		req.SipVersion(SIP_VERSION_2_0);
-		req.RequestURI(cli_udp_.Addr());
-		req.add_contact().add_uri("sip:zex@"+sv_udp_.SelfAddr());
+		req.RequestURI(udp_.Addr());
+
+		req.add_contact()
+		->add_uri("sip:zex@"+udp_.SelfAddr());
 
 		req.add_from()
-		.add_name("zex")
-		.add_uri("sip:zex@"+sv_udp_.SelfAddr())
+		->add_name("zex")
+		.add_uri("sip:zex@"+udp_.SelfAddr())
 		.add_param("tag", "293!hsj@df");
 
 		req.add_to()
-		.add_name("\"Big Boss\"")
+		->add_name("\"Big Boss\"")
 		.add_uri("sip:bigboss@paris.agg.oo");
 
 		req.add_cseq()
-		.add_seq("837133")
+		->add_seq("837133")
 		.add_method(req.Method());
 
 		req.add_via()
-		.add_proto(SIP_VERSION_2_0_UDP)
-		.add_sentby(sv_udp_.SelfAddr());
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
 
 		req.add_call_id()
-		.add_id("sundo@1311bili");
+		->add_id("sundo@1311bili");
 
 		if (false /*is_sips(req.req_line_.request_uri_) */
 		|| false /*is_sips(req.req_line_.request_uri_) */)
 		{
-			req.add_contact().add_uri("sips:utoc@ir.cx");
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
 		}
-
 
 		req.create();
 
-		std::cout << "<--------------------\n"
-			<< req << "------------------------>\n";
-		cli_udp_.send(req.Msg());
-		cli_udp_.recv(0);
+		udp_.send_buffer(req.Msg());
+//		msgq_.push(req.Msg());
+//---------------------------------------------------------------
+		if (0 > udp_.recv_buffer(0)) return 0;
 
-		ResponseMessage in_msg(cli_udp_.Message());
+		ResponseMessage in_msg(udp_.Message());
 		in_msg.parse();
 
 		dialogs_.create_dialog();
@@ -97,7 +94,7 @@ namespace EasySip
 		dialogs_.last()->remote_uri(in_msg.to_.at(0)->uri());
 		dialogs_.last()->local_uri(in_msg.from_.at(0)->uri());
 
-//		sv_udp_.send(req.create().Msg());
+		loop();
 
 		return 0;
 	}
@@ -162,11 +159,137 @@ namespace EasySip
 //		return 0;
 //	}
 //
-//	int UAClient::options_request()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
-//	}
+	int UAClient::options_request()
+	{
+		OptionsMessage req;
+
+		req.SipVersion(SIP_VERSION_2_0);
+
+		if (dialogs_.size())
+		{
+			req.add_to()
+			->add_name("\"Big Boss\"")
+			.add_uri(dialogs_.last()->remote_uri());
+
+			if (dialogs_.last()->id().remote_tag().size())
+				req.to_.last()->add_param("tag", dialogs_.last()->id().remote_tag());
+
+			req.add_from()
+			->add_name("zex")
+			.add_uri(dialogs_.last()->local_uri());
+
+			if (dialogs_.last()->id().local_tag().size())
+				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
+
+			req.add_call_id()
+			->add_id(dialogs_.last()->id().call_id().id_);
+
+			std::string seq;
+	
+			if (dialogs_.last()->local_seq().cseq_.size())
+			{
+				dialogs_.last()->local_seq().inc_seq();
+				seq = dialogs_.last()->local_seq().cseq_;
+			}
+			else
+			{
+				seq = "234"; // TODO: choose a seq, 32bits
+			}
+	
+			req.add_cseq()
+			->add_seq(seq)
+			.add_method(req.Method());
+
+			if (dialogs_.last()->remote_target().size())
+				req.RequestURI(dialogs_.last()->remote_target().at(0)->uri());
+
+			if (dialogs_.last()->routes().size())
+			{
+				if (dialogs_.last()->routes().at(0)->cons_.at(0)->has_param("lr"))
+				{
+//					if (dialogs_.last()->remote_target().size())
+					req.RequestURI(dialogs_.last()->remote_target().at(0)->uri());
+
+					req.add_route();
+
+					if (dialogs_.last()->routes().size())
+					{
+						req.route_.last()->cons_ = dialogs_.last()->routes().at(0)->cons_;
+					}
+				}
+				else
+				{
+					req.RequestURI(dialogs_.last()->routes().at(0)->cons_.at(0)->uri());
+
+					req.add_route();
+
+					ContactList::iterator from = dialogs_.last()->routes().at(0)->cons_.begin();
+					from++;
+
+					req.route_.last()->cons_.append(from, dialogs_.last()->routes().at(0)->cons_.end());
+					req.route_.last()->cons_.append(dialogs_.last()->remote_target());
+				}
+			}
+		}
+
+//		req.add_contact()
+//		.add_uri("sip:zex@"+udp_.SelfAddr());
+
+		req.add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
+
+
+		if (false /*is_sips(req.req_line_.request_uri_) */
+		|| false /*is_sips(req.req_line_.request_uri_) */)
+		{
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
+		}
+
+		req.create();
+
+		udp_.send_buffer(req.Msg());
+//		msgq_.push(req.Msg());
+//---------------------------------------------------------------
+		if (0 > udp_.recv_buffer(0)) return 0;
+
+		ResponseMessage in_msg(udp_.Message());
+		in_msg.parse();
+
+		return 0;
+	}
+
+	void UAClient::send_msg()
+	{
+		while (run_)
+		{
+			while (msgq_.size())
+			{
+				udp_.send_buffer(msgq_.front());
+				msgq_.pop();
+			}
+		}
+	}
+
+	void UAClient::recv_msg()
+	{
+		while (run_)
+		{
+			udp_.recv_buffer(0);
+			if (udp_.Message().empty()) continue;
+
+			std::string msg(udp_.Message());
+			udp_.clear_msg();
+			on_receive_message(msg);
+		}
+	}
+
+	int UAClient::loop()
+	{
+//		std::thread t1(std::bind(&UAClient::send_msg, this));
+//		std::thread t2(std::bind(&UAClient::recv_msg, this));
+		return 0;
+	}
 //
 //	int UAClient::prack_request()
 //	{

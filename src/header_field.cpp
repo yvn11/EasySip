@@ -378,11 +378,10 @@ namespace EasySip
 
 		for (auto &it : cons_)
 		{
-			o << it << sym;
+			o << *it << sym;
 		}
 
 		values_ = o.str();
-
 		remove_tail_symbol(sym);
 
 		std::ostringstream p;
@@ -984,7 +983,7 @@ namespace EasySip
 
 		for (auto &it : cons_)
 		{
-			o << '<' << it.uri() << '>' << it.params() << sym;
+			o << '<' << it->uri() << '>' << it->params() << sym;
 		}
 
 		values_ = o.str();

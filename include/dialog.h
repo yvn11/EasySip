@@ -72,7 +72,7 @@ namespace EasySip
 		std::string remote_uri_;
 		ContactList remote_target_;
 		bool secure_flag_;
-		std::vector<HFRecordRoute*> routes_;
+		PtsOf<HFRecordRoute> routes_;
 
 	public:
 
@@ -115,7 +115,7 @@ namespace EasySip
 			return secure_flag_;
 		}
 
-		std::vector<HFRecordRoute*>& routes()
+		PtsOf<HFRecordRoute>& routes()
 		{
 			return routes_;
 		}
@@ -155,10 +155,11 @@ namespace EasySip
 			secure_flag_ = val;
 		}
 
-		void routes(std::vector<HFRecordRoute*> val) 
+		void routes(PtsOf<HFRecordRoute> val) 
 		{
 			routes_ = val;
 		}
+
 	};
 
 	class Dialogs : public PtsOf<Dialog>
@@ -184,6 +185,19 @@ namespace EasySip
 					it++;
 				}
 			}
+		}
+
+		Dialog* get_dialog_by_id(DialogId val)
+		{
+			for (iterator it = begin(); it != end();)
+			{
+				if (val == (*it)->id())
+				{
+					return *it;
+				}
+			}
+
+			return 0;
 		}
 	};
 } // namespace EasySip

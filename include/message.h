@@ -64,7 +64,7 @@ namespace EasySip
 
 		#define parse_field(f, msg, pos) \
 		{ \
-			f.at(f.size()-1)->parse(msg, pos); \
+			f.last()->parse(msg, pos); \
 		}
 
 		virtual void parse_dispatch(std::string field, size_t &pos);
@@ -81,70 +81,70 @@ namespace EasySip
 
 
 		// shotcut for each header field
-	 	HFCallId& add_call_id();
-	 	HFCSeq& add_cseq();
-	 	HFFrom& add_from();
-	 	HFTo& add_to();
-	 	HFVia& add_via();
-	 	HFAlertInfo& add_alert_info();
-	 	HFAllowEvents& add_allow_events();
-	 	HFDate& add_date();
-	 	HFContact& add_contact();
-	 	HFOrganization& add_organization();
-	 	HFRecordRoute& add_record_route();
-	 	HFRetryAfter& add_retry_after();
-	 	HFSubject& add_subject();
-	 	HFSupported& add_supported();
-	 	HFTimestamp& add_timestamp();
-	 	HFUserAgent& add_user_agent();
-	 	HFAnswerMode& add_answer_mode();
-	 	HFPrivAnswerMode& add_priv_answer_mode();
-	 	HFAccept& add_accept();
-	 	HFAcceptContact& add_accept_contact();
-	 	HFAcceptEncoding& add_accept_encoding();
-	 	HFAcceptLanguage& add_accept_language();
-	 	HFAuthorization& add_authorization();
-	 	HFCallInfo& add_call_info();
-	 	HFEvent& add_event();
-	 	HFInReplyTo& add_in_replay_to();
-	 	HFJoin& add_join();
-	 	HFPriority& add_priority();
-	 	HFPrivacy& add_privacy();
-	 	HFProxyAuthorization& add_proxy_authorization();
-	 	HFProxyRequire& add_proxy_require();
-	 	HFPOSPAuthToken& add_p_osp_auth_token();
-	 	HFPAssertedIdentity& add_p_asserted_identity();
-	 	HFPPreferredIdentity& add_p_preferred_identity();
-	 	HFMaxForwards& add_max_forwards();
-	 	HFReason& add_reason();
-	 	HFReferTo& add_refer_to();
-	 	HFReferredBy& add_referred_by();
-	 	HFReplyTo& add_reply_to();
-	 	HFReplaces& add_replaces();
-	 	HFRejectContact& add_reject_contact();
-	 	HFRequestDisposition& add_request_disposition();
-	 	HFRequire& add_require();
-	 	HFRoute& add_route();
-	 	HFRack& add_rack();
-	 	HFSessionExpires& add_session_expires();
-	 	HFSubscriptionState& add_subscription_state();
-	 	HFAuthenticationInfo& add_authentication_info();
-	 	HFErrorInfo& add_error_info();
-	 	HFMinExpires& add_min_expires();
-	 	HFMinSE& add_min_se();
-	 	HFProxyAuthenticate& add_proxy_authenticate();
-	 	HFServer& add_server();
-	 	HFUnsupported& add_unsupported();
-	 	HFWarning& add_warning();
-	 	HFWWWAuthenticate& add_www_authenticate();
-	 	HFRSeq& add_rseq();
-	 	HFAllow& add_allow();
-	 	HFContentEncoding& add_content_encoding();
-	 	HFContentLength& add_content_length();
-	 	HFContentLanguage& add_content_language();
-	 	HFContentType& add_content_type();
-	 	HFExpires& add_expires();
-	 	HFMIMEVersion& add_mime_version();
+	 	HFCallId* add_call_id();
+	 	HFCSeq* add_cseq();
+	 	HFFrom* add_from();
+	 	HFTo* add_to();
+	 	HFVia* add_via();
+	 	HFAlertInfo* add_alert_info();
+	 	HFAllowEvents* add_allow_events();
+	 	HFDate* add_date();
+	 	HFContact* add_contact();
+	 	HFOrganization* add_organization();
+	 	HFRecordRoute* add_record_route();
+	 	HFRetryAfter* add_retry_after();
+	 	HFSubject* add_subject();
+	 	HFSupported* add_supported();
+	 	HFTimestamp* add_timestamp();
+	 	HFUserAgent* add_user_agent();
+	 	HFAnswerMode* add_answer_mode();
+	 	HFPrivAnswerMode* add_priv_answer_mode();
+	 	HFAccept* add_accept();
+	 	HFAcceptContact* add_accept_contact();
+	 	HFAcceptEncoding* add_accept_encoding();
+	 	HFAcceptLanguage* add_accept_language();
+	 	HFAuthorization* add_authorization();
+	 	HFCallInfo* add_call_info();
+	 	HFEvent* add_event();
+	 	HFInReplyTo* add_in_replay_to();
+	 	HFJoin* add_join();
+	 	HFPriority* add_priority();
+	 	HFPrivacy* add_privacy();
+	 	HFProxyAuthorization* add_proxy_authorization();
+	 	HFProxyRequire* add_proxy_require();
+	 	HFPOSPAuthToken* add_p_osp_auth_token();
+	 	HFPAssertedIdentity* add_p_asserted_identity();
+	 	HFPPreferredIdentity* add_p_preferred_identity();
+	 	HFMaxForwards* add_max_forwards();
+	 	HFReason* add_reason();
+	 	HFReferTo* add_refer_to();
+	 	HFReferredBy* add_referred_by();
+	 	HFReplyTo* add_reply_to();
+	 	HFReplaces* add_replaces();
+	 	HFRejectContact* add_reject_contact();
+	 	HFRequestDisposition* add_request_disposition();
+	 	HFRequire* add_require();
+	 	HFRoute* add_route();
+	 	HFRack* add_rack();
+	 	HFSessionExpires* add_session_expires();
+	 	HFSubscriptionState* add_subscription_state();
+	 	HFAuthenticationInfo* add_authentication_info();
+	 	HFErrorInfo* add_error_info();
+	 	HFMinExpires* add_min_expires();
+	 	HFMinSE* add_min_se();
+	 	HFProxyAuthenticate* add_proxy_authenticate();
+	 	HFServer* add_server();
+	 	HFUnsupported* add_unsupported();
+	 	HFWarning* add_warning();
+	 	HFWWWAuthenticate* add_www_authenticate();
+	 	HFRSeq* add_rseq();
+	 	HFAllow* add_allow();
+	 	HFContentEncoding* add_content_encoding();
+	 	HFContentLength* add_content_length();
+	 	HFContentLanguage* add_content_language();
+	 	HFContentType* add_content_type();
+	 	HFExpires* add_expires();
+	 	HFMIMEVersion* add_mime_version();
 	};
 	
 	// ---------------- Request messages --------------------------

@@ -11,14 +11,9 @@ namespace EasySip
 	Registar::Registar()
 	{
 		// TODO: configurable
-		sv_udp_.SelfAddr("192.168.0.116");
-		//sv_udp_.SelfAddr("192.168.2.8");
-		sv_udp_.SelfPort(3561);
-
-		cli_udp_.Addr("192.168.0.116");
-		//cli_udp_.Addr("192.168.2.8");
-		cli_udp_.Port(1971);
-		cli_udp_.NeedBind(false);
+		udp_.SelfAddr(Socket::get_ip_addr());
+		udp_.SelfPort(5163);
+		udp_.setup_server();
 	}
 
 //	int Registar::invite_request()
@@ -90,7 +85,7 @@ namespace EasySip
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
 //		ResponseMessage rep(SIP_RESPONSE_TRYING);
-//		udp_.send(rep.Msg());
+//		udp_.send_buffer(rep.Msg());
 //
 //		InviteMethod invite(in_msg);
 //		invite.parse();
@@ -115,13 +110,13 @@ namespace EasySip
 		//		check the database where map user names to a list of AOR.
 		//		if not authorized, reply with 403 response code and quit
 		rep.ResponseCode(SIP_RESPONSE_FORBIDDEN);
-		sv_udp_.send(rep.create().Msg());
+		udp_.send_buffer(rep.create().Msg());
 		return 0;
 
 		// TODO: get AOR from HFTo.
 		//		if AOR not valid for domain in Request-URI, reply with 404 response code and quit
 		rep.ResponseCode(SIP_RESPONSE_NOT_FOUND);
-		sv_udp_.send(rep.create().Msg());
+		udp_.send_buffer(rep.create().Msg());
 		return 0;
 
 		// check HFContact
@@ -130,18 +125,18 @@ namespace EasySip
 			if (1 < in_msg.contact_.size())
 			{
 				rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);
-				sv_udp_.send(rep.create().Msg());
+				udp_.send_buffer(rep.create().Msg());
 				return 0;
 			}
 
 			for (auto &it : in_msg.contact_.at(0)->cons_)
 			{
-				if (it.uri() == "*")
+				if (it->uri() == "*")
 				{
 					if (in_msg.expires_.size() && in_msg.expires_.at(0)->digit_value_ != "0")
 					{
 						rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);
-						sv_udp_.send(rep.create().Msg());
+						udp_.send_buffer(rep.create().Msg());
 						return 0;
 					}
 				}
@@ -175,8 +170,8 @@ namespace EasySip
 			if (seconds > 0 && seconds < ONE_HOUR/* TODO && expire < local-min-registrar-timeout */)
 			{
 				rep.ResponseCode(SIP_RESPONSE_INTERVAL_TOO_BRIEF);
-				rep.add_min_expires().add_value("45");/* TODO: min-expire value*/
-				sv_udp_.send(rep.create().Msg());
+				rep.add_min_expires()->add_value("45");/* TODO: min-expire value*/
+				udp_.send_buffer(rep.create().Msg());
 				return 0;
 			}
 		}
@@ -184,7 +179,7 @@ namespace EasySip
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 		// TODO: append HFContact in current bindings with expires param
 		//		append HFDate
-		sv_udp_.send(rep.create().Msg());
+		udp_.send_buffer(rep.create().Msg());
 		return 0;
 	}
 //	

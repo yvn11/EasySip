@@ -10,14 +10,9 @@ namespace EasySip
 	UAServer::UAServer()
 	{
 		// TODO: configurable
-		sv_udp_.SelfAddr(Socket::get_ip_addr());//"192.168.0.116");
-		//sv_udp_.SelfAddr("192.168.2.8");
-		sv_udp_.SelfPort(1971);
-
-		//cli_udp_.Addr("192.168.0.116");
-		cli_udp_.Addr("192.168.2.8");
-		cli_udp_.Port(9898);
-		cli_udp_.NeedBind(false);
+		udp_.SelfAddr(Socket::get_ip_addr());
+		udp_.SelfPort(1971);
+		udp_.setup_server();
 	}
 
 //	int UAServer::invite_request()
@@ -92,7 +87,7 @@ namespace EasySip
 		ResponseMessage rep(in_msg);
 
 		rep.add_contact()
-		.add_uri("sip:ag@"+sv_udp_.Addr());
+		->add_uri("sip:ag@"+udp_.Addr());
 
 		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
@@ -137,7 +132,7 @@ namespace EasySip
 			dialogs_.last()->remote_uri(in_msg.from_.at(0)->uri());
 		}
 
-		sv_udp_.send(rep.create().Msg());
+		udp_.send_buffer(rep.create().Msg());
 
 		return 0;
 	}
@@ -175,11 +170,32 @@ namespace EasySip
 //		return 0;
 //	}
 //	
-//	int UAServer::on_options_request(RequestMessage &in_msg)
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
-//	}
+	int UAServer::on_options_request(RequestMessage &in_msg)
+	{
+		in_msg.parse();
+
+		ResponseMessage rep(in_msg);
+
+		rep.SipVersion(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		rep.add_via()->HeaderParam("received", udp_.Addr());
+
+		rep.add_accept()
+		->add_value("text", "plain")
+		.add_value("text", "html")
+		.add_value("application", "sdp")
+		.add_value("multipart", "sdp");
+
+		rep.add_allow();
+
+		for (auto &it : allowed_methods_) 
+			rep.allow_.last()->add_value(it.name());
+
+		udp_.send_buffer(rep.create().Msg());
+
+		return 0;
+	}
 //	
 //	int UAServer::on_subscribe_request(RequestMessage &in_msg)
 //	{
@@ -226,23 +242,6 @@ namespace EasySip
 //	int UAServer::on_response(Message &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
-//	}
-//
-//	int UAServer::on_rx_req_exception(RequestMessage &in_msg)
-//	{
-//		// ---------------------------------------------
-//		ResponseMessage resp_msg = in_msg;
-//
-//		resp_msg.RespStatus(SIP_RESPONSE_METHOD_NOT_ALLOWED);
-//
-//		resp_msg.allow_.append_field();
-//
-//		for (MethodMapList::iterator it = allowed_methods_.begin(); it != allowed_methods_.end(); it++)
-//			resp_msg.allow_.append_value(it->Name());
-//
-//		// ---------------------------------------------
-//
 //		return 0;
 //	}
 //
