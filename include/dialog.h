@@ -61,6 +61,13 @@ namespace EasySip
 
 			return false;
 		}
+
+		friend std::ostream& operator<< (std::ostream &o, DialogId id)
+		{
+			return o << id.call_id()
+				<< "local_tag: " << id.local_tag() << '\n'
+				<< "remote_tag: " << id.remote_tag() << '\n';
+		}
 	};
 
 	class Dialog
@@ -160,6 +167,17 @@ namespace EasySip
 			routes_ = val;
 		}
 
+		friend std::ostream& operator<< (std::ostream &o, Dialog &dia)
+		{
+			return o << dia.id() 
+				<< "local_seq: " << dia.local_seq()
+				<< "remote_seq: " << dia.remote_seq()
+				<< "local_uri: " << dia.local_uri() << '\n'
+				<< "remote_uri: " << dia.remote_uri() << '\n'
+				<< dia.remote_target()
+				<< "secure_flag:" << dia.secure_flag() << '\n'
+				<< dia.routes();
+		}
 	};
 
 	class Dialogs : public PtsOf<Dialog>

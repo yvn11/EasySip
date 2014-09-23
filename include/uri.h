@@ -168,6 +168,15 @@ namespace EasySip
 			return o;
 		}
 
+		bool empty()
+		{
+			return (name().empty() && uri().empty());
+		}
+
+		bool full()
+		{
+			return (!uri().empty());
+		}
 	};
 
 	struct ContactList : public PtsOf<Contact>

@@ -38,7 +38,7 @@ namespace EasySip
 		.add_uri("sip:bigboss@paris.agg.oo");
 
 		req.add_cseq()
-		->add_seq("837133")
+		->add_seq("37")
 		.add_method(req.Method());
 
 		req.add_via()
@@ -61,6 +61,7 @@ namespace EasySip
 //---------------------------------------------------------------
 		if (0 > udp_.recv_buffer(0)) return 0;
 
+			std::cout << "------------------|" << udp_.Message() << "|-----------------------\n";
 		ResponseMessage in_msg(udp_.Message());
 		in_msg.parse();
 
@@ -87,13 +88,26 @@ namespace EasySip
 		}
 
 //		dialogs_.last()->remote_seq(UNSET);
-		dialogs_.last()->local_seq(*in_msg.cseq_.at(0));
-		dialogs_.last()->id().call_id(*in_msg.call_id_.at(0));
-		dialogs_.last()->id().local_tag(in_msg.from_.at(0)->tag());
-		dialogs_.last()->id().remote_tag(in_msg.to_.at(0)->tag());
-		dialogs_.last()->remote_uri(in_msg.to_.at(0)->uri());
-		dialogs_.last()->local_uri(in_msg.from_.at(0)->uri());
+		if (in_msg.cseq_.size())
+		{
+			dialogs_.last()->local_seq(*in_msg.cseq_.last());
+		}
+		if (in_msg.call_id_.size())
+		{
+			dialogs_.last()->id().call_id(*in_msg.call_id_.last());
+		}
+		if (in_msg.to_.size())
+		{
+			dialogs_.last()->id().remote_tag(in_msg.to_.last()->tag());
+			dialogs_.last()->remote_uri(in_msg.to_.last()->uri());
+		}
+		if (in_msg.from_.size())
+		{
+			dialogs_.last()->id().local_tag(in_msg.from_.last()->tag());
+			dialogs_.last()->local_uri(in_msg.from_.last()->uri());
+		}
 
+std::cout << *dialogs_.last();
 		loop();
 
 		return 0;
@@ -168,7 +182,7 @@ namespace EasySip
 		if (dialogs_.size())
 		{
 			req.add_to()
-			->add_name("\"Big Boss\"")
+			->add_name("Big")// Boss\"")
 			.add_uri(dialogs_.last()->remote_uri());
 
 			if (dialogs_.last()->id().remote_tag().size())
@@ -186,12 +200,13 @@ namespace EasySip
 
 			std::string seq;
 	
-			if (dialogs_.last()->local_seq().cseq_.size())
+			if (!dialogs_.last()->local_seq().cseq_.empty())
 			{
 				dialogs_.last()->local_seq().inc_seq();
 				seq = dialogs_.last()->local_seq().cseq_;
 			}
-			else
+
+			if (seq.empty())
 			{
 				seq = "234"; // TODO: choose a seq, 32bits
 			}
@@ -201,39 +216,36 @@ namespace EasySip
 			.add_method(req.Method());
 
 			if (dialogs_.last()->remote_target().size())
-				req.RequestURI(dialogs_.last()->remote_target().at(0)->uri());
+				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
 
 			if (dialogs_.last()->routes().size())
 			{
-				if (dialogs_.last()->routes().at(0)->cons_.at(0)->has_param("lr"))
+				if (dialogs_.last()->routes().last()->cons_.last()->has_param("lr"))
 				{
 //					if (dialogs_.last()->remote_target().size())
-					req.RequestURI(dialogs_.last()->remote_target().at(0)->uri());
+					req.RequestURI(dialogs_.last()->remote_target().last()->uri());
 
 					req.add_route();
 
 					if (dialogs_.last()->routes().size())
 					{
-						req.route_.last()->cons_ = dialogs_.last()->routes().at(0)->cons_;
+						req.route_.last()->cons_ = dialogs_.last()->routes().last()->cons_;
 					}
 				}
 				else
 				{
-					req.RequestURI(dialogs_.last()->routes().at(0)->cons_.at(0)->uri());
+					req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());
 
 					req.add_route();
 
-					ContactList::iterator from = dialogs_.last()->routes().at(0)->cons_.begin();
+					ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();
 					from++;
 
-					req.route_.last()->cons_.append(from, dialogs_.last()->routes().at(0)->cons_.end());
+					req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());
 					req.route_.last()->cons_.append(dialogs_.last()->remote_target());
 				}
 			}
 		}
-
-//		req.add_contact()
-//		.add_uri("sip:zex@"+udp_.SelfAddr());
 
 		req.add_via()
 		->add_proto(SIP_VERSION_2_0_UDP)
@@ -247,12 +259,10 @@ namespace EasySip
 		}
 
 		req.create();
-
 		udp_.send_buffer(req.Msg());
 //		msgq_.push(req.Msg());
 //---------------------------------------------------------------
 		if (0 > udp_.recv_buffer(0)) return 0;
-
 		ResponseMessage in_msg(udp_.Message());
 		in_msg.parse();
 

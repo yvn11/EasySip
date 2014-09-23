@@ -143,7 +143,7 @@ namespace EasySip
 				}
 				case ';':
 				{
-					if (read_head_param)
+					if (read_head_param && key.size())
 					{
 						header_params_.append(key, buffer);
 						key.clear();
@@ -172,11 +172,11 @@ namespace EasySip
 				}
 				case '\n':
 				{
-					if (read_head_param)
+					if (read_head_param && key.size())
 					{
 						header_params_.append(key, buffer);
 						key.clear();
-						read_head_param = false;
+					//	read_head_param = false;
 					}
 					else
 					{
@@ -439,7 +439,7 @@ namespace EasySip
 						add_param(key, buffer);
 						key.clear();
 					}
-					else
+					else if (buffer.size())
 					{
 						add_uri(buffer);
 					}
@@ -461,7 +461,7 @@ namespace EasySip
 						add_param(key, buffer);
 						key.clear();
 					}
-					else
+					else if (buffer.size())
 					{
 						add_uri(buffer);
 					}
@@ -474,15 +474,14 @@ namespace EasySip
 				{
 					if (in_aquote)
 					{
-						if (key.empty())
-						{
-							add_uri(buffer);
-							read_head_param = true;
-						}
-						else
+						if (key.size())
 						{
 							add_param(key, buffer);
 							key.clear();
+						}
+						else if (buffer.size())
+						{
+							add_uri(buffer);
 						}
 					}
 					else
@@ -492,11 +491,13 @@ namespace EasySip
 							header_params_.append(key, buffer);
 							key.clear();
 						}
-						else
+						else if (buffer.size())
 						{
 							add_uri(buffer);
-							read_head_param = true;
 						}
+
+						if (!read_head_param)
+							read_head_param = true;
 					}
 	
 					pos++;
@@ -545,7 +546,8 @@ namespace EasySip
 						key.clear();
 						read_head_param = false;
 					}
-					else
+
+					else if (buffer.size())
 					{
 						add_uri(buffer);
 					}

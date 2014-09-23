@@ -225,7 +225,7 @@ namespace EasySip
 
 			std::ostringstream o;
 			o << seq;
-			cseq_ = seq;
+			cseq_ = o.str();
 		}
 	};
 	
@@ -259,7 +259,15 @@ namespace EasySip
 
 		HFBase_1_& add_uri(std::string uri)
 		{
-			if (cons_.empty() || !cons_.last()->uri().empty())
+			for (std::string::iterator it = uri.begin(); it != uri.end();)
+			{
+				if (*it == ' ' || *it == '\t' || *it == '\n' || *it == '\r')
+					uri.erase(it);
+				else
+					it++;
+			}
+
+			if (cons_.empty() || cons_.last()->full())
 				cons_.append_item();
 
 			if (cons_.last()->uri().empty())
@@ -270,7 +278,7 @@ namespace EasySip
 
 		HFBase_1_& add_name(std::string name)
 		{
-			if (cons_.empty() || !cons_.last()->name().empty())
+			if (cons_.empty() || cons_.last()->full())
 				cons_.append_item();
 
 			if (cons_.last()->name().empty())
@@ -373,7 +381,7 @@ namespace EasySip
 		{
 			if (cons_.empty())
 				return std::string();
-			return cons_.at(0)->name();
+			return cons_.at(0)->uri();
 		}
 
 		std::string tag()

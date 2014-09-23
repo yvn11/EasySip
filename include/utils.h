@@ -33,6 +33,16 @@ namespace EasySip
 		{
 			return this->at(this->size()-1);
 		}
+
+		friend std::ostream& operator<< (std::ostream &o, PtsOf<T> &pts)
+		{
+			for (auto &it : pts)
+			{
+				o << *it;
+			}
+
+			return o;
+		}
 	};
 
 	class CodeMap : public std::pair<int, std::string>

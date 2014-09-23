@@ -83,14 +83,13 @@ namespace EasySip
 	int UAServer::on_invite_request(RequestMessage &in_msg)
 	{
 		in_msg.parse();
-
 		ResponseMessage rep(in_msg);
-
-		rep.add_contact()
-		->add_uri("sip:ag@"+udp_.Addr());
 
 		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		rep.add_contact()
+		->add_uri("sip:ag@"+udp_.Addr());
 
 		dialogs_.create_dialog();
 
@@ -112,27 +111,28 @@ namespace EasySip
 
 		if (in_msg.cseq_.size())
 		{
-			dialogs_.last()->remote_seq(*in_msg.cseq_.at(0));
+			dialogs_.last()->remote_seq(*in_msg.cseq_.last());
 		}
 //		dialogs_.last()->local_seq_ = UNSET;
 		if (in_msg.call_id_.size())
 		{
-			dialogs_.last()->id().call_id(*in_msg.call_id_.at(0));
+			dialogs_.last()->id().call_id(*in_msg.call_id_.last());
 		}
 
 		if (in_msg.to_.size())
 		{
-			dialogs_.last()->id().local_tag(in_msg.to_.at(0)->tag());
-			dialogs_.last()->local_uri(in_msg.to_.at(0)->uri());
+			dialogs_.last()->id().local_tag(in_msg.to_.last()->tag());
+			dialogs_.last()->local_uri(in_msg.to_.last()->uri());
 		}
 
 		if (in_msg.from_.size())
 		{
-			dialogs_.last()->id().remote_tag(in_msg.from_.at(0)->tag());
-			dialogs_.last()->remote_uri(in_msg.from_.at(0)->uri());
+			dialogs_.last()->id().remote_tag(in_msg.from_.last()->tag());
+			dialogs_.last()->remote_uri(in_msg.from_.last()->uri());
 		}
-
-		udp_.send_buffer(rep.create().Msg());
+std::cout << *dialogs_.last();
+		rep.create();
+		udp_.send_buffer(rep.Msg());
 
 		return 0;
 	}
@@ -149,9 +149,9 @@ namespace EasySip
 	
 		DialogId val;
 	
-		val.call_id(*in_msg.call_id_.at(0));
-		val.local_tag(in_msg.from_.at(0)->tag());
-		val.remote_tag(in_msg.to_.at(0)->tag());
+		val.call_id(*in_msg.call_id_.last());
+		val.local_tag(in_msg.from_.last()->tag());
+		val.remote_tag(in_msg.to_.last()->tag());
 
 		dialogs_.cancel_dialog(val);
 
@@ -173,13 +173,10 @@ namespace EasySip
 	int UAServer::on_options_request(RequestMessage &in_msg)
 	{
 		in_msg.parse();
-
 		ResponseMessage rep(in_msg);
 
 		rep.SipVersion(SIP_VERSION_2_0);
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
-
-		rep.add_via()->HeaderParam("received", udp_.Addr());
 
 		rep.add_accept()
 		->add_value("text", "plain")

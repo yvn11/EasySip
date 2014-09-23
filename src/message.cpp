@@ -666,6 +666,7 @@ namespace EasySip
 						buffer.clear();
 					}
 				}
+			std::cout << buffer << '\n';
 			}
 		}
 
@@ -845,8 +846,8 @@ namespace EasySip
 			std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\n";
 		}
 		
-		std::cout << "-resonse------------------------\n";
-		std::cout << *resp_status_ << "\r\n";
+		std::cout << "-reponse------------------------\n";
+		std::cout << *resp_status_ << "\n";
 		std::cout << *this;
 		std::cout << "--------------------------------\n";
 	}

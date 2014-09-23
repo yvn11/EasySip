@@ -571,12 +571,40 @@ namespace EasySip
 		{
 			resp_status_ = std::make_shared<ResponseStatus>();
 
-			call_id_ = in_msg.call_id_;
-			to_ = in_msg.to_;
-			from_ = in_msg.from_;
-			cseq_ = in_msg.cseq_;
+			add_call_id()
+			->add_id(in_msg.call_id_.last()->id_);
 
-			via_ = in_msg.via_;
+			add_from()
+			->add_name(in_msg.from_.last()->name())
+			.add_uri(in_msg.from_.last()->uri());
+
+			for (auto &it : in_msg.from_.last()->header_params_)
+			{
+				from_.last()->HeaderParam(it.name(), it.value());
+			}
+
+			add_to()
+			->add_name(in_msg.to_.last()->name())
+			.add_uri(in_msg.to_.last()->uri());
+	
+			for (auto &it : in_msg.to_.last()->header_params_)
+			{
+				to_.last()->HeaderParam(it.name(), it.value());
+			}
+
+			add_cseq()
+			->add_seq(in_msg.cseq_.last()->cseq_)
+			.add_method(in_msg.cseq_.last()->method_)
+			.inc_seq();
+	
+			add_via()
+			->add_proto(SIP_VERSION_2_0_UDP)
+			.add_sentby(in_msg.via_.last()->sent_by_);
+
+			for (auto &it : in_msg.via_.last()->header_params_)
+			{
+				via_.last()->HeaderParam(it.name(), it.value());
+			}
 		}
 
 		~ResponseMessage()
@@ -611,6 +639,7 @@ namespace EasySip
 		virtual ResponseMessage& create();
 
 		virtual void parse(size_t &pos);
+
 		virtual void parse()
 		{
 			size_t pos = 0;
