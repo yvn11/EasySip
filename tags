@@ -77,6 +77,9 @@ DESCRIPTION	build/version.h	5;"	d
 DESCRIPTION	test/Makefile	/^DESCRIPTION	= Easy-to-used SIP Stack$/;"	m
 Dialog	include/dialog.h	/^		Dialog()$/;"	f	class:EasySip::Dialog
 Dialog	include/dialog.h	/^	class Dialog$/;"	c	namespace:EasySip
+Dialog	src/dialog.cpp	/^	Dialog::Dialog(Dialog &dia)$/;"	f	class:EasySip::Dialog
+Dialog	src/dialog.cpp	/^	Dialog::Dialog(RequestMessage &in_msg)$/;"	f	class:EasySip::Dialog
+Dialog	src/dialog.cpp	/^	Dialog::Dialog(ResponseMessage &in_msg)$/;"	f	class:EasySip::Dialog
 DialogId	include/dialog.h	/^		DialogId()$/;"	f	class:EasySip::DialogId
 DialogId	include/dialog.h	/^		DialogId(HFCallId& id, std::string ltag, std::string rtag)$/;"	f	class:EasySip::DialogId
 DialogId	include/dialog.h	/^	class DialogId$/;"	c	namespace:EasySip
@@ -635,6 +638,7 @@ append	include/uri.h	/^		void append(ContactList& c)$/;"	f	struct:EasySip::Conta
 append	include/uri.h	/^		void append(ContactList::iterator from, ContactList::iterator to)$/;"	f	struct:EasySip::ContactList
 append	include/uri.h	/^		void append(std::string uri, std::string name = "")$/;"	f	struct:EasySip::ContactList
 append_item	include/utils.h	/^		void append_item()$/;"	f	class:EasySip::PtsOf
+append_item	include/utils.h	/^		void append_item(T &it)$/;"	f	class:EasySip::PtsOf
 append_userdata	include/message.h	/^		void append_userdata(std::string buf)$/;"	f	class:EasySip::Message
 arg_	include/thread.h	/^		void *arg_;$/;"	m	class:EasySip::Thread
 attr_	include/thread.h	/^		pthread_attr_t attr_;$/;"	m	class:EasySip::Thread
@@ -663,6 +667,7 @@ code	include/utils.h	/^		int code() const$/;"	f	class:EasySip::CodeMap
 code_	include/header_field.h	/^			std::string code_;$/;"	m	struct:EasySip::HFWarning::WarningValue
 compact_form_	include/header_field.h	/^		std::string compact_form_;$/;"	m	struct:EasySip::HeaderField
 composite_ty_	include/header_field.h	/^		std::string composite_ty_;$/;"	m	struct:EasySip::HFContentType
+confirmed_	include/dialog.h	/^		bool confirmed_;$/;"	m	class:EasySip::Dialog
 cons	include/header_field.h	/^		ContactList& cons()$/;"	f	struct:EasySip::HFContact
 cons_	include/header_field.h	/^		ContactList cons_;$/;"	m	struct:EasySip::HFBase_1_
 contact_	include/header_field.h	/^		PtsOf<HFContact> contact_;$/;"	m	struct:EasySip::HeaderFields
@@ -674,6 +679,7 @@ create	src/message.cpp	/^	Message& Message::create()$/;"	f	class:EasySip::Messag
 create	src/message.cpp	/^	RequestMessage& RequestMessage::create()$/;"	f	class:EasySip::RequestMessage
 create	src/message.cpp	/^	ResponseMessage& ResponseMessage::create()$/;"	f	class:EasySip::ResponseMessage
 create_dialog	src/dialog.cpp	/^	Dialog* Dialogs::create_dialog()$/;"	f	class:EasySip::Dialogs
+create_dialog	src/dialog.cpp	/^	Dialog* Dialogs::create_dialog(Dialog &dialog)$/;"	f	class:EasySip::Dialogs
 cseq_	include/header_field.h	/^		PtsOf<HFCSeq> cseq_;$/;"	m	struct:EasySip::HeaderFields
 cseq_	include/header_field.h	/^		std::string cseq_;$/;"	m	struct:EasySip::HFCSeq
 data	include/buffer.h	/^		char* data()$/;"	f	class:EasySip::Buffer
@@ -748,7 +754,7 @@ generate_values	src/header_field.cpp	/^	void HFUserAgent::generate_values()$/;"	
 generate_values	src/header_field.cpp	/^	void HFVia::generate_values()$/;"	f	class:EasySip::HFVia
 generate_values	src/header_field.cpp	/^	void HFWWWAuthenticate::generate_values()$/;"	f	class:EasySip::HFWWWAuthenticate
 generate_values	src/header_field.cpp	/^	void HFWarning::generate_values()$/;"	f	class:EasySip::HFWarning
-get_dialog_by_id	src/dialog.cpp	/^	Dialog* Dialogs::get_dialog_by_id(DialogId val)$/;"	f	class:EasySip::Dialogs
+get_dialog_by_id	src/dialog.cpp	/^	Dialog* Dialogs::get_dialog_by_id(DialogId &val)$/;"	f	class:EasySip::Dialogs
 get_ip_addr	src/socket.cpp	/^	std::string Socket::get_ip_addr()$/;"	f	class:EasySip::Socket
 get_method_from_buffer	src/message.cpp	/^	int Message::get_method_from_buffer($/;"	f	class:EasySip::Message
 get_response_code_from_buffer	src/message.cpp	/^	int Message::get_response_code_from_buffer($/;"	f	class:EasySip::Message
@@ -771,6 +777,8 @@ invite_request	src/Method/method.cpp	/^	int Method::invite_request()$/;"	f	class
 invite_request	src/Method/uaclient.cpp	/^	int UAClient::invite_request()$/;"	f	class:EasySip::UAClient
 is_1xx_resp	include/message.h	/^		bool is_1xx_resp()$/;"	f	class:EasySip::ResponseMessage
 is_2xx_resp	include/message.h	/^		bool is_2xx_resp()$/;"	f	class:EasySip::ResponseMessage
+is_confirmed	include/dialog.h	/^		bool is_confirmed()$/;"	f	class:EasySip::Dialog
+is_confirmed	include/dialog.h	/^		void is_confirmed(bool c)$/;"	f	class:EasySip::Dialog
 is_hop_by_hop_	include/header_field.h	/^		bool is_hop_by_hop_;$/;"	m	struct:EasySip::HeaderField
 is_valid	src/message.cpp	/^	bool AckMessage::is_valid()$/;"	f	class:EasySip::AckMessage
 is_valid	src/message.cpp	/^	bool ByeMessage::is_valid()$/;"	f	class:EasySip::ByeMessage
@@ -845,6 +853,7 @@ networkMsgRecv	test/ts-osip.c	/^int networkMsgRecv(int sock,char *msgP,int msgLe
 networkMsgSend	test/ts-osip.c	/^int networkMsgSend(int sock,char *msgP,int msgLen,char *host,int port)$/;"	f
 notify_request	src/Method/method.cpp	/^	int Method::notify_request()$/;"	f	class:EasySip::Method
 on_ack_request	src/Method/method.cpp	/^	int Method::on_ack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
+on_ack_request	src/Method/uaserver.cpp	/^	int UAServer::on_ack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
 on_bye_request	src/Method/method.cpp	/^	int Method::on_bye_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_bye_request	src/Method/uaserver.cpp	/^	int UAServer::on_bye_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
 on_cancel_request	src/Method/method.cpp	/^	int Method::on_cancel_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
@@ -898,7 +907,7 @@ operator =	test/ts.cpp	/^	A operator= (A a)$/;"	f	class:A
 operator ==	include/dialog.h	/^		friend bool operator== (DialogId a, DialogId b)$/;"	f	class:EasySip::DialogId
 operator ==	include/header_field.h	/^		bool operator== (HFCallId& val)$/;"	f	struct:EasySip::HFCallId
 operator ==	include/utils.h	/^		bool operator== (const CodeMap &cm)$/;"	f	class:EasySip::CodeMap
-operator []	src/dialog.cpp	/^	Dialog& Dialogs::operator[] (DialogId val)$/;"	f	class:EasySip::Dialogs
+operator []	src/dialog.cpp	/^	Dialog* Dialogs::operator[] (DialogId val)$/;"	f	class:EasySip::Dialogs
 operator []	test/ts.cpp	/^	int operator[] (A a)$/;"	f	class:B
 operator []	test/ts.cpp	/^	int operator[] (int val)$/;"	f	class:B
 operator []	test/ts.cpp	/^	int operator[] (std::string hello)$/;"	f	class:B

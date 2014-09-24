@@ -29,6 +29,11 @@ namespace EasySip
 			this->push_back(new T);
 		}
 
+		void append_item(T &it)
+		{
+			this->push_back(new T(it));
+		}
+
 		T* first()
 		{
 			return this->at(0);

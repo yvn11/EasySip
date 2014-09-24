@@ -725,26 +725,25 @@ namespace EasySip
 		req_line_ = std::make_shared<RequestLine>();
 
 		add_call_id()
-		->add_id(in_msg.call_id_.last()->id_);
+		->add_id(in_msg.call_id_.first()->id_);
 
 		add_from()
-		->add_name(in_msg.from_.last()->name())
-		.add_uri(in_msg.from_.last()->uri());
+		->add_name(in_msg.from_.first()->name())
+		.add_uri(in_msg.from_.first()->uri());
 
-		for (auto &it : in_msg.from_.last()->header_params_)
+		for (auto &it : in_msg.from_.first()->header_params_)
 		{
-			from_.last()->HeaderParam(it.name(), it.value());
+			from_.first()->HeaderParam(it.name(), it.value());
 		}
 
 		add_to()
-		->add_name(in_msg.to_.last()->name())
-		.add_uri(in_msg.to_.last()->uri());
+		->add_name(in_msg.to_.first()->name())
+		.add_uri(in_msg.to_.first()->uri());
 
-		for (auto &it : in_msg.to_.last()->header_params_)
+		for (auto &it : in_msg.to_.first()->header_params_)
 		{
-			to_.last()->HeaderParam(it.name(), it.value());
+			to_.first()->HeaderParam(it.name(), it.value());
 		}
-
 
 		add_via()
 		->add_proto(SIP_VERSION_2_0_UDP)

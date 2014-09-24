@@ -82,7 +82,6 @@ namespace EasySip
 //
 	int UAServer::on_invite_request(RequestMessage &in_msg)
 	{
-		in_msg.parse();
 		ResponseMessage rep(in_msg);
 
 		rep.SipVersion(SIP_VERSION_2_0);
@@ -91,48 +90,14 @@ namespace EasySip
 		rep.add_contact()
 		->add_uri("sip:ag@"+udp_.Addr());
 
-		dialogs_.create_dialog();
-
-		if (false /*TODO: sent over TLS && in_msg.req_line_->request_uri_ has sip URI */)
-		{
-			dialogs_.last()->secure_flag(true);
-		}
-
 		if (in_msg.record_route_.size())
-		{
 			rep.record_route_ = in_msg.record_route_;
-			dialogs_.last()->routes(in_msg.record_route_);
-			std::reverse(dialogs_.last()->routes().begin(), dialogs_.last()->routes().end());
-		}
-		else
-		{
-			dialogs_.last()->routes().clear();
-		}
 
-		if (in_msg.cseq_.size())
-		{
-			dialogs_.last()->remote_seq(*in_msg.cseq_.last());
-		}
-//		dialogs_.last()->local_seq_ = UNSET;
-		if (in_msg.call_id_.size())
-		{
-			dialogs_.last()->id().call_id(*in_msg.call_id_.last());
-		}
-
-		if (in_msg.to_.size())
-		{
-			dialogs_.last()->id().local_tag(in_msg.to_.last()->tag());
-			dialogs_.last()->local_uri(in_msg.to_.last()->uri());
-		}
-
-		if (in_msg.from_.size())
-		{
-			dialogs_.last()->id().remote_tag(in_msg.from_.last()->tag());
-			dialogs_.last()->remote_uri(in_msg.from_.last()->uri());
-		}
+		Dialog dialog(in_msg);
+		dialogs_.create_dialog(dialog);
 
 		std::cout << "----------\n" << *dialogs_.last() << "-----------\n";
-		std::cout << "==========" << dialogs_.size() << "=========\n";
+
 		rep.create();
 		udp_.send_buffer(rep.Msg());
 
@@ -147,7 +112,6 @@ namespace EasySip
 //	
 	int UAServer::on_bye_request(RequestMessage &in_msg)
 	{
-		in_msg.parse();
 		ResponseMessage rep(in_msg);
 	
 //		DialogId val;
@@ -158,44 +122,12 @@ namespace EasySip
 //
 //		dialogs_.cancel_dialog(val);
 
-		Dialog dialog;
+		Dialog dialog(in_msg);
 
-		if (in_msg.record_route_.size())
-		{
-			rep.record_route_ = in_msg.record_route_;
-			dialog.routes(in_msg.record_route_);
-			std::reverse(dialog.routes().begin(), dialog.routes().end());
-		}
-		else
-		{
-			dialog.routes().clear();
-		}
+//		if (in_msg.record_route_.size())
+//			rep.record_route_ = in_msg.record_route_;
 
-		if (in_msg.cseq_.size())
-		{
-			dialog.remote_seq(*in_msg.cseq_.last());
-		}
-//		dialog.local_seq_ = UNSET;
-		if (in_msg.call_id_.size())
-		{
-			dialog.id().call_id(*in_msg.call_id_.last());
-		}
-
-		if (in_msg.to_.size())
-		{
-			dialog.id().local_tag(in_msg.to_.last()->tag());
-			dialog.local_uri(in_msg.to_.last()->uri());
-		}
-
-		if (in_msg.from_.size())
-		{
-			dialog.id().remote_tag(in_msg.from_.last()->tag());
-			dialog.remote_uri(in_msg.from_.last()->uri());
-		}
-
-		std::cout << "+++++++++++\n" << dialogs_[dialog.id()] << "+++++++++++++\n";
 		dialogs_.cancel_dialog(dialog.id());
-		std::cout << "==========" << dialogs_.size() << "=========\n";
 
 		return 0;
 	}
@@ -205,16 +137,22 @@ namespace EasySip
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
 //		return 0;
 //	}
-//	
-//	int UAServer::on_ack_request(RequestMessage &in_msg)
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
-//	}
-//	
+//
+
+	int UAServer::on_ack_request(RequestMessage &in_msg)
+	{
+		Dialog dialog(in_msg);
+
+		if (dialogs_[dialog.id()])
+		{
+			dialogs_[dialog.id()]->is_confirmed(true);
+		}
+
+		return 0;
+	}
+	
 	int UAServer::on_options_request(RequestMessage &in_msg)
 	{
-		in_msg.parse();
 		ResponseMessage rep(in_msg);
 
 		rep.SipVersion(SIP_VERSION_2_0);

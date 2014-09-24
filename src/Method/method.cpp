@@ -112,6 +112,7 @@ namespace EasySip
 	int Method::on_receive_req(std::string &msg, const int code)
 	{
 		RequestMessage in_msg(msg);
+		in_msg.parse();
 
 //		return it->Method()(in_msg);
 		switch (code)

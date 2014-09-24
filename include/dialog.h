@@ -1,7 +1,7 @@
 /*
  * include/dialog.h
  */
-#include "header_field.h"
+#include "message.h"
 #include <algorithm>
 
 namespace EasySip
@@ -81,11 +81,18 @@ namespace EasySip
 		bool secure_flag_;
 		PtsOf<HFRecordRoute> routes_;
 
+		bool confirmed_;
+
 	public:
 
 		Dialog()
+		: secure_flag_(false), confirmed_(false)
 		{
 		}
+
+		Dialog(Dialog &dia);
+		Dialog(ResponseMessage &in_msg);
+		Dialog(RequestMessage &in_msg);
 
 		DialogId& id()
 		{
@@ -167,6 +174,16 @@ namespace EasySip
 			routes_ = val;
 		}
 
+		void is_confirmed(bool c)
+		{
+			confirmed_ = c;
+		}
+
+		bool is_confirmed()
+		{
+			return confirmed_;
+		}
+
 		friend std::ostream& operator<< (std::ostream &o, Dialog &dia);
 	};
 
@@ -175,12 +192,13 @@ namespace EasySip
 	public:
 
 		Dialog* create_dialog();
+		Dialog* create_dialog(Dialog &dialog);
 
 		void cancel_dialog(DialogId val);
 
-		Dialog* get_dialog_by_id(DialogId val);
+		Dialog* get_dialog_by_id(DialogId &val);
 
-		Dialog& operator[] (DialogId val);
+		Dialog* operator[] (DialogId val);
 	};
 } // namespace EasySip
 		

@@ -66,53 +66,15 @@ namespace EasySip
 
 		if (in_msg.is_1xx_resp() || in_msg.is_2xx_resp())
 		{
-			dialogs_.create_dialog();
+			Dialog dialog(in_msg);
+			dialogs_.create_dialog(dialog);
 	
-			if (false /*TODO: sent over TLS && in_msg.req_line_->request_uri_ has sip URI */)
-			{
-				dialogs_.last()->secure_flag(true);
-			}
-	
-			if (in_msg.record_route_.size())
-			{
-				dialogs_.last()->routes(in_msg.record_route_);
-				std::reverse(dialogs_.last()->routes().begin(), dialogs_.last()->routes().end());
-			}
-			else
-			{
-				dialogs_.last()->routes().clear();
-			}
-	
-			for (auto &it : in_msg.contact_)
-			{
-				dialogs_.last()->remote_target().append(it->cons());
-			}
-	
-	//		dialogs_.last()->remote_seq(UNSET);
-			if (in_msg.cseq_.size())
-			{
-				dialogs_.last()->local_seq(*in_msg.cseq_.last());
-			}
-			if (in_msg.call_id_.size())
-			{
-				dialogs_.last()->id().call_id(*in_msg.call_id_.last());
-			}
-			if (in_msg.to_.size())
-			{
-				dialogs_.last()->id().remote_tag(in_msg.to_.last()->tag());
-				dialogs_.last()->remote_uri(in_msg.to_.last()->uri());
-			}
-			if (in_msg.from_.size())
-			{
-				dialogs_.last()->id().local_tag(in_msg.from_.last()->tag());
-				dialogs_.last()->local_uri(in_msg.from_.last()->uri());
-			}
-
 			DialogId id = dialogs_.last()->id();
-			std::cout << dialogs_[id];
+			std::cout << *dialogs_[id];
 
 //			ack_request();
-			AckMessage ack(in_msg);
+			std::cout << "ack message:" << AckMessage(in_msg).create() << '\n';
+			udp_.send_buffer(AckMessage(in_msg).create().Msg());
 
 //			loop();
 		}
