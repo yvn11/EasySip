@@ -4,7 +4,6 @@
  * Author: Zex <top_zlynch@yahoo.com>
  */
 #include "Method/registar.h"
-#include "socket.h"
 
 namespace EasySip
 {

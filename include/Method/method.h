@@ -69,7 +69,6 @@ namespace EasySip
 		virtual int on_info_request(RequestMessage &in_msg);
 		virtual int on_prack_request(RequestMessage &in_msg);
 		virtual int on_update_request(RequestMessage &in_msg);
-		virtual int on_response(std::string &msg);
 
 	public://protected:
 

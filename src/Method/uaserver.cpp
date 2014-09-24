@@ -80,29 +80,29 @@ namespace EasySip
 //		return 0;
 //	}
 //
-	int UAServer::on_invite_request(RequestMessage &in_msg)
-	{
-		ResponseMessage rep(in_msg);
-
-		rep.SipVersion(SIP_VERSION_2_0);
-		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
-
-		rep.add_contact()
-		->add_uri("sip:ag@"+udp_.Addr());
-
-		if (in_msg.record_route_.size())
-			rep.record_route_ = in_msg.record_route_;
-
-		Dialog dialog(in_msg);
-		dialogs_.create_dialog(dialog);
-
-		std::cout << "----------\n" << *dialogs_.last() << "-----------\n";
-
-		rep.create();
-		udp_.send_buffer(rep.Msg());
-
-		return 0;
-	}
+//	int UAServer::on_invite_request(RequestMessage &in_msg)
+//	{
+//		ResponseMessage rep(in_msg);
+//
+//		rep.SipVersion(SIP_VERSION_2_0);
+//		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+//
+//		rep.add_contact()
+//		->add_uri("sip:ag@"+udp_.Addr());
+//
+//		if (in_msg.record_route_.size())
+//			rep.record_route_ = in_msg.record_route_;
+//
+//		Dialog dialog(in_msg);
+//		dialogs_.create_dialog(dialog);
+//
+//		std::cout << "----------\n" << *dialogs_.last() << "-----------\n";
+//
+//		rep.create();
+//		udp_.send_buffer(rep.Msg());
+//
+//		return 0;
+//	}
 //	
 //	int UAServer::on_register_request(RequestMessage &in_msg)
 //	{
@@ -110,27 +110,19 @@ namespace EasySip
 //		return 0;
 //	}
 //	
-	int UAServer::on_bye_request(RequestMessage &in_msg)
-	{
-		ResponseMessage rep(in_msg);
-	
-//		DialogId val;
+//	int UAServer::on_bye_request(RequestMessage &in_msg)
+//	{
+//		ResponseMessage rep(in_msg);
 //	
-//		val.call_id(*in_msg.call_id_.last());
-//		val.local_tag(in_msg.from_.last()->tag());
-//		val.remote_tag(in_msg.to_.last()->tag());
+//		Dialog dialog(in_msg);
 //
-//		dialogs_.cancel_dialog(val);
-
-		Dialog dialog(in_msg);
-
-//		if (in_msg.record_route_.size())
-//			rep.record_route_ = in_msg.record_route_;
-
-		dialogs_.cancel_dialog(dialog.id());
-
-		return 0;
-	}
+////		if (in_msg.record_route_.size())
+////			rep.record_route_ = in_msg.record_route_;
+//
+//		dialogs_.cancel_dialog(dialog.id());
+//
+//		return 0;
+//	}
 //	
 //	int UAServer::on_cancel_request(RequestMessage &in_msg)
 //	{
@@ -139,40 +131,40 @@ namespace EasySip
 //	}
 //
 
-	int UAServer::on_ack_request(RequestMessage &in_msg)
-	{
-		Dialog dialog(in_msg);
-
-		if (dialogs_[dialog.id()])
-		{
-			dialogs_[dialog.id()]->is_confirmed(true);
-		}
-
-		return 0;
-	}
+//	int UAServer::on_ack_request(RequestMessage &in_msg)
+//	{
+//		Dialog dialog(in_msg);
+//
+//		if (dialogs_[dialog.id()])
+//		{
+//			dialogs_[dialog.id()]->is_confirmed(true);
+//		}
+//
+//		return 0;
+//	}
 	
-	int UAServer::on_options_request(RequestMessage &in_msg)
-	{
-		ResponseMessage rep(in_msg);
-
-		rep.SipVersion(SIP_VERSION_2_0);
-		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
-
-		rep.add_accept()
-		->add_value("text", "plain")
-		.add_value("text", "html")
-		.add_value("application", "sdp")
-		.add_value("multipart", "sdp");
-
-		rep.add_allow();
-
-		for (auto &it : allowed_methods_) 
-			rep.allow_.last()->add_value(it.name());
-
-		udp_.send_buffer(rep.create().Msg());
-
-		return 0;
-	}
+//	int UAServer::on_options_request(RequestMessage &in_msg)
+//	{
+//		ResponseMessage rep(in_msg);
+//
+//		rep.SipVersion(SIP_VERSION_2_0);
+//		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+//
+//		rep.add_accept()
+//		->add_value("text", "plain")
+//		.add_value("text", "html")
+//		.add_value("application", "sdp")
+//		.add_value("multipart", "sdp");
+//
+//		rep.add_allow();
+//
+//		for (auto &it : allowed_methods_) 
+//			rep.allow_.last()->add_value(it.name());
+//
+//		udp_.send_buffer(rep.create().Msg());
+//
+//		return 0;
+//	}
 //	
 //	int UAServer::on_subscribe_request(RequestMessage &in_msg)
 //	{

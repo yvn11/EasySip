@@ -33,12 +33,12 @@ namespace EasySip
 //		virtual int options_request();
 //		virtual int prack_request();
 //
-		virtual int on_invite_request(RequestMessage &in_msg);
+//		virtual int on_invite_request(RequestMessage &in_msg);
 //		virtual int on_register_request(RequestMessage &in_msg);
-		virtual int on_bye_request(RequestMessage &in_msg);
-		virtual int on_ack_request(RequestMessage &in_msg);
+//		virtual int on_bye_request(RequestMessage &in_msg);
+//		virtual int on_ack_request(RequestMessage &in_msg);
 //		virtual int on_cancel_request(RequestMessage &in_msg);
-		virtual int on_options_request(RequestMessage &in_msg);
+//		virtual int on_options_request(RequestMessage &in_msg);
 //		virtual int on_refer_request(RequestMessage &in_msg);
 //		virtual int on_subscribe_request(RequestMessage &in_msg);
 //		virtual int on_notify_request(RequestMessage &in_msg);

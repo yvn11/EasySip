@@ -1,5 +1,5 @@
 /*
- * include/socket.h
+ * include/except.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */

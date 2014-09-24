@@ -217,6 +217,73 @@ namespace EasySip
 
 	int Method::invite_request()
 	{
+		InviteMessage req;
+
+		req.SipVersion(SIP_VERSION_2_0);
+		req.RequestURI(udp_.Addr());
+
+		req.add_contact()
+		->add_uri("sip:zex@"+udp_.SelfAddr());
+
+		req.add_from()
+		->add_name("zex")
+		.add_uri("sip:zex@"+udp_.SelfAddr())
+		.add_param("tag", "293!hsj@df");
+
+		req.add_to()
+		->add_name("\"Big Boss\"")
+		.add_uri("sip:bigboss@paris.agg.oo");
+
+		req.add_cseq()
+		->add_seq("1")
+		.add_method(req.Method());
+
+		req.add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
+
+		req.add_call_id()
+		->add_id("sundo@1311bili");
+
+		if (false /*is_sips(req.req_line_.request_uri_) */
+		|| false /*is_sips(req.req_line_.request_uri_) */)
+		{
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
+		}
+
+		req.create();
+
+		udp_.send_buffer(req.Msg());
+//		msgq_.push(req.Msg());
+//---------------------------------------------------------------
+		if (0 > udp_.recv_buffer(0)) return 0;
+
+		ResponseMessage in_msg(udp_.Message());
+		in_msg.parse();
+
+		if (in_msg.is_2xx_resp())
+		{
+			Dialog dialog(in_msg);
+			dialogs_.create_dialog(dialog);
+	
+			DialogId id = dialogs_.last()->id();
+			std::cout << *dialogs_[id];
+
+//			ack_request();
+			udp_.send_buffer(AckMessage(in_msg).create().Msg());
+
+//			loop();
+		}
+		else if (in_msg.is_1xx_resp())
+		{
+			std::cout << "peer saids: " << in_msg << '\n';
+		}
+		else
+		{
+			// TODO: invite req failed feedback
+			std::cerr << "Unable to establish session due to "
+				<< in_msg.ResponseCode() << "\n";
+		}
 
 		return 0;
 	}
@@ -228,6 +295,97 @@ namespace EasySip
 
 	int Method::bye_request()
 	{
+		ByeMessage req;
+
+		req.SipVersion(SIP_VERSION_2_0);
+
+		if (dialogs_.size())
+		{
+			req.add_to()
+			->add_name("Big Boss\"")
+			.add_uri(dialogs_.last()->remote_uri());
+
+			if (dialogs_.last()->id().remote_tag().size())
+				req.to_.last()->add_param("tag", dialogs_.last()->id().remote_tag());
+
+			req.add_from()
+			->add_name("zex")
+			.add_uri(dialogs_.last()->local_uri());
+
+			if (dialogs_.last()->id().local_tag().size())
+				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
+
+			req.add_call_id()
+			->add_id(dialogs_.last()->id().call_id().id_);
+
+			std::string seq;
+	
+			if (!dialogs_.last()->local_seq().cseq_.empty())
+			{
+				dialogs_.last()->local_seq().inc_seq();
+				seq = dialogs_.last()->local_seq().cseq_;
+			}
+
+			if (seq.empty())
+			{
+				seq = "1"; // TODO: choose a seq, 32bits
+			}
+	
+			req.add_cseq()
+			->add_seq(seq)
+			.add_method(req.Method());
+
+			if (dialogs_.last()->remote_target().size())
+				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+			if (dialogs_.last()->routes().size())
+			{
+				if (dialogs_.last()->routes().last()->cons_.last()->has_param("lr"))
+				{
+//					if (dialogs_.last()->remote_target().size())
+					req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+					req.add_route();
+
+					if (dialogs_.last()->routes().size())
+					{
+						req.route_.last()->cons_ = dialogs_.last()->routes().last()->cons_;
+					}
+				}
+				else
+				{
+					req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());
+
+					req.add_route();
+
+					ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();
+					from++;
+
+					req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());
+					req.route_.last()->cons_.append(dialogs_.last()->remote_target());
+				}
+			}
+		}
+
+		req.add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
+
+
+		if (false /*is_sips(req.req_line_.request_uri_) */
+		|| false /*is_sips(req.req_line_.request_uri_) */)
+		{
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
+		}
+
+		req.create();
+		udp_.send_buffer(req.Msg());
+//		msgq_.push(req.Msg());
+//---------------------------------------------------------------
+//		if (0 > udp_.recv_buffer(0)) return 0;
+//		ResponseMessage in_msg(udp_.Message());
+//		in_msg.parse();
+
 		return 0;
 	}
 
@@ -248,6 +406,91 @@ namespace EasySip
 
 	int Method::ack_request()
 	{
+		AckMessage req;
+
+		req.SipVersion(SIP_VERSION_2_0);
+
+		if (dialogs_.size())
+		{
+			req.add_to()
+			->add_name("Big Boss\"")
+			.add_uri(dialogs_.last()->remote_uri());
+
+			if (dialogs_.last()->id().remote_tag().size())
+				req.to_.last()->add_param("tag", dialogs_.last()->id().remote_tag());
+
+			req.add_from()
+			->add_name("zex")
+			.add_uri(dialogs_.last()->local_uri());
+
+			if (dialogs_.last()->id().local_tag().size())
+				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
+
+			req.add_call_id()
+			->add_id(dialogs_.last()->id().call_id().id_);
+
+			std::string seq;
+	
+			if (!dialogs_.last()->local_seq().cseq_.empty())
+			{
+				dialogs_.last()->local_seq().inc_seq();
+				seq = dialogs_.last()->local_seq().cseq_;
+			}
+
+			if (seq.empty())
+			{
+				seq = "1"; // TODO: choose a seq, 32bits
+			}
+	
+			req.add_cseq()
+			->add_seq(seq)
+			.add_method(req.Method());
+
+			if (dialogs_.last()->remote_target().size())
+				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+			if (dialogs_.last()->routes().size())
+			{
+				if (dialogs_.last()->routes().last()->cons_.last()->has_param("lr"))
+				{
+//					if (dialogs_.last()->remote_target().size())
+					req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+					req.add_route();
+
+					if (dialogs_.last()->routes().size())
+					{
+						req.route_.last()->cons_ = dialogs_.last()->routes().last()->cons_;
+					}
+				}
+				else
+				{
+					req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());
+
+					req.add_route();
+
+					ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();
+					from++;
+
+					req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());
+					req.route_.last()->cons_.append(dialogs_.last()->remote_target());
+				}
+			}
+		}
+
+		req.add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
+
+
+		if (false /*is_sips(req.req_line_.request_uri_) */
+		|| false /*is_sips(req.req_line_.request_uri_) */)
+		{
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
+		}
+
+		req.create();
+		udp_.send_buffer(req.Msg());
 		return 0;
 	}
 
@@ -273,17 +516,97 @@ namespace EasySip
 
 	int Method::options_request()
 	{
-//		std::string buffer, line;
-//
-//		while(std::getline(std::cin, line))
-//			buffer += line+'\n';
-//
-//		std::cout << "send:\n" << buffer << '\n';
-//		cli_udp_.send_buffer(buffer);
-//		cli_udp_.recv_buffer(0);
-//		
-//		on_receive_message(cli_udp_.Message());
-//
+		OptionsMessage req;
+
+		req.SipVersion(SIP_VERSION_2_0);
+
+		if (dialogs_.size())
+		{
+			req.add_to()
+			->add_name("Big Boss\"")
+			.add_uri(dialogs_.last()->remote_uri());
+
+			if (dialogs_.last()->id().remote_tag().size())
+				req.to_.last()->add_param("tag", dialogs_.last()->id().remote_tag());
+
+			req.add_from()
+			->add_name("zex")
+			.add_uri(dialogs_.last()->local_uri());
+
+			if (dialogs_.last()->id().local_tag().size())
+				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
+
+			req.add_call_id()
+			->add_id(dialogs_.last()->id().call_id().id_);
+
+			std::string seq;
+	
+			if (!dialogs_.last()->local_seq().cseq_.empty())
+			{
+				dialogs_.last()->local_seq().inc_seq();
+				seq = dialogs_.last()->local_seq().cseq_;
+			}
+
+			if (seq.empty())
+			{
+				seq = "1"; // TODO: choose a seq, 32bits
+			}
+	
+			req.add_cseq()
+			->add_seq(seq)
+			.add_method(req.Method());
+
+			if (dialogs_.last()->remote_target().size())
+				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+			if (dialogs_.last()->routes().size())
+			{
+				if (dialogs_.last()->routes().last()->cons_.last()->has_param("lr"))
+				{
+//					if (dialogs_.last()->remote_target().size())
+					req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+					req.add_route();
+
+					if (dialogs_.last()->routes().size())
+					{
+						req.route_.last()->cons_ = dialogs_.last()->routes().last()->cons_;
+					}
+				}
+				else
+				{
+					req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());
+
+					req.add_route();
+
+					ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();
+					from++;
+
+					req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());
+					req.route_.last()->cons_.append(dialogs_.last()->remote_target());
+				}
+			}
+		}
+
+		req.add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
+
+
+		if (false /*is_sips(req.req_line_.request_uri_) */
+		|| false /*is_sips(req.req_line_.request_uri_) */)
+		{
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
+		}
+
+		req.create();
+		udp_.send_buffer(req.Msg());
+//		msgq_.push(req.Msg());
+//---------------------------------------------------------------
+		if (0 > udp_.recv_buffer(0)) return 0;
+		ResponseMessage in_msg(udp_.Message());
+		in_msg.parse();
+
 		return 0;
 	}
 
@@ -294,19 +617,24 @@ namespace EasySip
 
 	int Method::on_invite_request(RequestMessage &in_msg)
 	{
-//		in_msg.parse();
-//
-//		ResponseMessage rep(in_msg);
-//		rep.SipVersion(SIP_VERSION_2_0);
-//		rep.ResponseCode(SIP_RESPONSE_TRYING);
-//
-//		// TODO: tag
-//		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-//		rep.via_.last()->HeaderParam("received", udp_.SelfAddr());
-////		rep.append_userdata("top of the hill");
-//		cli_udp_.send_buffer(rep.create().Msg());
-//
-//		// TODO forward procedure
+		ResponseMessage rep(in_msg);
+
+		rep.SipVersion(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		rep.add_contact()
+		->add_uri("sip:ag@"+udp_.Addr());
+
+		if (in_msg.record_route_.size())
+			rep.record_route_ = in_msg.record_route_;
+
+		Dialog dialog(in_msg);
+		dialogs_.create_dialog(dialog);
+
+		std::cout << "----------\n" << *dialogs_.last() << "-----------\n";
+
+		rep.create();
+		udp_.send_buffer(rep.Msg());
 
 		return 0;
 	}
@@ -332,21 +660,15 @@ namespace EasySip
 	
 	int Method::on_bye_request(RequestMessage &in_msg)
 	{
-////		ByeMessage msg(in_msg);
-//		in_msg.parse();
-//
-//		ResponseMessage rep(in_msg);
-//		rep.SipVersion(SIP_VERSION_2_0);
-//		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
-//
-//		// TODO: tag
-//		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-//		rep.via_.last()->HeaderParam("received", udp_.Addr());
-////		rep.append_userdata("top of the hill");
-//
-//		udp_.send_buffer(rep.create().Msg());
+		ResponseMessage rep(in_msg);
+	
+		Dialog dialog(in_msg);
 
-		// TODO forward procedure
+//		if (in_msg.record_route_.size())
+//			rep.record_route_ = in_msg.record_route_;
+
+		dialogs_.cancel_dialog(dialog.id());
+
 		return 0;
 	}
 	
@@ -373,51 +695,36 @@ namespace EasySip
 	
 	int Method::on_ack_request(RequestMessage &in_msg)
 	{
-//		AckMessage msg(in_msg);
-//		in_msg.parse();
-//
-//		ResponseMessage rep(in_msg);
-//		rep.SipVersion(SIP_VERSION_2_0);
-//		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
-//
-//		// TODO: tag
-//		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-//		rep.via_.last()->HeaderParam("received", udp_.Addr());
-////		rep.append_userdata("top of the hill");
-//
-//		rep.create();
-//		udp_.send_buffer(rep.Msg());
+		Dialog dialog(in_msg);
 
-		// TODO forward procedure
+		if (dialogs_[dialog.id()])
+		{
+			dialogs_[dialog.id()]->is_confirmed(true);
+		}
+
 		return 0;
 	}
 	
 	int Method::on_options_request(RequestMessage &in_msg)
 	{
-//		in_msg.parse();
-//
-//		ResponseMessage rep(in_msg);
-//
-//		rep.SipVersion(SIP_VERSION_2_0);
-//		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
-//
-//		rep.add_via()->HeaderParam("received", udp_.Addr());
-//
-//		rep.add_accept()
-//		->add_value("text", "plain")
-//		.add_value("text", "html")
-//		.add_value("application", "sdp")
-//		.add_value("multipart", "sdp");
-//
-//		rep.add_allow();
-//
-//		for (auto &it : allowed_methods_) {
-//			rep.allow_.last()->add_value(it.name());}
-//
-//		rep.create();
-//		udp_.send_buffer(rep.Msg());
+		ResponseMessage rep(in_msg);
 
-		// TODO forward procedure
+		rep.SipVersion(SIP_VERSION_2_0);
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		rep.add_accept()
+		->add_value("text", "plain")
+		.add_value("text", "html")
+		.add_value("application", "sdp")
+		.add_value("multipart", "sdp");
+
+		rep.add_allow();
+
+		for (auto &it : allowed_methods_) 
+			rep.allow_.last()->add_value(it.name());
+
+		udp_.send_buffer(rep.create().Msg());
+
 		return 0;
 	}
 	
@@ -458,12 +765,6 @@ namespace EasySip
 	}
 	
 	int Method::on_prack_request(RequestMessage &in_msg)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-		return 0;
-	}
-
-	int Method::on_response(std::string &msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 		return 0;

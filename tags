@@ -545,7 +545,6 @@ accept_contact_	include/header_field.h	/^		PtsOf<HFAcceptContact> accept_contact
 accept_encoding_	include/header_field.h	/^		PtsOf<HFAcceptEncoding> accept_encoding_;$/;"	m	struct:EasySip::HeaderFields
 accept_language_	include/header_field.h	/^		PtsOf<HFAcceptLanguage> accept_language_;$/;"	m	struct:EasySip::HeaderFields
 ack_request	src/Method/method.cpp	/^	int Method::ack_request()$/;"	f	class:EasySip::Method
-ack_request	src/Method/uaclient.cpp	/^	int UAClient::ack_request()$/;"	f	class:EasySip::UAClient
 add_accept	src/message.cpp	/^	HFAccept* Message::add_accept()$/;"	f	class:EasySip::Message
 add_accept_contact	src/message.cpp	/^	HFAcceptContact* Message::add_accept_contact()$/;"	f	class:EasySip::Message
 add_accept_encoding	src/message.cpp	/^	HFAcceptEncoding* Message::add_accept_encoding()$/;"	f	class:EasySip::Message
@@ -649,7 +648,6 @@ bSipRegisterBuild	test/ts-osip.c	/^int bSipRegisterBuild(osip_message_t **regMsg
 bSipSend	test/ts-osip.c	/^int bSipSend($/;"	f
 binded_	include/socket.h	/^		bool binded_;$/;"	m	class:EasySip::SocketIp4UDP
 bye_request	src/Method/method.cpp	/^	int Method::bye_request()$/;"	f	class:EasySip::Method
-bye_request	src/Method/uaclient.cpp	/^	int UAClient::bye_request()$/;"	f	class:EasySip::UAClient
 call_id	include/dialog.h	/^		HFCallId& call_id()$/;"	f	class:EasySip::DialogId
 call_id	include/dialog.h	/^		void call_id(HFCallId val)$/;"	f	class:EasySip::DialogId
 call_id_	include/dialog.h	/^		HFCallId call_id_;$/;"	m	class:EasySip::DialogId
@@ -774,7 +772,6 @@ init_allowed_fields	src/header_field.cpp	/^	void HeaderFields::init_allowed_fiel
 init_allowed_methods	src/Method/method.cpp	/^	void Method::init_allowed_methods()$/;"	f	class:EasySip::Method
 init_allowed_responses	src/Method/method.cpp	/^	void Method::init_allowed_responses()$/;"	f	class:EasySip::Method
 invite_request	src/Method/method.cpp	/^	int Method::invite_request()$/;"	f	class:EasySip::Method
-invite_request	src/Method/uaclient.cpp	/^	int UAClient::invite_request()$/;"	f	class:EasySip::UAClient
 is_1xx_resp	include/message.h	/^		bool is_1xx_resp()$/;"	f	class:EasySip::ResponseMessage
 is_2xx_resp	include/message.h	/^		bool is_2xx_resp()$/;"	f	class:EasySip::ResponseMessage
 is_confirmed	include/dialog.h	/^		bool is_confirmed()$/;"	f	class:EasySip::Dialog
@@ -853,17 +850,13 @@ networkMsgRecv	test/ts-osip.c	/^int networkMsgRecv(int sock,char *msgP,int msgLe
 networkMsgSend	test/ts-osip.c	/^int networkMsgSend(int sock,char *msgP,int msgLen,char *host,int port)$/;"	f
 notify_request	src/Method/method.cpp	/^	int Method::notify_request()$/;"	f	class:EasySip::Method
 on_ack_request	src/Method/method.cpp	/^	int Method::on_ack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
-on_ack_request	src/Method/uaserver.cpp	/^	int UAServer::on_ack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
 on_bye_request	src/Method/method.cpp	/^	int Method::on_bye_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
-on_bye_request	src/Method/uaserver.cpp	/^	int UAServer::on_bye_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
 on_cancel_request	src/Method/method.cpp	/^	int Method::on_cancel_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_info_request	src/Method/method.cpp	/^	int Method::on_info_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_invite_request	src/Method/method.cpp	/^	int Method::on_invite_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
-on_invite_request	src/Method/uaserver.cpp	/^	int UAServer::on_invite_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
 on_message_request	src/Method/method.cpp	/^	int Method::on_message_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_notify_request	src/Method/method.cpp	/^	int Method::on_notify_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_options_request	src/Method/method.cpp	/^	int Method::on_options_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
-on_options_request	src/Method/uaserver.cpp	/^	int UAServer::on_options_request(RequestMessage &in_msg)$/;"	f	class:EasySip::UAServer
 on_prack_request	src/Method/method.cpp	/^	int Method::on_prack_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_receive_message	src/Method/method.cpp	/^	int Method::on_receive_message(std::string &msg)$/;"	f	class:EasySip::Method
 on_receive_req	src/Method/method.cpp	/^	int Method::on_receive_req(std::string &msg, const int code)$/;"	f	class:EasySip::Method
@@ -871,7 +864,6 @@ on_receive_resp	src/Method/method.cpp	/^	int Method::on_receive_resp(std::string
 on_refer_request	src/Method/method.cpp	/^	int Method::on_refer_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_register_request	src/Method/method.cpp	/^	int Method::on_register_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_register_request	src/Method/registar.cpp	/^	int Registar::on_register_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Registar
-on_response	src/Method/method.cpp	/^	int Method::on_response(std::string &msg)$/;"	f	class:EasySip::Method
 on_subscribe_request	src/Method/method.cpp	/^	int Method::on_subscribe_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
 on_timeup	test/ts-thr-timer.cpp	/^void on_timeup()$/;"	f
 on_update_request	src/Method/method.cpp	/^	int Method::on_update_request(RequestMessage &in_msg)$/;"	f	class:EasySip::Method
@@ -912,7 +904,6 @@ operator []	test/ts.cpp	/^	int operator[] (A a)$/;"	f	class:B
 operator []	test/ts.cpp	/^	int operator[] (int val)$/;"	f	class:B
 operator []	test/ts.cpp	/^	int operator[] (std::string hello)$/;"	f	class:B
 options_request	src/Method/method.cpp	/^	int Method::options_request()$/;"	f	class:EasySip::Method
-options_request	src/Method/uaclient.cpp	/^	int UAClient::options_request()$/;"	f	class:EasySip::UAClient
 opts_	include/header_field.h	/^		std::vector<std::string> opts_;$/;"	m	struct:EasySip::HFBase_3_
 organization_	include/header_field.h	/^		PtsOf<HFOrganization> organization_;$/;"	m	struct:EasySip::HeaderFields
 osip	test/ts-osip.c	/^osip_t *osip;$/;"	v
