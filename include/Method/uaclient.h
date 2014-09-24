@@ -46,10 +46,6 @@ namespace EasySip
 //		virtual int on_prack_request(RequestMessage &in_msg);
 //		virtual int on_update_request(RequestMessage &in_msg);
 //		virtual int on_response(Message &in_msg);
-
-		virtual void send_msg();
-		virtual void recv_msg();
-		virtual int loop();
 	};
 
 } // namespace EasySip

@@ -70,11 +70,9 @@ namespace EasySip
 		virtual int on_prack_request(RequestMessage &in_msg);
 		virtual int on_update_request(RequestMessage &in_msg);
 
-	public://protected:
-
-		virtual void send_msg();
-		virtual void recv_msg();
-		virtual int loop();
+		virtual void send_msg(RequestMessage &msg);
+		virtual void send_msg(ResponseMessage &msg);
+	
 	};
 
 } // namespace EasySip

@@ -91,6 +91,16 @@ namespace EasySip
 		allowed_responses_.insert(SIP_RESPONSE_GLOBAL_NOT_ACCEPTABLE);
 	}
 
+	void Method::send_msg(RequestMessage &msg)
+	{
+		udp_.send_buffer(msg.create().Msg());
+	}
+
+	void Method::send_msg(ResponseMessage &msg)
+	{
+		udp_.send_buffer(msg.create().Msg());
+	}
+
 	int Method::on_receive_message(std::string &msg)
 	{
 		int ret;
@@ -113,6 +123,28 @@ namespace EasySip
 	{
 		RequestMessage in_msg(msg);
 		in_msg.parse();
+
+		if (METHOD_ID_INVITE != code)
+		{
+			Dialog dialog(in_msg);
+
+			if (!dialogs_[dialog.id()])
+			{
+				// TODO: configurable reject/accept
+				if (true)
+				{
+					ResponseMessage rep(in_msg);
+					rep.SipVersion(SIP_VERSION_2_0);
+					rep.ResponseCode(SIP_RESPONSE_CALL_OR_TRANSACTION_NOT_EXIST);
+
+					send_msg(rep);
+				}
+				else
+				{
+					// TODO: restruct dialog
+				}
+			}
+		}
 
 //		return it->Method()(in_msg);
 		switch (code)
@@ -180,12 +212,6 @@ namespace EasySip
 
 	int Method::on_receive_resp(std::string &msg, const int code)
 	{
-//		ResponseMessage rep(SIP_RESPONSE_SUCCESSFUL);
-////		rep.append_userdata("top of the hill");
-//		rep.SipVersion(SIP_VERSION_2_0);
-//		rep.create();
-//		udp_.send_buffer(rep.Msg());
-
 		ResponseMessage in_msg(msg);
 		in_msg.parse();
 
@@ -251,9 +277,7 @@ namespace EasySip
 			req.add_contact()->add_uri("sips:utoc@ir.cx");
 		}
 
-		req.create();
-
-		udp_.send_buffer(req.Msg());
+		send_msg(req);
 //		msgq_.push(req.Msg());
 //---------------------------------------------------------------
 		if (0 > udp_.recv_buffer(0)) return 0;
@@ -269,10 +293,7 @@ namespace EasySip
 			DialogId id = dialogs_.last()->id();
 			std::cout << *dialogs_[id];
 
-//			ack_request();
 			udp_.send_buffer(AckMessage(in_msg).create().Msg());
-
-//			loop();
 		}
 		else if (in_msg.is_1xx_resp())
 		{
@@ -378,8 +399,7 @@ namespace EasySip
 			req.add_contact()->add_uri("sips:utoc@ir.cx");
 		}
 
-		req.create();
-		udp_.send_buffer(req.Msg());
+		send_msg(req);
 //		msgq_.push(req.Msg());
 //---------------------------------------------------------------
 //		if (0 > udp_.recv_buffer(0)) return 0;
@@ -489,8 +509,7 @@ namespace EasySip
 			req.add_contact()->add_uri("sips:utoc@ir.cx");
 		}
 
-		req.create();
-		udp_.send_buffer(req.Msg());
+		send_msg(req);
 		return 0;
 	}
 
@@ -599,8 +618,7 @@ namespace EasySip
 			req.add_contact()->add_uri("sips:utoc@ir.cx");
 		}
 
-		req.create();
-		udp_.send_buffer(req.Msg());
+		send_msg(req);
 //		msgq_.push(req.Msg());
 //---------------------------------------------------------------
 		if (0 > udp_.recv_buffer(0)) return 0;
@@ -620,7 +638,7 @@ namespace EasySip
 		ResponseMessage rep(in_msg);
 
 		rep.SipVersion(SIP_VERSION_2_0);
-		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+		rep.ResponseCode(SIP_RESPONSE_RINGING);
 
 		rep.add_contact()
 		->add_uri("sip:ag@"+udp_.Addr());
@@ -633,17 +651,26 @@ namespace EasySip
 
 		std::cout << "----------\n" << *dialogs_.last() << "-----------\n";
 
-		rep.create();
-		udp_.send_buffer(rep.Msg());
+		send_msg(rep);
+
+		dialogs_[dialog.id()]->still_ringing(true);
+		// TODO: timeout here
+		for (int i = 3; i; i--)
+		{
+			std::cout << "ringing ... ...\n";
+//			sleep(2);
+		}
+
+		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+		send_msg(rep);
+
+		// TODO: timeout here for ACK
 
 		return 0;
 	}
 	
 	int Method::on_register_request(RequestMessage &in_msg)
 	{
-////		RegisterMessage msg(in_msg);
-//		in_msg.parse();
-//
 //		ResponseMessage rep(in_msg);
 //		rep.SipVersion(SIP_VERSION_2_0);
 //		rep.ResponseCode(SIP_RESPONSE_TRYING);
@@ -651,9 +678,6 @@ namespace EasySip
 //		rep.via_.last()->HeaderParam("received", udp_.Addr());
 ////		rep.append_userdata("top of the hill");
 //
-//		udp_.send_buffer(rep.create().Msg());
-
-		// TODO forward procedure
 
 		return 0;
 	}
@@ -674,22 +698,25 @@ namespace EasySip
 	
 	int Method::on_cancel_request(RequestMessage &in_msg)
 	{
-//		CancelMessage msg(in_msg);
-//		in_msg.parse();
-//
-//		ResponseMessage rep(in_msg);
-//		rep.SipVersion(SIP_VERSION_2_0);
-//		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
-//
-//		// TODO: tag
-//		rep.to_.at(0)->HeaderParam("tag", "ahelk8.d374");
-//		rep.via_.last()->HeaderParam("received", udp_.Addr());
-////		rep.append_userdata("top of the hill");
-//
-//		rep.create();
-//		udp_.send_buffer(rep.Msg());
+		Dialog dialog(in_msg);
 
-		// TODO forward procedure
+		if (dialogs_[dialog.id()])
+		{
+			if (dialogs_[dialog.id()]->still_ringing())
+			{
+				// TODO: cancel it
+			}
+			else
+			{
+				ResponseMessage rep(in_msg);
+
+				rep.SipVersion(SIP_VERSION_2_0);
+				rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);
+
+				send_msg(rep);
+			}
+		}
+
 		return 0;
 	}
 	
@@ -767,21 +794,6 @@ namespace EasySip
 	int Method::on_prack_request(RequestMessage &in_msg)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
-		return 0;
-	}
-
-	void Method::send_msg()
-	{
-	
-	}
-
-	void Method::recv_msg()
-	{
-	
-	}
-
-	int Method::loop()
-	{
 		return 0;
 	}
 

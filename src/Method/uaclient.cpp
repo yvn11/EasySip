@@ -420,37 +420,37 @@ namespace EasySip
 //		return 0;
 //	}
 
-	void UAClient::send_msg()
-	{
-		while (run_)
-		{
-			while (msgq_.size())
-			{
-				udp_.send_buffer(msgq_.front());
-				msgq_.pop();
-			}
-		}
-	}
-
-	void UAClient::recv_msg()
-	{
-		while (run_)
-		{
-			udp_.recv_buffer(0);
-			if (udp_.Message().empty()) continue;
-
-			std::string msg(udp_.Message());
-			udp_.clear_msg();
-			on_receive_message(msg);
-		}
-	}
-
-	int UAClient::loop()
-	{
-//		std::thread t1(std::bind(&UAClient::send_msg, this));
-//		std::thread t2(std::bind(&UAClient::recv_msg, this));
-		return 0;
-	}
+//	void UAClient::send_msg()
+//	{
+//		while (run_)
+//		{
+//			while (msgq_.size())
+//			{
+//				udp_.send_buffer(msgq_.front());
+//				msgq_.pop();
+//			}
+//		}
+//	}
+//
+//	void UAClient::recv_msg()
+//	{
+//		while (run_)
+//		{
+//			udp_.recv_buffer(0);
+//			if (udp_.Message().empty()) continue;
+//
+//			std::string msg(udp_.Message());
+//			udp_.clear_msg();
+//			on_receive_message(msg);
+//		}
+//	}
+//
+//	int UAClient::loop()
+//	{
+////		std::thread t1(std::bind(&UAClient::send_msg, this));
+////		std::thread t2(std::bind(&UAClient::recv_msg, this));
+//		return 0;
+//	}
 //
 //	int UAClient::prack_request()
 //	{

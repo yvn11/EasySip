@@ -82,11 +82,13 @@ namespace EasySip
 		PtsOf<HFRecordRoute> routes_;
 
 		bool confirmed_;
+		bool still_ringing_;
 
 	public:
 
 		Dialog()
-		: secure_flag_(false), confirmed_(false)
+		: secure_flag_(false), confirmed_(false),
+		 still_ringing_(false)
 		{
 		}
 
@@ -182,6 +184,16 @@ namespace EasySip
 		bool is_confirmed()
 		{
 			return confirmed_;
+		}
+
+		bool still_ringing()
+		{
+			return still_ringing_;
+		}
+
+		void still_ringing(bool ring)
+		{
+			still_ringing_ = ring;
 		}
 
 		friend std::ostream& operator<< (std::ostream &o, Dialog &dia);
