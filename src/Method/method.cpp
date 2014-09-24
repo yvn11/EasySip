@@ -95,12 +95,12 @@ namespace EasySip
 	{
 		int ret;
 
-		if (METHOD_INVITE.Code() <= (ret = Message::get_method_from_buffer(allowed_methods_, msg)))
+		if (METHOD_INVITE.code() <= (ret = Message::get_method_from_buffer(allowed_methods_, msg)))
 		{
 			return on_receive_req(msg, ret);
 		}
 
-		if (SIP_RESPONSE_TRYING.Code() <= (ret = Message::get_response_code_from_buffer(allowed_responses_, msg)))
+		if (SIP_RESPONSE_TRYING.code() <= (ret = Message::get_response_code_from_buffer(allowed_responses_, msg)))
 		{
 			return on_receive_resp(msg, ret);
 		}

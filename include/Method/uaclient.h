@@ -20,11 +20,11 @@ namespace EasySip
 
 		virtual int invite_request();
 //		virtual int register_request();
-//		virtual int bye_request();
+		virtual int bye_request();
 //		virtual int cancel_request();
 //		virtual int update_request();
 //		virtual int info_request();
-//		virtual int ack_request();
+		virtual int ack_request();
 //		virtual int message_request();
 //		virtual int subscribe_request();
 //		virtual int notify_request();

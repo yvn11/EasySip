@@ -496,7 +496,7 @@ namespace EasySip
 		for (auto &it : allowed_methods)
 		{
 			if (ret == it.second)
-				return it.Code();
+				return it.code();
 		}
 
 		return -1;
@@ -518,7 +518,7 @@ namespace EasySip
 		for (it = allowed_responses.begin(); it != allowed_responses.end(); it++)
 		{
 			if (ret == it->CodeStr())
-				return it->Code();
+				return it->code();
 		}
 
 		return -1;
@@ -720,6 +720,42 @@ namespace EasySip
 		std::cout << "--------------------------------\n";
 	}
 
+	RequestMessage::RequestMessage(ResponseMessage &in_msg)
+	{
+		req_line_ = std::make_shared<RequestLine>();
+
+		add_call_id()
+		->add_id(in_msg.call_id_.last()->id_);
+
+		add_from()
+		->add_name(in_msg.from_.last()->name())
+		.add_uri(in_msg.from_.last()->uri());
+
+		for (auto &it : in_msg.from_.last()->header_params_)
+		{
+			from_.last()->HeaderParam(it.name(), it.value());
+		}
+
+		add_to()
+		->add_name(in_msg.to_.last()->name())
+		.add_uri(in_msg.to_.last()->uri());
+
+		for (auto &it : in_msg.to_.last()->header_params_)
+		{
+			to_.last()->HeaderParam(it.name(), it.value());
+		}
+
+
+		add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(in_msg.via_.first()->sent_by_);
+
+		for (auto &it : in_msg.via_.first()->header_params_)
+		{
+			via_.first()->HeaderParam(it.name(), it.value());
+		}
+	}
+
 	bool InviteMessage::is_valid()
 	{
 		return_false_if_true(!Ancestor::is_valid())
@@ -741,6 +777,16 @@ namespace EasySip
 	{
 		return_false_if_true(!Ancestor::is_valid())
 		return true;
+	}
+
+	AckMessage::AckMessage(ResponseMessage &in_msg)
+	: RequestMessage(in_msg)
+	{
+		req_line_->method_ = METHOD_ACK;
+
+		add_cseq()
+		->add_seq("1")
+		.add_method(METHOD_ACK.name());
 	}
 	// ByeMessage
 	bool ByeMessage::is_valid()
@@ -852,6 +898,45 @@ namespace EasySip
 		std::cout << "--------------------------------\n";
 	}
 
+	ResponseMessage::ResponseMessage(RequestMessage &in_msg)
+	{
+		resp_status_ = std::make_shared<ResponseStatus>();
+
+		add_call_id()
+		->add_id(in_msg.call_id_.last()->id_);
+
+		add_from()
+		->add_name(in_msg.from_.last()->name())
+		.add_uri(in_msg.from_.last()->uri());
+
+		for (auto &it : in_msg.from_.last()->header_params_)
+		{
+			from_.last()->HeaderParam(it.name(), it.value());
+		}
+
+		add_to()
+		->add_name(in_msg.to_.last()->name())
+		.add_uri(in_msg.to_.last()->uri());
+
+		for (auto &it : in_msg.to_.last()->header_params_)
+		{
+			to_.last()->HeaderParam(it.name(), it.value());
+		}
+
+		add_cseq()
+		->add_seq(in_msg.cseq_.last()->cseq_)
+		.add_method(in_msg.cseq_.last()->method_)
+		.inc_seq();
+
+		add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(in_msg.via_.last()->sent_by_);
+
+		for (auto &it : in_msg.via_.last()->header_params_)
+		{
+			via_.last()->HeaderParam(it.name(), it.value());
+		}
+	}
 } // namespace EasySip
 
 

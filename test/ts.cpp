@@ -81,6 +81,21 @@ public:
 
 	~B()
 	{}
+
+	int operator[] (int val)
+	{
+		return 3310;
+	}
+
+	int operator[] (std::string hello)
+	{
+		return 928;
+	}
+	int operator[] (A a)
+	{
+		a.show();
+		return 309;
+	}
 };
 
 	#define STRDQUOTE "'""\"""'"
@@ -95,53 +110,10 @@ int main()
 	B b2(B(100)*3);
 //	std::cout << b.Value() << '\n';
 	std::cout << b2.Value() << '\n';
-
-
-		std::string buffer, line;
-//
-//		while(std::getline(std::cin, line))
-//		{
-//			buffer += line;
-//		}
-//
-//		std::cout <<  "---------------\n"
-//			<< buffer;
-//		std::cout <<  "---------------\n";
-//
-//	std::cout << ";;;;;;;;;;;;;;;;;;;;;;;\n";
-
-
-//	char buf;
-//
-//	while (std::getline(std::cin, line))
-//	{
-//		strncpy(&buf, line.c_str(), 1);
-//		buffer += buf;
-//		std::cout << buffer << '\n';
-//	}
-
-	std::string msg_ = "123InVITEHEL86OAKJF35\nSG48HBBasdlfkj83439 k";
-//		std::string get_respond_code()
-		{
-			size_t pos, next;
-
-			std::cout << "[" << msg_ << "]\n";
-
-			for (next = pos = 0; next != std::string::npos; pos = next+1)
-			{
-				next = msg_.find_first_of(' ', pos);
-				std::cout << pos << ' ' << next << "|" << msg_.substr(pos, next-pos) << "|\n";
-			}
-		}
-
-	switch (1)
-	{
-		case (1):
-			std::cout << "he---\n";
-			break;
-		case (3):
-			std::cout << "no\n";
-	}
+	std::cout << b2[3] << '\n';
+	std::cout << b2["ok"] << '\n';
+	A a(333);
+	std::cout << b2[a] << '\n';
 
 	std::shared_ptr<A> p;
 	p = std::make_shared<A>();

@@ -148,6 +148,8 @@ namespace EasySip
 	};
 	
 	// ---------------- Request messages --------------------------
+	class ResponseMessage;
+
 	class RequestMessage : public Message
 	{
 	public:
@@ -167,6 +169,8 @@ namespace EasySip
 			req_line_ = std::make_shared<RequestLine>();
 			*this = in_msg;
 		}
+
+		RequestMessage(ResponseMessage &in_msg);
 
 		RequestMessage& create();
 
@@ -308,6 +312,8 @@ namespace EasySip
 		{
 			req_line_->method_ = METHOD_ACK;
 		}
+
+		AckMessage(ResponseMessage &in_msg);
 
 		~AckMessage()
 		{
@@ -567,45 +573,7 @@ namespace EasySip
 			resp_status_->resp_code_ = resp;
 		}
 
-		ResponseMessage(RequestMessage &in_msg)
-		{
-			resp_status_ = std::make_shared<ResponseStatus>();
-
-			add_call_id()
-			->add_id(in_msg.call_id_.last()->id_);
-
-			add_from()
-			->add_name(in_msg.from_.last()->name())
-			.add_uri(in_msg.from_.last()->uri());
-
-			for (auto &it : in_msg.from_.last()->header_params_)
-			{
-				from_.last()->HeaderParam(it.name(), it.value());
-			}
-
-			add_to()
-			->add_name(in_msg.to_.last()->name())
-			.add_uri(in_msg.to_.last()->uri());
-	
-			for (auto &it : in_msg.to_.last()->header_params_)
-			{
-				to_.last()->HeaderParam(it.name(), it.value());
-			}
-
-			add_cseq()
-			->add_seq(in_msg.cseq_.last()->cseq_)
-			.add_method(in_msg.cseq_.last()->method_)
-			.inc_seq();
-	
-			add_via()
-			->add_proto(SIP_VERSION_2_0_UDP)
-			.add_sentby(in_msg.via_.last()->sent_by_);
-
-			for (auto &it : in_msg.via_.last()->header_params_)
-			{
-				via_.last()->HeaderParam(it.name(), it.value());
-			}
-		}
+		ResponseMessage(RequestMessage &in_msg);
 
 		~ResponseMessage()
 		{
@@ -634,6 +602,16 @@ namespace EasySip
 		std::string& SipVersion()
 		{
 			return resp_status_->version_;
+		}
+
+		bool is_1xx_resp()
+		{
+			return (99 < resp_status_->resp_code_.code() && 200 > resp_status_->resp_code_.code());
+		}
+
+		bool is_2xx_resp()
+		{
+			return (199 < resp_status_->resp_code_.code() && 300 > resp_status_->resp_code_.code());
 		}
 
 		virtual ResponseMessage& create();

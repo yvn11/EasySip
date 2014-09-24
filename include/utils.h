@@ -29,6 +29,11 @@ namespace EasySip
 			this->push_back(new T);
 		}
 
+		T* first()
+		{
+			return this->at(0);
+		}
+
 		T* last()
 		{
 			return this->at(this->size()-1);
@@ -61,7 +66,7 @@ namespace EasySip
 
 	public:
 
-		int Code() const
+		int code() const
 		{
 			return first;
 		}

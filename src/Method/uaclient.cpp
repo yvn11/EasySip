@@ -38,7 +38,7 @@ namespace EasySip
 		.add_uri("sip:bigboss@paris.agg.oo");
 
 		req.add_cseq()
-		->add_seq("37")
+		->add_seq("1")
 		.add_method(req.Method());
 
 		req.add_via()
@@ -61,55 +61,67 @@ namespace EasySip
 //---------------------------------------------------------------
 		if (0 > udp_.recv_buffer(0)) return 0;
 
-			std::cout << "------------------|" << udp_.Message() << "|-----------------------\n";
 		ResponseMessage in_msg(udp_.Message());
 		in_msg.parse();
 
-		dialogs_.create_dialog();
-
-		if (false /*TODO: sent over TLS && in_msg.req_line_->request_uri_ has sip URI */)
+		if (in_msg.is_1xx_resp() || in_msg.is_2xx_resp())
 		{
-			dialogs_.last()->secure_flag(true);
-		}
+			dialogs_.create_dialog();
+	
+			if (false /*TODO: sent over TLS && in_msg.req_line_->request_uri_ has sip URI */)
+			{
+				dialogs_.last()->secure_flag(true);
+			}
+	
+			if (in_msg.record_route_.size())
+			{
+				dialogs_.last()->routes(in_msg.record_route_);
+				std::reverse(dialogs_.last()->routes().begin(), dialogs_.last()->routes().end());
+			}
+			else
+			{
+				dialogs_.last()->routes().clear();
+			}
+	
+			for (auto &it : in_msg.contact_)
+			{
+				dialogs_.last()->remote_target().append(it->cons());
+			}
+	
+	//		dialogs_.last()->remote_seq(UNSET);
+			if (in_msg.cseq_.size())
+			{
+				dialogs_.last()->local_seq(*in_msg.cseq_.last());
+			}
+			if (in_msg.call_id_.size())
+			{
+				dialogs_.last()->id().call_id(*in_msg.call_id_.last());
+			}
+			if (in_msg.to_.size())
+			{
+				dialogs_.last()->id().remote_tag(in_msg.to_.last()->tag());
+				dialogs_.last()->remote_uri(in_msg.to_.last()->uri());
+			}
+			if (in_msg.from_.size())
+			{
+				dialogs_.last()->id().local_tag(in_msg.from_.last()->tag());
+				dialogs_.last()->local_uri(in_msg.from_.last()->uri());
+			}
 
-		if (in_msg.record_route_.size())
-		{
-			dialogs_.last()->routes(in_msg.record_route_);
-			std::reverse(dialogs_.last()->routes().begin(), dialogs_.last()->routes().end());
+			DialogId id = dialogs_.last()->id();
+			std::cout << dialogs_[id];
+
+//			ack_request();
+			AckMessage ack(in_msg);
+
+//			loop();
 		}
 		else
 		{
-			dialogs_.last()->routes().clear();
+			// TODO: invite req failed feedback
+			std::cerr << "Unable to establish session due to "
+				<< in_msg.ResponseCode() << "\n";
 		}
-
-		for (auto &it : in_msg.contact_)
-		{
-			dialogs_.last()->remote_target().append(it->cons());
-		}
-
-//		dialogs_.last()->remote_seq(UNSET);
-		if (in_msg.cseq_.size())
-		{
-			dialogs_.last()->local_seq(*in_msg.cseq_.last());
-		}
-		if (in_msg.call_id_.size())
-		{
-			dialogs_.last()->id().call_id(*in_msg.call_id_.last());
-		}
-		if (in_msg.to_.size())
-		{
-			dialogs_.last()->id().remote_tag(in_msg.to_.last()->tag());
-			dialogs_.last()->remote_uri(in_msg.to_.last()->uri());
-		}
-		if (in_msg.from_.size())
-		{
-			dialogs_.last()->id().local_tag(in_msg.from_.last()->tag());
-			dialogs_.last()->local_uri(in_msg.from_.last()->uri());
-		}
-
-std::cout << *dialogs_.last();
-		loop();
-
 		return 0;
 	}
 
@@ -119,11 +131,101 @@ std::cout << *dialogs_.last();
 //		return 0;
 //	}
 //
-//	int UAClient::bye_request()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
-//	}
+	int UAClient::bye_request()
+	{
+		ByeMessage req;
+
+		req.SipVersion(SIP_VERSION_2_0);
+
+		if (dialogs_.size())
+		{
+			req.add_to()
+			->add_name("Big Boss\"")
+			.add_uri(dialogs_.last()->remote_uri());
+
+			if (dialogs_.last()->id().remote_tag().size())
+				req.to_.last()->add_param("tag", dialogs_.last()->id().remote_tag());
+
+			req.add_from()
+			->add_name("zex")
+			.add_uri(dialogs_.last()->local_uri());
+
+			if (dialogs_.last()->id().local_tag().size())
+				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
+
+			req.add_call_id()
+			->add_id(dialogs_.last()->id().call_id().id_);
+
+			std::string seq;
+	
+			if (!dialogs_.last()->local_seq().cseq_.empty())
+			{
+				dialogs_.last()->local_seq().inc_seq();
+				seq = dialogs_.last()->local_seq().cseq_;
+			}
+
+			if (seq.empty())
+			{
+				seq = "1"; // TODO: choose a seq, 32bits
+			}
+	
+			req.add_cseq()
+			->add_seq(seq)
+			.add_method(req.Method());
+
+			if (dialogs_.last()->remote_target().size())
+				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+			if (dialogs_.last()->routes().size())
+			{
+				if (dialogs_.last()->routes().last()->cons_.last()->has_param("lr"))
+				{
+//					if (dialogs_.last()->remote_target().size())
+					req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+					req.add_route();
+
+					if (dialogs_.last()->routes().size())
+					{
+						req.route_.last()->cons_ = dialogs_.last()->routes().last()->cons_;
+					}
+				}
+				else
+				{
+					req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());
+
+					req.add_route();
+
+					ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();
+					from++;
+
+					req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());
+					req.route_.last()->cons_.append(dialogs_.last()->remote_target());
+				}
+			}
+		}
+
+		req.add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
+
+
+		if (false /*is_sips(req.req_line_.request_uri_) */
+		|| false /*is_sips(req.req_line_.request_uri_) */)
+		{
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
+		}
+
+		req.create();
+		udp_.send_buffer(req.Msg());
+//		msgq_.push(req.Msg());
+//---------------------------------------------------------------
+//		if (0 > udp_.recv_buffer(0)) return 0;
+//		ResponseMessage in_msg(udp_.Message());
+//		in_msg.parse();
+
+		return 0;
+	}
 //
 //	int UAClient::cancel_request()
 //	{
@@ -143,11 +245,95 @@ std::cout << *dialogs_.last();
 //		return 0;
 //	}
 //
-//	int UAClient::ack_request()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
-//	}
+	int UAClient::ack_request()
+	{
+		AckMessage req;
+
+		req.SipVersion(SIP_VERSION_2_0);
+
+		if (dialogs_.size())
+		{
+			req.add_to()
+			->add_name("Big Boss\"")
+			.add_uri(dialogs_.last()->remote_uri());
+
+			if (dialogs_.last()->id().remote_tag().size())
+				req.to_.last()->add_param("tag", dialogs_.last()->id().remote_tag());
+
+			req.add_from()
+			->add_name("zex")
+			.add_uri(dialogs_.last()->local_uri());
+
+			if (dialogs_.last()->id().local_tag().size())
+				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
+
+			req.add_call_id()
+			->add_id(dialogs_.last()->id().call_id().id_);
+
+			std::string seq;
+	
+			if (!dialogs_.last()->local_seq().cseq_.empty())
+			{
+				dialogs_.last()->local_seq().inc_seq();
+				seq = dialogs_.last()->local_seq().cseq_;
+			}
+
+			if (seq.empty())
+			{
+				seq = "1"; // TODO: choose a seq, 32bits
+			}
+	
+			req.add_cseq()
+			->add_seq(seq)
+			.add_method(req.Method());
+
+			if (dialogs_.last()->remote_target().size())
+				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+			if (dialogs_.last()->routes().size())
+			{
+				if (dialogs_.last()->routes().last()->cons_.last()->has_param("lr"))
+				{
+//					if (dialogs_.last()->remote_target().size())
+					req.RequestURI(dialogs_.last()->remote_target().last()->uri());
+
+					req.add_route();
+
+					if (dialogs_.last()->routes().size())
+					{
+						req.route_.last()->cons_ = dialogs_.last()->routes().last()->cons_;
+					}
+				}
+				else
+				{
+					req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());
+
+					req.add_route();
+
+					ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();
+					from++;
+
+					req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());
+					req.route_.last()->cons_.append(dialogs_.last()->remote_target());
+				}
+			}
+		}
+
+		req.add_via()
+		->add_proto(SIP_VERSION_2_0_UDP)
+		.add_sentby(udp_.SelfAddr());
+
+
+		if (false /*is_sips(req.req_line_.request_uri_) */
+		|| false /*is_sips(req.req_line_.request_uri_) */)
+		{
+			req.add_contact()->add_uri("sips:utoc@ir.cx");
+		}
+
+		req.create();
+		udp_.send_buffer(req.Msg());
+		return 0;
+	}
 //
 //	int UAClient::message_request()
 //	{
@@ -182,7 +368,7 @@ std::cout << *dialogs_.last();
 		if (dialogs_.size())
 		{
 			req.add_to()
-			->add_name("Big")// Boss\"")
+			->add_name("Big Boss\"")
 			.add_uri(dialogs_.last()->remote_uri());
 
 			if (dialogs_.last()->id().remote_tag().size())
@@ -208,7 +394,7 @@ std::cout << *dialogs_.last();
 
 			if (seq.empty())
 			{
-				seq = "234"; // TODO: choose a seq, 32bits
+				seq = "1"; // TODO: choose a seq, 32bits
 			}
 	
 			req.add_cseq()

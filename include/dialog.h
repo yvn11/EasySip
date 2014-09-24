@@ -167,56 +167,20 @@ namespace EasySip
 			routes_ = val;
 		}
 
-		friend std::ostream& operator<< (std::ostream &o, Dialog &dia)
-		{
-			return o << dia.id() 
-				<< "local_seq: " << dia.local_seq()
-				<< "remote_seq: " << dia.remote_seq()
-				<< "local_uri: " << dia.local_uri() << '\n'
-				<< "remote_uri: " << dia.remote_uri() << '\n'
-				<< dia.remote_target()
-				<< "secure_flag:" << dia.secure_flag() << '\n'
-				<< dia.routes();
-		}
+		friend std::ostream& operator<< (std::ostream &o, Dialog &dia);
 	};
 
 	class Dialogs : public PtsOf<Dialog>
 	{
 	public:
 
-		Dialog* create_dialog()
-		{
-			append_item();
-			return last();
-		}
+		Dialog* create_dialog();
 
-		void cancel_dialog(DialogId val)
-		{
-			for (iterator it = begin(); it != end();)
-			{
-				if (val == (*it)->id())
-				{
-					erase(it);
-				}
-				else
-				{
-					it++;
-				}
-			}
-		}
+		void cancel_dialog(DialogId val);
 
-		Dialog* get_dialog_by_id(DialogId val)
-		{
-			for (iterator it = begin(); it != end();)
-			{
-				if (val == (*it)->id())
-				{
-					return *it;
-				}
-			}
+		Dialog* get_dialog_by_id(DialogId val);
 
-			return 0;
-		}
+		Dialog& operator[] (DialogId val);
 	};
 } // namespace EasySip
 		
