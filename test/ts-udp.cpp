@@ -5,20 +5,16 @@
 
 using namespace EasySip;
 
-int main()
+UAClient client;
+
+void rxd()
 {
-//	SocketIp4UDP udp;
-//	udp.Addr("192.168.0.116");
-//	std::string line;
-//
-//	while (getline(std::cin, line))
-//		udp.send(line);
+	client.start();
+}
 
-	UAClient client;
-
-	client.invite_request();
-
-	char c = 'o';
+void txd()
+{
+	char c;
 	int run = 1;
 
 	while (run)
@@ -41,14 +37,22 @@ int main()
 			case 'e': client.refer_request(); break;
 			case 'o': client.options_request(); break;
 			case 'k': client.prack_request(); break;
-			case 'q': run = 0; break;
+			case 'q': run = 0; client.run(false); break;
 			default:
+			{
 				std::cerr << "Unexpected command '" << c << "(" << int(c) << ")\n";
+			}
 		}
 	}
-//	client.start();
-//	std::thread(&UAClient::start, client);//.join();
-//	std::thread(std::bind(&UAClient::invite_request, client)).join();
+}
+
+int main()
+{
+	std::thread tx(txd);
+	std::thread rx(rxd);
+
+	tx.join();
+	rx.join();
 
 	return 0;
 }

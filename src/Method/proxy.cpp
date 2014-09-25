@@ -17,67 +17,67 @@ namespace EasySip
 
 //	int Proxy::invite_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::register_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::bye_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::cancel_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::update_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::info_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::ack_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::message_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::subscribe_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::notify_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::refer_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::options_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::prack_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::on_invite_request(RequestMessage &in_msg)
@@ -89,85 +89,85 @@ namespace EasySip
 //		InviteMethod invite(in_msg);
 //		invite.parse();
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_register_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_bye_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_cancel_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_ack_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_options_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_subscribe_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_notify_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_info_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_update_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_refer_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_message_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Proxy::on_prack_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::on_response(Message &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Proxy::on_rx_req_exception(RequestMessage &in_msg)
@@ -184,7 +184,7 @@ namespace EasySip
 //
 //		// ---------------------------------------------
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 } // namespace EasySip

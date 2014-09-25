@@ -37,6 +37,17 @@ namespace EasySip
 
 		~Method();
 
+		void run(bool r)
+		{
+			run_ = r;
+		}
+
+		bool run()
+		{
+			return run_;
+		}
+
+		virtual int fetch_msg();
 		virtual int start();
 		virtual int on_receive_message(std::string &msg);
 		virtual int on_receive_req(std::string &msg, const int code);
@@ -72,7 +83,32 @@ namespace EasySip
 
 		virtual void send_msg(RequestMessage &msg);
 		virtual void send_msg(ResponseMessage &msg);
+
+		virtual void echo(RequestMessage &in_msg);
+
+		template<typename T>
+		int dialog_preprocess(Dialog &dialog, T &in_msg)
+		{
+			if (!dialogs_[dialog.id()])
+			{
+				// TODO: configurable reject/accept
+				if (true)
+				{
+					ResponseMessage rep(in_msg);
+					rep.SipVersion(SIP_VERSION_2_0);
+					rep.ResponseCode(SIP_RESPONSE_CALL_OR_TRANSACTION_NOT_EXIST);
 	
+					send_msg(rep);
+					return MESSAGE_PROCESSED;
+				}
+				else
+				{
+					// TODO: restruct dialog
+				}
+			}
+
+			return PROCEDURE_OK;
+		}
 	};
 
 } // namespace EasySip

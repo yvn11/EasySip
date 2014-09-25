@@ -11,10 +11,10 @@ namespace EasySip
 	{
 		udp_.SelfAddr(Socket::get_ip_addr());
 		udp_.SelfPort(2039);
-//		udp_.setup_server();//NeedBind(false);
+		udp_.setup_server();
 		udp_.Addr(Socket::get_ip_addr());
 		udp_.Port(1971);
-		udp_.NeedBind(false);
+//		udp_.NeedBind(false);
 	}
 
 //	int UAClient::invite_request()
@@ -58,7 +58,7 @@ namespace EasySip
 //		udp_.send_buffer(req.Msg());
 ////		msgq_.push(req.Msg());
 ////---------------------------------------------------------------
-//		if (0 > udp_.recv_buffer(0)) return 0;
+//		if (0 > udp_.recv_buffer(0)) return PROCEDURE_OK;
 //
 //		ResponseMessage in_msg(udp_.Message());
 //		in_msg.parse();
@@ -87,13 +87,13 @@ namespace EasySip
 //				<< in_msg.ResponseCode() << "\n";
 //		}
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 
 //	int UAClient::register_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::bye_request()
@@ -185,29 +185,29 @@ namespace EasySip
 //		udp_.send_buffer(req.Msg());
 ////		msgq_.push(req.Msg());
 ////---------------------------------------------------------------
-////		if (0 > udp_.recv_buffer(0)) return 0;
+////		if (0 > udp_.recv_buffer(0)) return PROCEDURE_OK;
 ////		ResponseMessage in_msg(udp_.Message());
 ////		in_msg.parse();
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::cancel_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::update_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::info_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::ack_request()
@@ -297,31 +297,31 @@ namespace EasySip
 //
 //		req.create();
 //		udp_.send_buffer(req.Msg());
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::message_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::subscribe_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::notify_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::refer_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::options_request()
@@ -413,11 +413,11 @@ namespace EasySip
 //		udp_.send_buffer(req.Msg());
 ////		msgq_.push(req.Msg());
 ////---------------------------------------------------------------
-//		if (0 > udp_.recv_buffer(0)) return 0;
+//		if (0 > udp_.recv_buffer(0)) return PROCEDURE_OK;
 //		ResponseMessage in_msg(udp_.Message());
 //		in_msg.parse();
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 
 //	void UAClient::send_msg()
@@ -449,96 +449,96 @@ namespace EasySip
 //	{
 ////		std::thread t1(std::bind(&UAClient::send_msg, this));
 ////		std::thread t2(std::bind(&UAClient::recv_msg, this));
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::prack_request()
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::on_invite_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_register_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_bye_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_cancel_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_ack_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_options_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_subscribe_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_notify_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_info_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_update_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_refer_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_message_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAClient::on_prack_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAClient::on_response(Message &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 } // namespace EasySip

@@ -143,6 +143,8 @@ int main()
 
 	for (auto &i : digits)
 		std::cout << i << ';';
+
+
 	return 1;
 }
 

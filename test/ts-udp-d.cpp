@@ -10,15 +10,17 @@
 
 using namespace EasySip;
 
+UAServer server;
+
+void rxd()
+{
+	server.start();
+}
+
 int main()
 {
+	std::thread rx(rxd);
+	rx.join();
 
-//	SocketIp4UDP udp;
-//	udp.Addr("192.168.2.8");
-//	udp.recv();
-
-	UAServer server;
-//	std::thread(std::bind(&UAServer::start, server)).join();
-	server.start();
 	return 0;
 }

@@ -52,9 +52,10 @@ namespace EasySip
 			return req_line_->method_;
 		}
 
-		void append_userdata(std::string buf)
+		std::string& append_userdata(std::string buf)
 		{
 			user_data_.append(buf);
+			return user_data_;
 		}
 
 		virtual Message& create();
@@ -613,6 +614,32 @@ namespace EasySip
 		{
 			return (199 < resp_status_->resp_code_.code() && 300 > resp_status_->resp_code_.code());
 		}
+
+		bool is_3xx_resp()
+		{
+			return (299 < resp_status_->resp_code_.code() && 400 > resp_status_->resp_code_.code());
+		}
+
+		bool is_4xx_resp()
+		{
+			return (399 < resp_status_->resp_code_.code() && 500 > resp_status_->resp_code_.code());
+		}
+
+		bool is_5xx_resp()
+		{
+			return (499 < resp_status_->resp_code_.code() && 600 > resp_status_->resp_code_.code());
+		}
+
+		bool is_6xx_resp()
+		{
+			return (599 < resp_status_->resp_code_.code() && 700 > resp_status_->resp_code_.code());
+		}
+
+		bool is_resp2invite()
+		{
+			return (METHOD_INVITE.name() == cseq_.first()->method_);
+		}	
+	
 
 		virtual ResponseMessage& create();
 

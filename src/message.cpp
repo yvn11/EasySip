@@ -364,6 +364,7 @@ namespace EasySip
 	HFContentLength* Message::add_content_length()
 	{
 		content_length_.append_item();
+		content_length_.last()->length(user_data_.size());
 		return content_length_.last();
 	}
 
@@ -393,6 +394,8 @@ namespace EasySip
 
 	std::ostream& operator<< (std::ostream& o, Message& msg)
 	{
+		out_if_not_null(o, msg.req_line_);
+		out_if_not_null(o, msg.resp_status_);
 		out_if_not_empty(o, msg.call_id_);
 		out_if_not_empty(o, msg.cseq_);
 		out_if_not_empty(o, msg.from_);
@@ -458,7 +461,7 @@ namespace EasySip
 		out_if_not_empty(o, msg.expires_);
 		out_if_not_empty(o, msg.mime_version_);
 
-		o << msg.user_data_;
+		o << msg.user_data_ << "\r\n";
 
 		return o;
 	}
@@ -471,7 +474,6 @@ namespace EasySip
 			std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\n";
 			return *this;
 		}
-
 
 		return *this;
 	}
@@ -638,6 +640,10 @@ namespace EasySip
 					break;
 				}
 				case '\r':
+				{
+					pos++;
+					break;
+				}
 				case '\n':
 				{
 					pos++;
@@ -666,14 +672,13 @@ namespace EasySip
 						buffer.clear();
 					}
 				}
-			std::cout << buffer << '\n';
 			}
 		}
 
 		if (content_length_.size())
 		{
 			size_t i = 1, len = 0;
-			std::istringstream in(content_length_.at(0)->length());
+			std::istringstream in(content_length_.first()->length());
 			in >> len;
 	
 			while (pos < msg_.size() && i < len)
@@ -694,9 +699,7 @@ namespace EasySip
 //		len << user_data_.size();
 //		add_content_length().length(len.str());
 
-		o << *req_line_ << '\n';
 		o << *this;
-
 		msg_ = o.str();
 
 		return *this;
@@ -715,7 +718,6 @@ namespace EasySip
 		}
 
 		std::cout << "-request------------------------\n";
-		std::cout << *req_line_ << '\n';
 		std::cout << *this;
 		std::cout << "--------------------------------\n";
 	}
@@ -872,10 +874,9 @@ namespace EasySip
 //		len << user_data_.size();
 //		add_content_length().length(len.str());
 
-		o << *resp_status_ << "\r\n";
 		o << *this;
-
 		msg_ = o.str();
+
 		return *this;
 	}
 
@@ -892,7 +893,6 @@ namespace EasySip
 		}
 		
 		std::cout << "-reponse------------------------\n";
-		std::cout << *resp_status_ << "\n";
 		std::cout << *this;
 		std::cout << "--------------------------------\n";
 	}

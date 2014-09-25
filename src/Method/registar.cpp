@@ -17,67 +17,67 @@ namespace EasySip
 
 //	int Registar::invite_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::register_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::bye_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::cancel_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::update_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::info_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::ack_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::message_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::subscribe_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::notify_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::refer_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::options_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::prack_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::on_invite_request(RequestMessage &in_msg)
@@ -89,7 +89,7 @@ namespace EasySip
 //		InviteMethod invite(in_msg);
 //		invite.parse();
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 	int Registar::on_register_request(RequestMessage &in_msg)
@@ -110,13 +110,13 @@ namespace EasySip
 		//		if not authorized, reply with 403 response code and quit
 		rep.ResponseCode(SIP_RESPONSE_FORBIDDEN);
 		udp_.send_buffer(rep.create().Msg());
-		return 0;
+		return PROCEDURE_OK;
 
 		// TODO: get AOR from HFTo.
 		//		if AOR not valid for domain in Request-URI, reply with 404 response code and quit
 		rep.ResponseCode(SIP_RESPONSE_NOT_FOUND);
 		udp_.send_buffer(rep.create().Msg());
-		return 0;
+		return PROCEDURE_OK;
 
 		// check HFContact
 		if (in_msg.contact_.size())
@@ -125,7 +125,7 @@ namespace EasySip
 			{
 				rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);
 				udp_.send_buffer(rep.create().Msg());
-				return 0;
+				return PROCEDURE_OK;
 			}
 
 			for (auto &it : in_msg.contact_.at(0)->cons_)
@@ -136,7 +136,7 @@ namespace EasySip
 					{
 						rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);
 						udp_.send_buffer(rep.create().Msg());
-						return 0;
+						return PROCEDURE_OK;
 					}
 				}
 			}
@@ -171,7 +171,7 @@ namespace EasySip
 				rep.ResponseCode(SIP_RESPONSE_INTERVAL_TOO_BRIEF);
 				rep.add_min_expires()->add_value("45");/* TODO: min-expire value*/
 				udp_.send_buffer(rep.create().Msg());
-				return 0;
+				return PROCEDURE_OK;
 			}
 		}
 
@@ -179,79 +179,79 @@ namespace EasySip
 		// TODO: append HFContact in current bindings with expires param
 		//		append HFDate
 		udp_.send_buffer(rep.create().Msg());
-		return 0;
+		return PROCEDURE_OK;
 	}
 //	
 //	int Registar::on_bye_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_cancel_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_ack_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_options_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_subscribe_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_notify_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_info_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_update_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_refer_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_message_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_prack_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::on_response(Message &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::on_rx_req_exception(RequestMessage &in_msg)
@@ -268,7 +268,7 @@ namespace EasySip
 //
 //		// ---------------------------------------------
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 } // namespace EasySip

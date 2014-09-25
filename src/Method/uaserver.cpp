@@ -17,67 +17,67 @@ namespace EasySip
 
 //	int UAServer::invite_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::register_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::bye_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::cancel_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::update_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::info_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::ack_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::message_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::subscribe_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::notify_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::refer_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::options_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::prack_request()
 //	{
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::on_invite_request(RequestMessage &in_msg)
@@ -101,13 +101,13 @@ namespace EasySip
 //		rep.create();
 //		udp_.send_buffer(rep.Msg());
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_register_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_bye_request(RequestMessage &in_msg)
@@ -121,13 +121,13 @@ namespace EasySip
 //
 //		dialogs_.cancel_dialog(dialog.id());
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_cancel_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 
@@ -140,7 +140,7 @@ namespace EasySip
 //			dialogs_[dialog.id()]->is_confirmed(true);
 //		}
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 	
 //	int UAServer::on_options_request(RequestMessage &in_msg)
@@ -163,55 +163,55 @@ namespace EasySip
 //
 //		udp_.send_buffer(rep.create().Msg());
 //
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_subscribe_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_notify_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_info_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_update_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_refer_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_message_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //	
 //	int UAServer::on_prack_request(RequestMessage &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 //	int UAServer::on_response(Message &in_msg)
 //	{
 //		std::cout << __PRETTY_FUNCTION__ << '\n';
-//		return 0;
+//		return PROCEDURE_OK;
 //	}
 //
 } // namespace EasySip

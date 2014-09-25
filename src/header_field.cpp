@@ -1923,7 +1923,7 @@ namespace EasySip
 				}
 				case '\n':
 				{
-					if (digit_value_.empty())
+//					if (digit_value_.empty())
 						digit_value_ = buffer;
 
 					run = false;

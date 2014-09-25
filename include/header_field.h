@@ -248,10 +248,7 @@ namespace EasySip
 
 		HFBase_1_& add_param(std::string key, std::string value = "")
 		{
-			if (cons_.empty())
-				cons_.append_item();
-
-			if (key.size())
+			if (!cons_.empty() && key.size())
 				cons_.last()->add_param(key, value);
 
 			return *this;
@@ -259,19 +256,15 @@ namespace EasySip
 
 		HFBase_1_& add_uri(std::string uri)
 		{
-			for (std::string::iterator it = uri.begin(); it != uri.end();)
+			if (cons_.empty() || cons_.last()->full() || !cons_.last()->uri().empty())
 			{
-				if (*it == ' ' || *it == '\t' || *it == '\n' || *it == '\r')
-					uri.erase(it);
-				else
-					it++;
+				cons_.append_item();
 			}
 
-			if (cons_.empty() || cons_.last()->full())
-				cons_.append_item();
-
 			if (cons_.last()->uri().empty())
+			{
 				cons_.last()->uri(uri);
+			}
 
 			return *this;
 		}
@@ -279,10 +272,14 @@ namespace EasySip
 		HFBase_1_& add_name(std::string name)
 		{
 			if (cons_.empty() || cons_.last()->full())
+			{
 				cons_.append_item();
+			}
 
 			if (cons_.last()->name().empty())
+			{
 				cons_.last()->name(name);
+			}
 
 			return *this;
 		}
@@ -989,6 +986,13 @@ namespace EasySip
 		{
 			digit_value_ = val;
 		}
+
+		void length(size_t val)
+		{
+			std::ostringstream o;
+			o << val;
+			digit_value_ = o.str();
+		}
 	};
 
 	struct HFContentLanguage : public HeaderField
@@ -1069,8 +1073,7 @@ namespace EasySip
 
 		friend std::ostream& operator<< (std::ostream &o, RequestLine req)
 		{
-			o << req.method_.name() << " " << req.request_uri_ << " " << req.version_;
-			return o;
+			return o << req.method_.name() << " " << req.request_uri_ << " " << req.version_ << "\r\n";
 		}
 
 		void parse(std::string &msg, size_t &pos);
@@ -1097,8 +1100,7 @@ namespace EasySip
 
 		friend std::ostream& operator<< (std::ostream &o, ResponseStatus res)
 		{
-			o << res.version_ << " " << res.resp_code_;
-			return o;
+			return o << res.version_ << " " << res.resp_code_ << "\r\n";
 		}
 
 		void parse(std::string &msg, size_t &pos);
@@ -1111,13 +1113,17 @@ namespace EasySip
 		}
 	};
 
+	#define out_if_not_null(o, it) 	\
+	{								\
+		if (it) o << *it;			\
+	}
+
 	#define out_if_not_empty(o, hf)	\
 	{								\
 		for (auto &it : hf) o << *it;	\
 	}
 
 	typedef std::map<std::string, size_t> T_HF_MAP;
-
 
 	struct HeaderFields
 	{
