@@ -2,6 +2,8 @@
 #include <time.h>
 #include <string.h>
 #include <error.h>
+#include <iostream>
+#include <sys/time.h>
 //union sigval {          /* Data passed with notification */
 //           int     sival_int;         /* Integer value */
 //           void   *sival_ptr;         /* Pointer value */
@@ -21,7 +23,6 @@
 //           pid_t        sigev_notify_thread_id;
 //                            /* ID of thread to signal (SIGEV_THREAD_ID) */
 //       };
-#include <iostream>
 
 extern int errno;
 
@@ -44,35 +45,133 @@ void sigev_notify_cb(union sigval sv)
 //                         struct itimerspec * old_value);
 //		int timer_gettime(timer_t timerid, struct itimerspec *curr_value);
 
+//int main()
+//{
+//	int ret = 0;
+//
+//	struct sigevent sige;
+//	timer_t tid;
+//
+//	sige.sigev_notify_function = sigev_notify_cb;
+//	sige.sigev_notify = SIGEV_THREAD;//SIGEV_SIGNAL;
+//	sige.sigev_signo = SIGRTMIN;
+//
+//    std::cout << "timer_create: " << (ret = timer_create(CLOCK_REALTIME, &sige, &tid)) << '\n';
+//
+//	struct itimerspec itmspec, *itmspec_cur = new itimerspec;
+//	struct timespec tmspec_intv, tmspec_expir;
+//
+//	tmspec_intv.tv_sec = 3;
+//	tmspec_intv.tv_nsec = 0;
+//	tmspec_expir.tv_sec = 3;
+//	tmspec_expir.tv_nsec = 0;
+//
+//	itmspec.it_interval = tmspec_intv;
+//	itmspec.it_value = tmspec_expir;
+//
+//	std::cout << "timer_gettime: " << (ret = timer_gettime(tid, itmspec_cur)) << '\n';
+//	std::cout << "timer_settime: " << (ret = timer_settime(tid, TIMER_ABSTIME, &itmspec, itmspec_cur)) << '\n';
+//	std::cout << "timer_delte: " << (ret = timer_delete(tid)) << '\n';
+//
+//	delete itmspec_cur;
+//
+//	return ret;
+//}
+//
+
+
+struct itimerval it_a;
+
+void sigalrm_cb(int signo)
+{
+	std::cout << signo << " signo received, time's up\n";
+	//signal(SIGALRM, SIG_DFL);
+	std::cout << "settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
+}
+
 int main()
 {
-	int ret = 0;
+	signal(SIGALRM, sigalrm_cb);
 
-	struct sigevent sige;
-	timer_t tid;
+//	struct itimerval it_a;
+	struct timeval tm_cur, tm_next;
 
-	sige.sigev_notify_function = sigev_notify_cb;
-	sige.sigev_notify = SIGEV_THREAD;//SIGEV_SIGNAL;
-	sige.sigev_signo = SIGRTMIN;
+	tm_cur.tv_sec = 1;
+	tm_cur.tv_usec = 0;
 
-    std::cout << "timer_create: " << (ret = timer_create(CLOCK_REALTIME, &sige, &tid)) << '\n';
+	tm_next.tv_sec = 3;
+	tm_next.tv_usec = 0;
 
-	struct itimerspec itmspec, *itmspec_cur = new itimerspec;
-	struct timespec tmspec_intv, tmspec_expir;
+	it_a.it_interval = tm_next;
+	it_a.it_value = tm_cur;
 
-	tmspec_intv.tv_sec = 3;
-	tmspec_intv.tv_nsec = 0;
-	tmspec_expir.tv_sec = 3;
-	tmspec_expir.tv_nsec = 0;
+	std::cout << "settimer: " << setitimer(ITIMER_REAL, &it_a, 0) << '\n';
+	char c;
+	std::cin.get(c);
+//	while(1);
 
-	itmspec.it_interval = tmspec_intv;
-	itmspec.it_value = tmspec_expir;
-
-	std::cout << "timer_gettime: " << (ret = timer_gettime(tid, itmspec_cur)) << '\n';
-	std::cout << "timer_settime: " << (ret = timer_settime(tid, TIMER_ABSTIME, &itmspec, itmspec_cur)) << '\n';
-	std::cout << "timer_delte: " << (ret = timer_delete(tid)) << '\n';
-
-	delete itmspec_cur;
-
-	return ret;
+	return 0;
 }
+//struct itimerval {
+//               struct timeval it_interval; /* next value */
+//               struct timeval it_value;    /* current value */
+//           };
+//
+//           struct timeval {
+//               time_t      tv_sec;         /* seconds */
+//               suseconds_t tv_usec;        /* microseconds */
+//           };
+//	bool cb1()
+//	{
+//		std::cout << "cb1 signo received, time's up\n";
+//		return false;
+//	}
+//
+//struct Timer
+//{
+//	struct itimerval it_a;
+//	bool (*cb_)();
+//
+//	void sigalrm_cb(int signo)
+//	{
+//		std::cout << signo << " signo received, time's up\n";
+//		std::cout << cb_() << '\n';
+//		std::cout << "settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
+//	}
+//
+//	//Timer(sighandler_t sigalrm_cb, int sec, int usrc = 0)
+//	Timer(bool (*cb)(), int sec, int usrc = 0)
+//	: cb_(cb)
+//	{
+//		signal(SIGALRM, (sighandler_t)&Timer::sigalrm_cb);
+//	
+//		struct timeval tm_cur, tm_next;
+//	
+//		tm_cur.tv_sec = 1;
+//		tm_cur.tv_usec = 0;
+//	
+//		tm_next.tv_sec = sec;
+//		tm_next.tv_usec = usrc;
+//	
+//		it_a.it_interval = tm_next;
+//		it_a.it_value = tm_cur;
+//	
+//		std::cout << "settimer: " << setitimer(ITIMER_REAL, &it_a, 0) << '\n';
+//	}
+//
+//	~Timer()
+//	{
+//		std::cout << "~Timer settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
+//		signal(SIGALRM, SIG_DFL);
+//	}
+//};
+//
+//int main()
+//{
+//	Timer t1(cb1, 3);
+//
+//	char c;
+//	std::cin.get(c);
+//
+//	return 0;
+//}

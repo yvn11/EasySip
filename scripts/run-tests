@@ -1,3 +1,4 @@
 export LD_LIBRARY_PATH=./build
 
-build/test/ts-thr-timer
+#build/test/ts-thr-timer
+./build/test/ts-timer

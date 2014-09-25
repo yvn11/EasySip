@@ -47,6 +47,14 @@ namespace EasySip
 		void Start()
 		{
 			// TODO: start timer
+			FD_ZERO(&r_fds);
+			FD_SET(sk_, &r_fds);
+			tv.tv_sec = 3;
+			tv.tv_usec = 10;
+
+			switch (select(sk_+1, &r_fds, 0, 0, &tv))
+			{
+			}
 		}
 	
 		static unsigned long time_string_to_ulong(std::string value)
