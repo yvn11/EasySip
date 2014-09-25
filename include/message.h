@@ -142,6 +142,7 @@ namespace EasySip
 	 	HFAllow* add_allow();
 	 	HFContentEncoding* add_content_encoding();
 	 	HFContentLength* add_content_length();
+		HFContentDisposition* add_content_disposition();
 	 	HFContentLanguage* add_content_language();
 	 	HFContentType* add_content_type();
 	 	HFExpires* add_expires();

@@ -1,5 +1,4 @@
 #include "Method/uaclient.h"
-#include "Method/uaserver.h"
 #include <iostream>
 #include <thread>
 

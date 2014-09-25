@@ -368,6 +368,12 @@ namespace EasySip
 		return content_length_.last();
 	}
 
+	HFContentDisposition* Message::add_content_disposition()
+	{
+		content_disposition_.append_item();
+		return content_disposition_.last();
+	}
+
 	HFContentLanguage* Message::add_content_language()
 	{
 		content_language_.append_item();
@@ -456,6 +462,7 @@ namespace EasySip
 		out_if_not_empty(o, msg.allow_);
 		out_if_not_empty(o, msg.content_encoding_);
 		out_if_not_empty(o, msg.content_length_);
+		out_if_not_empty(o, msg.content_disposition_);
 		out_if_not_empty(o, msg.content_language_);
 		out_if_not_empty(o, msg.content_type_);
 		out_if_not_empty(o, msg.expires_);
@@ -607,6 +614,7 @@ namespace EasySip
 			case HF_ALLOW:              add_allow()->parse(msg_, pos); break;
 			case HF_CONTENT_ENCODING:   add_content_encoding()->parse(msg_, pos); break;
 			case HF_CONTENT_LENGTH:     add_content_length()->parse(msg_, pos); break;
+			case HF_CONTENT_DISPOSITION: add_content_disposition()->parse(msg_, pos); break;
 			case HF_CONTENT_LANGUAGE:   add_content_language()->parse(msg_, pos); break;
 			case HF_CONTENT_TYPE:       add_content_type()->parse(msg_, pos); break;
 			case HF_EXPIRES:            add_expires()->parse(msg_, pos); break;

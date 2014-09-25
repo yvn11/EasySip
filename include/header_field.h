@@ -92,6 +92,7 @@ namespace EasySip
 		HF_ALLOW,
 		HF_CONTENT_ENCODING,
 		HF_CONTENT_LENGTH,
+		HF_CONTENT_DISPOSITION,
 		HF_CONTENT_LANGUAGE,
 		HF_CONTENT_TYPE,
 		HF_EXPIRES,
@@ -545,11 +546,6 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-//	const char* accept_types[] =
-//	{
-//		"text", "image", "audio", "video", "application",
-//		"message", "multipart"
-//	};
 	// -------------------- Request header -----------------------------
 	struct HFAccept : public HeaderField
 	{
@@ -572,9 +568,14 @@ namespace EasySip
 				o << r.type_ << '/' << r.subtype_;
 				return o;
 			}
+
+			bool full()
+			{
+				return (!type_.empty() && !subtype_.empty());
+			}
 		};
 
-		std::vector<AcceptRange> ranges_;
+		PtsOf<AcceptRange> ranges_;
 
 		HFAccept() : HeaderField("Accept") // type/sub-type
 		{
@@ -586,7 +587,38 @@ namespace EasySip
 
 		HFAccept& add_value(std::string type, std::string subtype)
 		{
-			ranges_.push_back(AcceptRange(type, subtype));
+			AcceptRange ar(type, subtype);
+			ranges_.append_item(ar);
+			return *this;
+		}
+
+		HFAccept& add_type(std::string type)
+		{
+			if (ranges_.empty() || ranges_.last()->full())
+			{
+				ranges_.append_item();
+			}
+
+			if (ranges_.last()->type_.empty())
+			{
+				ranges_.last()->type_ = type;
+			}
+
+			return *this;
+		}
+
+		HFAccept& add_subtype(std::string subtype)
+		{
+			if (ranges_.empty() || ranges_.last()->full())
+			{
+				ranges_.append_item();
+			}
+
+			if (ranges_.last()->subtype_.empty())
+			{
+				ranges_.last()->subtype_ = subtype;
+			}
+
 			return *this;
 		}
 	};
@@ -600,14 +632,12 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFAcceptEncoding : public HeaderField
+	struct HFAcceptEncoding : public HFBase_3_
 	{
-		HFAcceptEncoding() : HeaderField("Accept-Encoding")
+		HFAcceptEncoding() : HFBase_3_("Accept-Encoding")
 		{
 //			header_params_.append("q");
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAcceptLanguage : public HFBase_1_
@@ -962,13 +992,11 @@ namespace EasySip
 		}
 	};
 
-	struct HFContentEncoding : public HeaderField
+	struct HFContentEncoding : public HFBase_3_
 	{
-		HFContentEncoding() : HeaderField("Content-Encoding", "e")
+		HFContentEncoding() : HFBase_3_("Content-Encoding", "e")
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFContentLength : public HFBase_2_
@@ -1016,6 +1044,12 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
+	struct HFContentDisposition : public HFBase_3_
+	{
+		HFContentDisposition() : HFBase_3_("Content-Disposition")
+		{
+		}
+	};
 
 	struct HFMinExpires : public HFBase_2_
 	{
@@ -1194,6 +1228,7 @@ namespace EasySip
 		PtsOf<HFAllow> allow_;
 		PtsOf<HFContentEncoding> content_encoding_;
 		PtsOf<HFContentLength> content_length_;
+		PtsOf<HFContentDisposition> content_disposition_;
 		PtsOf<HFContentLanguage> content_language_;
 		PtsOf<HFContentType> content_type_;
 		PtsOf<HFExpires> expires_; // in second

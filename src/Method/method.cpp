@@ -209,8 +209,6 @@ namespace EasySip
 
 	int Method::on_receive_resp(std::string &msg, const int code)
 	{
-		int ret;
-
 		ResponseMessage in_msg(msg);
 		in_msg.parse();
 
@@ -674,7 +672,12 @@ namespace EasySip
 
 			req.add_call_id()
 			->add_id("54235jd"); // TODO: generate it
+
 		}
+
+		req.add_content_disposition()
+		->add_value("session")
+		.HeaderParam("handling", "optional");
 
 		req.add_via()
 		->add_proto(SIP_VERSION_2_0_UDP)

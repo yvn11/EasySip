@@ -107,7 +107,7 @@ namespace EasySip
 	void HFVia::parse(std::string &msg, size_t &pos)
 	{
 		bool read_head_param = false, run = true;
-		std::string buffer, key, value;
+		std::string buffer, key;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
 
@@ -143,7 +143,7 @@ namespace EasySip
 				}
 				case ';':
 				{
-					if (read_head_param && key.size())
+					if (read_head_param)
 					{
 						header_params_.append(key, buffer);
 						key.clear();
@@ -172,11 +172,10 @@ namespace EasySip
 				}
 				case '\n':
 				{
-					if (read_head_param && key.size())
+					if (read_head_param)
 					{
 						header_params_.append(key, buffer);
 						key.clear();
-					//	read_head_param = false;
 					}
 					else
 					{
@@ -540,7 +539,7 @@ namespace EasySip
 				}
 				case '\n':
 				{
-					if (key.size() && read_head_param)
+					if (read_head_param)
 					{
 						header_params_.append(key, buffer);
 						key.clear();
@@ -612,16 +611,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-//	void HFSubject::generate_values()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
-//
-//	void HFSubject::parse(std::string &msg, size_t &pos)
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
-
 	void HFBase_3_::generate_values()
 	{
 		values_.clear();
@@ -639,9 +628,8 @@ namespace EasySip
 
 	void HFBase_3_::parse(std::string &msg, size_t &pos)
 	{
-		bool run = true;
-		std::string buffer;
-		size_t index = 0;
+		bool run = true, read_head_param = false;
+		std::string buffer, key;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
 
@@ -667,14 +655,35 @@ namespace EasySip
 
 					if (buffer.size())
 					{
-						if (index >= opts_.size())
-							opts_.resize(opts_.size()+1);
-
-						if (opts_.at(index).empty())
-							opts_.at(index) = buffer;
-
-						index++;
+						add_value(buffer);
 					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '=':
+				{
+					key = buffer;
+	
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ';':
+				{
+					if (read_head_param)
+					{
+						header_params_.append(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						if (buffer.size())
+							add_value(buffer);
+						read_head_param = true;
+					}
+	
 					pos++;
 					buffer.clear();
 					break;
@@ -686,15 +695,14 @@ namespace EasySip
 				}
 				case '\n':
 				{
-					if (buffer.size())
+					if (read_head_param)
 					{
-						if (index >= opts_.size())
-							opts_.resize(opts_.size()+1);
-
-						if (opts_.at(index).empty())
-							opts_.at(index) = buffer;
-
-						index++;
+						header_params_.append(key, buffer);
+						key.clear();
+					}
+					else if (buffer.size())
+					{
+						add_value(buffer);
 					}
 
 					if (pos+1 >= msg.size()) { run = false; break; }
@@ -761,7 +769,7 @@ namespace EasySip
 
 		for (auto &it : ranges_)
 		{
-			o << it << sym;
+			o << *it << sym;
 		}
 
 		values_ = o.str();
@@ -777,8 +785,7 @@ namespace EasySip
 	void HFAccept::parse(std::string &msg, size_t &pos)
 	{
 		bool read_head_param = false, run = true;
-		std::string buffer, name, value;
-		size_t index = 0;
+		std::string buffer, key;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
 
@@ -799,13 +806,7 @@ namespace EasySip
 				{
 					if (buffer.size())
 					{
-						if (index >= ranges_.size())
-							ranges_.resize(ranges_.size()+1);
-	
-						if (ranges_.at(index).subtype_.empty())
-							ranges_.at(index).subtype_ = buffer;
-
-						index++;
+						add_subtype(buffer);
 					}
 
 					pos++;
@@ -816,11 +817,7 @@ namespace EasySip
 				{
 					if (buffer.size())
 					{
-						if (index >= ranges_.size())
-							ranges_.resize(ranges_.size()+1);
-
-						if (ranges_.at(index).type_.empty())
-							ranges_.at(index).type_ = buffer;
+						add_type(buffer);
 					}
 
 					pos++;
@@ -829,26 +826,17 @@ namespace EasySip
 				}
 				case ';':
 				{
-					if (buffer.size())
-					{
-						if (index >= ranges_.size())
-							ranges_.resize(ranges_.size()+1);
-	
-						if (ranges_.at(index).subtype_.empty())
-							ranges_.at(index).subtype_ = buffer;
-
-						index++;
-					}
-
 					if (read_head_param)
 					{
-						value = buffer;
-						header_params_.append(name, value);
-						name.clear();
-						value.clear();
+						header_params_.append(key, buffer);
+						key.clear();
 					}
 					else
 					{
+						if (buffer.size())
+						{
+							add_subtype(buffer);
+						}
 						read_head_param = true;
 					}
 	
@@ -858,7 +846,7 @@ namespace EasySip
 				}
 				case '=':
 				{
-					name = buffer;
+					key = buffer;
 	
 					pos++;
 					buffer.clear();
@@ -875,27 +863,12 @@ namespace EasySip
 				{
 					if (read_head_param)
 					{
-						value = buffer;
-						header_params_.append(name, value);
-						name.clear();
-						value.clear();
+						header_params_.append(key, buffer);
+						key.clear();
 					}
-
-					if (buffer.size())
+					else if (buffer.size())
 					{
-						if (index >= ranges_.size())
-							ranges_.resize(ranges_.size()+1);
-	
-						if (ranges_.at(index).subtype_.empty())
-							ranges_.at(index).subtype_ = buffer;
-
-						index++;
-					}
-
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
+						add_subtype(buffer);
 					}
 
 					if (pos+1 >= msg.size()) { run = false; break; }
@@ -924,26 +897,6 @@ namespace EasySip
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
-
-	void HFAcceptEncoding::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFAcceptEncoding::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-//	void HFAcceptLanguage::generate_values()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
-//
-//	void HFAcceptLanguage::parse(std::string &msg, size_t &pos)
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
 
 	HFAuthorization::HFAuthorization() : HeaderField("Authorization")
 	{
@@ -1761,16 +1714,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFContentEncoding::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFContentEncoding::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
 	void HFContentLanguage::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1791,7 +1734,7 @@ namespace EasySip
 	void HFContentType::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true, read_head_param = false;
-		std::string buffer, name, value;
+		std::string buffer, key;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
 
@@ -1823,11 +1766,8 @@ namespace EasySip
 				{
 					if (read_head_param)
 					{
-						value = buffer;
-						std::cout << name << ':' << value << '\n';
-						header_params_.append(name, value);
-						name.clear();
-						value.clear();
+						header_params_.append(key, buffer);
+						key.clear();
 					}
 
 					if (composite_ty_.empty())
@@ -1851,7 +1791,7 @@ namespace EasySip
 				}
 				case '=':
 				{
-					name = buffer;
+					key = buffer;
 	
 					pos++;
 					buffer.clear();
@@ -1866,10 +1806,8 @@ namespace EasySip
 
 					if (read_head_param)
 					{
-						value = buffer;
-						header_params_.append(name, value);
-						name.clear();
-						value.clear();
+						header_params_.append(key, buffer);
+						key.clear();
 					}
 					else
 					{
@@ -2056,6 +1994,7 @@ namespace EasySip
 		allowed_fields_["Allow"]            	= HF_ALLOW;
 		allowed_fields_["Content-Encoding"] 	= HF_CONTENT_ENCODING;
 		allowed_fields_["Content-Length"]   	= HF_CONTENT_LENGTH;
+		allowed_fields_["Content-Disposition"] 	= HF_CONTENT_DISPOSITION;
 		allowed_fields_["Content-Language"] 	= HF_CONTENT_LANGUAGE;
 		allowed_fields_["Content-Type"]     	= HF_CONTENT_TYPE;
 		allowed_fields_["Expires"]          	= HF_EXPIRES;

@@ -95,6 +95,8 @@ namespace EasySip
 
 		void append(std::string name, std::string value)
 		{
+			if (name.empty()) return;
+
 			if (!has_name(name))
 				push_back(Parameter(name, value));
 		}
