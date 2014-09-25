@@ -461,12 +461,13 @@ namespace EasySip
 		out_if_not_empty(o, msg.rseq_);
 		out_if_not_empty(o, msg.allow_);
 		out_if_not_empty(o, msg.content_encoding_);
-		out_if_not_empty(o, msg.content_length_);
+//		out_if_not_empty(o, msg.content_length_);
 		out_if_not_empty(o, msg.content_disposition_);
 		out_if_not_empty(o, msg.content_language_);
 		out_if_not_empty(o, msg.content_type_);
 		out_if_not_empty(o, msg.expires_);
 		out_if_not_empty(o, msg.mime_version_);
+		out_if_not_empty(o, msg.content_length_);
 
 		o << msg.user_data_ << "\r\n";
 

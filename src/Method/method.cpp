@@ -675,6 +675,20 @@ namespace EasySip
 
 		}
 
+		req.add_accept_language()
+		->add_value("da")
+		.add_param("q", "0.8")
+		.add_value("en-gb")
+		.add_param("q", "0.7") 
+		.add_value("en")
+		.add_param("q", "0.1");
+
+		req.add_accept_encoding()
+		->add_value("da")
+		.add_param("q", "0.8")
+		.add_value("en-gb")
+		.add_param("q", "0.2"); 
+
 		req.add_content_disposition()
 		->add_value("session")
 		.HeaderParam("handling", "optional");
@@ -875,13 +889,8 @@ namespace EasySip
 		dialogs_[dialog.id()]->still_ringing(true);
 
 		// TODO: timeout here
-		std::cout << "ringing";
-		for (int i = 3; i; i--)
-		{
-			std::cout << " ...";
-//			sleep(2);
-		}
-		std::cout << "\n";
+		int i = 7;
+		PROGRESS_WITH_FEEDBACK("ringing", i--, sleep(0.5))
 
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 		send_msg(rep);

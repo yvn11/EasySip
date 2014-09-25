@@ -236,20 +236,23 @@ namespace EasySip
 
 		HFBase_1_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
 		{
-//			header_params_.append("tag");
 		}
 
 		HFBase_1_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
 		{
-//			header_params_.append("tag");
 		}
 
 		virtual void generate_values();
 		virtual void parse(std::string &msg, size_t &pos);
 
+		virtual HFBase_1_& add_value(std::string)
+		{
+			return *this;
+		}
+
 		HFBase_1_& add_param(std::string key, std::string value = "")
 		{
-			if (!cons_.empty() && key.size())
+			if (!cons_.empty())
 				cons_.last()->add_param(key, value);
 
 			return *this;
@@ -632,22 +635,51 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFAcceptEncoding : public HFBase_3_
+	struct HFBase_4_ : public HeaderField
 	{
-		HFAcceptEncoding() : HFBase_3_("Accept-Encoding")
+		PtsOf<ItemWithParams> its_;
+
+		HFBase_4_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
 		{
-//			header_params_.append("q");
+		}
+
+		HFBase_4_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
+		{
+		}
+
+		virtual void generate_values();
+		virtual void parse(std::string &msg, size_t &pos);
+
+		HFBase_4_& add_value(std::string val)
+		{
+			ItemWithParams it(val);
+			its_.append_item(it);
+			return *this;
+		}
+
+		HFBase_4_& add_param(std::string key, std::string val = "")
+		{
+			if (!its_.empty())
+				its_.last()->add_param(key, val);
+			return *this;
 		}
 	};
 
-	struct HFAcceptLanguage : public HFBase_1_
+	struct HFAcceptEncoding : public HFBase_4_
 	{
-		HFAcceptLanguage() : HFBase_1_("Accept-Language")
+		HFAcceptEncoding() : HFBase_4_("Accept-Encoding")
 		{
 //			header_params_.append("q");
 		}
-//		void generate_values();
-//		void parse(std::string &msg, size_t &pos);
+
+	};
+
+	struct HFAcceptLanguage : public HFBase_4_
+	{
+		HFAcceptLanguage() : HFBase_4_("Accept-Language")
+		{
+//			header_params_.append("q");
+		}
 	};
 
 	struct HFAuthorization : public HeaderField

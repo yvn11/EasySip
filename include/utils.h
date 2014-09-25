@@ -129,6 +129,16 @@ namespace EasySip
 		PROCEDURE_ERROR,
 	};
 
+	#define PROGRESS_WITH_FEEDBACK(opr, cond, p)\
+	{									\
+		std::cout << opr;				\
+		while (cond)					\
+		{								\
+			std::cout << " ..."; p;		\
+		}								\
+		std::cout << "\n";				\
+	}
+
 	template<typename T>
 	T& RefOf(T& t) { return t; }
 

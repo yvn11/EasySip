@@ -591,16 +591,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-//	void HFRecordRoute::generate_values()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
-//
-//	void HFRecordRoute::parse(std::string &msg, size_t &pos)
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
-
 	void HFRetryAfter::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -696,6 +686,117 @@ namespace EasySip
 				case '\n':
 				{
 					if (read_head_param)
+					{
+						header_params_.append(key, buffer);
+						key.clear();
+					}
+					else if (buffer.size())
+					{
+						add_value(buffer);
+					}
+
+					if (pos+1 >= msg.size()) { run = false; break; }
+					do_if_is_alpha(msg.at(pos+1), run = false)
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
+					buffer.clear();
+				}
+			}
+		}
+	}
+
+	void HFBase_4_::generate_values()
+	{
+		char sym = ',';
+		std::ostringstream o;
+
+		for (auto &it : its_)
+		{
+			o << *it << sym;
+		}
+
+		values_ = o.str();
+		remove_tail_symbol(sym);
+
+		std::ostringstream p;
+		p << header_params_;
+
+		values_ += p.str();
+	}
+
+	void HFBase_4_::parse(std::string &msg, size_t &pos)
+	{
+		bool run = true;
+		std::string buffer, key;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			switch (msg.at(pos))
+			{
+				CASE_TOKEN
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case ',':
+				{
+					if (key.size())
+					{
+						add_param(key, buffer);
+						key.clear();
+					}
+					else if (buffer.size())
+					{
+						add_value(buffer);
+					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ';':
+				{
+					if (key.size())
+					{
+						header_params_.append(key, buffer);
+						key.clear();
+					}
+					else if (buffer.size())
+					{
+						add_value(buffer);
+					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '=':
+				{
+					key = buffer;
+	
+					buffer.clear();
+					pos++;
+					break;
+				}
+				case ' ':
+				case '\t':
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (key.size())
 					{
 						header_params_.append(key, buffer);
 						key.clear();
