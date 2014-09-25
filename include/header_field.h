@@ -444,13 +444,12 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFDate : public HeaderField
+	struct HFDate : public HFBase_3_ 
 	{
-		HFDate() : HeaderField("Date", true)
+		HFDate() : HFBase_3_("Date", true)
 		{
+			sym_ = ' ';
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Contact: <sip:user@example.com?Route=%3Csip:sip.example.com%3E>
@@ -465,13 +464,12 @@ namespace EasySip
 		}
 	};
 
-	struct HFOrganization : public HeaderField
+	struct HFOrganization : public HFBase_3_
 	{
-		HFOrganization() : HeaderField("Organization", true)
+		HFOrganization() : HFBase_3_("Organization", true)
 		{
+			sym_ = ' ';
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	/* Record-Route: <sip:+1-650-555-2222@iftgw.there.com;

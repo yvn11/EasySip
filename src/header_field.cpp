@@ -358,16 +358,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFDate::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFDate::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
 	void HFBase_1_::generate_values()
 	{
 		char sym = ',';
@@ -581,16 +571,6 @@ namespace EasySip
 //		header_params_.append("temp-gruu-cookie");
 	}
 
-	void HFOrganization::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFOrganization::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
 	void HFRetryAfter::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -627,19 +607,15 @@ namespace EasySip
 		{
 			switch (msg.at(pos))
 			{
+				case ':':
 				CASE_TOKEN
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
 				case '\t':
 				case ' ':
 				case ',':
 				{
 					if (sym_ != msg.at(pos))
 					{
-						pos++;
-						buffer.clear();
+						buffer += msg.at(pos++);
 						break;
 					}
 

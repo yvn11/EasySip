@@ -168,8 +168,8 @@ HFContentLength	include/header_field.h	/^		HFContentLength() : HFBase_2_("Conten
 HFContentLength	include/header_field.h	/^	struct HFContentLength : public HFBase_2_$/;"	s	namespace:EasySip
 HFContentType	include/header_field.h	/^		HFContentType() : HeaderField("Content-Type", "c")$/;"	f	struct:EasySip::HFContentType
 HFContentType	include/header_field.h	/^	struct HFContentType : public HeaderField$/;"	s	namespace:EasySip
-HFDate	include/header_field.h	/^		HFDate() : HeaderField("Date", true)$/;"	f	struct:EasySip::HFDate
-HFDate	include/header_field.h	/^	struct HFDate : public HeaderField$/;"	s	namespace:EasySip
+HFDate	include/header_field.h	/^		HFDate() : HFBase_3_("Date", true)$/;"	f	struct:EasySip::HFDate
+HFDate	include/header_field.h	/^	struct HFDate : public HFBase_3_ $/;"	s	namespace:EasySip
 HFErrorInfo	include/header_field.h	/^		HFErrorInfo() : HeaderField("Error-Info", true)$/;"	f	struct:EasySip::HFErrorInfo
 HFErrorInfo	include/header_field.h	/^	struct HFErrorInfo : public HeaderField$/;"	s	namespace:EasySip
 HFEvent	include/header_field.h	/^	struct HFEvent : public HeaderField$/;"	s	namespace:EasySip
@@ -190,8 +190,8 @@ HFMinExpires	include/header_field.h	/^		HFMinExpires() : HFBase_2_("Min-Expires"
 HFMinExpires	include/header_field.h	/^	struct HFMinExpires : public HFBase_2_$/;"	s	namespace:EasySip
 HFMinSE	include/header_field.h	/^		HFMinSE() : HeaderField("Min-SE")$/;"	f	struct:EasySip::HFMinSE
 HFMinSE	include/header_field.h	/^	struct HFMinSE : public HeaderField$/;"	s	namespace:EasySip
-HFOrganization	include/header_field.h	/^		HFOrganization() : HeaderField("Organization", true)$/;"	f	struct:EasySip::HFOrganization
-HFOrganization	include/header_field.h	/^	struct HFOrganization : public HeaderField$/;"	s	namespace:EasySip
+HFOrganization	include/header_field.h	/^		HFOrganization() : HFBase_3_("Organization", true)$/;"	f	struct:EasySip::HFOrganization
+HFOrganization	include/header_field.h	/^	struct HFOrganization : public HFBase_3_$/;"	s	namespace:EasySip
 HFPAssertedIdentity	include/header_field.h	/^		HFPAssertedIdentity() : HeaderField("P-Asserted-Identity")$/;"	f	struct:EasySip::HFPAssertedIdentity
 HFPAssertedIdentity	include/header_field.h	/^	struct HFPAssertedIdentity : public HeaderField$/;"	s	namespace:EasySip
 HFPOSPAuthToken	include/header_field.h	/^		HFPOSPAuthToken() : HeaderField("P-OSP-Auth-Token")$/;"	f	struct:EasySip::HFPOSPAuthToken
@@ -738,14 +738,12 @@ generate_values	src/header_field.cpp	/^	void HFCallId::generate_values()$/;"	f	c
 generate_values	src/header_field.cpp	/^	void HFCallInfo::generate_values()$/;"	f	class:EasySip::HFCallInfo
 generate_values	src/header_field.cpp	/^	void HFContentLanguage::generate_values()$/;"	f	class:EasySip::HFContentLanguage
 generate_values	src/header_field.cpp	/^	void HFContentType::generate_values()$/;"	f	class:EasySip::HFContentType
-generate_values	src/header_field.cpp	/^	void HFDate::generate_values()$/;"	f	class:EasySip::HFDate
 generate_values	src/header_field.cpp	/^	void HFErrorInfo::generate_values()$/;"	f	class:EasySip::HFErrorInfo
 generate_values	src/header_field.cpp	/^	void HFEvent::generate_values()$/;"	f	class:EasySip::HFEvent
 generate_values	src/header_field.cpp	/^	void HFInReplyTo::generate_values()$/;"	f	class:EasySip::HFInReplyTo
 generate_values	src/header_field.cpp	/^	void HFJoin::generate_values()$/;"	f	class:EasySip::HFJoin
 generate_values	src/header_field.cpp	/^	void HFMIMEVersion::generate_values()$/;"	f	class:EasySip::HFMIMEVersion
 generate_values	src/header_field.cpp	/^	void HFMinSE::generate_values()$/;"	f	class:EasySip::HFMinSE
-generate_values	src/header_field.cpp	/^	void HFOrganization::generate_values()$/;"	f	class:EasySip::HFOrganization
 generate_values	src/header_field.cpp	/^	void HFPAssertedIdentity::generate_values()$/;"	f	class:EasySip::HFPAssertedIdentity
 generate_values	src/header_field.cpp	/^	void HFPOSPAuthToken::generate_values()$/;"	f	class:EasySip::HFPOSPAuthToken
 generate_values	src/header_field.cpp	/^	void HFPPreferredIdentity::generate_values()$/;"	f	class:EasySip::HFPPreferredIdentity
@@ -930,8 +928,8 @@ options_request	src/Method/method.cpp	/^	int Method::options_request()$/;"	f	cla
 opts_	include/header_field.h	/^		std::vector<std::string> opts_;$/;"	m	struct:EasySip::HFBase_3_
 organization_	include/header_field.h	/^		PtsOf<HFOrganization> organization_;$/;"	m	struct:EasySip::HeaderFields
 osip	test/ts-osip.c	/^osip_t *osip;$/;"	v
-out_if_not_empty	include/header_field.h	1187;"	d
-out_if_not_null	include/header_field.h	1182;"	d
+out_if_not_empty	include/header_field.h	1185;"	d
+out_if_not_null	include/header_field.h	1180;"	d
 p_asserted_identity_	include/header_field.h	/^		PtsOf<HFPAssertedIdentity> p_asserted_identity_;$/;"	m	struct:EasySip::HeaderFields
 p_osp_auth_token_	include/header_field.h	/^		PtsOf<HFPOSPAuthToken> p_osp_auth_token_;$/;"	m	struct:EasySip::HeaderFields
 p_preferred_identity_	include/header_field.h	/^		PtsOf<HFPPreferredIdentity> p_preferred_identity_;$/;"	m	struct:EasySip::HeaderFields
@@ -955,14 +953,12 @@ parse	src/header_field.cpp	/^	void HFCallId::parse(std::string &msg, size_t &pos
 parse	src/header_field.cpp	/^	void HFCallInfo::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFCallInfo
 parse	src/header_field.cpp	/^	void HFContentLanguage::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFContentLanguage
 parse	src/header_field.cpp	/^	void HFContentType::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFContentType
-parse	src/header_field.cpp	/^	void HFDate::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFDate
 parse	src/header_field.cpp	/^	void HFErrorInfo::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFErrorInfo
 parse	src/header_field.cpp	/^	void HFEvent::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFEvent
 parse	src/header_field.cpp	/^	void HFInReplyTo::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFInReplyTo
 parse	src/header_field.cpp	/^	void HFJoin::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFJoin
 parse	src/header_field.cpp	/^	void HFMIMEVersion::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFMIMEVersion
 parse	src/header_field.cpp	/^	void HFMinSE::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFMinSE
-parse	src/header_field.cpp	/^	void HFOrganization::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFOrganization
 parse	src/header_field.cpp	/^	void HFPAssertedIdentity::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFPAssertedIdentity
 parse	src/header_field.cpp	/^	void HFPOSPAuthToken::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFPOSPAuthToken
 parse	src/header_field.cpp	/^	void HFPPreferredIdentity::parse(std::string &msg, size_t &pos)$/;"	f	class:EasySip::HFPPreferredIdentity

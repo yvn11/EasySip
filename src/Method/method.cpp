@@ -675,6 +675,15 @@ namespace EasySip
 
 		}
 
+		req.add_organization()
+		->add_value("ieee.org blenisa");
+
+		req.add_subject()
+		->add_value("wekkwida asdfgnb adun38-vn kdi");
+
+		req.add_date()
+		->add_value("Sat, 13 Nov 2010 23:29:00 GMT");
+
 		req.add_accept_language()
 		->add_value("da")
 		.add_param("q", "0.8")
