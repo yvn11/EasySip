@@ -283,7 +283,7 @@ namespace EasySip
 		{
 			while (run_)
 			{
-				if (0 > udp_.recv_buffer(0)) break;
+				if (0 > udp_.recv_buffer(0)) continue;
 				// TODO: log peer
 				std::cout << "peer: <" << udp_.Addr() << ":" << udp_.Port() << ">\n";
 				std::string msg(udp_.Message());

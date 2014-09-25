@@ -61,6 +61,20 @@ namespace EasySip
 	    return ret;
 	}
 
+	int Socket::set_timeout(int sec)
+	{
+		int ret;
+
+		struct timeval tv;
+		tv.tv_sec = sec;
+		tv.tv_usec = 0;
+
+		if (0 > (ret = setsockopt(sk_, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv))))
+				std::cerr << "socket: " << strerror(errno) << '\n';
+
+		return ret;
+	}
+
 	SocketIp4UDP::SocketIp4UDP()
 	: SocketIp4(SOCK_DGRAM), binded_(false), need_bind_(true)
 	{
@@ -107,26 +121,38 @@ namespace EasySip
 		Buffer buf(max_rx_);
 		socklen_t len = sizeof(sk_addr_);
 
+//		fd_set r_fds;
+//		struct timeval tv;
+
 		do
 		{
-			if ((ret = recvfrom(sk_, buf.data(), buf.len(), 0,
-				(sockaddr*)&sk_addr_, &len)) == 0)
-//			if ((ret = recv(sk_, buf.data(), buf.len(), 0)) == 0)
+//			FD_ZERO(&r_fds);
+//			FD_SET(sk_, &r_fds);
+//			tv.tv_sec = 3;
+//			tv.tv_usec = 10;
+//
+//			select(sk_+1, &r_fds, 0, 0, &tv);
+//
+//			if (FD_ISSET(sk_, &r_fds))
 			{
-				break;
-			}
-			else if (ret < 0)
-			{
-				std::cerr << "recvfrom: " << strerror(errno) << '\n';
-				//TODO: throw error
-				break;
-			}
-			else
-			{
-				addr_ = inet_ntoa(sk_addr_.sin_addr);
-				msg_ = buf.data();
-			}
+				if ((ret = recvfrom(sk_, buf.data(), buf.len(), 0,
+					(sockaddr*)&sk_addr_, &len)) == 0)
+				{
+				//	break;
+				}
+				else if (ret < 0)
+				{
+					if (errno == EAGAIN) break;
 
+					std::cerr << "recvfrom: " << strerror(errno) << '\n';
+					break;
+				}
+				else
+				{
+					addr_ = inet_ntoa(sk_addr_.sin_addr);
+					msg_ = buf.data();
+				}
+			}
 		} while (selfloop);
 
 		return ret;

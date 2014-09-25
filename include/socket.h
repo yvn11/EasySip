@@ -76,6 +76,8 @@ namespace EasySip
 			if (0 < sk_)
 				close(sk_);
 		}
+
+		int set_timeout(int sec);
 	};
 
 	class SocketIp4 : public Socket
@@ -104,6 +106,8 @@ namespace EasySip
 			self_sk_addr_.sin_addr.s_addr = htonl(INADDR_ANY);
 
 			max_rx_ = 1024;
+
+			set_timeout(3);
 		}
 
 		int Port()

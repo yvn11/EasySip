@@ -1049,6 +1049,7 @@ server_	include/header_field.h	/^		PtsOf<HFServer> server_;$/;"	m	struct:EasySip
 session_expires_	include/header_field.h	/^		PtsOf<HFSessionExpires> session_expires_; \/\/ in second$/;"	m	struct:EasySip::HeaderFields
 setCallbacks	test/ts-osip.c	/^void setCallbacks(osip_t *osip)$/;"	f
 set_param	include/parameter.h	/^		void set_param(std::string name, std::string value)$/;"	f	struct:EasySip::ItemWithParams
+set_timeout	src/socket.cpp	/^	int Socket::set_timeout(int sec)$/;"	f	class:EasySip::Socket
 set_value_by_name	include/parameter.h	/^		void set_value_by_name(std::string name, std::string value)$/;"	f	class:EasySip::Parameters
 setup_server	src/socket.cpp	/^	int SocketIp4UDP::setup_server()$/;"	f	class:EasySip::SocketIp4UDP
 show	test/ts.cpp	/^	void show()$/;"	f	class:A

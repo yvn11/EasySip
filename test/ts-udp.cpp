@@ -37,7 +37,7 @@ void txd()
 			case 'e': client.refer_request(); break;
 			case 'o': client.options_request(); break;
 			case 'k': client.prack_request(); break;
-			case 'q': run = 0; client.run(false); break;
+			case 'q': std::cout << "shutdown ...\n"; while(client.run()) client.run(false); run = 0; break;
 			default:
 			{
 				std::cerr << "Unexpected command '" << c << "(" << int(c) << ")\n";
