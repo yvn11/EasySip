@@ -638,7 +638,7 @@ namespace EasySip
 
 		bool is_resp2invite()
 		{
-			return (METHOD_INVITE.name() == cseq_.first()->method_);
+			return (METHOD_INVITE.name() == cseq_.first()->method());
 		}	
 	
 

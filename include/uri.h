@@ -48,12 +48,15 @@ namespace EasySip
 
 		friend std::ostream& operator<< (std::ostream &o, Contact &c)
 		{
-			if (c.name().size() || c.params().size())
-				o << c.name() << " <";
+			if (c.name().size())// || c.params().size())
+				o << c.name();// << " <";
 
-			o << c.uri() << c.params();
+			o << " <" << c.uri();
 
-			if (c.name().size() || c.params().size())
+			if (c.params().size())
+				o << ";" << c.params();
+
+//			if (c.name().size() || c.params().size())
 				o << ">";
 
 			return o;

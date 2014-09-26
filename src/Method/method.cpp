@@ -143,7 +143,6 @@ namespace EasySip
 				return PROCEDURE_OK;
 		}
 
-//		return it->Method()(in_msg);
 		switch (code)
 		{
 			case METHOD_ID_INVITE:
@@ -318,15 +317,15 @@ namespace EasySip
 		.add_uri("sip:bigboss@paris.agg.oo");
 
 		req.add_cseq()
-		->add_seq("1")
-		.add_method(req.Method());
+		->cseq("1")
+		.method(req.Method());
 
 		req.add_via()
 		->add_proto(SIP_VERSION_2_0_UDP)
 		.add_sentby(udp_.SelfAddr());
 
 		req.add_call_id()
-		->add_id("sundo@1311bili");
+		->id("sundo@1311bili");
 
 		if (false /*is_sips(req.req_line_.request_uri_) */
 		|| false /*is_sips(req.req_line_.request_uri_) */)
@@ -336,46 +335,6 @@ namespace EasySip
 
 		send_msg(req);
 //		msgq_.push(req.Msg());
-//---------------------------------------------------------------
-//		while (1)
-//		{
-//			if (0 > udp_.recv_buffer(0)) return PROCEDURE_OK;
-//	
-//			ResponseMessage in_msg(udp_.Message());
-//			in_msg.parse();
-//	
-//			Dialog dialog(in_msg);
-//
-//			if (in_msg.is_1xx_resp())
-//			{
-//				std::cout << "1xx response:\n[" << in_msg << "]\n";
-//			}
-//			else if (in_msg.is_2xx_resp())
-//			{
-//				dialogs_.create_dialog(dialog);
-//		
-//				DialogId id = dialogs_.last()->id();
-//				dialogs_[id]->confirmed(true);
-//	
-//				AckMessage ack(in_msg);
-//				ack.SipVersion(SIP_VERSION_2_0);
-//				ack.RequestURI(udp_.Addr());
-//
-//				send_msg(ack);
-//			}
-//			else if (false /*TODO: timeout */)
-//			{
-//				break;
-//			}
-//			else
-//			{
-//				// TODO: invite req failed feedback
-//				std::cerr << "Unable to establish session due to \n[\n"
-//						<< in_msg << "]\n";
-//				break;
-//			}
-//		}
-
 		return PROCEDURE_OK;
 	}
 
@@ -407,14 +366,14 @@ namespace EasySip
 			req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
 
 		req.add_call_id()
-		->add_id(dialogs_.last()->id().call_id().id_);
+		->id(dialogs_.last()->id().call_id().id());
 
 		std::string seq;
 
-		if (!dialogs_.last()->local_seq().cseq_.empty())
+		if (!dialogs_.last()->local_seq().cseq().empty())
 		{
 			dialogs_.last()->local_seq().inc_seq();
-			seq = dialogs_.last()->local_seq().cseq_;
+			seq = dialogs_.last()->local_seq().cseq();
 		}
 
 		if (seq.empty())
@@ -423,8 +382,8 @@ namespace EasySip
 		}
 
 		req.add_cseq()
-		->add_seq(seq)
-		.add_method(req.Method());
+		->cseq(seq)
+		.method(req.Method());
 
 		if (dialogs_.last()->remote_target().size())
 			req.RequestURI(dialogs_.last()->remote_target().last()->uri());
@@ -514,14 +473,14 @@ namespace EasySip
 				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
 
 			req.add_call_id()
-			->add_id(dialogs_.last()->id().call_id().id_);
+			->id(dialogs_.last()->id().call_id().id());
 
 			std::string seq;
 	
-			if (!dialogs_.last()->local_seq().cseq_.empty())
+			if (!dialogs_.last()->local_seq().cseq().empty())
 			{
 				dialogs_.last()->local_seq().inc_seq();
-				seq = dialogs_.last()->local_seq().cseq_;
+				seq = dialogs_.last()->local_seq().cseq();
 			}
 
 			if (seq.empty())
@@ -530,8 +489,8 @@ namespace EasySip
 			}
 	
 			req.add_cseq()
-			->add_seq(seq)
-			.add_method(req.Method());
+			->cseq(seq)
+			.method(req.Method());
 
 			if (dialogs_.last()->remote_target().size())
 				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
@@ -604,14 +563,14 @@ namespace EasySip
 				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
 
 			req.add_call_id()
-			->add_id(dialogs_.last()->id().call_id().id_);
+			->id(dialogs_.last()->id().call_id().id());
 
 			std::string seq;
 	
-			if (!dialogs_.last()->local_seq().cseq_.empty())
+			if (!dialogs_.last()->local_seq().cseq().empty())
 			{
 				dialogs_.last()->local_seq().inc_seq();
-				seq = dialogs_.last()->local_seq().cseq_;
+				seq = dialogs_.last()->local_seq().cseq();
 			}
 
 			if (seq.empty())
@@ -620,8 +579,8 @@ namespace EasySip
 			}
 	
 			req.add_cseq()
-			->add_seq(seq)
-			.add_method(req.Method());
+			->cseq(seq)
+			.method(req.Method());
 
 			if (dialogs_.last()->remote_target().size())
 				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
@@ -667,16 +626,32 @@ namespace EasySip
 			.add_uri(udp_.SelfAddr());
 
 			req.add_cseq()
-			->add_seq("1")
-			.add_method(req.Method());
+			->cseq("1")
+			.method(req.Method());
 
 			req.add_call_id()
-			->add_id("54235jd"); // TODO: generate it
+			->id("54235jd"); // TODO: generate it
 
 		}
 
+		req.add_priority()
+		->add_value("emergency");
+
+		req.add_content_type()
+		->type("application")
+		.subtype("pkcs7-mime")
+		.HeaderParam("smime-type", "enveloped-data")
+		.HeaderParam("name", "smime.p7m");
+
+		req.add_www_authenticate()
+		->add_value("Digest")
+		.add_param("realm", "\"biloxi.com\"")
+		.add_param("qop", "\"auth,auth-int\"")
+		.add_param("nonce", "\"d92873jkncbasdfkjo349q\"")
+		.add_param("opaque", "\"5ccc8372dsvnlk\"");
+
 		req.add_organization()
-		->add_value("ieee.org blenisa");
+		->add_value("ieee.org blenisa,asirel dlg,");
 
 		req.add_subject()
 		->add_value("wekkwida asdfgnb adun38-vn kdi");
@@ -714,6 +689,7 @@ namespace EasySip
 
 		req.append_userdata("bigo digo reading");
 		req.add_content_length();
+
 		send_msg(req);
 		return PROCEDURE_OK;
 	}
@@ -775,14 +751,14 @@ namespace EasySip
 				req.from_.last()->add_param("tag", dialogs_.last()->id().local_tag());
 
 			req.add_call_id()
-			->add_id(dialogs_.last()->id().call_id().id_);
+			->id(dialogs_.last()->id().call_id().id());
 
 			std::string seq;
 	
-			if (!dialogs_.last()->local_seq().cseq_.empty())
+			if (!dialogs_.last()->local_seq().cseq().empty())
 			{
 				dialogs_.last()->local_seq().inc_seq();
-				seq = dialogs_.last()->local_seq().cseq_;
+				seq = dialogs_.last()->local_seq().cseq();
 			}
 
 			if (seq.empty())
@@ -791,8 +767,8 @@ namespace EasySip
 			}
 	
 			req.add_cseq()
-			->add_seq(seq)
-			.add_method(req.Method());
+			->cseq(seq)
+			.method(req.Method());
 
 			if (dialogs_.last()->remote_target().size())
 				req.RequestURI(dialogs_.last()->remote_target().last()->uri());
@@ -838,11 +814,11 @@ namespace EasySip
 			.add_uri(udp_.SelfAddr());
 
 			req.add_cseq()
-			->add_seq("1")
-			.add_method(req.Method());
+			->cseq("1")
+			.method(req.Method());
 
 			req.add_call_id()
-			->add_id("54235jd"); // TODO: generate it
+			->id("54235jd"); // TODO: generate it
 		}
 
 		req.add_via()
@@ -858,9 +834,6 @@ namespace EasySip
 		send_msg(req);
 //		msgq_.push(req.Msg());
 //---------------------------------------------------------------
-//		if (0 > udp_.recv_buffer(0)) return PROCEDURE_OK;
-//		ResponseMessage in_msg(udp_.Message());
-//		in_msg.parse();
 
 		return PROCEDURE_OK;
 	}
@@ -975,13 +948,18 @@ namespace EasySip
 		rep.add_accept()
 		->add_value("text", "plain")
 		.add_value("text", "html")
-		.add_value("application", "sdp")
-		.add_value("multipart", "sdp");
+		.add_value("application/sdp")
+		.add_param("level", "1")
+		.add_value("multipart/sdp");
 
 		rep.add_allow();
 
 		for (auto &it : allowed_methods_) 
 			rep.allow_.last()->add_value(it.name());
+
+//		rep.add_error_info()
+//		->add_uri("<sip:mary238@4usnmn4.s49s.lsdj.org>")
+//		.add_uri("<sip:yem.kkk.ei3m.com>");
 
 		send_msg(rep);
 

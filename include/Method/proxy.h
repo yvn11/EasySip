@@ -47,7 +47,6 @@ namespace EasySip
 //		virtual int on_prack_request(RequestMessage &in_msg);
 //		virtual int on_update_request(RequestMessage &in_msg);
 //		virtual int on_response(Message &in_msg);
-//		virtual int on_rx_req_exception(RequestMessage &in_msg);
 	};
 
 } // namespace EasySip

@@ -146,7 +146,7 @@ namespace EasySip
 		{
 			for (Parameters::iterator it = ps.begin(); it != ps.end(); it++)
 			{
-				if (std::distance(ps.begin(), it) < (int)ps.size())
+				if (std::distance(ps.begin(), it) > 0 && std::distance(ps.begin(), it) < (int)ps.size())
 					o << ps.Sym();
 	
 				o << *it;
@@ -180,7 +180,8 @@ namespace EasySip
 			for (auto &it : c.items_)
 				o << it;
 
-			o << c.params_;
+			if (c.params_.size())
+				o << ";" << c.params_;
 
 			return o;
 		}

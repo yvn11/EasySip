@@ -79,306 +79,6 @@ namespace EasySip
 		return o.str();
 	}
 
-	HFVia::HFVia() : HeaderField("Via", "v", true)
-	{
-//		header_params_.append("alias");
-//		header_params_.append("branch");
-//		header_params_.append("comp");
-//		header_params_.append("keep");
-//		header_params_.append("maddr");
-//		header_params_.append("oc");
-//		header_params_.append("oc-algo");
-//		header_params_.append("oc-seq");
-//		header_params_.append("oc-validity");
-//		header_params_.append("received");
-//		header_params_.append("rport");
-//		header_params_.append("sigcomp-id");
-//		header_params_.append("ttl");
-	}
-
-	void HFVia::generate_values()
-	{
-		std::ostringstream o;
-
-		o << sent_proto_ << ' ' << sent_by_ << header_params_;
-		values_ = o.str();
-	}
-
-	void HFVia::parse(std::string &msg, size_t &pos)
-	{
-		bool read_head_param = false, run = true;
-		std::string buffer, key;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			switch (msg.at(pos))
-			{
-				CASE_TOKEN//ALPHA_NUM
-				case ':':
-				case '/':
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case ' ':
-				{
-					if (sent_proto_.empty())
-					{
-						sent_proto_ = buffer;
-					}
-					else if (sent_by_.empty())
-					{
-						sent_by_ = buffer;
-					}
-	
-					buffer.clear();
-				}
-				case '\t':
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case ';':
-				{
-					if (read_head_param)
-					{
-						header_params_.append(key, buffer);
-						key.clear();
-					}
-					else
-					{
-						if (sent_by_.empty())
-						{
-							sent_by_ = buffer;
-						}
-						
-						read_head_param = true;
-					}
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '=':
-				{
-					key = buffer;
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '\n':
-				{
-					if (read_head_param)
-					{
-						header_params_.append(key, buffer);
-						key.clear();
-					}
-					else
-					{
-						if (sent_by_.empty())
-						{
-							sent_by_ = buffer;
-						}
-					}
-
-					if (pos+1 >= msg.size()) { run = false; break; }
-					do_if_is_alpha(msg.at(pos+1), run = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' :" << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
-	}
-
-	void HFCSeq::generate_values()
-	{
-		std::ostringstream o;
-
-		o << cseq_ << ' ' << method_ << header_params_;
-
-		values_ = o.str();
-	}
-
-	void HFCSeq::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true;
-		std::string buffer;
-		size_t sp_nr = 0;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			switch (msg.at(pos))
-			{
-				CASE_ALPHA_NUM
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '\t':
-				{
-					pos++;
-					break;
-				}
-				case ' ':
-				{
-					sp_nr++;
-	
-					if (1 == sp_nr)
-					{
-						cseq_ = buffer;
-					}
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (method_.empty())
-						method_ = buffer;
-	
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					if (pos+1 >= msg.size()) { run = false; break; }
-					do_if_is_alpha(msg.at(pos+1), run = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' : " << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
-	}
-
-	void HFCallId::generate_values()
-	{
-		std::ostringstream o;
-
-		o << id_ << header_params_;
-
-		values_ = o.str();
-	}
-
-	void HFCallId::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true;
-		std::string buffer;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			switch (msg.at(pos))
-			{
-				CASE_WORD
-				case '@':
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (id_.empty())
-						id_ = buffer;
-
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					if (pos+1 >= msg.size()) { run = false; break; }
-					do_if_is_alpha(msg.at(pos+1), run = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' : " << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
-	}
-
-	void HFAlertInfo::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFAlertInfo::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFAllowEvents::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFAllowEvents::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFBase_1_::generate_values()
-	{
-		char sym = ',';
-		std::ostringstream o;
-
-		cons_.cleanup_empty_uri();
-
-		for (auto &it : cons_)
-		{
-			o << *it << sym;
-		}
-
-		values_ = o.str();
-		remove_tail_symbol(sym);
-
-		std::ostringstream p;
-		p << header_params_;
-
-		values_ += p.str();
-	}
-
 	void HFBase_1_::parse(std::string &msg, size_t &pos)
 	{
 		bool read_head_param = false, run = true, in_aquote = false, in_dquote = false;
@@ -558,27 +258,56 @@ namespace EasySip
 		}
 	}
 
-	HFContact::HFContact() : HFBase_1_("Contact", "m")
+	void HFBase_2_::generate_values()
 	{
-//		header_params_.append("expires");
-//		header_params_.append("mp");
-//		header_params_.append("np");
-//		header_params_.append("pub-gruu");
-//		header_params_.append("q");
-//		header_params_.append("rc");
-//		header_params_.append("reg-id");
-//		header_params_.append("temp-gruu");
-//		header_params_.append("temp-gruu-cookie");
+		values_ = digit_value_;
+
+		std::stringstream p;
+		p << header_params_;
+
+		values_ += p.str();
 	}
 
-	void HFRetryAfter::generate_values()
+	void HFBase_2_::parse(std::string &msg, size_t &pos)
 	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
+		bool run = true;
+		std::string buffer;
 
-	void HFRetryAfter::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			switch (msg.at(pos))
+			{
+				CASE_DIGIT
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+//					if (digit_value_.empty())
+						digit_value_ = buffer;
+
+					run = false;
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
+					buffer.clear();
+				}
+			}
+		}
 	}
 
 	void HFBase_3_::generate_values()
@@ -590,10 +319,12 @@ namespace EasySip
 
 		remove_tail_symbol(sym_);
 
-		std::ostringstream p;
-		p << header_params_;
-
-		values_ += p.str();
+		if (header_params_.size())
+		{
+			std::ostringstream p;
+			p << ";" << header_params_;
+			values_ += p.str();
+		}
 	}
 
 	void HFBase_3_::parse(std::string &msg, size_t &pos)
@@ -608,6 +339,8 @@ namespace EasySip
 			switch (msg.at(pos))
 			{
 				case ':':
+				case '/': 
+				case '@': 
 				CASE_TOKEN
 				case '\t':
 				case ' ':
@@ -701,15 +434,17 @@ namespace EasySip
 		values_ = o.str();
 		remove_tail_symbol(sym);
 
-		std::ostringstream p;
-		p << header_params_;
-
-		values_ += p.str();
+		if (header_params_.size())
+		{
+			std::ostringstream p;
+			p << ";" << header_params_;
+			values_ += p.str();
+		}
 	}
 
 	void HFBase_4_::parse(std::string &msg, size_t &pos)
 	{
-		bool run = true;
+		bool run = true, in_dquote = false;
 		std::string buffer, key;
 
 		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
@@ -718,6 +453,11 @@ namespace EasySip
 		{
 			switch (msg.at(pos))
 			{
+				case '"':
+				{
+					in_dquote = !in_dquote;
+				}
+				case '/':
 				CASE_TOKEN
 				{
 					buffer += msg.at(pos++);
@@ -725,6 +465,12 @@ namespace EasySip
 				}
 				case ',':
 				{
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
 					if (key.size())
 					{
 						add_param(key, buffer);
@@ -799,6 +545,327 @@ namespace EasySip
 		}
 	}
 
+	void HFBase_5_::generate_values()
+	{
+		char sym = ' ';
+		values_ = challenge_;
+
+		if (digest_cln_.empty())
+			return;
+
+		values_ += sym;
+
+		std::ostringstream o;
+		o << digest_cln_;
+
+		values_ += o.str();
+
+		remove_tail_symbol(sym);
+
+		std::ostringstream p;
+		p << header_params_;
+		values_ += p.str();
+	}
+
+	void HFBase_5_::parse(std::string &msg, size_t &pos)
+	{
+		bool run = true, in_dquote = false;
+		std::string buffer, key;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			switch (msg.at(pos))
+			{
+				case '"':
+				{
+					in_dquote = !in_dquote;
+				}
+				CASE_TOKEN
+				case ':':
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case '=':
+				{
+					key = buffer;
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\t':
+				case ' ':
+				{
+					if (challenge_.size() || in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+
+					if (buffer.size())
+						challenge_ = buffer;
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case ',':
+				{
+					if (in_dquote)
+					{
+						buffer += msg.at(pos++);
+						break;
+					}
+					if (key.size())
+					{
+						digest_cln_.append(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						digest_cln_.append(buffer, "");
+					}
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case '\n':
+				{
+					if (challenge_.empty())
+					{
+						challenge_ = buffer;
+					}
+					else if (key.size())
+					{
+						digest_cln_.append(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						digest_cln_.append(buffer, "");
+					}
+
+					if (pos+1 >= msg.size()) { run = false; break; }
+					do_if_is_alpha(msg.at(pos+1), run = false)
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
+					pos++;
+					buffer.clear();
+				}
+			}
+		}
+	}
+
+	HFVia::HFVia() : HeaderField("Via", "v", true)
+	{
+//		header_params_.append("alias");
+//		header_params_.append("branch");
+//		header_params_.append("comp");
+//		header_params_.append("keep");
+//		header_params_.append("maddr");
+//		header_params_.append("oc");
+//		header_params_.append("oc-algo");
+//		header_params_.append("oc-seq");
+//		header_params_.append("oc-validity");
+//		header_params_.append("received");
+//		header_params_.append("rport");
+//		header_params_.append("sigcomp-id");
+//		header_params_.append("ttl");
+	}
+
+	void HFVia::generate_values()
+	{
+		std::ostringstream o;
+
+		o << sent_proto_ << ' ' << sent_by_;
+
+		if (header_params_.size())
+			o << ";" << header_params_;
+
+		values_ = o.str();
+	}
+
+	void HFVia::parse(std::string &msg, size_t &pos)
+	{
+		bool read_head_param = false, run = true;
+		std::string buffer, key;
+
+		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
+
+		while (run)
+		{
+			switch (msg.at(pos))
+			{
+				CASE_TOKEN
+				case ':':
+				case '/':
+				{
+					buffer += msg.at(pos++);
+					break;
+				}
+				case ' ':
+				{
+					if (sent_proto_.empty())
+					{
+						sent_proto_ = buffer;
+					}
+					else if (sent_by_.empty())
+					{
+						sent_by_ = buffer;
+					}
+	
+					buffer.clear();
+				}
+				case '\t':
+				case '\r':
+				{
+					pos++;
+					break;
+				}
+				case ';':
+				{
+					if (read_head_param)
+					{
+						header_params_.append(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						if (sent_by_.empty())
+						{
+							sent_by_ = buffer;
+						}
+						
+						read_head_param = true;
+					}
+	
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '=':
+				{
+					key = buffer;
+	
+					pos++;
+					buffer.clear();
+					break;
+				}
+				case '\n':
+				{
+					if (read_head_param)
+					{
+						header_params_.append(key, buffer);
+						key.clear();
+					}
+					else
+					{
+						if (sent_by_.empty())
+						{
+							sent_by_ = buffer;
+						}
+					}
+
+					if (pos+1 >= msg.size()) { run = false; break; }
+					do_if_is_alpha(msg.at(pos+1), run = false)
+
+					pos++;
+					buffer.clear();
+					break;
+				}
+				default:
+				{
+					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "' :" << buffer << "\n";
+					pos++;
+					buffer.clear();
+				}
+			}
+		}
+	}
+
+	HFContact::HFContact() : HFBase_1_("Contact", "m")
+	{
+//		header_params_.append("expires");
+//		header_params_.append("mp");
+//		header_params_.append("np");
+//		header_params_.append("pub-gruu");
+//		header_params_.append("q");
+//		header_params_.append("rc");
+//		header_params_.append("reg-id");
+//		header_params_.append("temp-gruu");
+//		header_params_.append("temp-gruu-cookie");
+	}
+
+	void HFRetryAfter::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFRetryAfter::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+
+	void HFAlertInfo::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAlertInfo::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAllowEvents::generate_values()
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFAllowEvents::parse(std::string &msg, size_t &pos)
+	{
+		std::cout << __PRETTY_FUNCTION__ << '\n';
+	}
+
+	void HFBase_1_::generate_values()
+	{
+		char sym = ',';
+		std::ostringstream o;
+
+		cons_.cleanup_empty_uri();
+
+		for (auto &it : cons_)
+		{
+			o << *it << sym;
+		}
+
+		values_ = o.str();
+		remove_tail_symbol(sym);
+
+		if (header_params_.size())
+		{
+			std::ostringstream p;
+			p << ";" << header_params_;
+			values_ += p.str();
+		}
+	}
+
+
 	void HFTimestamp::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -839,132 +906,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFAccept::generate_values()
-	{
-		char sym = ',';
-		std::ostringstream o;
-
-		for (auto &it : ranges_)
-		{
-			o << *it << sym;
-		}
-
-		values_ = o.str();
-
-		remove_tail_symbol(sym);
-
-		std::ostringstream p;
-		p << header_params_;
-
-		values_ += p.str();
-	}
-
-	void HFAccept::parse(std::string &msg, size_t &pos)
-	{
-		bool read_head_param = false, run = true;
-		std::string buffer, key;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			switch (msg.at(pos))
-			{
-				CASE_ALPHA_NUM
-				case '*':
-				case '-':
-				case '_':
-				case '@':
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case ',':
-				{
-					if (buffer.size())
-					{
-						add_subtype(buffer);
-					}
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '/':
-				{
-					if (buffer.size())
-					{
-						add_type(buffer);
-					}
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case ';':
-				{
-					if (read_head_param)
-					{
-						header_params_.append(key, buffer);
-						key.clear();
-					}
-					else
-					{
-						if (buffer.size())
-						{
-							add_subtype(buffer);
-						}
-						read_head_param = true;
-					}
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '=':
-				{
-					key = buffer;
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case ' ':
-				case '\t':
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (read_head_param)
-					{
-						header_params_.append(key, buffer);
-						key.clear();
-					}
-					else if (buffer.size())
-					{
-						add_subtype(buffer);
-					}
-
-					if (pos+1 >= msg.size()) { run = false; break; }
-					do_if_is_alpha(msg.at(pos+1), run = false;read_head_param = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
-	}
-
 	void HFAcceptContact::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -975,7 +916,7 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	HFAuthorization::HFAuthorization() : HeaderField("Authorization")
+	HFAuthorization::HFAuthorization() : HFBase_5_("Authorization")
 	{
 //		header_params_.append("algorithm");
 //		header_params_.append("auts");
@@ -988,16 +929,6 @@ namespace EasySip
 //		header_params_.append("response");
 //		header_params_.append("uri");
 //		header_params_.append("username");
-	}
-
-	void HFAuthorization::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFAuthorization::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
 	HFCallInfo::HFCallInfo() : HFBase_1_("Call-Info", true)
@@ -1234,16 +1165,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFPriority::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFPriority::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
 	void HFPrivacy::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1254,7 +1175,7 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	HFProxyAuthorization::HFProxyAuthorization() : HeaderField("Proxy-Authorization", true)
+	HFProxyAuthorization::HFProxyAuthorization() : HFBase_5_("Proxy-Authorization", true)
 	{
 //		header_params_.append("algorithm");
 //		header_params_.append("auts");
@@ -1267,16 +1188,6 @@ namespace EasySip
 //		header_params_.append("response");
 //		header_params_.append("uri");
 //		header_params_.append("username");
-	}
-
-	void HFProxyAuthorization::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFProxyAuthorization::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
 	void HFPOSPAuthToken::generate_values()
@@ -1379,16 +1290,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-//	void HFRoute::generate_values()
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
-//
-//	void HFRoute::parse(std::string &msg, size_t &pos)
-//	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
-//	}
-
 	void HFRack::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1448,16 +1349,6 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFErrorInfo::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFErrorInfo::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
 	void HFMinSE::generate_values()
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
@@ -1468,7 +1359,7 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	HFProxyAuthenticate::HFProxyAuthenticate() : HeaderField("Proxy-Authenticate", true)
+	HFProxyAuthenticate::HFProxyAuthenticate() : HFBase_4_("Proxy-Authenticate", true)
 	{
 //		header_params_.append("algorithm");
 //		header_params_.append("domain");
@@ -1477,26 +1368,6 @@ namespace EasySip
 //		header_params_.append("qop");
 //		header_params_.append("realm");
 //		header_params_.append("stale");
-	}
-
-	void HFProxyAuthenticate::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFProxyAuthenticate::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFUnsupported::generate_values()
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFUnsupported::parse(std::string &msg, size_t &pos)
-	{
-		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
 	void HFWarning::generate_values()
@@ -1643,9 +1514,8 @@ namespace EasySip
 		}
 	}
 
-	HFWWWAuthenticate::HFWWWAuthenticate() : HeaderField("WWW-Authenticate", true)
+	HFWWWAuthenticate::HFWWWAuthenticate() : HFBase_5_("WWW-Authenticate", true)
 	{
-		digest_cln_.Sym(",");
 //		header_params_.append("algorithm");
 //		header_params_.append("domain");
 //		header_params_.append("nonce");
@@ -1653,132 +1523,6 @@ namespace EasySip
 //		header_params_.append("qop");
 //		header_params_.append("realm");
 //		header_params_.append("stale");
-	}
-
-	void HFWWWAuthenticate::generate_values()
-	{
-		char sym = ' ';
-		values_ = challenge_;
-
-		if (digest_cln_.empty())
-			return;
-
-		values_ += sym;
-
-		std::ostringstream o;
-		o << digest_cln_;
-
-		values_ += o.str();
-
-		remove_tail_symbol(sym);
-
-		std::ostringstream p;
-		p << header_params_;
-		values_ += p.str();
-	}
-
-	void HFWWWAuthenticate::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true, in_dquote = false;
-		std::string buffer, name;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			switch (msg.at(pos))
-			{
-				case '"':
-				{
-					in_dquote = !in_dquote;
-				}
-				CASE_TOKEN
-				case ':':
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '=':
-				{
-					name = buffer;
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '\t':
-				case ' ':
-				{
-					if (challenge_.size() || in_dquote)
-					{
-						buffer += msg.at(pos++);
-						break;
-					}
-
-					if (buffer.size())
-						challenge_ = buffer;
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case ',':
-				{
-					if (in_dquote)
-					{
-						buffer += msg.at(pos++);
-						break;
-					}
-					if (name.size())
-					{
-						digest_cln_.append(name, buffer);
-						name.clear();
-					}
-					else
-					{
-						digest_cln_.append(buffer, "");
-					}
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (challenge_.empty())
-					{
-						challenge_ = buffer;
-					}
-					else if (name.size())
-					{
-						digest_cln_.append(name, buffer);
-						name.clear();
-					}
-					else
-					{
-						digest_cln_.append(buffer, "");
-					}
-
-					if (pos+1 >= msg.size()) { run = false; break; }
-					do_if_is_alpha(msg.at(pos+1), run = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
 	}
 
 	void HFRSeq::generate_values()
@@ -1799,162 +1543,6 @@ namespace EasySip
 	void HFContentLanguage::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
-	}
-
-	void HFContentType::generate_values()
-	{
-		std::ostringstream o;
-		o << discrete_ty_ << '/' << composite_ty_;
-		values_ = o.str();
-	}
-
-	void HFContentType::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true, read_head_param = false;
-		std::string buffer, key;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			switch (msg.at(pos))
-			{
-				CASE_LOWER_ALPHA
-				CASE_DIGIT
-				case '-':
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '/':
-				{
-					pos++;
-					discrete_ty_ = buffer;
-					buffer.clear();
-					break;
-				}
-				case ' ':
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-					if (read_head_param)
-					{
-						header_params_.append(key, buffer);
-						key.clear();
-					}
-
-					if (composite_ty_.empty())
-					{
-						composite_ty_ = buffer;
-					}
-
-					
-					if (pos+1 >= msg.size())
-					{
-						run = false;
-						break;
-					}
-
-					if (pos+1 >= msg.size()) { run = false; break; }
-					do_if_is_alpha(msg.at(pos+1), run = false)
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case '=':
-				{
-					key = buffer;
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				case ';':
-				{
-					if (composite_ty_.empty())
-					{
-						composite_ty_ = buffer;
-					}
-
-					if (read_head_param)
-					{
-						header_params_.append(key, buffer);
-						key.clear();
-					}
-					else
-					{
-						read_head_param = true;
-					}
-	
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
-	}
-
-	void HFBase_2_::generate_values()
-	{
-		values_ = digit_value_;
-
-		std::stringstream p;
-		p << header_params_;
-
-		values_ += p.str();
-	}
-
-	void HFBase_2_::parse(std::string &msg, size_t &pos)
-	{
-		bool run = true;
-		std::string buffer;
-
-		while (msg.at(pos) == ' ' || msg.at(pos) == '\t') pos++;
-
-		while (run)
-		{
-			switch (msg.at(pos))
-			{
-				CASE_DIGIT
-				{
-					buffer += msg.at(pos++);
-					break;
-				}
-				case '\r':
-				{
-					pos++;
-					break;
-				}
-				case '\n':
-				{
-//					if (digit_value_.empty())
-						digit_value_ = buffer;
-
-					run = false;
-
-					pos++;
-					buffer.clear();
-					break;
-				}
-				default:
-				{
-					std::cerr << __PRETTY_FUNCTION__ << " Unexpected '" << msg.at(pos) << '(' << (int)msg.at(pos) << ')' << "': " << buffer << "\n";
-					pos++;
-					buffer.clear();
-				}
-			}
-		}
 	}
 
 	void HFMIMEVersion::generate_values()
@@ -2007,7 +1595,6 @@ namespace EasySip
 			}
 		}
 	}
-
 
 	void HeaderFields::init_allowed_fields()
 	{
@@ -2084,70 +1671,6 @@ namespace EasySip
 
 	HeaderFields::~HeaderFields()
     {
-//			for (auto &it : call_id_) { delete it; }
-//			for (auto &it : cseq_) { delete it; }
-//			for (auto &it : from_) { delete it; }
-//			for (auto &it : to_) { delete it; }
-//			for (auto &it : via_) { delete it; }
-//			for (auto &it : alert_info_) { delete it; }
-//			for (auto &it : allow_events_) { delete it; }
-//			for (auto &it : date_) { delete it; }
-//			for (auto &it : contact_) { delete it; }
-//			for (auto &it : organization_) { delete it; }
-//			for (auto &it : record_route_) { delete it; }
-//			for (auto &it : retry_after_) { delete it; }
-//			for (auto &it : subject_) { delete it; }
-//			for (auto &it : supported_) { delete it; }
-//			for (auto &it : timestamp_) { delete it; }
-//			for (auto &it : user_agent_) { delete it; }
-//			for (auto &it : answer_mode_) { delete it; }
-//			for (auto &it : priv_answer_mode_) { delete it; }
-//			for (auto &it : accept_) { delete it; }
-//			for (auto &it : accept_contact_) { delete it; }
-//			for (auto &it : accept_encoding_) { delete it; }
-//			for (auto &it : accept_language_) { delete it; }
-//			for (auto &it : authorization_) { delete it; }
-//			for (auto &it : call_info_) { delete it; }
-//			for (auto &it : event_) { delete it; }
-//			for (auto &it : in_replay_to_) { delete it; }
-//			for (auto &it : join_) { delete it; }
-//			for (auto &it : priority_) { delete it; }
-//			for (auto &it : privacy_) { delete it; }
-//			for (auto &it : proxy_authorization_) { delete it; }
-//			for (auto &it : proxy_require_) { delete it; }
-//			for (auto &it : p_osp_auth_token_) { delete it; }
-//			for (auto &it : p_asserted_identity_) { delete it; }
-//			for (auto &it : p_preferred_identity_) { delete it; }
-//			for (auto &it : max_forwards_) { delete it; }
-//			for (auto &it : reason_) { delete it; }
-//			for (auto &it : refer_to_) { delete it; }
-//			for (auto &it : referred_by_) { delete it; }
-//			for (auto &it : reply_to_) { delete it; }
-//			for (auto &it : replaces_) { delete it; }
-//			for (auto &it : reject_contact_) { delete it; }
-//			for (auto &it : request_disposition_) { delete it; }
-//			for (auto &it : require_) { delete it; }
-//			for (auto &it : route_) { delete it; }
-//			for (auto &it : rack_) { delete it; }
-//			for (auto &it : session_expires_) { delete it; }
-//			for (auto &it : subscription_state_) { delete it; }
-//			for (auto &it : authentication_info_) { delete it; }
-//			for (auto &it : error_info_) { delete it; }
-//			for (auto &it : min_expires_) { delete it; }
-//			for (auto &it : min_se_) { delete it; }
-//			for (auto &it : proxy_authenticate_) { delete it; }
-//			for (auto &it : server_) { delete it; }
-//			for (auto &it : unsupported_) { delete it; }
-//			for (auto &it : warning_) { delete it; }
-//			for (auto &it : www_authenticate_) { delete it; }
-//			for (auto &it : rseq_) { delete it; }
-//			for (auto &it : allow_) { delete it; }
-//			for (auto &it : content_encoding_) { delete it; }
-//			for (auto &it : content_length_) { delete it; }
-//			for (auto &it : content_language_) { delete it; }
-//			for (auto &it : content_type_) { delete it; }
-//			for (auto &it : expires_) { delete it; }
-//			for (auto &it : mime_version_) { delete it; }
 	}
 
 } // namespace EasySip

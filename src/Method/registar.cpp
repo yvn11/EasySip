@@ -82,7 +82,7 @@ namespace EasySip
 //
 //	int Registar::on_invite_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		ResponseMessage rep(SIP_RESPONSE_TRYING);
 //		udp_.send_buffer(rep.Msg());
 //
@@ -184,73 +184,73 @@ namespace EasySip
 //	
 //	int Registar::on_bye_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_cancel_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_ack_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_options_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_subscribe_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_notify_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_info_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_update_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_refer_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_message_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //	
 //	int Registar::on_prack_request(RequestMessage &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //
 //	int Registar::on_response(Message &in_msg)
 //	{
-//		std::cout << __PRETTY_FUNCTION__ << '\n';
+//		echo(in_msg);
 //		return PROCEDURE_OK;
 //	}
 //

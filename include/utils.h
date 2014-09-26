@@ -239,20 +239,6 @@ namespace EasySip
 			return (first < cm.first);
 		}
 	
-//		CodeMap& operator= (const CodeMap &cm)
-//		{
-//			first = cm.first;
-//			second = cm.second;
-//			return *this;
-//		}
-
-//		CodeMap& operator= (CodeMap &cm)
-//		{
-//			first = cm.first;
-//			second = cm.second;
-//			return *this;
-//		}
-
 		bool operator== (const CodeMap &cm)
 		{
 			return ((first == cm.first ) && (second == cm.second));

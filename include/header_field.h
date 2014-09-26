@@ -149,9 +149,10 @@ namespace EasySip
 			return values_;
 		}
 
-		void HeaderParam(std::string n, std::string v)
+		HeaderField& HeaderParam(std::string n, std::string v)
 		{
 			header_params_.set_value_by_name(n, v);
+			return *this;
 		}
 
 		friend std::ostream& operator<< (std::ostream& o, HeaderField& hf);
@@ -165,71 +166,6 @@ namespace EasySip
 		}
 	};
 
-	// ---------- Mandatory fields ---------------
-	/* Call-ID: 19283kjhj5h
-	 */
-	struct HFCallId : public HeaderField
-	{
-		std::string id_;
-
-		HFCallId() : HeaderField("Call-ID", "i")
-		{
-		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
-
-		bool operator== (HFCallId& val)
-		{
-			return (id_ == val.id_);
-		}
-
-		HFCallId& add_id(std::string val)
-		{
-			id_ = val;
-			return *this;
-		}
-	};
-
-	/* CSeq: 35246 INVITE 
-	 */
-	struct HFCSeq : public HeaderField
-	{
-		std::string cseq_;
-		std::string method_;
-
-		HFCSeq() : HeaderField("CSeq")
-		{
-		}
-
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
-
-		HFCSeq& add_seq(std::string seq)
-		{
-			cseq_ = seq;
-			return *this;
-		}
-
-		HFCSeq& add_method(std::string val)
-		{
-			method_ = val;
-			return *this;
-		}
-
-		void inc_seq()
-		{
-			unsigned int seq;
-
-			std::istringstream i(cseq_);
-			i >> seq;
-			seq++;
-
-			std::ostringstream o;
-			o << seq;
-			cseq_ = o.str();
-		}
-	};
-	
 	struct HFBase_1_ : public HeaderField
 	{
 		ContactList cons_;
@@ -335,6 +271,159 @@ namespace EasySip
 			return *this;
 		}
 	};
+
+	struct HFBase_4_ : public HeaderField
+	{
+		PtsOf<ItemWithParams> its_;
+
+		HFBase_4_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
+		{
+		}
+
+		HFBase_4_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
+		{
+		}
+
+		virtual void generate_values();
+		virtual void parse(std::string &msg, size_t &pos);
+
+		HFBase_4_& add_value(std::string val)
+		{
+			ItemWithParams it(val);
+			its_.append_item(it);
+			return *this;
+		}
+
+		HFBase_4_& add_param(std::string key, std::string val = "")
+		{
+			if (!its_.empty())
+				its_.last()->add_param(key, val);
+			return *this;
+		}
+	};
+
+	struct HFBase_5_ : public HeaderField
+	{
+		std::string challenge_;
+		Parameters digest_cln_;
+
+		HFBase_5_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
+		{
+			digest_cln_.Sym(",");
+		}
+
+		HFBase_5_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
+		{
+			digest_cln_.Sym(",");
+		}
+
+		virtual void generate_values();
+		virtual void parse(std::string &msg, size_t &pos);
+
+		HFBase_5_& add_value(std::string val)
+		{
+			challenge_ = val;
+			return *this;
+		}
+
+		HFBase_5_& add_param(std::string key, std::string val = "")
+		{
+			digest_cln_.append(key, val);
+			return *this;
+		}
+	};
+
+	// ---------- Mandatory fields ---------------
+	/* Call-ID: 19283kjhj5h
+	 */
+	struct HFCallId : public HFBase_3_
+	{
+		HFCallId() : HFBase_3_("Call-ID", "i")
+		{
+			sym_ = ' ';
+		}
+
+		bool operator== (HFCallId& val)
+		{
+			return (id() == val.id());
+		}
+
+		HFCallId& id(std::string val)
+		{
+			if (opts_.empty())
+				HFBase_3_::add_value(val);
+			else
+				opts_.at(0) = val;
+
+			return *this;
+		}
+
+		std::string id()
+		{
+			if (opts_.size())
+				return opts_.at(0);
+			return std::string();
+		}
+	};
+
+	/* CSeq: 35246 INVITE 
+	 */
+	struct HFCSeq : public HFBase_3_
+	{
+		HFCSeq() : HFBase_3_("CSeq")
+		{
+			sym_ = ' ';
+		}
+
+		HFCSeq& cseq(std::string val)
+		{
+			if (opts_.empty())
+				HFBase_3_::add_value(val);
+			else
+				opts_.at(0) = val;
+
+			return *this;
+		}
+
+		HFCSeq& method(std::string val)
+		{
+			if (2 > opts_.size())
+				HFBase_3_::add_value(val);
+			else
+				opts_.at(1) = val;
+
+			return *this;
+		}
+
+		std::string cseq()
+		{
+			if (opts_.size())
+				return opts_.at(0);
+			return std::string();
+		}
+
+		std::string method()
+		{
+			if (1 < opts_.size())
+				return opts_.at(1);
+			return std::string();
+		}
+
+		void inc_seq()
+		{
+			unsigned int seq;
+
+			std::istringstream i(cseq());
+			i >> seq;
+			seq++;
+
+			std::ostringstream o;
+			o << seq;
+			cseq(o.str());
+		}
+	};
+	
+
 	/* From: Alice <sip:alice@atlanta.com>;tag=87263237
 	 */
 	struct HFFrom : public HFBase_1_
@@ -548,77 +637,29 @@ namespace EasySip
 	};
 
 	// -------------------- Request header -----------------------------
-	struct HFAccept : public HeaderField
+	struct HFAccept : public HFBase_4_
 	{
-		struct AcceptRange
-		{
-			std::string type_;
-			std::string subtype_;
-
-			AcceptRange()
-			{
-			}
-
-			AcceptRange(std::string type, std::string subtype)
-			: type_(type), subtype_(subtype)
-			{
-			}
-
-			friend std::ostream& operator<< (std::ostream &o, AcceptRange &r)
-			{
-				o << r.type_ << '/' << r.subtype_;
-				return o;
-			}
-
-			bool full()
-			{
-				return (!type_.empty() && !subtype_.empty());
-			}
-		};
-
-		PtsOf<AcceptRange> ranges_;
-
-		HFAccept() : HeaderField("Accept") // type/sub-type
+		HFAccept() : HFBase_4_("Accept") // type/sub-type
 		{
 //			header_params_.append("q");
 		}
 
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
-
-		HFAccept& add_value(std::string type, std::string subtype)
+		HFAccept& add_value(std::string val)
 		{
-			AcceptRange ar(type, subtype);
-			ranges_.append_item(ar);
-			return *this;
-		}
+			if (val.find_first_of("/") == std::string::npos)
+				return *this;
 
-		HFAccept& add_type(std::string type)
-		{
-			if (ranges_.empty() || ranges_.last()->full())
-			{
-				ranges_.append_item();
-			}
-
-			if (ranges_.last()->type_.empty())
-			{
-				ranges_.last()->type_ = type;
-			}
+			HFBase_4_::add_value(val);
 
 			return *this;
 		}
 
-		HFAccept& add_subtype(std::string subtype)
+		HFAccept& add_value(std::string ty, std::string subty)
 		{
-			if (ranges_.empty() || ranges_.last()->full())
-			{
-				ranges_.append_item();
-			}
+			ty += "/";
+			ty += subty;
 
-			if (ranges_.last()->subtype_.empty())
-			{
-				ranges_.last()->subtype_ = subtype;
-			}
+			HFBase_4_::add_value(ty);
 
 			return *this;
 		}
@@ -631,36 +672,6 @@ namespace EasySip
 		}
 		void generate_values();
 		void parse(std::string &msg, size_t &pos);
-	};
-
-	struct HFBase_4_ : public HeaderField
-	{
-		PtsOf<ItemWithParams> its_;
-
-		HFBase_4_(std::string f, bool is_hbh = false) : HeaderField(f, is_hbh)
-		{
-		}
-
-		HFBase_4_(std::string f, std::string c, bool is_hbh = false) : HeaderField(f, c, is_hbh)
-		{
-		}
-
-		virtual void generate_values();
-		virtual void parse(std::string &msg, size_t &pos);
-
-		HFBase_4_& add_value(std::string val)
-		{
-			ItemWithParams it(val);
-			its_.append_item(it);
-			return *this;
-		}
-
-		HFBase_4_& add_param(std::string key, std::string val = "")
-		{
-			if (!its_.empty())
-				its_.last()->add_param(key, val);
-			return *this;
-		}
 	};
 
 	struct HFAcceptEncoding : public HFBase_4_
@@ -680,12 +691,9 @@ namespace EasySip
 		}
 	};
 
-	struct HFAuthorization : public HeaderField
+	struct HFAuthorization : public HFBase_5_
 	{
 		HFAuthorization();
-
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFCallInfo : public HFBase_1_
@@ -723,13 +731,18 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFPriority : public HeaderField
+	/*
+	 * Priority: non-urgent
+	 * Priority: normal
+	 * Priority: urgent
+	 * ...
+	 */
+	struct HFPriority : public HFBase_3_
 	{
-		HFPriority() : HeaderField("Priority", true)
+		HFPriority() : HFBase_3_("Priority", true)
 		{
+			sym_ = ' ';
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPrivacy : public HeaderField
@@ -741,11 +754,9 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFProxyAuthorization : public HeaderField
+	struct HFProxyAuthorization : public HFBase_5_
 	{
 		HFProxyAuthorization();
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 
@@ -918,13 +929,11 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFErrorInfo : public HeaderField
+	struct HFErrorInfo : public HFBase_1_
 	{
-		HFErrorInfo() : HeaderField("Error-Info", true)
+		HFErrorInfo() : HFBase_1_("Error-Info", true)
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 
@@ -937,12 +946,9 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFProxyAuthenticate : public HeaderField
+	struct HFProxyAuthenticate : public HFBase_4_
 	{
 		HFProxyAuthenticate();
-
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFServer : public HFBase_3_
@@ -955,13 +961,12 @@ namespace EasySip
 
 	/* Unsupported: 100rel
 	 */
-	struct HFUnsupported : public HeaderField
+	struct HFUnsupported : public HFBase_3_
 	{
-		HFUnsupported() : HeaderField("Unsupported")
+		HFUnsupported() : HFBase_3_("Unsupported")
 		{
+			sym_ = ' ';
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFWarning : public HeaderField
@@ -974,10 +979,11 @@ namespace EasySip
 
 			friend std::ostream& operator<< (std::ostream &o, WarningValue &w)
 			{
-				o << w.code_;
+				if (w.code_.size())
+					o << w.code_ << ' ';
 
 				if (w.agent_.size())
-					o << ' ' << w.agent_;
+					o << w.agent_ << ' ';
 
 				if (w.text_.size())
 					o << " \"" << w.text_ << '"';
@@ -995,15 +1001,9 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFWWWAuthenticate : public HeaderField
+	struct HFWWWAuthenticate : public HFBase_5_
 	{
-		std::string challenge_;
-		Parameters digest_cln_;
-
 		HFWWWAuthenticate();
-
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRSeq : public HeaderField
@@ -1062,16 +1062,50 @@ namespace EasySip
 		void parse(std::string &msg, size_t &pos);
 	};
 
-	struct HFContentType : public HeaderField
+	struct HFContentType : public HFBase_3_
 	{
-		std::string discrete_ty_;
-		std::string composite_ty_;
-
-		HFContentType() : HeaderField("Content-Type", "c")
+		HFContentType() : HFBase_3_("Content-Type", "c")
 		{
 		}
-		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+
+		std::string type()
+		{
+			size_t ret;
+
+			if (opts_.empty() || (ret = opts_.at(0).find_first_of("/") == std::string::npos))
+				return std::string();
+
+			return opts_.at(0).substr(0, ret);
+		}
+
+		std::string subtype()
+		{
+			size_t ret;
+
+			if (opts_.empty()
+			|| (ret = opts_.at(0).find_first_of("/") == std::string::npos)
+			|| ret >= opts_.at(0).size())
+				return std::string();
+
+			return opts_.at(0).substr(ret+1);
+		}
+
+		HFContentType& type(std::string val)
+		{
+			opts_.push_back(val);
+			return *this;
+		}
+
+		HFContentType& subtype(std::string val)
+		{
+			if (opts_.empty())
+				return *this;
+
+			opts_.at(0) += "/";
+			opts_.at(0) += val;
+
+			return *this;
+		}
 	};
 
 	struct HFContentDisposition : public HFBase_3_
