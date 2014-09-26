@@ -61,7 +61,7 @@ namespace EasySip
 		virtual Message& create();
 		virtual bool is_valid();
 
-		virtual void parse(size_t &pos);
+		virtual int parse(size_t &pos);
 
 		#define parse_field(f, msg, pos) \
 		{ \
@@ -176,12 +176,12 @@ namespace EasySip
 
 		RequestMessage& create();
 
-		virtual void parse(size_t &pos);
+		virtual int parse(size_t &pos);
 
-		virtual void parse()
+		virtual int parse()
 		{
 			size_t pos = 0;
-			parse(pos);
+			return parse(pos);
 		}
 
 		void SipVersion(std::string ver)
@@ -644,12 +644,12 @@ namespace EasySip
 
 		virtual ResponseMessage& create();
 
-		virtual void parse(size_t &pos);
+		virtual int parse(size_t &pos);
 
-		virtual void parse()
+		virtual int parse()
 		{
 			size_t pos = 0;
-			parse(pos);
+			return parse(pos);
 		}
 
 	};

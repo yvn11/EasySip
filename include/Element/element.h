@@ -1,5 +1,5 @@
 /*
- * include/Method/method.h
+ * include/Element/element.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
@@ -14,7 +14,7 @@
 
 namespace EasySip
 {
-	class Method
+	class Element
 	{
 	protected:
 
@@ -33,9 +33,9 @@ namespace EasySip
 
 	public:
 
-		Method();
+		Element();
 
-		~Method();
+		~Element();
 
 		void run(bool r)
 		{
@@ -85,6 +85,7 @@ namespace EasySip
 		virtual void send_msg(ResponseMessage &msg);
 
 		virtual void echo(RequestMessage &in_msg);
+		virtual void simple_response(const RespCode &rc, RequestMessage &in_msg);
 
 		template<typename T>
 		int dialog_preprocess(Dialog &dialog, T &in_msg)
@@ -94,11 +95,7 @@ namespace EasySip
 				// TODO: configurable reject/accept
 				if (true)
 				{
-					ResponseMessage rep(in_msg);
-					rep.SipVersion(SIP_VERSION_2_0);
-					rep.ResponseCode(SIP_RESPONSE_CALL_OR_TRANSACTION_NOT_EXIST);
-	
-					send_msg(rep);
+					simple_response(SIP_RESPONSE_CALL_OR_TRANSACTION_NOT_EXIST, in_msg);
 					return MESSAGE_PROCESSED;
 				}
 				else

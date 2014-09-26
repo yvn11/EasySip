@@ -1,13 +1,13 @@
 /*
- * src/Method/method.cpp
+ * src/Element/element.cpp
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
-#include "Method/method.h"
+#include "Element/element.h"
 
 namespace EasySip
 {
-	Method::Method()
+	Element::Element()
 	: run_(true)
 	{
 		HeaderFields::init_allowed_fields();
@@ -15,11 +15,11 @@ namespace EasySip
 		init_allowed_responses();
 	}
 
-	Method::~Method()
+	Element::~Element()
 	{
 	}
 
-	void Method::init_allowed_methods()
+	void Element::init_allowed_methods()
 	{
 		allowed_methods_.insert(METHOD_INVITE);
 		allowed_methods_.insert(METHOD_CANCEL);
@@ -36,7 +36,7 @@ namespace EasySip
 		allowed_methods_.insert(METHOD_PRACK);
 	}
 
-	void Method::init_allowed_responses()
+	void Element::init_allowed_responses()
 	{
 		allowed_responses_.insert(SIP_RESPONSE_TRYING);
 		allowed_responses_.insert(SIP_RESPONSE_RINGING);
@@ -91,17 +91,17 @@ namespace EasySip
 		allowed_responses_.insert(SIP_RESPONSE_GLOBAL_NOT_ACCEPTABLE);
 	}
 
-	void Method::send_msg(RequestMessage &msg)
+	void Element::send_msg(RequestMessage &msg)
 	{
 		udp_.send_buffer(msg.create().Msg());
 	}
 
-	void Method::send_msg(ResponseMessage &msg)
+	void Element::send_msg(ResponseMessage &msg)
 	{
 		udp_.send_buffer(msg.create().Msg());
 	}
 
-	void Method::echo(RequestMessage &in_msg)
+	void Element::echo(RequestMessage &in_msg)
 	{
 		ResponseMessage rep(in_msg);
 
@@ -114,7 +114,7 @@ namespace EasySip
 		send_msg(rep);
 	}
 
-	int Method::on_receive_message(std::string &msg)
+	int Element::on_receive_message(std::string &msg)
 	{
 		int ret;
 
@@ -131,10 +131,65 @@ namespace EasySip
 		return -1;
 	}
 
-	int Method::on_receive_req(std::string &msg, const int code)
+	void Element::simple_response(const RespCode &rc, RequestMessage &in_msg)
 	{
+		ResponseMessage rep(in_msg);
+		rep.SipVersion(SIP_VERSION_2_0);
+		rep.ResponseCode(rc);
+	
+		send_msg(rep);
+	}
+
+	int Element::on_receive_req(std::string &msg, const int code)
+	{
+		int ret = PROCEDURE_OK;
+
 		RequestMessage in_msg(msg);
-		in_msg.parse();
+
+		if (SIP_RESPONSE_UNSUPPORTED_URI_SCHEME.code() == (ret = in_msg.parse()))
+		{
+			simple_response(SIP_RESPONSE_UNSUPPORTED_URI_SCHEME, in_msg);
+			return MESSAGE_PROCESSED;
+		}
+
+		if (in_msg.max_forwards_.size())
+		{
+			if (in_msg.max_forwards_.last()->is_zero_forward())
+			{
+				if (METHOD_ID_OPTIONS != code)
+				{
+					simple_response(SIP_RESPONSE_TOO_MANY_HOPS, in_msg);
+					return MESSAGE_PROCESSED;
+				}
+			}
+		}
+
+		// TODO: loop detection
+		if (false)
+		{
+			simple_response(SIP_RESPONSE_LOOP_DETECTED, in_msg);
+			return MESSAGE_PROCESSED;
+		}
+
+		if (in_msg.proxy_require_.size())
+		{
+			std::vector<std::string> tags = in_msg.proxy_require_.last()->misunderstand_tags();
+
+			if (tags.size())
+			{
+				ResponseMessage rep(in_msg);
+				rep.SipVersion(SIP_VERSION_2_0);
+				rep.ResponseCode(SIP_RESPONSE_BAD_EXTENSION);
+	
+				rep.add_unsupported()
+				->add_value(tags);
+	
+				send_msg(rep);
+				return MESSAGE_PROCESSED;
+			}
+		}
+
+		// NOTE: 96/269
 
 		if (METHOD_ID_INVITE != code)
 		{
@@ -203,10 +258,10 @@ namespace EasySip
 			}
 		}
 
-		return PROCEDURE_OK;
+		return ret;
 	}
 
-	int Method::on_receive_resp(std::string &msg, const int code)
+	int Element::on_receive_resp(std::string &msg, const int code)
 	{
 		ResponseMessage in_msg(msg);
 		in_msg.parse();
@@ -261,7 +316,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::fetch_msg()
+	int Element::fetch_msg()
 	{
 		if (0 > udp_.recv_buffer(0))
 			return PROCEDURE_ERROR;
@@ -274,7 +329,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::start()
+	int Element::start()
 	{
 		try
 		{
@@ -297,7 +352,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::invite_request()
+	int Element::invite_request()
 	{
 		InviteMessage req;
 
@@ -338,12 +393,12 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::register_request()
+	int Element::register_request()
 	{
 		return PROCEDURE_OK;
 	}
 
-	int Method::bye_request()
+	int Element::bye_request()
 	{
 		if (dialogs_.empty())
 			return PROCEDURE_OK;
@@ -435,22 +490,22 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::cancel_request()
+	int Element::cancel_request()
 	{
 		return PROCEDURE_OK;
 	}
 
-	int Method::update_request()
+	int Element::update_request()
 	{
 		return PROCEDURE_OK;
 	}
 
-	int Method::info_request()
+	int Element::info_request()
 	{
 		return PROCEDURE_OK;
 	}
 
-	int Method::ack_request()
+	int Element::ack_request()
 	{
 		AckMessage req;
 
@@ -539,7 +594,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::message_request()
+	int Element::message_request()
 	{
 		MessageMessage req;
 
@@ -694,7 +749,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::subscribe_request()
+	int Element::subscribe_request()
 	{
 		SubscribeMessage req;
 
@@ -705,7 +760,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::notify_request()
+	int Element::notify_request()
 	{
 		NotifyMessage req;
 
@@ -716,7 +771,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::refer_request()
+	int Element::refer_request()
 	{
 		ReferMessage req;
 
@@ -728,7 +783,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::options_request()
+	int Element::options_request()
 	{
 		OptionsMessage req;
 
@@ -838,7 +893,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::prack_request()
+	int Element::prack_request()
 	{
 		PrackMessage req;
 
@@ -849,7 +904,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 
-	int Method::on_invite_request(RequestMessage &in_msg)
+	int Element::on_invite_request(RequestMessage &in_msg)
 	{
 		ResponseMessage rep(in_msg);
 		rep.SipVersion(SIP_VERSION_2_0);
@@ -882,13 +937,13 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_register_request(RequestMessage &in_msg)
+	int Element::on_register_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_bye_request(RequestMessage &in_msg)
+	int Element::on_bye_request(RequestMessage &in_msg)
 	{
 		ResponseMessage rep(in_msg);
 	
@@ -902,7 +957,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_cancel_request(RequestMessage &in_msg)
+	int Element::on_cancel_request(RequestMessage &in_msg)
 	{
 		Dialog dialog(in_msg);
 
@@ -926,7 +981,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_ack_request(RequestMessage &in_msg)
+	int Element::on_ack_request(RequestMessage &in_msg)
 	{
 		Dialog dialog(in_msg);
 
@@ -938,7 +993,7 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_options_request(RequestMessage &in_msg)
+	int Element::on_options_request(RequestMessage &in_msg)
 	{
 		ResponseMessage rep(in_msg);
 
@@ -966,43 +1021,43 @@ namespace EasySip
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_subscribe_request(RequestMessage &in_msg)
+	int Element::on_subscribe_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_notify_request(RequestMessage &in_msg)
+	int Element::on_notify_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_info_request(RequestMessage &in_msg)
+	int Element::on_info_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_update_request(RequestMessage &in_msg)
+	int Element::on_update_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_refer_request(RequestMessage &in_msg)
+	int Element::on_refer_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_message_request(RequestMessage &in_msg)
+	int Element::on_message_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;
 	}
 	
-	int Method::on_prack_request(RequestMessage &in_msg)
+	int Element::on_prack_request(RequestMessage &in_msg)
 	{
 		echo(in_msg);
 		return PROCEDURE_OK;

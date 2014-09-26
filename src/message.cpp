@@ -629,9 +629,9 @@ namespace EasySip
 
 	/* parse buffered header into formated header fields
 	 */
-	void Message::parse(size_t &pos)
+	int Message::parse(size_t &pos)
 	{
-		if (msg_.empty()) return;
+		if (msg_.empty()) return PROCEDURE_ERROR;
 
 		bool run = true;
 		std::string buffer;
@@ -697,6 +697,8 @@ namespace EasySip
 
 			user_data_ = buffer;
 		}
+
+		return PROCEDURE_OK;
 	}
 
 	RequestMessage& RequestMessage::create()
@@ -714,11 +716,14 @@ namespace EasySip
 		return *this;
 	}
 
-	void RequestMessage::parse(size_t &pos)
+	int RequestMessage::parse(size_t &pos)
 	{
-		if (msg_.empty()) return;
+		if (msg_.empty()) return PROCEDURE_ERROR;
 
-		req_line_->parse(msg_, pos);
+		int ret;
+
+		if (PROCEDURE_OK != (ret = req_line_->parse(msg_, pos)))
+			return ret;
 		Ancestor::parse(pos);
 
 		if (!is_valid())
@@ -729,6 +734,8 @@ namespace EasySip
 		std::cout << "-request------------------------\n";
 		std::cout << *this;
 		std::cout << "--------------------------------\n";
+
+		return PROCEDURE_OK;
 	}
 
 	RequestMessage::RequestMessage(ResponseMessage &in_msg)
@@ -889,11 +896,15 @@ namespace EasySip
 		return *this;
 	}
 
-	void ResponseMessage::parse(size_t &pos)
+	int ResponseMessage::parse(size_t &pos)
 	{
-		if (msg_.empty()) return;
+		if (msg_.empty()) return PROCEDURE_ERROR;
 
-		resp_status_->parse(msg_, pos);
+		int ret;
+
+		if (PROCEDURE_OK != (ret = resp_status_->parse(msg_, pos)))
+			return ret;
+
 		Ancestor::parse(pos);
 
 		if (!is_valid())
@@ -904,6 +915,8 @@ namespace EasySip
 		std::cout << "-reponse------------------------\n";
 		std::cout << *this;
 		std::cout << "--------------------------------\n";
+
+		return PROCEDURE_OK;
 	}
 
 	ResponseMessage::ResponseMessage(RequestMessage &in_msg)

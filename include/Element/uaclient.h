@@ -1,21 +1,20 @@
 /*
- * include/Method/uaserver.h
+ * include/Element/uaclient.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
 #pragma once
 
-#include "method.h"
+#include "Element/element.h"
 
 namespace EasySip
-{
-	class UAServer : public Method
+{	
+	class UAClient : public Element
 	{
 	public:
+		UAClient();
 
-		UAServer();
-
-		~UAServer()
+		~UAClient()
 		{
 		}
 

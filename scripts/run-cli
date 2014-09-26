@@ -22,7 +22,7 @@ $res_path/sip3
 #	cat $f|build/test/ts-udp
 #	sleep 1
 #done
-build/test/ts-udp
+build/test/ts-client
 
 #cat test/res/sip-invite-require | build/test/ts-udp ;exit
 #cat test/res/sip5 | build/test/ts-udp cancel ;exit

@@ -1,9 +1,9 @@
 /*
- * src/Method/registar.cpp
+ * src/Element/registar.cpp
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
-#include "Method/registar.h"
+#include "Element/registar.h"
 
 namespace EasySip
 {

@@ -142,7 +142,7 @@ namespace EasySip
 
 		virtual void generate_values() = 0;
 
-		virtual void parse(std::string &msg, size_t &pos) = 0;
+		virtual int parse(std::string &msg, size_t &pos) = 0;
 
 		std::string Values()
 		{
@@ -179,7 +179,7 @@ namespace EasySip
 		}
 
 		virtual void generate_values();
-		virtual void parse(std::string &msg, size_t &pos);
+		virtual int parse(std::string &msg, size_t &pos);
 
 		virtual HFBase_1_& add_value(std::string)
 		{
@@ -238,7 +238,7 @@ namespace EasySip
 		}
 
 		virtual void generate_values();
-		virtual void parse(std::string &msg, size_t &pos);
+		virtual int parse(std::string &msg, size_t &pos);
 
 		virtual HFBase_2_& add_value(std::string val)
 		{
@@ -263,13 +263,20 @@ namespace EasySip
 		}
 
 		virtual void generate_values();
-		virtual void parse(std::string &msg, size_t &pos);
+		virtual int parse(std::string &msg, size_t &pos);
 
 		virtual HFBase_3_& add_value(std::string val)
 		{
 			opts_.push_back(val);
 			return *this;
 		}
+
+		virtual HFBase_3_& add_value(std::vector<std::string> &vals)
+		{
+			std::copy(opts_.begin(), vals.begin(), vals.end());
+			return *this;
+		}
+
 	};
 
 	struct HFBase_4_ : public HeaderField
@@ -285,7 +292,7 @@ namespace EasySip
 		}
 
 		virtual void generate_values();
-		virtual void parse(std::string &msg, size_t &pos);
+		virtual int parse(std::string &msg, size_t &pos);
 
 		HFBase_4_& add_value(std::string val)
 		{
@@ -318,7 +325,7 @@ namespace EasySip
 		}
 
 		virtual void generate_values();
-		virtual void parse(std::string &msg, size_t &pos);
+		virtual int parse(std::string &msg, size_t &pos);
 
 		HFBase_5_& add_value(std::string val)
 		{
@@ -493,7 +500,7 @@ namespace EasySip
 		HFVia();
 
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 
 		HFVia& add_proto(std::string proto)
 		{
@@ -521,7 +528,7 @@ namespace EasySip
 //			header_params_.append("purpose");
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAllowEvents : public HeaderField
@@ -530,7 +537,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFDate : public HFBase_3_ 
@@ -579,7 +586,7 @@ namespace EasySip
 //			header_params_.append("duration");
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFSubject : public HFBase_3_
@@ -604,7 +611,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFUserAgent : public HeaderField
@@ -613,7 +620,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAnswerMode : public HeaderField
@@ -623,7 +630,7 @@ namespace EasySip
 //			header_params_.append("require");
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPrivAnswerMode : public HeaderField
@@ -633,7 +640,7 @@ namespace EasySip
 //			header_params_.append("require");
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	// -------------------- Request header -----------------------------
@@ -671,7 +678,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAcceptEncoding : public HFBase_4_
@@ -702,7 +709,7 @@ namespace EasySip
 		HFCallInfo();
 
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFEvent : public HeaderField
@@ -710,7 +717,7 @@ namespace EasySip
 		HFEvent();
 
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFInReplyTo : public HeaderField
@@ -719,7 +726,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFJoin : public HeaderField
@@ -728,7 +735,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	/*
@@ -751,7 +758,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFProxyAuthorization : public HFBase_5_
@@ -766,7 +773,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPAssertedIdentity : public HeaderField
@@ -775,7 +782,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFPPreferredIdentity : public HeaderField
@@ -784,7 +791,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFMaxForwards : public HFBase_2_
@@ -793,14 +800,20 @@ namespace EasySip
 		{
 		}
 
+		bool is_zero_forward()
+		{
+			return digit_value_ == "0";
+		}
+
 		std::string max_forwards()
 		{
 			return digit_value_;
 		}
 
-		void max_forwards(std::string val)
+		HFMaxForwards& max_forwards(std::string val)
 		{
 			digit_value_ = val;
+			return *this;
 		}
 	};
 
@@ -812,7 +825,7 @@ namespace EasySip
 //			header_params_.append("text");
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReferTo : public HeaderField
@@ -821,7 +834,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	/* Referred-By: <sip:user@host.com>
@@ -832,7 +845,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReplyTo : public HeaderField
@@ -841,7 +854,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFReplaces : public HeaderField
@@ -850,7 +863,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRejectContact : public HeaderField
@@ -859,7 +872,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFRequestDisposition : public HeaderField
@@ -868,7 +881,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	/* Require: 100rel
@@ -885,6 +898,13 @@ namespace EasySip
 		HFProxyRequire() : HFBase_3_("Proxy-Require", true)
 		{
 		}
+
+		std::vector<std::string> misunderstand_tags()
+		{
+			// TODO: check for tags the element unable to understand
+			return std::vector<std::string>();
+		}
+		
 	};
 
 	struct HFRoute : public HFBase_1_
@@ -900,7 +920,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFSessionExpires : public HeaderField
@@ -909,7 +929,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFSubscriptionState : public HeaderField
@@ -917,7 +937,7 @@ namespace EasySip
 		HFSubscriptionState();
 
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	// -------------------- Response header -----------------------------
@@ -926,7 +946,7 @@ namespace EasySip
 		HFAuthenticationInfo();
 		
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFErrorInfo : public HFBase_1_
@@ -943,7 +963,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFProxyAuthenticate : public HFBase_4_
@@ -998,7 +1018,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFWWWAuthenticate : public HFBase_5_
@@ -1012,7 +1032,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFAllow : public HFBase_3_
@@ -1059,7 +1079,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct HFContentType : public HFBase_3_
@@ -1147,7 +1167,7 @@ namespace EasySip
 		{
 		}
 		void generate_values();
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct RequestLine
@@ -1174,7 +1194,7 @@ namespace EasySip
 			return o << req.method_.name() << " " << req.request_uri_ << " " << req.version_ << "\r\n";
 		}
 
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 	};
 
 	struct ResponseStatus
@@ -1201,7 +1221,7 @@ namespace EasySip
 			return o << res.version_ << " " << res.resp_code_ << "\r\n";
 		}
 
-		void parse(std::string &msg, size_t &pos);
+		int parse(std::string &msg, size_t &pos);
 
 		ResponseStatus& operator=(ResponseStatus resp)
 		{

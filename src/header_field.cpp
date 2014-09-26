@@ -9,7 +9,7 @@ namespace EasySip
 {
 	T_HF_MAP HeaderFields::allowed_fields_;
 
-	void RequestLine::parse(std::string &msg, size_t &pos)
+	int RequestLine::parse(std::string &msg, size_t &pos)
 	{
 		size_t next = 0;
 		// read method
@@ -18,12 +18,14 @@ namespace EasySip
 			method_.name(msg.substr(pos, next-pos));
 			pos = next + 1;
 		}
-		// read request-uri
+
+		// read request-uri 
 		if ((next = msg.find_first_of(" ", pos)) != std::string::npos)
 		{
 			request_uri_ = msg.substr(pos, next-pos);
 			pos = next + 1;
 		}
+		// TODO: check uri scheme return code 416 on error
 
 		// read version
 		if ((next = msg.find_first_of("\n", pos)) != std::string::npos)
@@ -31,9 +33,11 @@ namespace EasySip
 			version_ = msg.substr(pos, next-pos);
 			pos = next + 1;
 		}
+
+		return PROCEDURE_OK;
 	}
 
-	void ResponseStatus::parse(std::string &msg, size_t &pos)
+	int ResponseStatus::parse(std::string &msg, size_t &pos)
 	{
 		size_t next = 0;
 		// read version
@@ -57,6 +61,8 @@ namespace EasySip
 			resp_code_.name(msg.substr(pos, next-pos));
 			pos = next + 1;
 		}
+
+		return PROCEDURE_OK;
 	}
 
 	std::ostream& operator<< (std::ostream& o, HeaderField &hf)
@@ -79,7 +85,7 @@ namespace EasySip
 		return o.str();
 	}
 
-	void HFBase_1_::parse(std::string &msg, size_t &pos)
+	int HFBase_1_::parse(std::string &msg, size_t &pos)
 	{
 		bool read_head_param = false, run = true, in_aquote = false, in_dquote = false;
 		std::string buffer, key;
@@ -256,6 +262,8 @@ namespace EasySip
 				}
 			}
 		}
+
+		return PROCEDURE_OK;
 	}
 
 	void HFBase_2_::generate_values()
@@ -268,7 +276,7 @@ namespace EasySip
 		values_ += p.str();
 	}
 
-	void HFBase_2_::parse(std::string &msg, size_t &pos)
+	int HFBase_2_::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true;
 		std::string buffer;
@@ -308,6 +316,8 @@ namespace EasySip
 				}
 			}
 		}
+
+		return PROCEDURE_OK;
 	}
 
 	void HFBase_3_::generate_values()
@@ -327,7 +337,7 @@ namespace EasySip
 		}
 	}
 
-	void HFBase_3_::parse(std::string &msg, size_t &pos)
+	int HFBase_3_::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true, read_head_param = false;
 		std::string buffer, key;
@@ -419,6 +429,8 @@ namespace EasySip
 				}
 			}
 		}
+
+		return PROCEDURE_OK;
 	}
 
 	void HFBase_4_::generate_values()
@@ -442,7 +454,7 @@ namespace EasySip
 		}
 	}
 
-	void HFBase_4_::parse(std::string &msg, size_t &pos)
+	int HFBase_4_::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true, in_dquote = false;
 		std::string buffer, key;
@@ -543,6 +555,8 @@ namespace EasySip
 				}
 			}
 		}
+
+		return PROCEDURE_OK;
 	}
 
 	void HFBase_5_::generate_values()
@@ -567,7 +581,7 @@ namespace EasySip
 		values_ += p.str();
 	}
 
-	void HFBase_5_::parse(std::string &msg, size_t &pos)
+	int HFBase_5_::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true, in_dquote = false;
 		std::string buffer, key;
@@ -669,6 +683,7 @@ namespace EasySip
 				}
 			}
 		}
+		return PROCEDURE_OK;
 	}
 
 	HFVia::HFVia() : HeaderField("Via", "v", true)
@@ -700,7 +715,7 @@ namespace EasySip
 		values_ = o.str();
 	}
 
-	void HFVia::parse(std::string &msg, size_t &pos)
+	int HFVia::parse(std::string &msg, size_t &pos)
 	{
 		bool read_head_param = false, run = true;
 		std::string buffer, key;
@@ -796,6 +811,7 @@ namespace EasySip
 				}
 			}
 		}
+		return PROCEDURE_OK;
 	}
 
 	HFContact::HFContact() : HFBase_1_("Contact", "m")
@@ -816,9 +832,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRetryAfter::parse(std::string &msg, size_t &pos)
+	int HFRetryAfter::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 
@@ -827,9 +844,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFAlertInfo::parse(std::string &msg, size_t &pos)
+	int HFAlertInfo::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFAllowEvents::generate_values()
@@ -837,9 +855,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFAllowEvents::parse(std::string &msg, size_t &pos)
+	int HFAllowEvents::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFBase_1_::generate_values()
@@ -871,9 +890,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFTimestamp::parse(std::string &msg, size_t &pos)
+	int HFTimestamp::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFUserAgent::generate_values()
@@ -881,9 +901,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFUserAgent::parse(std::string &msg, size_t &pos)
+	int HFUserAgent::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFAnswerMode::generate_values()
@@ -891,9 +912,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFAnswerMode::parse(std::string &msg, size_t &pos)
+	int HFAnswerMode::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFPrivAnswerMode::generate_values()
@@ -901,9 +923,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFPrivAnswerMode::parse(std::string &msg, size_t &pos)
+	int HFPrivAnswerMode::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFAcceptContact::generate_values()
@@ -911,9 +934,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFAcceptContact::parse(std::string &msg, size_t &pos)
+	int HFAcceptContact::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	HFAuthorization::HFAuthorization() : HFBase_5_("Authorization")
@@ -954,7 +978,7 @@ namespace EasySip
 		remove_tail_symbol(sym);
 	}
 
-	void HFCallInfo::parse(std::string &msg, size_t &pos)
+	int HFCallInfo::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true, in_aquote = false, in_dquote = false;
 		std::string buffer, key;
@@ -1114,6 +1138,7 @@ namespace EasySip
 				}
 			}
 		}
+		return PROCEDURE_OK;
 	}
 
 	HFEvent::HFEvent() : HeaderField("Event", "o")
@@ -1140,9 +1165,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFEvent::parse(std::string &msg, size_t &pos)
+	int HFEvent::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFInReplyTo::generate_values()
@@ -1150,9 +1176,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFInReplyTo::parse(std::string &msg, size_t &pos)
+	int HFInReplyTo::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFJoin::generate_values()
@@ -1160,9 +1187,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFJoin::parse(std::string &msg, size_t &pos)
+	int HFJoin::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFPrivacy::generate_values()
@@ -1170,9 +1198,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFPrivacy::parse(std::string &msg, size_t &pos)
+	int HFPrivacy::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	HFProxyAuthorization::HFProxyAuthorization() : HFBase_5_("Proxy-Authorization", true)
@@ -1195,9 +1224,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFPOSPAuthToken::parse(std::string &msg, size_t &pos)
+	int HFPOSPAuthToken::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFPAssertedIdentity::generate_values()
@@ -1205,9 +1235,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFPAssertedIdentity::parse(std::string &msg, size_t &pos)
+	int HFPAssertedIdentity::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFPPreferredIdentity::generate_values()
@@ -1215,9 +1246,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFPPreferredIdentity::parse(std::string &msg, size_t &pos)
+	int HFPPreferredIdentity::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFReason::generate_values()
@@ -1225,9 +1257,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFReason::parse(std::string &msg, size_t &pos)
+	int HFReason::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFReferTo::generate_values()
@@ -1235,9 +1268,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFReferTo::parse(std::string &msg, size_t &pos)
+	int HFReferTo::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFReferredBy::generate_values()
@@ -1245,9 +1279,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFReferredBy::parse(std::string &msg, size_t &pos)
+	int HFReferredBy::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFReplyTo::generate_values()
@@ -1255,9 +1290,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFReplyTo::parse(std::string &msg, size_t &pos)
+	int HFReplyTo::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFReplaces::generate_values()
@@ -1265,9 +1301,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFReplaces::parse(std::string &msg, size_t &pos)
+	int HFReplaces::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFRejectContact::generate_values()
@@ -1275,9 +1312,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRejectContact::parse(std::string &msg, size_t &pos)
+	int HFRejectContact::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFRequestDisposition::generate_values()
@@ -1285,9 +1323,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRequestDisposition::parse(std::string &msg, size_t &pos)
+	int HFRequestDisposition::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFRack::generate_values()
@@ -1295,9 +1334,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRack::parse(std::string &msg, size_t &pos)
+	int HFRack::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFSessionExpires::generate_values()
@@ -1305,9 +1345,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFSessionExpires::parse(std::string &msg, size_t &pos)
+	int HFSessionExpires::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	HFSubscriptionState::HFSubscriptionState() : HeaderField("Subscription-State")
@@ -1325,9 +1366,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFSubscriptionState::parse(std::string &msg, size_t &pos)
+	int HFSubscriptionState::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	HFAuthenticationInfo::HFAuthenticationInfo() : HeaderField("Authentication-Info")
@@ -1344,9 +1386,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFAuthenticationInfo::parse(std::string &msg, size_t &pos)
+	int HFAuthenticationInfo::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFMinSE::generate_values()
@@ -1354,9 +1397,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFMinSE::parse(std::string &msg, size_t &pos)
+	int HFMinSE::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	HFProxyAuthenticate::HFProxyAuthenticate() : HFBase_4_("Proxy-Authenticate", true)
@@ -1387,7 +1431,7 @@ namespace EasySip
 		values_ += p.str();
 	}
 
-	void HFWarning::parse(std::string &msg, size_t &pos)
+	int HFWarning::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true, in_dquote = false;
 		std::string buffer;
@@ -1512,6 +1556,7 @@ namespace EasySip
 				}
 			}
 		}
+		return PROCEDURE_OK;
 	}
 
 	HFWWWAuthenticate::HFWWWAuthenticate() : HFBase_5_("WWW-Authenticate", true)
@@ -1530,9 +1575,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFRSeq::parse(std::string &msg, size_t &pos)
+	int HFRSeq::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFContentLanguage::generate_values()
@@ -1540,9 +1586,10 @@ namespace EasySip
 		std::cout << __PRETTY_FUNCTION__ << '\n';
 	}
 
-	void HFContentLanguage::parse(std::string &msg, size_t &pos)
+	int HFContentLanguage::parse(std::string &msg, size_t &pos)
 	{
 		std::cout << __PRETTY_FUNCTION__ << '\n';
+		return PROCEDURE_OK;
 	}
 
 	void HFMIMEVersion::generate_values()
@@ -1553,7 +1600,7 @@ namespace EasySip
 		values_ += p.str();
 	}
 
-	void HFMIMEVersion::parse(std::string &msg, size_t &pos)
+	int HFMIMEVersion::parse(std::string &msg, size_t &pos)
 	{
 		bool run = true;
 		std::string buffer;
@@ -1594,6 +1641,7 @@ namespace EasySip
 				}
 			}
 		}
+		return PROCEDURE_OK;
 	}
 
 	void HeaderFields::init_allowed_fields()

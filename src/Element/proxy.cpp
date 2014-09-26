@@ -1,9 +1,9 @@
 /*
- * src/Method/proxy.cpp
+ * src/Element/proxy.cpp
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
-#include "Method/proxy.h"
+#include "Element/proxy.h"
 
 namespace EasySip
 {

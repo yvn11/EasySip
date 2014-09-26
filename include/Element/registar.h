@@ -1,21 +1,25 @@
 /*
- * include/Method/proxy.h
+ * include/Element/registar.h
  * 
  * Author: Zex <top_zlynch@yahoo.com>
  */
 #pragma once
 
-#include "method.h"
+#include "Element/element.h"
 
 namespace EasySip
 {
-	class Proxy : public Method
+	class Registar : public Element
 	{
+	protected:
+
+		std::set<Contact> uri_binds_;
+
 	public:
 
-		Proxy();
+		Registar();
 
-		~Proxy()
+		~Registar()
 		{
 		}
 
@@ -34,7 +38,7 @@ namespace EasySip
 //		virtual int prack_request();
 //
 //		virtual int on_invite_request(RequestMessage &in_msg);
-//		virtual int on_register_request(RequestMessage &in_msg);
+		virtual int on_register_request(RequestMessage &in_msg);
 //		virtual int on_bye_request(RequestMessage &in_msg);
 //		virtual int on_ack_request(RequestMessage &in_msg);
 //		virtual int on_cancel_request(RequestMessage &in_msg);
