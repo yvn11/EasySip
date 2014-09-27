@@ -25,7 +25,9 @@ namespace EasySip
 		bool run_;
 		Dialogs dialogs_;
 		std::queue<std::string> msgq_;
-		
+	
+		bool stateful_;
+	
 	private:
 
 		void init_allowed_methods();
@@ -45,6 +47,16 @@ namespace EasySip
 		bool run()
 		{
 			return run_;
+		}
+
+		bool stateful()
+		{
+			return stateful_;
+		}
+
+		void stateful(bool s)
+		{
+			stateful_ = s;
 		}
 
 		virtual int fetch_msg();

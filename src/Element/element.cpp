@@ -8,7 +8,7 @@
 namespace EasySip
 {
 	Element::Element()
-	: run_(true)
+	: run_(true), stateful_(false)
 	{
 		HeaderFields::init_allowed_fields();
 		init_allowed_methods();
@@ -128,7 +128,7 @@ namespace EasySip
 			return on_receive_resp(msg, ret);
 		}
 		//TODO throw exception ??
-		return -1;
+		return PROCEDURE_ERROR;
 	}
 
 	void Element::simple_response(const RespCode &rc, RequestMessage &in_msg)
@@ -187,6 +187,11 @@ namespace EasySip
 				send_msg(rep);
 				return MESSAGE_PROCESSED;
 			}
+		}
+
+		if (in_msg.proxy_authorization_.size())
+		{
+			//TODO: inspection
 		}
 
 		// NOTE: 96/269
@@ -390,6 +395,7 @@ namespace EasySip
 
 		send_msg(req);
 //		msgq_.push(req.Msg());
+		// TODO: 64*T1 start
 		return PROCEDURE_OK;
 	}
 
@@ -492,6 +498,15 @@ namespace EasySip
 
 	int Element::cancel_request()
 	{
+		CancelMessage req;
+		req.SipVersion(SIP_VERSION_2_0);
+
+		if (false /* TODO: 1xx resp not yet received */)
+		{	/* wait until 1xx resp received then send */
+			return PROCEDURE_ERROR;
+		}
+
+		send_msg(req);
 		return PROCEDURE_OK;
 	}
 
