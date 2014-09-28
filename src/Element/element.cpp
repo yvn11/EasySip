@@ -143,8 +143,18 @@ namespace EasySip
 	int Element::on_receive_req(std::string &msg, const int code)
 	{
 		int ret = PROCEDURE_OK;
-
 		RequestMessage in_msg(msg);
+
+		if (false /* TODO: pending a request on demand*/)
+		{
+			ResponseMessage rep(in_msg);
+			rep.SipVersion(SIP_VERSION_2_0);
+			rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);
+	
+			send_msg(rep);
+			return MESSAGE_PROCESSED;
+		}
+
 
 		if (SIP_RESPONSE_UNSUPPORTED_URI_SCHEME.code() == (ret = in_msg.parse()))
 		{
@@ -191,10 +201,8 @@ namespace EasySip
 
 		if (in_msg.proxy_authorization_.size())
 		{
-			//TODO: inspection
+			//TODO: inspection NOTE: 96/269
 		}
-
-		// NOTE: 96/269
 
 		if (METHOD_ID_INVITE != code)
 		{
@@ -364,9 +372,6 @@ namespace EasySip
 		req.SipVersion(SIP_VERSION_2_0);
 		req.RequestURI(udp_.Addr());
 
-		req.add_contact()
-		->add_uri("sip:zex@"+udp_.SelfAddr());
-
 		req.add_from()
 		->add_name("zex")
 		.add_uri("sip:zex@"+udp_.SelfAddr())
@@ -387,10 +392,20 @@ namespace EasySip
 		req.add_call_id()
 		->id("sundo@1311bili");
 
-		if (false /*is_sips(req.req_line_.request_uri_) */
-		|| false /*is_sips(req.req_line_.request_uri_) */)
+		if (false /*TODO: is_sips(req.req_line_.request_uri_) */)
 		{
-			req.add_contact()->add_uri("sips:utoc@ir.cx");
+			req.add_contact()
+			->add_uri("sips:zex@"+udp_.SelfAddr());
+		}
+		else
+		{
+			req.add_contact()
+			->add_uri("sip:zex@"+udp_.SelfAddr());
+		}
+
+		// TODO: check for re-invite
+		if (!dialogs_.empty())
+		{
 		}
 
 		send_msg(req);
@@ -924,14 +939,22 @@ namespace EasySip
 		ResponseMessage rep(in_msg);
 		rep.SipVersion(SIP_VERSION_2_0);
 
+		Dialog dialog(in_msg);
+
+		// check for a re-invite request
+		if (dialogs_[dialog.id()] && dialogs_[dialog.id()]->is_confirmed())
+		{
+			// TODO: update dialog
+		}
+
+
+		dialogs_.create_dialog(dialog);
+
 		rep.add_contact()
 		->add_uri("sip:ag@"+udp_.Addr());
 
 		if (in_msg.record_route_.size())
 			rep.record_route_ = in_msg.record_route_;
-
-		Dialog dialog(in_msg);
-		dialogs_.create_dialog(dialog);
 
 		std::cout << "----------\n" << *dialogs_.last() << "-----------\n";
 
@@ -941,10 +964,47 @@ namespace EasySip
 		dialogs_[dialog.id()]->still_ringing(true);
 
 		// TODO: timeout here
+
+		// dummy --------------->
 		int i = 7;
-		PROGRESS_WITH_FEEDBACK("ringing", i--, sleep(0.5))
+		PROGRESS_WITH_FEEDBACK("ringing", i--, sleep(0.5); send_msg(rep))
+		// dummy ---------------|
+
+		if (false /* TODO: need redirect */)
+		{
+			rep.ResponseCode(SIP_RESPONSE_MULTI_CHOICES);
+//			rep.ResponseCode(SIP_RESPONSE_MOVE_PERM);
+//			rep.ResponseCode(SIP_RESPONSE_MOVE_TEMP);
+			send_msg(rep);
+
+			// TODO: start redirect
+
+			return PROCEDURE_OK;
+		}
+
+		if (false /* TODO: get reject signal */)
+		{
+			if (false /* TODO: no one, really, will take this */)
+				rep.ResponseCode(SIP_RESPONSE_GLOBAL_BUSY);
+			else
+				rep.ResponseCode(SIP_RESPONSE_BUSY);
+
+			send_msg(rep);
+
+			return PROCEDURE_OK;
+		}
 
 		rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
+
+		rep.add_allow();
+
+		for (auto &it : allowed_methods_) 
+			rep.allow_.last()->add_value(it.name());
+
+
+		rep.add_supported()
+		->add_value("100rel");
+
 		send_msg(rep);
 
 		// TODO: timeout here for ACK
