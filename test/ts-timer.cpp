@@ -4,6 +4,7 @@
 #include <error.h>
 #include <iostream>
 #include <sys/time.h>
+
 //union sigval {          /* Data passed with notification */
 //           int     sival_int;         /* Integer value */
 //           void   *sival_ptr;         /* Pointer value */
@@ -79,7 +80,6 @@ void sigev_notify_cb(union sigval sv)
 //}
 //
 
-
 struct itimerval it_a;
 
 void sigalrm_cb(int signo)
@@ -93,7 +93,7 @@ int main()
 {
 	signal(SIGALRM, sigalrm_cb);
 
-//	struct itimerval it_a;
+	struct itimerval it_a;
 	struct timeval tm_cur, tm_next;
 
 	tm_cur.tv_sec = 1;
@@ -109,6 +109,7 @@ int main()
 	char c;
 	std::cin.get(c);
 //	while(1);
+	std::cout << "timercmp(&tm_cur, tm_next, ==) " << timercmp(&tm_cur, &tm_next, ==) << '\n';
 
 	return 0;
 }
@@ -127,45 +128,7 @@ int main()
 //		return false;
 //	}
 //
-//struct Timer
-//{
-//	struct itimerval it_a;
-//	bool (*cb_)();
-//
-//	void sigalrm_cb(int signo)
-//	{
-//		std::cout << signo << " signo received, time's up\n";
-//		std::cout << cb_() << '\n';
-//		std::cout << "settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
-//	}
-//
-//	//Timer(sighandler_t sigalrm_cb, int sec, int usrc = 0)
-//	Timer(bool (*cb)(), int sec, int usrc = 0)
-//	: cb_(cb)
-//	{
-//		signal(SIGALRM, (sighandler_t)&Timer::sigalrm_cb);
-//	
-//		struct timeval tm_cur, tm_next;
-//	
-//		tm_cur.tv_sec = 1;
-//		tm_cur.tv_usec = 0;
-//	
-//		tm_next.tv_sec = sec;
-//		tm_next.tv_usec = usrc;
-//	
-//		it_a.it_interval = tm_next;
-//		it_a.it_value = tm_cur;
-//	
-//		std::cout << "settimer: " << setitimer(ITIMER_REAL, &it_a, 0) << '\n';
-//	}
-//
-//	~Timer()
-//	{
-//		std::cout << "~Timer settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
-//		signal(SIGALRM, SIG_DFL);
-//	}
-//};
-//
+
 //int main()
 //{
 //	Timer t1(cb1, 3);

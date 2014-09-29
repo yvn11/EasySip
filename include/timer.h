@@ -5,24 +5,92 @@
  */
 #pragma once
 
+#include <sys/time.h>
+#include <signal.h>
 #include "except.h"
 
 namespace EasySip
 {
+	/*
+	 * void timeradd(struct timeval *a, struct timeval *b, struct timeval *res);
+	 * 
+	 * void timersub(struct timeval *a, struct timeval *b, struct timeval *res);
+	 * 
+	 * void timerclear(struct timeval *tvp);
+	 * 
+	 * int timerisset(struct timeval *tvp);
+	 * 
+	 * int timercmp(struct timeval *a, struct timeval *b, CMP);
+	 */
+	bool operator== (struct itimerval &a, struct itimerval &b)
+	{
+		return timercmp(&a.it_interval, &b.it_interval, ==)
+				&& timercmp(&a.it_value, &b.it_value, ==);
+	}
+
+	bool operator!= (struct itimerval &a, struct itimerval &b)
+	{
+		return !(timercmp(&a.it_interval, &b.it_interval, ==)
+				&& timercmp(&a.it_value, &b.it_value, ==));
+	}
+
+	std::ostream& operator<< (std::ostream &o, struct timeval &a)
+	{
+		return o << "[" << a.tv_sec << ", " << a.tv_usec << "]";
+	}
+
+	std::ostream& operator<< (std::ostream &o, struct itimerval &a)
+	{
+		return o << a.it_value << " : " << a.it_interval;
+	}
+
+	void sigalrm_cb(int signo)
+	{
+		std::cout << "signo: " << signo << "\n";//" settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
+		struct itimerval cur;
+
+		if (0 <= getitimer(ITIMER_REAL, &cur))
+				std::cout << cur << '\n';
+
+//		timerclear(&cur.it_value);
+//		timerclear(&cur.it_interval);
+//		std::cout << cur << '\n';
+
+		std::cout << "------------time's up-----------------\n";
+	}
+
 	class Timer
 	{
 		unsigned long value_; // in  ms
+		struct itimerval itv_;
 	
 	public:
 
-		Timer(Timer &tm)
-		:value_(tm.value())
-		{
-		}
+//		Timer(Timer &tm)
+//		:value_(tm.value())
+//		{
+//		}
 	
 		Timer(unsigned long value)
 		:value_(value)
 		{
+		}
+
+		Timer(time_t sec, suseconds_t usec = 0)
+		:value_(0)
+		{
+			signal(SIGALRM, sigalrm_cb);
+		
+			struct timeval tm_cur, tm_next;
+		
+			tm_cur.tv_sec = 1;
+			tm_cur.tv_usec = 0;
+		
+			tm_next.tv_sec = sec;
+			tm_next.tv_usec = usec;
+		
+			itv_.it_interval = tm_next;
+			itv_.it_value = tm_cur;
 		}
 	
 		Timer(std::string value)
@@ -39,45 +107,54 @@ namespace EasySip
 			value_ = time_string_to_ulong(value);
 		}
 	
-		std::string value()
+//		std::string value()
+//		{
+//			return timer_ulong_to_string(value_);
+//		}
+		unsigned long value()
 		{
-			return timer_ulong_to_string(value_);
+			return value_;
+		}
+
+		void value(unsigned long value)
+		{
+			value_ = value;
 		}
 	
-		void Start()
+		void start()
 		{
-			// TODO: start timer
-			FD_ZERO(&r_fds);
-			FD_SET(sk_, &r_fds);
-			tv.tv_sec = 3;
-			tv.tv_usec = 10;
+			std::cout << "settimer: " << setitimer(ITIMER_REAL, &itv_, 0) << '\n';
+//			struct itimerval cur;
 
-			switch (select(sk_+1, &r_fds, 0, 0, &tv))
-			{
-			}
+//			while ((0 <= getitimer(ITIMER_REAL, &cur)) && itv_ != cur)
+//				std::cout << cur << '\n';
+//				std::cout << itv_ << '\n';
+//				std::cout << cur << '\n';
+//			std::cout << "------------time's up-----------------\n";
 		}
 	
 		static unsigned long time_string_to_ulong(std::string value)
 		{
 			// TODO: string value -> long value
-			
+			return 0;
 		}
 	
 		static unsigned long time_ulong_to_string(unsigned long value)
 		{
 			// TODO: string value <- long value
+			return 0;
 		}
 	
 		unsigned long operator* (unsigned long val)
 		{
-			return (time_string_to_ulong(value_)*val);
+			return (value_*val);
 		}
 		// TODO	
 		//	Timer operator()()
 	};
 	
 	// built-in timers
-	class T1_Rtt : public Timer
+	class T1_RTT : public Timer
 	{
 	public:
 
