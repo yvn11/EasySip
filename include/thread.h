@@ -40,19 +40,19 @@ namespace EasySip
         ThrAttr()
         {
             if (0 > pthread_attr_init(&attr_))
-                std::cout << "pthread_attr_init: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_init: " << strerror(errno) << '\n';
         }
 
         ~ThrAttr()
         {
             if (0 > pthread_attr_destroy(&attr_))
-                std::cout << "pthread_attr_destroy: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_destroy: " << strerror(errno) << '\n';
         }
 
         cpu_set_t& affinity_np()
         {
             if (0 > pthread_attr_getaffinity_np(&attr_, sizeof(cpu_set_t), &cpuset_))
-                std::cout << "pthread_attr_getaffinity_np: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getaffinity_np: " << strerror(errno) << '\n';
 
             return cpuset_;
         }
@@ -62,7 +62,7 @@ namespace EasySip
             cpuset_ = cpuset;
 
             if (0 > pthread_attr_setaffinity_np(&attr_, sizeof(cpu_set_t), &cpuset_))
-                std::cout << "pthread_attr_setaffinity_np: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setaffinity_np: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -72,7 +72,7 @@ namespace EasySip
             int detachstate;
 
             if (0 > pthread_attr_getdetachstate(&attr_, &detachstate))
-                std::cout << "pthread_attr_getdetachstate: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getdetachstate: " << strerror(errno) << '\n';
 
             return detachstate;
         }
@@ -80,7 +80,7 @@ namespace EasySip
         ThrAttr& detachstate(int detachstate)
         {
             if (0 > pthread_attr_setdetachstate(&attr_, detachstate))
-                std::cout << "pthread_attr_setdetachstate: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setdetachstate: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -90,7 +90,7 @@ namespace EasySip
             size_t guardsize;
 
             if (0 > pthread_attr_getguardsize(&attr_, &guardsize))
-                std::cout << "pthread_attr_getguardsize: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getguardsize: " << strerror(errno) << '\n';
 
             return guardsize;
         }
@@ -98,7 +98,7 @@ namespace EasySip
         ThrAttr& guardsize(size_t guardsize)
         {
             if (0 > pthread_attr_setguardsize(&attr_, guardsize))
-                std::cout << "pthread_attr_setguardsize: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setguardsize: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -108,7 +108,7 @@ namespace EasySip
             int inheritsched;
 
             if (0 > pthread_attr_getinheritsched(&attr_, &inheritsched))
-                std::cout << "pthread_attr_getinheritsched: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getinheritsched: " << strerror(errno) << '\n';
 
             return inheritsched;
         }
@@ -116,7 +116,7 @@ namespace EasySip
         ThrAttr& inheritsched(int inheritsched)
         {
             if (0 > pthread_attr_setinheritsched(&attr_, inheritsched))
-                std::cout << "pthread_attr_setinheritsched: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setinheritsched: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -124,7 +124,7 @@ namespace EasySip
         SchedParam& schedparam()
         {
             if (0 > pthread_attr_getschedparam(&attr_, &schedparam_.param_))
-                std::cout << "pthread_attr_getschedparam: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getschedparam: " << strerror(errno) << '\n';
 
             return schedparam_;
         }
@@ -135,7 +135,7 @@ namespace EasySip
 			schedparam_.param_.sched_priority = priority;
 
             if (0 > pthread_attr_setschedparam(&attr_, &schedparam_.param_))
-                std::cout << "pthread_attr_setschedparam: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setschedparam: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -145,7 +145,7 @@ namespace EasySip
             int schedpolicy;
 
             if (0 > pthread_attr_getschedpolicy(&attr_, &schedpolicy))
-                std::cout << "pthread_attr_getschedpolicy: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getschedpolicy: " << strerror(errno) << '\n';
 
             return schedpolicy;
         }
@@ -153,7 +153,7 @@ namespace EasySip
         ThrAttr& schedpolicy(int schedpolicy)
         {
             if (0 > pthread_attr_setschedpolicy(&attr_, schedpolicy))
-                std::cout << "pthread_attr_setschedpolicy: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setschedpolicy: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -163,7 +163,7 @@ namespace EasySip
             int scope;
 
             if (0 > pthread_attr_getscope(&attr_, &scope))
-                std::cout << "pthread_attr_getscope: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getscope: " << strerror(errno) << '\n';
 
             return scope;
         }
@@ -171,7 +171,7 @@ namespace EasySip
         ThrAttr& scope(int scope)
         {
             if (0 > pthread_attr_setscope(&attr_, scope))
-                std::cout << "pthread_attr_setscope: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setscope: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -179,7 +179,7 @@ namespace EasySip
         Stack& stack()
         {
             if (0 > pthread_attr_getstack(&attr_, &stack_.stackaddr_, &stack_.stacksize_))
-                std::cout << "pthread_attr_getstack: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getstack: " << strerror(errno) << '\n';
 
             return stack_;
         }
@@ -190,7 +190,7 @@ namespace EasySip
             stack_.stacksize_ = stacksize;
 
             if (0 > pthread_attr_setstack(&attr_, stack_.stackaddr_, stack_.stacksize_))
-                std::cout << "pthread_attr_setstack: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setstack: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -198,7 +198,7 @@ namespace EasySip
 //        void* stackaddr()
 //        {
 //            if (0 > pthread_attr_getstackaddr(&attr_, &stack_.stackaddr_))
-//                std::cout << "pthread_attr_getstackaddr: " << strerror(errno) << '\n';
+//                std::cerr << "pthread_attr_getstackaddr: " << strerror(errno) << '\n';
 //
 //            return stack_.stackaddr_;
 //        }
@@ -208,7 +208,7 @@ namespace EasySip
 //            stack_.stackaddr_ = &stackaddr;
 //
 //            if (0 > pthread_attr_setstackaddr(&attr_, stack_.stackaddr_))
-//                std::cout << "pthread_attr_setstackaddr: " << strerror(errno) << '\n';
+//                std::cerr << "pthread_attr_setstackaddr: " << strerror(errno) << '\n';
 //
 //            return *this;
 //        }
@@ -217,7 +217,7 @@ namespace EasySip
         size_t stacksize()
         {
             if (0 > pthread_attr_getstacksize(&attr_, &stack_.stacksize_))
-                std::cout << "pthread_attr_getstacksize: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_getstacksize: " << strerror(errno) << '\n';
 
             return stack_.stacksize_;
         }
@@ -227,7 +227,7 @@ namespace EasySip
             stack_.stacksize_ = stacksize;
 
             if (0 > pthread_attr_setstacksize(&attr_, stack_.stacksize_))
-                std::cout << "pthread_attr_setstacksize: " << strerror(errno) << '\n';
+                std::cerr << "pthread_attr_setstacksize: " << strerror(errno) << '\n';
 
             return *this;
         }
@@ -256,13 +256,13 @@ namespace EasySip
 		ThrCondAttr()
 		{
 			if (0 > pthread_condattr_init(&cattr_))
-                std::cout << "pthread_condattr_init: " << strerror(errno) << '\n';
+                std::cerr << "pthread_condattr_init: " << strerror(errno) << '\n';
 		}
 
 		~ThrCondAttr()
 		{
 			if (0 > pthread_condattr_destroy(&cattr_))
-                std::cout << "pthread_condattr_destroy: " << strerror(errno) << '\n';
+                std::cerr << "pthread_condattr_destroy: " << strerror(errno) << '\n';
 		}
 
 		pthread_condattr_t& Attr()
@@ -306,7 +306,7 @@ namespace EasySip
         Thread()
 		{
 //			if (0 > pthread_create(&id_, &attr_, routine_, arg_))
-//              std::cout << "pthread_create: " << strerror(errno) << '\n';
+//              std::cerr << "pthread_create: " << strerror(errno) << '\n';
 		}
 
         ~Thread()
@@ -331,6 +331,18 @@ namespace EasySip
 			return *this;
 		}
 
+		Thread& concurrency(int c)
+		{
+			if (0 > pthread_setconcurrency(c))
+                std::cerr << "pthread_setconcurrency: " << strerror(errno) << '\n';
+			return *this;
+		}
+
+		int concurrency()
+		{
+			return pthread_getconcurrency();
+		}
+
 		friend bool operator== (Thread &a, Thread &b)
 		{
 			return pthread_equal(a.id(), b.id());
@@ -339,7 +351,7 @@ namespace EasySip
 		Thread& cancel()
 		{
 			if (0 > pthread_cancel(id_))
-                std::cout << "pthread_cancel: " << strerror(errno) << '\n';
+                std::cerr << "pthread_cancel: " << strerror(errno) << '\n';
 			return *this;
 		}
 
