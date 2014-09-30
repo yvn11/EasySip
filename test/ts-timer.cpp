@@ -80,6 +80,21 @@ void sigev_notify_cb(union sigval sv)
 //}
 //
 
+//struct itimerval {
+//               struct timeval it_interval; /* next value */
+//               struct timeval it_value;    /* current value */
+//           };
+//
+//           struct timeval {
+//               time_t      tv_sec;         /* seconds */
+//               suseconds_t tv_usec;        /* microseconds */
+//           };
+//	bool cb1()
+//	{
+//		std::cout << "cb1 signo received, time's up\n";
+//		return false;
+//	}
+//
 struct itimerval it_a;
 
 void sigalrm_cb(int signo)
@@ -105,7 +120,7 @@ int main()
 	it_a.it_interval = tm_next;
 	it_a.it_value = tm_cur;
 
-	std::cout << "settimer: " << setitimer(ITIMER_REAL, &it_a, 0) << '\n';
+//	std::cout << "settimer: " << setitimer(ITIMER_REAL, &it_a, 0) << '\n';
 	char c;
 	std::cin.get(c);
 //	while(1);
@@ -113,28 +128,4 @@ int main()
 
 	return 0;
 }
-//struct itimerval {
-//               struct timeval it_interval; /* next value */
-//               struct timeval it_value;    /* current value */
-//           };
-//
-//           struct timeval {
-//               time_t      tv_sec;         /* seconds */
-//               suseconds_t tv_usec;        /* microseconds */
-//           };
-//	bool cb1()
-//	{
-//		std::cout << "cb1 signo received, time's up\n";
-//		return false;
-//	}
-//
 
-//int main()
-//{
-//	Timer t1(cb1, 3);
-//
-//	char c;
-//	std::cin.get(c);
-//
-//	return 0;
-//}

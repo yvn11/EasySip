@@ -14,7 +14,6 @@
 #include "uri.h"
 #include "response_code.h"
 #include "request_message.h"
-#include <iostream>
 
 namespace EasySip
 {

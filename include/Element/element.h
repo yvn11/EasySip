@@ -14,6 +14,15 @@
 
 namespace EasySip
 {
+	enum
+	{
+		T_FSM_CALLING,
+		T_FSM_TRYING,
+		T_FSM_PROCEEDING,
+		T_FSM_COMPLETED,
+		T_FSM_TERMINATED,
+	};
+
 	class Element
 	{
 	protected:

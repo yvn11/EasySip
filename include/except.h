@@ -5,6 +5,7 @@
  */
 #pragma once
 
+#include <string.h>
 #include <stdexcept>
 #include <iostream>
 

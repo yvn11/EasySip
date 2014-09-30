@@ -8,7 +8,6 @@
 #include <memory>
 #include <locale>
 #include "parameter.h"
-#include <iostream>
 
 namespace EasySip
 {

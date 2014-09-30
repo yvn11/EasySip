@@ -124,9 +124,9 @@ namespace EasySip
 
 	enum
 	{
-		PROCEDURE_OK,
-		MESSAGE_PROCESSED,
-		PROCEDURE_ERROR,
+		PROCEDURE_OK,		// everything's normal
+		MESSAGE_PROCESSED,	// message issue, but handled
+		PROCEDURE_ERROR,	// something wrong, unhandled
 	};
 
 	#define PROGRESS_WITH_FEEDBACK(opr, cond, p)\

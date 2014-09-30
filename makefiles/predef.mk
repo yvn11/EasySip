@@ -17,7 +17,7 @@ SOURCES			= $(shell find $(SRCS) -iregex ".*\.c\(c\|pp\|++\|xx\)")
 CFLAGS			+= -Wall -O0 -g --std=c++11 -fPIC -Wl,--hash-style=sysv -MP -MMD #-fstats#--verbose
 LDFLAGS			+=
 MACROS			+=
-LIBS			+= pthread
+LIBS			+= pthread rt
 
 SHARED_OBJ		= $(BUILD)/lib$(PROJECT_ALIAS).so
 OBJS			= $(patsubst %.cpp, $(BUILD)/%.o, $(SOURCES))

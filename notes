@@ -1,0 +1,9 @@
+A CANCEL request SHOULD NOT be sent to cancel a request other than
+INVITE.
+
+If the request being cancelled contains a Route header field, the
+CANCEL request MUST include that Route header field’s values.
+
+
+The CANCEL request MUST NOT contain any Require or Proxy-Require
+header fields.
