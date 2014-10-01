@@ -49,6 +49,11 @@ namespace EasySip
                 std::cerr << "pthread_attr_destroy: " << strerror(errno) << '\n';
         }
 
+		pthread_attr_t& Attr()
+		{
+			return attr_;
+		}
+
         cpu_set_t& affinity_np()
         {
             if (0 > pthread_attr_getaffinity_np(&attr_, sizeof(cpu_set_t), &cpuset_))
@@ -298,15 +303,15 @@ namespace EasySip
 
         pthread_t id_;
         ThrAttr attr_;
-        void* (*routine_) (void*);
+        void* (*loop_) (void*);
         void *arg_;
 
     public:
 
         Thread()
-		{
-//			if (0 > pthread_create(&id_, &attr_, routine_, arg_))
-//              std::cerr << "pthread_create: " << strerror(errno) << '\n';
+		{	// TODO
+			if (0 > pthread_create(&id_, &attr_.Attr(), loop_, arg_))
+              std::cerr << "pthread_create: " << strerror(errno) << '\n';
 		}
 
         ~Thread()
@@ -357,6 +362,11 @@ namespace EasySip
 
 		int join()
 		{
+			void *ret;
+
+			if (0 > pthread_join(id_, &ret))
+                std::cerr << "pthread_join: " << strerror(errno) << '\n';
+			std::cout << (char*)ret << '\n';	
 			return 0;
 		}
     };
