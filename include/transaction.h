@@ -90,6 +90,8 @@ namespace EasySip
 			{
 				case T_FSM_CALLING:
 				{
+					// setup t1
+					// send message
 					break;
 				}
 				case T_FSM_TRYING:
