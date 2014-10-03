@@ -10,35 +10,35 @@
 
 namespace EasySip
 {
-	class Buffer
-	{
-	protected:
+    class Buffer
+    {
+    protected:
 
-		char *data_;
-		size_t len_;
+        char *data_;
+        size_t len_;
 
-	public:
-		Buffer(size_t len) : len_(len)
-		{
-			data_ = new char[len_];
-			memset(data_, 0, len_);
-		}
+    public:
+        Buffer(size_t len) : len_(len)
+        {
+            data_ = new char[len_];
+            memset(data_, 0, len_);
+        }
 
-		~Buffer()
-		{
-			len_ = 0;
-			if (data_) delete data_;
-			data_ = 0;
-		}
+        ~Buffer()
+        {
+            len_ = 0;
+            if (data_) delete data_;
+            data_ = 0;
+        }
 
-		char* data()
-		{
-			return data_;
-		}
+        char* data()
+        {
+            return data_;
+        }
 
-		size_t len()
-		{
-			return len_;
-		}
-	};
+        size_t len()
+        {
+            return len_;
+        }
+    };
 } // namespace EasiSip

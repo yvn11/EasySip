@@ -11,23 +11,23 @@
 
 namespace EasySip
 {
-	class Except : std::exception
-	{
-	protected:
+    class Except : std::exception
+    {
+    protected:
 
-		std::string msg_;
+        std::string msg_;
 
-	public:
+    public:
 
-		Except()
-		{
-		}
+        Except()
+        {
+        }
 
-		Except(std::string msg)
-		: msg_(msg)
-		{
-		}
+        Except(std::string msg)
+        : msg_(msg)
+        {
+        }
 
-		virtual const char* what();
-	};
+        virtual const char* what();
+    };
 } // namespace EasySip

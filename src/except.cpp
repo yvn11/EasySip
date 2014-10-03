@@ -7,8 +7,8 @@
 
 namespace EasySip
 {
-	const char* Except::what()
-	{
-		return msg_.c_str();
-	}
+    const char* Except::what()
+    {
+        return msg_.c_str();
+    }
 } // namespace EasySip

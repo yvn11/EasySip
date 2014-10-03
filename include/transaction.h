@@ -10,167 +10,112 @@
 
 #include "utils.h"
 #include "except.h"
+#include "timer.h"
+#include "Element/element.h"
 
 namespace EasySip
 {
-	enum
-	{
-		T_FSM_CALLING,
-		T_FSM_TRYING,
-		T_FSM_PROCEEDING,
-		T_FSM_COMPLETED,
-		T_FSM_CONFIRMED,
-		T_FSM_TERMINATED,
-	};
+    enum
+    {
+        T_FSM_CALLING,
+        T_FSM_TRYING,
+        T_FSM_PROCEEDING,
+        T_FSM_COMPLETED,
+        T_FSM_CONFIRMED,
+        T_FSM_TERMINATED,
+    };
 
 
-	class Fsm
-	{
-	protected:
-		int state_;
-		bool run_;
+    class Fsm
+    {
+    protected:
 
-	public:
-		Fsm(int s, bool r = true) : state_(s), run_(r)
-		{
-			setup();
-			main_loop();
-		}
+//        MethodMapList allowed_methods_;
+//        RespCodeList allowed_responses_;
+//        SocketIp4UDP udp_;
+        Element element_;
+        int state_;
+        bool run_;
 
-		~Fsm()
-		{
-		}
+    public:
+        Fsm(int s, bool r = true) : state_(s), run_(r)
+        {
+            setup();
+            main_loop();
+        }
 
-		int state()
-		{
-			return state;
-		}
+        ~Fsm()
+        {
+        }
 
-		void state(int s)
-		{
-			state_ = s;
-		}
+        void run(bool r)
+        {
+            run_ = r;
+        }
 
-		virtual Fsm& setup()
-		{
-			return *this;
-		}
+        bool run()
+        {
+            return run_;
+        }
 
-		virtual int loop()
-		{
-			return (run_ = false);
-		}
+        int state()
+        {
+            return state_;
+        }
 
-		int main_loop()
-		{
-			while (run_)
-			{
-				if (loop() == PROCEDURE_ERROR)
-					return PROCEDURE_ERROR;
-			}
+        void state(int s)
+        {
+            state_ = s;
+        }
 
-			return PROCEDURE_OK,
-		}
-	};
+        virtual Fsm& setup()
+        {
+            return *this;
+        }
 
-	class InviteTransaction : Fsm
-	{
-	public:
+        virtual int loop()
+        {
+            return (run_ = false);
+        }
 
-		InviteTransaction()
-		: Fsm(T_FSM_CALLING)
-		{
-		}
+        int main_loop()
+        {
+            while (run_)
+            {
+                if (loop() == PROCEDURE_ERROR)
+                    return PROCEDURE_ERROR;
+            }
 
-	protected:
+            return PROCEDURE_OK;
+        }
+    };
 
-		virtual int loop()
-		{
-			switch (state_)
-			{
-				case T_FSM_CALLING:
-				{
-					// setup t1
-					// send message
-					break;
-				}
-				case T_FSM_TRYING:
-				{
-					break;
-				}
-				case T_FSM_PROCEEDING:
-				{
-					break;
-				}
-				case T_FSM_COMPLETED:
-				{
-					break;
-				}
-				case T_FSM_CONFIRMED:
-				{
-					break;
-				}
-				case T_FSM_TERMINATED:
-				{
-					break;
-				}
-				default:
-				{
-					return PROCEDURE_ERROR;
-				}
-			}
+    class InviteTransaction : Fsm
+    {
+    public:
 
-			return PROCEDURE_OK,
-		}
-	};
+        InviteTransaction()
+        : Fsm(T_FSM_CALLING)
+        {
+        }
 
-	class NonInviteTransaction : Fsm
-	{
-	public:
+    protected:
 
-		InviteTransaction()
-		: Fsm(T_FSM_TRYING)
-		{
-		}
+        virtual int loop();
+    };
 
-	protected:
+    class NonInviteTransaction : Fsm
+    {
+    public:
 
-		virtual int loop()
-		{
-			switch (state_)
-			{
-				case T_FSM_CALLING:
-				{
-					break;
-				}
-				case T_FSM_TRYING:
-				{
-					break;
-				}
-				case T_FSM_PROCEEDING:
-				{
-					break;
-				}
-				case T_FSM_COMPLETED:
-				{
-					break;
-				}
-				case T_FSM_CONFIRMED:
-				{
-					break;
-				}
-				case T_FSM_TERMINATED:
-				{
-					break;
-				}
-				default:
-				{
-					return PROCEDURE_ERROR;
-				}
-			}
+        NonInviteTransaction()
+        : Fsm(T_FSM_TRYING)
+        {
+        }
 
-			return PROCEDURE_OK,
-		}
-	};
+    protected:
+
+        virtual int loop();
+    };
 }; // namespace EasySip
 

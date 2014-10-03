@@ -23,17 +23,17 @@ namespace EasySip
             size_t stacksize_;
         };
 
-		struct SchedParam
-		{
-			int policy_;
-			struct sched_param param_;
-		};
+        struct SchedParam
+        {
+            int policy_;
+            struct sched_param param_;
+        };
 
     private:
         pthread_attr_t attr_;
         cpu_set_t cpuset_;
         Stack stack_;
-		SchedParam schedparam_;
+        SchedParam schedparam_;
 
     public:
 
@@ -49,10 +49,10 @@ namespace EasySip
                 std::cerr << "pthread_attr_destroy: " << strerror(errno) << '\n';
         }
 
-		pthread_attr_t& Attr()
-		{
-			return attr_;
-		}
+        pthread_attr_t& Attr()
+        {
+            return attr_;
+        }
 
         cpu_set_t& affinity_np()
         {
@@ -136,8 +136,8 @@ namespace EasySip
 
         ThrAttr& schedparam(int priority)
         {
-//			schedparam_.policy_ = policy;
-			schedparam_.param_.sched_priority = priority;
+//            schedparam_.policy_ = policy;
+            schedparam_.param_.sched_priority = priority;
 
             if (0 > pthread_attr_setschedparam(&attr_, &schedparam_.param_))
                 std::cerr << "pthread_attr_setschedparam: " << strerror(errno) << '\n';
@@ -252,50 +252,51 @@ namespace EasySip
 // Xinit               pthread_cleanup_pop_restore_np  pthread_kill                    pthread_tryjoin_np
 // Xsetaffinity_np     pthread_cleanup_push            pthread_kill_other_threads_np   pthread_yield
 
-	class ThrCondAttr
-	{
-	protected:
-		pthread_condattr_t cattr_;
+    class ThrCondAttr
+    {
+    protected:
+        pthread_condattr_t cattr_;
 
-	public:
-		ThrCondAttr()
-		{
-			if (0 > pthread_condattr_init(&cattr_))
+    public:
+        ThrCondAttr()
+        {
+            if (0 > pthread_condattr_init(&cattr_))
                 std::cerr << "pthread_condattr_init: " << strerror(errno) << '\n';
-		}
+        }
 
-		~ThrCondAttr()
-		{
-			if (0 > pthread_condattr_destroy(&cattr_))
+        ~ThrCondAttr()
+        {
+            if (0 > pthread_condattr_destroy(&cattr_))
                 std::cerr << "pthread_condattr_destroy: " << strerror(errno) << '\n';
-		}
+        }
 
-		pthread_condattr_t& Attr()
-		{
-			return cattr_;
-		}
-	};
+        pthread_condattr_t& Attr()
+        {
+            return cattr_;
+        }
+    };
 
-	class Mutex
-	{
-		pthread_mutex_t mutex_;
-	};
+    class Mutex
+    {
+        pthread_mutex_t mutex_;
+    };
 
-	class ThrCond
-	{
-		ThrCondAttr attr_;
-		pthread_cond_t cond_;
-		Mutex mutex_;
+    class ThrCond
+    {
+        ThrCondAttr attr_;
+        pthread_cond_t cond_;
+        Mutex mutex_;
 
-		ThrCond()
-		{
-			
-		}
+        ThrCond()
+        {
+            
+        }
 
-		~ThrCond()
-		{
-		}
-	};
+        ~ThrCond()
+        {
+        }
+    };
+
 
     class Thread
     {
@@ -308,68 +309,71 @@ namespace EasySip
 
     public:
 
-        Thread()
-		{	// TODO
-			if (0 > pthread_create(&id_, &attr_.Attr(), loop_, arg_))
+        Thread(void* (*loop) (void*), void* arg = 0)
+        : loop_(loop), arg_(arg)
+        {
+            if (0 > pthread_create(&id_, &attr_.Attr(), loop_, arg_))
               std::cerr << "pthread_create: " << strerror(errno) << '\n';
-		}
+        }
 
         ~Thread()
-		{
-		}
+        {
+        }
 
-		pthread_t id()
-		{
-			return id_;
-		}
+        pthread_t id()
+        {
+            return id_;
+        }
 
-		Thread& add_cleanup(void (*routine)(void *), void *arg, int n)
-		{
-//			pthread_cleanup_push(routine, arg)
-//			pthread_cleanup_pop(n)
-			return *this;
-		}
+//        Thread& add_cleanup(void (*routine)(void *), void *arg, int n)
+//        {
+//            pthread_cleanup_push(routine, arg)
+//            pthread_cleanup_pop(n)
+//            return *this;
+//        }
         
-		Thread& schedprio(int prio)
-		{
-			pthread_setschedprio(id_, prio);
-			return *this;
-		}
+        Thread& schedprio(int prio)
+        {
+            pthread_setschedprio(id_, prio);
+            return *this;
+        }
 
-		Thread& concurrency(int c)
-		{
-			if (0 > pthread_setconcurrency(c))
+        Thread& concurrency(int c)
+        {
+            if (0 > pthread_setconcurrency(c))
                 std::cerr << "pthread_setconcurrency: " << strerror(errno) << '\n';
-			return *this;
-		}
+            return *this;
+        }
 
-		int concurrency()
-		{
-			return pthread_getconcurrency();
-		}
+        int concurrency()
+        {
+            return pthread_getconcurrency();
+        }
 
-		friend bool operator== (Thread &a, Thread &b)
-		{
-			return pthread_equal(a.id(), b.id());
-		}
+        friend bool operator== (Thread &a, Thread &b)
+        {
+            return pthread_equal(a.id(), b.id());
+        }
 
-		Thread& cancel()
-		{
-			if (0 > pthread_cancel(id_))
+        Thread& cancel()
+        {
+            if (0 > pthread_cancel(id_))
                 std::cerr << "pthread_cancel: " << strerror(errno) << '\n';
-			return *this;
-		}
+            return *this;
+        }
 
-		int join()
-		{
-			void *ret;
+        int join()
+        {
+            void *ret;
 
-			if (0 > pthread_join(id_, &ret))
+            if (0 > pthread_join(id_, &ret))
                 std::cerr << "pthread_join: " << strerror(errno) << '\n';
-			std::cout << (char*)ret << '\n';	
-			return 0;
-		}
+            std::cout << (char*)ret << '\n';    
+            return 0;
+        }
     };
+
+    #define Thread(f, a) Thread((void* (*) (void*))f, (void*)a)
 
 } // namespace EasySip
 

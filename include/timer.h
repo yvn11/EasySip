@@ -70,13 +70,13 @@ namespace EasySip
         std::cout << "++++++++++++time's up+++++++++++++++++\n";
     }
 
-	void sigev_notify_cb(union sigval sigev_value)
-	{
+    void sigev_notify_cb(union sigval sigev_value)
+    {
         std::cout << "------------time's up-----------------\n";
-		std::cout << "sigval.sival_int: [" << sigev_value.sival_int << "]\n";
-//		std::cout << "timer id: [" << *(time_t*)data << "]\n";
+        std::cout << "sigval.sival_int: [" << sigev_value.sival_int << "]\n";
+//        std::cout << "timer id: [" << *(time_t*)data << "]\n";
         std::cout << "++++++++++++time's up+++++++++++++++++\n";
-	}
+    }
 
     class Timer
     {
@@ -85,32 +85,45 @@ namespace EasySip
     
     public:
 
-//        Timer(Timer &tm)
-//        :value_(tm.value())
-//        {
-//        }
-    
-        Timer(unsigned long value)
+        typedef Timer Base;
+
+        Timer(unsigned long value)//unsigned long value /* ms */)
         :value_(value)
         {
+            signal(SIGALRM, sigalrm_cb);
+
+            time_t sec = value_/1000;
+            suseconds_t usec = (value_ % 1000) * 1000;
+
+               itimev(sec, usec); 
         }
 
         Timer(time_t sec, suseconds_t usec = 0)
-        :value_(0)
+        :value_(sec*1000 + usec/1000)
         {
             signal(SIGALRM, sigalrm_cb);
-            signal(SIGVTALRM, sigalrm_cb);
-            signal(SIGPROF, sigalrm_cb);
-        
+//            signal(SIGVTALRM, sigalrm_cb);
+//            signal(SIGPROF, sigalrm_cb);
+
+               itimev(sec, usec); 
+        }
+   
+           Timer& itimev(time_t sec, suseconds_t usec = 0)
+        {
             itv_.it_interval.tv_sec = sec;
             itv_.it_interval.tv_usec = usec;
             itv_.it_value.tv_sec = sec;
             itv_.it_value.tv_usec = usec;
+
+            return *this;
         }
-    
+
         Timer(std::string value)
         {
             value_ = time_string_to_ulong(value);
+            time_t sec = value_/1000;
+            suseconds_t usec = (value_ % 1000) * 1000;
+               itimev(sec, usec); 
         }
     
         ~Timer()
@@ -157,49 +170,50 @@ namespace EasySip
 //       int timer_settime(timer_t timerid, int flags, const struct itimerspec *new_value, struct itimerspec * old_value);
 //       int timer_gettime(timer_t timerid, struct itimerspec *curr_value);
 
-        void start()
+        virtual void start()
         {
 //--------------------------------------------------------------------------------------
-//            int t_id = ITIMER_REAL;//VIRTUAL;
-//
-//            std::cout << "settimer: " << setitimer(t_id, &itv_, 0) << '\n';
-//            struct itimerval cur;
-//
-//            getitimer(t_id, &cur);
-//
-//            std::cout << itv_ << "|" << cur << '\n';
+            int t_id = ITIMER_REAL;//VIRTUAL;
+
+            std::cout << "settimer: " << setitimer(t_id, &itv_, 0) << '\n';
+            struct itimerval cur;
+
+            getitimer(t_id, &cur);
+
+            std::cout << itv_ << "|" << cur << '\n';
 //--------------------------------------------------------------------------------------
-            int ret;
-			timer_t tm_id;
-
-			struct sigevent sevp;
-			sevp.sigev_notify = SIGEV_THREAD;
-			sevp.sigev_notify_function = sigev_notify_cb;
-            sevp.sigev_value.sival_ptr = &tm_id;
-
-            if (0 > (ret = timer_create(CLOCK_REALTIME, &sevp, &tm_id)))
-				std::cout << "timer_create: " << ret << ' ' << strerror(errno) << '\n';
-
-		   std::cout << "tm_id: [" << tm_id << "]\n";
-
-           struct itimerspec itspec;
-
-           itspec.it_value.tv_sec = 3;
-           itspec.it_value.tv_nsec = 0;
-           itspec.it_interval.tv_sec = 3;
-           itspec.it_interval.tv_nsec = 0;
-
-           if (0 > (ret = timer_settime(tm_id, 0, &itspec, 0)))
-		      std::cout << "timer_settime: " << ret << ' ' << strerror(errno) << '\n';
-
-           std::cout << "itspec: [" << itspec << "]\n";
-
-           struct itimerspec itscur;
-
-           if (0 > (ret = timer_gettime(tm_id, &itscur)))
-		      std::cout << "timer_gettime: " << ret << ' ' << strerror(errno) << '\n';
-			
-           std::cout << "itscur: [" << itscur << "]\n";
+//            int ret;
+//            timer_t tm_id;
+//
+//            struct sigevent sevp;
+//            sevp.sigev_notify = SIGEV_THREAD;
+//            sevp.sigev_notify_function = sigev_notify_cb;
+//            sevp.sigev_value.sival_ptr = &tm_id;
+//
+//            if (0 > (ret = timer_create(CLOCK_REALTIME, &sevp, &tm_id)))
+//                std::cout << "timer_create: " << ret << ' ' << strerror(errno) << '\n';
+//
+//           std::cout << "tm_id: [" << tm_id << "]\n";
+//
+//           struct itimerspec itspec;
+//
+//           itspec.it_value.tv_sec = 3;
+//           itspec.it_value.tv_nsec = 0;
+//           itspec.it_interval.tv_sec = 3;
+//           itspec.it_interval.tv_nsec = 0;
+//
+//           if (0 > (ret = timer_settime(tm_id, 0, &itspec, 0)))
+//              std::cout << "timer_settime: " << ret << ' ' << strerror(errno) << '\n';
+//
+//           std::cout << "itspec: [" << itspec << "]\n";
+//
+//           struct itimerspec itscur;
+//
+//           if (0 > (ret = timer_gettime(tm_id, &itscur)))
+//              std::cout << "timer_gettime: " << ret << ' ' << strerror(errno) << '\n';
+//            
+//           std::cout << "itscur: [" << itscur << "]\n";
+//--------------------------------------------------------------------------------------
         }
     
         static unsigned long time_string_to_ulong(std::string value)
@@ -219,103 +233,62 @@ namespace EasySip
             return (value_*val);
         }
     };
-    
+   
     // built-in timers
-    class T1_RTT : public Timer
+    class T1 : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        T1_RTT()
-        : Timer("500ms")
-        {
-        }
-    
-        ~T1_RTT()
+        T1() : Timer("500")//ms")
         {
         }
     };
     
-    class T2_MAX_RETRAN_INTV : public Timer
+    class T2 : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        T2_MAX_RETRAN_INTV()
-        : Timer("4s")
-        {
-        }
-    
-        ~T2_MAX_RETRAN_INTV()
+        T2() : Timer("4000")
         {
         }
     };
     
-    class T4_MAX_DURATION_OF_MSG : public Timer
+    class T4 : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        T4_MAX_DURATION_OF_MSG()
-        : Timer("5s")
-        {
-        }
-    
-        ~T4_MAX_DURATION_OF_MSG()
+        T4() : Timer("5000")
         {
         }
     };
     
-    class TA_INVITE_RETRAN_INTERVAL : public Timer
+    // INVITE_RETRAN_INTERVAL
+    class TA : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TA_INVITE_RETRAN_INTERVAL()
-        : Timer("500ms") // TODO: T1_RTT initial value
-        {
-        }
-    
-        ~TA_INVITE_RETRAN_INTERVAL()
+        TA() : Timer(T1().value())//ms") // TODO: T1 initial value
         {
         }
     };
     
-    class TB_INVITE_TIMEOUT : public Timer
+    class TB : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TB_INVITE_TIMEOUT()
-        : Timer(T1_RTT()*64) // TODO: T1_RTT*64
-        {
-        }
-    
-        ~TB_INVITE_TIMEOUT()
+        TB() : Timer(T1()*64) // TODO: T1*64
         {
         }
     };
     
-    class TC_PROXY_INVITE_TIMEOUT : public Timer
+    class TC : public Timer // 4min
     {
     public:
 
-        typedef Timer Base;
-
-        TC_PROXY_INVITE_TIMEOUT()
-        : Timer("4min") // TODO: > 3min
+        TC() : Timer((unsigned long)4*60*1000) // TODO: > 3min
         {
         }
     
-        ~TC_PROXY_INVITE_TIMEOUT()
-        {
-        }
-
         void value(std::string value)
         {
             // TODO: check >3min
@@ -323,130 +296,74 @@ namespace EasySip
         }
     };
 
-    class TD_WAIT_FOR_RETRAN : public Timer
+    class TD : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TD_WAIT_FOR_RETRAN()
-        : Timer("33s") // TODO: UDP: >32s, TCP/SCTP =0s
-        {
-        }
-    
-        ~TD_WAIT_FOR_RETRAN()
+        TD() : Timer("33000") // TODO: UDP: >32s, TCP/SCTP =0s
         {
         }
     };
 
-    class TE_NON_INVITE_RETRAN_INTV : public Timer
+    class TE : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TE_NON_INVITE_RETRAN_INTV()
-        : Timer("500ms") // TODO: T1_RTT initial value
-        {
-        }
-    
-        ~TE_NON_INVITE_RETRAN_INTV()
+        TE() : Timer("500") // TODO: T1 initial value
         {
         }
     };
 
-    class TF_NON_INVITE_REQS_TIMEOUT : public Timer
+    class TF : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TF_NON_INVITE_REQS_TIMEOUT()
-        : Timer(T1_RTT()*64) // TODO: T1_RTT*64
-        {
-        }
-    
-        ~TF_NON_INVITE_REQS_TIMEOUT()
+        TF() : Timer(T1()*64) // TODO: T1*64
         {
         }
     };
 
-    class TG_INVITE_RESP_RETRAN_INTV : public Timer
+    class TG : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TG_INVITE_RESP_RETRAN_INTV()
-        : Timer("500ms") // TODO: T1_RTT initial value
-        {
-        }
-    
-        ~TG_INVITE_RESP_RETRAN_INTV()
+        TG() : Timer("500ms") // TODO: T1 initial value
         {
         }
     };
 
-    class TH_WAIT_FOR_ACK_RECEIPT : public Timer
+    class TH : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TH_WAIT_FOR_ACK_RECEIPT()
-        : Timer(T1_RTT()*64) // TODO: T1_RTT*64
-        {
-        }
-    
-        ~TH_WAIT_FOR_ACK_RECEIPT()
+        TH() : Timer(T1()*64) // TODO: T1*64
         {
         }
     };
 
-    class TI_WAIT_FOR_ACK_RETRAN : public Timer
+    class TI : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TI_WAIT_FOR_ACK_RETRAN()
-        : Timer(T4_MAX_DURATION_OF_MSG().value()) // TODO: UDP: T4, TCP/SCTP =0s
-        {
-        }
-    
-        ~TI_WAIT_FOR_ACK_RETRAN()
+        TI() : Timer(T4().value()) // TODO: UDP: T4, TCP/SCTP =0s
         {
         }
     };
 
-    class TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN : public Timer
+    class TJ : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN()
-        : Timer(T1_RTT()*64) // TODO: UDP: 64*T1, TCP/SCTP =0s
-        {
-        }
-    
-        ~TJ_WAIT_FOR_NON_INVITE_REQS_RETRAN()
+        TJ() : Timer(T1()*64) // TODO: UDP: 64*T1, TCP/SCTP =0s
         {
         }
     };
 
-    class TK_WAIT_FOR_RESP_RETRAN : public Timer
+    class TK : public Timer
     {
     public:
 
-        typedef Timer Base;
-
-        TK_WAIT_FOR_RESP_RETRAN()
-        : Timer(T4_MAX_DURATION_OF_MSG().value()) // TODO: UDP: 64*T1, TCP/SCTP =0s
-        {
-        }
-    
-        ~TK_WAIT_FOR_RESP_RETRAN()
+        TK() : Timer(T4().value()) // TODO: UDP: 64*T1, TCP/SCTP =0s
         {
         }
     };
