@@ -409,6 +409,7 @@ namespace EasySip
         }
 
         send_msg(req);
+		ivt_.state(T_FSM_CALLING);
 //        msgq_.push(req.Msg());
         // TODO: 64*T1 start
         return PROCEDURE_OK;
@@ -776,6 +777,7 @@ namespace EasySip
         req.add_content_length();
 
         send_msg(req);
+
         return PROCEDURE_OK;
     }
 

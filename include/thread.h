@@ -309,6 +309,10 @@ namespace EasySip
 
     public:
 
+		Thread() : loop_(0), arg_(0)
+		{
+		}
+
         Thread(void* (*loop) (void*), void* arg = 0)
         : loop_(loop), arg_(arg)
         {

@@ -8,9 +8,8 @@
 #include "message.h"
 #include "socket.h"
 #include "dialog.h"
-#include <signal.h>
+#include "transaction.h"
 #include <queue>
-#include <thread>
 
 namespace EasySip
 {
@@ -27,7 +26,9 @@ namespace EasySip
         std::queue<std::string> msgq_;
     
         bool stateful_;
-    
+
+		Transaction ivt_;
+
     private:
 
         void init_allowed_methods();

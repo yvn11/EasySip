@@ -5,13 +5,9 @@
  */
 #pragma once
 
-#include <sys/time.h>
-#include <signal.h>
-
 #include "utils.h"
 #include "except.h"
 #include "timer.h"
-#include "Element/element.h"
 
 namespace EasySip
 {
@@ -25,27 +21,27 @@ namespace EasySip
         T_FSM_TERMINATED,
     };
 
-
-    class Fsm
+    class Fsm// : public Thread
     {
     protected:
 
 //        MethodMapList allowed_methods_;
 //        RespCodeList allowed_responses_;
 //        SocketIp4UDP udp_;
-        Element element_;
         int state_;
         bool run_;
+		Thread t_;
 
     public:
         Fsm(int s, bool r = true) : state_(s), run_(r)
         {
             setup();
-            main_loop();
+            t_ = Thread(&Fsm::main_loop, this);
         }
 
         ~Fsm()
         {
+			t_.join();
         }
 
         void run(bool r)
@@ -68,12 +64,12 @@ namespace EasySip
             state_ = s;
         }
 
-        virtual Fsm& setup()
+        Fsm& setup()
         {
             return *this;
         }
 
-        virtual int loop()
+        int loop()
         {
             return (run_ = false);
         }
@@ -90,11 +86,11 @@ namespace EasySip
         }
     };
 
-    class InviteTransaction : Fsm
+    class Transaction : public Fsm
     {
     public:
 
-        InviteTransaction()
+        Transaction()
         : Fsm(T_FSM_CALLING)
         {
         }
@@ -104,18 +100,5 @@ namespace EasySip
         virtual int loop();
     };
 
-    class NonInviteTransaction : Fsm
-    {
-    public:
-
-        NonInviteTransaction()
-        : Fsm(T_FSM_TRYING)
-        {
-        }
-
-    protected:
-
-        virtual int loop();
-    };
 }; // namespace EasySip
 

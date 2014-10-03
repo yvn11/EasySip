@@ -22,61 +22,36 @@ namespace EasySip
      * 
      * int timercmp(struct timeval *a, struct timeval *b, CMP);
      */
-    bool operator== (struct itimerval &a, struct itimerval &b)
-    {
-        return timercmp(&a.it_interval, &b.it_interval, ==)
-                && timercmp(&a.it_value, &b.it_value, ==);
-    }
+    extern bool operator== (struct itimerval &a, struct itimerval &b);
+    extern bool operator!= (struct itimerval &a, struct itimerval &b);
+    extern std::ostream& operator<< (std::ostream &o, struct timeval &a);
+    extern std::ostream& operator<< (std::ostream &o, struct itimerval &a);
+    extern std::ostream& operator<< (std::ostream &o, struct timespec &a);
+    extern std::ostream& operator<< (std::ostream &o, struct itimerspec &a);
 
-    bool operator!= (struct itimerval &a, struct itimerval &b)
-    {
-        return !(timercmp(&a.it_interval, &b.it_interval, ==)
-                && timercmp(&a.it_value, &b.it_value, ==));
-    }
-
-    std::ostream& operator<< (std::ostream &o, struct timeval &a)
-    {
-        return o << "[" << a.tv_sec << ", " << a.tv_usec << "]";
-    }
-
-    std::ostream& operator<< (std::ostream &o, struct itimerval &a)
-    {
-        return o << a.it_value << " : " << a.it_interval;
-    }
-
-    std::ostream& operator<< (std::ostream &o, struct timespec &a)
-    {
-        return o << "[" << a.tv_sec << ", " << a.tv_nsec << "]";
-    }
-
-    std::ostream& operator<< (std::ostream &o, struct itimerspec &a)
-    {
-        return o << a.it_value << " : " << a.it_interval;
-    }
-
-    void sigalrm_cb(int signo)
-    {
-        std::cout << "------------time's up-----------------\n";
-        std::cout << "signo: " << signo << "\n";//" settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
-        struct itimerval cur;
-
-        if (0 <= getitimer(ITIMER_REAL, &cur))
-                std::cout << cur << '\n';
-
-//        timerclear(&cur.it_value);
-//        timerclear(&cur.it_interval);
-//        std::cout << cur << '\n';
-
-        std::cout << "++++++++++++time's up+++++++++++++++++\n";
-    }
-
-    void sigev_notify_cb(union sigval sigev_value)
-    {
-        std::cout << "------------time's up-----------------\n";
-        std::cout << "sigval.sival_int: [" << sigev_value.sival_int << "]\n";
-//        std::cout << "timer id: [" << *(time_t*)data << "]\n";
-        std::cout << "++++++++++++time's up+++++++++++++++++\n";
-    }
+//    void sigalrm_cb(int signo)
+//    {
+//        std::cout << "------------time's up-----------------\n";
+//        std::cout << "signo: " << signo << "\n";//" settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\n';
+//        struct itimerval cur;
+//
+//        if (0 <= getitimer(ITIMER_REAL, &cur))
+//                std::cout << cur << '\n';
+//
+////        timerclear(&cur.it_value);
+////        timerclear(&cur.it_interval);
+////        std::cout << cur << '\n';
+//
+//        std::cout << "++++++++++++time's up+++++++++++++++++\n";
+//    }
+//
+//    void sigev_notify_cb(union sigval sigev_value)
+//    {
+//        std::cout << "------------time's up-----------------\n";
+//        std::cout << "sigval.sival_int: [" << sigev_value.sival_int << "]\n";
+////        std::cout << "timer id: [" << *(time_t*)data << "]\n";
+//        std::cout << "++++++++++++time's up+++++++++++++++++\n";
+//    }
 
     class Timer
     {
@@ -90,7 +65,7 @@ namespace EasySip
         Timer(unsigned long value)//unsigned long value /* ms */)
         :value_(value)
         {
-            signal(SIGALRM, sigalrm_cb);
+//            signal(SIGALRM, sigalrm_cb);
 
             time_t sec = value_/1000;
             suseconds_t usec = (value_ % 1000) * 1000;
@@ -101,7 +76,7 @@ namespace EasySip
         Timer(time_t sec, suseconds_t usec = 0)
         :value_(sec*1000 + usec/1000)
         {
-            signal(SIGALRM, sigalrm_cb);
+//            signal(SIGALRM, sigalrm_cb);
 //            signal(SIGVTALRM, sigalrm_cb);
 //            signal(SIGPROF, sigalrm_cb);
 
