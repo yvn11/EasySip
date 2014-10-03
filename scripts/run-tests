@@ -2,5 +2,6 @@ export LD_LIBRARY_PATH=./build
 
 #./build/test/ts-thr-timer
 #./build/test/ts-timer
-./build/test/ts-es-timer
+#./build/test/ts-es-timer
 #./build/test/ts-es-timer2
+./build/test/ts-es-thread
