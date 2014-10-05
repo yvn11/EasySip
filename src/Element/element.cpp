@@ -155,7 +155,6 @@ namespace EasySip
             return MESSAGE_PROCESSED;
         }
 
-
         if (SIP_RESPONSE_UNSUPPORTED_URI_SCHEME.code() == (ret = in_msg.parse()))
         {
             simple_response(SIP_RESPONSE_UNSUPPORTED_URI_SCHEME, in_msg);
@@ -204,7 +203,8 @@ namespace EasySip
             //TODO: inspection NOTE: 96/269
         }
 
-        if (METHOD_ID_INVITE != code)
+        if (METHOD_ID_INVITE != code
+        && METHOD_ID_REGISTER != code)
         {
             Dialog dialog(in_msg);
             if (dialog_preprocess<RequestMessage>(dialog, in_msg))
@@ -217,6 +217,10 @@ namespace EasySip
             {
                 return on_invite_request(in_msg);
             }
+            case METHOD_ID_REGISTER:
+            {
+                return on_register_request(in_msg);
+            }
             case METHOD_ID_CANCEL:
             {
                 return on_cancel_request(in_msg);
@@ -228,10 +232,6 @@ namespace EasySip
             case METHOD_ID_BYE:
             {
                 return on_bye_request(in_msg);
-            }
-            case METHOD_ID_REGISTER:
-            {
-                return on_register_request(in_msg);
             }
             case METHOD_ID_OPTIONS:
             {
@@ -409,7 +409,7 @@ namespace EasySip
         }
 
         send_msg(req);
-		ivt_.state(T_FSM_CALLING);
+        ivt_.state(T_FSM_CALLING);
 //        msgq_.push(req.Msg());
         // TODO: 64*T1 start
         return PROCEDURE_OK;
@@ -417,6 +417,38 @@ namespace EasySip
 
     int Element::register_request()
     {
+        RegisterMessage req;
+
+        req.SipVersion(SIP_VERSION_2_0);
+        req.RequestURI("sip:nick@uuac.com");
+
+		req.add_to()
+		->add_uri(udp_.SelfAddr())
+		.add_name("ook");
+
+		req.add_from()
+		->add_uri(udp_.SelfAddr())
+		.add_name("ook");
+
+		req.add_call_id()
+		->id("987kk");
+		
+		req.add_cseq()
+		->cseq("1")
+		.method(req.Method());
+
+		req.add_contact()
+		->add_uri(udp_.SelfAddr());
+
+        req.add_route()
+        ->add_uri("129.99.0.32");
+
+        req.add_via()
+        ->add_proto(SIP_VERSION_2_0_UDP)
+        .add_sentby(udp_.SelfAddr());
+
+        send_msg(req);
+
         return PROCEDURE_OK;
     }
 

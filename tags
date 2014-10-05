@@ -285,13 +285,13 @@ EasySip::Element	include/Element/element.h	/^    class Element$/;"	kind:class	li
 EasySip::Element::Element	include/Element/element.h	/^        Element();$/;"	kind:prototype	line:39	class:EasySip::Element	access:public	signature:()
 EasySip::Element::Element	src/Element/element.cpp	/^    Element::Element()$/;"	kind:function	line:10	class:EasySip::Element	signature:()
 EasySip::Element::ack_request	include/Element/element.h	/^        virtual int ack_request();$/;"	kind:prototype	line:75	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::ack_request	src/Element/element.cpp	/^    int Element::ack_request()$/;"	kind:function	line:539	class:EasySip::Element	signature:()
+EasySip::Element::ack_request	src/Element/element.cpp	/^    int Element::ack_request()$/;"	kind:function	line:571	class:EasySip::Element	signature:()
 EasySip::Element::allowed_methods_	include/Element/element.h	/^        MethodMapList allowed_methods_;$/;"	kind:member	line:20	class:EasySip::Element	access:protected
 EasySip::Element::allowed_responses_	include/Element/element.h	/^        RespCodeList allowed_responses_;$/;"	kind:member	line:21	class:EasySip::Element	access:protected
 EasySip::Element::bye_request	include/Element/element.h	/^        virtual int bye_request();$/;"	kind:prototype	line:71	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::bye_request	src/Element/element.cpp	/^    int Element::bye_request()$/;"	kind:function	line:423	class:EasySip::Element	signature:()
+EasySip::Element::bye_request	src/Element/element.cpp	/^    int Element::bye_request()$/;"	kind:function	line:455	class:EasySip::Element	signature:()
 EasySip::Element::cancel_request	include/Element/element.h	/^        virtual int cancel_request();$/;"	kind:prototype	line:72	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::cancel_request	src/Element/element.cpp	/^    int Element::cancel_request()$/;"	kind:function	line:515	class:EasySip::Element	signature:()
+EasySip::Element::cancel_request	src/Element/element.cpp	/^    int Element::cancel_request()$/;"	kind:function	line:547	class:EasySip::Element	signature:()
 EasySip::Element::dialog_preprocess	include/Element/element.h	/^        int dialog_preprocess(Dialog &dialog, T &in_msg)$/;"	kind:function	line:104	class:EasySip::Element	access:public	signature:(Dialog &dialog, T &in_msg)
 EasySip::Element::dialogs_	include/Element/element.h	/^        Dialogs dialogs_;$/;"	kind:member	line:25	class:EasySip::Element	access:protected
 EasySip::Element::echo	include/Element/element.h	/^        virtual void echo(RequestMessage &in_msg);$/;"	kind:prototype	line:100	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
@@ -299,7 +299,7 @@ EasySip::Element::echo	src/Element/element.cpp	/^    void Element::echo(RequestM
 EasySip::Element::fetch_msg	include/Element/element.h	/^        virtual int fetch_msg();$/;"	kind:prototype	line:63	class:EasySip::Element	access:public	implementation:virtual	signature:()
 EasySip::Element::fetch_msg	src/Element/element.cpp	/^    int Element::fetch_msg()$/;"	kind:function	line:332	class:EasySip::Element	signature:()
 EasySip::Element::info_request	include/Element/element.h	/^        virtual int info_request();$/;"	kind:prototype	line:74	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::info_request	src/Element/element.cpp	/^    int Element::info_request()$/;"	kind:function	line:534	class:EasySip::Element	signature:()
+EasySip::Element::info_request	src/Element/element.cpp	/^    int Element::info_request()$/;"	kind:function	line:566	class:EasySip::Element	signature:()
 EasySip::Element::init_allowed_methods	include/Element/element.h	/^        void init_allowed_methods();$/;"	kind:prototype	line:34	class:EasySip::Element	access:private	signature:()
 EasySip::Element::init_allowed_methods	src/Element/element.cpp	/^    void Element::init_allowed_methods()$/;"	kind:function	line:22	class:EasySip::Element	signature:()
 EasySip::Element::init_allowed_responses	include/Element/element.h	/^        void init_allowed_responses();$/;"	kind:prototype	line:35	class:EasySip::Element	access:private	signature:()
@@ -308,28 +308,28 @@ EasySip::Element::invite_request	include/Element/element.h	/^        virtual int
 EasySip::Element::invite_request	src/Element/element.cpp	/^    int Element::invite_request()$/;"	kind:function	line:368	class:EasySip::Element	signature:()
 EasySip::Element::ivt_	include/Element/element.h	/^		Transaction ivt_;$/;"	kind:member	line:30	class:EasySip::Element	access:protected
 EasySip::Element::message_request	include/Element/element.h	/^        virtual int message_request();$/;"	kind:prototype	line:76	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::message_request	src/Element/element.cpp	/^    int Element::message_request()$/;"	kind:function	line:628	class:EasySip::Element	signature:()
+EasySip::Element::message_request	src/Element/element.cpp	/^    int Element::message_request()$/;"	kind:function	line:660	class:EasySip::Element	signature:()
 EasySip::Element::msgq_	include/Element/element.h	/^        std::queue<std::string> msgq_;$/;"	kind:member	line:26	class:EasySip::Element	access:protected
 EasySip::Element::notify_request	include/Element/element.h	/^        virtual int notify_request();$/;"	kind:prototype	line:78	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::notify_request	src/Element/element.cpp	/^    int Element::notify_request()$/;"	kind:function	line:795	class:EasySip::Element	signature:()
+EasySip::Element::notify_request	src/Element/element.cpp	/^    int Element::notify_request()$/;"	kind:function	line:827	class:EasySip::Element	signature:()
 EasySip::Element::on_ack_request	include/Element/element.h	/^        virtual int on_ack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:86	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1061	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1093	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_bye_request	include/Element/element.h	/^        virtual int on_bye_request(RequestMessage &in_msg);$/;"	kind:prototype	line:85	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1023	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1055	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_cancel_request	include/Element/element.h	/^        virtual int on_cancel_request(RequestMessage &in_msg);$/;"	kind:prototype	line:87	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1037	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1069	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_info_request	include/Element/element.h	/^        virtual int on_info_request(RequestMessage &in_msg);$/;"	kind:prototype	line:93	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1113	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1145	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_invite_request	include/Element/element.h	/^        virtual int on_invite_request(RequestMessage &in_msg);$/;"	kind:prototype	line:83	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_invite_request	src/Element/element.cpp	/^    int Element::on_invite_request(RequestMessage &in_msg)$/;"	kind:function	line:939	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_invite_request	src/Element/element.cpp	/^    int Element::on_invite_request(RequestMessage &in_msg)$/;"	kind:function	line:971	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_message_request	include/Element/element.h	/^        virtual int on_message_request(RequestMessage &in_msg);$/;"	kind:prototype	line:92	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1131	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1163	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_notify_request	include/Element/element.h	/^        virtual int on_notify_request(RequestMessage &in_msg);$/;"	kind:prototype	line:91	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1107	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1139	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_options_request	include/Element/element.h	/^        virtual int on_options_request(RequestMessage &in_msg);$/;"	kind:prototype	line:88	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1073	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1105	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_prack_request	include/Element/element.h	/^        virtual int on_prack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:94	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1137	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1169	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_receive_message	include/Element/element.h	/^        virtual int on_receive_message(std::string &msg);$/;"	kind:prototype	line:65	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg)
 EasySip::Element::on_receive_message	src/Element/element.cpp	/^    int Element::on_receive_message(std::string &msg)$/;"	kind:function	line:117	class:EasySip::Element	signature:(std::string &msg)
 EasySip::Element::on_receive_req	include/Element/element.h	/^        virtual int on_receive_req(std::string &msg, const int code);$/;"	kind:prototype	line:66	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
@@ -337,19 +337,19 @@ EasySip::Element::on_receive_req	src/Element/element.cpp	/^    int Element::on_r
 EasySip::Element::on_receive_resp	include/Element/element.h	/^        virtual int on_receive_resp(std::string &msg, const int code);$/;"	kind:prototype	line:67	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
 EasySip::Element::on_receive_resp	src/Element/element.cpp	/^    int Element::on_receive_resp(std::string &msg, const int code)$/;"	kind:function	line:277	class:EasySip::Element	signature:(std::string &msg, const int code)
 EasySip::Element::on_refer_request	include/Element/element.h	/^        virtual int on_refer_request(RequestMessage &in_msg);$/;"	kind:prototype	line:89	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1125	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1157	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_register_request	include/Element/element.h	/^        virtual int on_register_request(RequestMessage &in_msg);$/;"	kind:prototype	line:84	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_register_request	src/Element/element.cpp	/^    int Element::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:1017	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_register_request	src/Element/element.cpp	/^    int Element::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:1049	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_subscribe_request	include/Element/element.h	/^        virtual int on_subscribe_request(RequestMessage &in_msg);$/;"	kind:prototype	line:90	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1101	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1133	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_update_request	include/Element/element.h	/^        virtual int on_update_request(RequestMessage &in_msg);$/;"	kind:prototype	line:95	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1119	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1151	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::options_request	include/Element/element.h	/^        virtual int options_request();$/;"	kind:prototype	line:80	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::options_request	src/Element/element.cpp	/^    int Element::options_request()$/;"	kind:function	line:818	class:EasySip::Element	signature:()
+EasySip::Element::options_request	src/Element/element.cpp	/^    int Element::options_request()$/;"	kind:function	line:850	class:EasySip::Element	signature:()
 EasySip::Element::prack_request	include/Element/element.h	/^        virtual int prack_request();$/;"	kind:prototype	line:81	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::prack_request	src/Element/element.cpp	/^    int Element::prack_request()$/;"	kind:function	line:928	class:EasySip::Element	signature:()
+EasySip::Element::prack_request	src/Element/element.cpp	/^    int Element::prack_request()$/;"	kind:function	line:960	class:EasySip::Element	signature:()
 EasySip::Element::refer_request	include/Element/element.h	/^        virtual int refer_request();$/;"	kind:prototype	line:79	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::refer_request	src/Element/element.cpp	/^    int Element::refer_request()$/;"	kind:function	line:806	class:EasySip::Element	signature:()
+EasySip::Element::refer_request	src/Element/element.cpp	/^    int Element::refer_request()$/;"	kind:function	line:838	class:EasySip::Element	signature:()
 EasySip::Element::register_request	include/Element/element.h	/^        virtual int register_request();$/;"	kind:prototype	line:70	class:EasySip::Element	access:public	implementation:virtual	signature:()
 EasySip::Element::register_request	src/Element/element.cpp	/^    int Element::register_request()$/;"	kind:function	line:418	class:EasySip::Element	signature:()
 EasySip::Element::run	include/Element/element.h	/^        bool run()$/;"	kind:function	line:48	class:EasySip::Element	access:public	signature:()
@@ -367,10 +367,10 @@ EasySip::Element::stateful	include/Element/element.h	/^        bool stateful()$/
 EasySip::Element::stateful	include/Element/element.h	/^        void stateful(bool s)$/;"	kind:function	line:58	class:EasySip::Element	access:public	signature:(bool s)
 EasySip::Element::stateful_	include/Element/element.h	/^        bool stateful_;$/;"	kind:member	line:28	class:EasySip::Element	access:protected
 EasySip::Element::subscribe_request	include/Element/element.h	/^        virtual int subscribe_request();$/;"	kind:prototype	line:77	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::subscribe_request	src/Element/element.cpp	/^    int Element::subscribe_request()$/;"	kind:function	line:784	class:EasySip::Element	signature:()
+EasySip::Element::subscribe_request	src/Element/element.cpp	/^    int Element::subscribe_request()$/;"	kind:function	line:816	class:EasySip::Element	signature:()
 EasySip::Element::udp_	include/Element/element.h	/^        SocketIp4UDP udp_;$/;"	kind:member	line:22	class:EasySip::Element	access:protected
 EasySip::Element::update_request	include/Element/element.h	/^        virtual int update_request();$/;"	kind:prototype	line:73	class:EasySip::Element	access:public	implementation:virtual	signature:()
-EasySip::Element::update_request	src/Element/element.cpp	/^    int Element::update_request()$/;"	kind:function	line:529	class:EasySip::Element	signature:()
+EasySip::Element::update_request	src/Element/element.cpp	/^    int Element::update_request()$/;"	kind:function	line:561	class:EasySip::Element	signature:()
 EasySip::Element::~Element	include/Element/element.h	/^        ~Element();$/;"	kind:prototype	line:41	class:EasySip::Element	access:public	signature:()
 EasySip::Element::~Element	src/Element/element.cpp	/^    Element::~Element()$/;"	kind:function	line:18	class:EasySip::Element	signature:()
 EasySip::Except	include/except.h	/^    class Except : std::exception$/;"	kind:class	line:14	namespace:EasySip	inherits:std::exception
@@ -1281,39 +1281,39 @@ EasySip::RequestMessage::parse	include/message.h	/^        virtual int parse()$/
 EasySip::RequestMessage::parse	include/message.h	/^        virtual int parse(size_t &pos);$/;"	kind:prototype	line:179	class:EasySip::RequestMessage	access:public	implementation:virtual	signature:(size_t &pos)
 EasySip::RequestMessage::parse	src/message.cpp	/^    int RequestMessage::parse(size_t &pos)$/;"	kind:function	line:719	class:EasySip::RequestMessage	signature:(size_t &pos)
 EasySip::RequestMessage::pos	include/message.h	/^            size_t pos = 0;$/;"	kind:local	line:183
-EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:589	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:679	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:868	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:600	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:690	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:879	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:621	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:711	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:900	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:632	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:722	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:911	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
 EasySip::RequestURI	src/Element/element.cpp	/^                ack.RequestURI(udp_.Addr());$/;"	kind:prototype	line:296	file:	signature:(udp_.Addr())
-EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:473	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:582	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:672	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:861	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:484	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^            req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:466	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-EasySip::RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:704	file:	signature:(udp_.Addr())
-EasySip::RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:893	file:	signature:(udp_.Addr())
+EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:505	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:614	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:704	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:893	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:516	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^            req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:498	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+EasySip::RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:736	file:	signature:(udp_.Addr())
+EasySip::RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:925	file:	signature:(udp_.Addr())
 EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:373	file:	signature:(udp_.Addr())
-EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:633	file:	signature:(udp_.Addr())
-EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:789	file:	signature:(udp_.Addr())
-EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:800	file:	signature:(udp_.Addr())
-EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:811	file:	signature:(udp_.Addr())
-EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:933	file:	signature:(udp_.Addr())
+EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:665	file:	signature:(udp_.Addr())
+EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:821	file:	signature:(udp_.Addr())
+EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:832	file:	signature:(udp_.Addr())
+EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:843	file:	signature:(udp_.Addr())
+EasySip::RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:965	file:	signature:(udp_.Addr())
 EasySip::RespCode	include/response_code.h	/^    typedef CodeMap RespCode;$/;"	kind:typedef	line:12	namespace:EasySip
 EasySip::RespCodeList	include/response_code.h	/^    typedef std::set<RespCode> RespCodeList;$/;"	kind:typedef	line:14	namespace:EasySip
-EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BAD_EXTENSION);$/;"	kind:prototype	line:192	file:	signature:(SIP_RESPONSE_BAD_EXTENSION)
-EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BUSY);$/;"	kind:prototype	line:992	file:	signature:(SIP_RESPONSE_BUSY)
-EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_GLOBAL_BUSY);$/;"	kind:prototype	line:990	file:	signature:(SIP_RESPONSE_GLOBAL_BUSY)
-EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1052	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
-EasySip::ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_MULTI_CHOICES);$/;"	kind:prototype	line:977	file:	signature:(SIP_RESPONSE_MULTI_CHOICES)
+EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BAD_EXTENSION);$/;"	kind:prototype	line:191	file:	signature:(SIP_RESPONSE_BAD_EXTENSION)
+EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BUSY);$/;"	kind:prototype	line:1024	file:	signature:(SIP_RESPONSE_BUSY)
+EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_GLOBAL_BUSY);$/;"	kind:prototype	line:1022	file:	signature:(SIP_RESPONSE_GLOBAL_BUSY)
+EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1084	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
+EasySip::ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_MULTI_CHOICES);$/;"	kind:prototype	line:1009	file:	signature:(SIP_RESPONSE_MULTI_CHOICES)
 EasySip::ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:152	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
-EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_RINGING);$/;"	kind:prototype	line:963	file:	signature:(SIP_RESPONSE_RINGING)
-EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1078	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_RINGING);$/;"	kind:prototype	line:995	file:	signature:(SIP_RESPONSE_RINGING)
+EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1031	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:109	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
-EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:999	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1110	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(rc);$/;"	kind:prototype	line:138	file:	signature:(rc)
 EasySip::ResponseCode	src/Element/registar.cpp	/^						rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:137	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
 EasySip::ResponseCode	src/Element/registar.cpp	/^				rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:126	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
@@ -1358,23 +1358,24 @@ EasySip::ResponseStatus::resp_code_	include/header_field.h	/^        RespCode re
 EasySip::ResponseStatus::ret	include/header_field.h	/^            std::ostringstream ret;$/;"	kind:local	line:1212
 EasySip::ResponseStatus::version_	include/header_field.h	/^        std::string version_;$/;"	kind:member	line:1201	struct:EasySip::ResponseStatus	access:public
 EasySip::SipVersion	src/Element/element.cpp	/^                ack.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:295	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1051	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:191	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1083	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:190	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^            rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:151	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1077	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:108	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1109	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:137	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:942	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:974	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:372	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:429	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:518	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:543	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:632	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:788	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:799	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:810	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:822	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:932	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:422	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:461	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:550	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:575	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:664	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:820	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:831	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:842	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:854	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:964	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/registar.cpp	/^		rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:100	file:	signature:(SIP_VERSION_2_0)
 EasySip::Socket	include/socket.h	/^    class Socket$/;"	kind:class	line:46	namespace:EasySip
 EasySip::Socket::Socket	include/socket.h	/^        Socket()$/;"	kind:function	line:59	class:EasySip::Socket	access:public	signature:()
@@ -1673,27 +1674,27 @@ EasySip::__PRETTY_FUNCTION__	src/message.cpp	/^            std::cerr << __PRETTY
 EasySip::__PRETTY_FUNCTION__	src/message.cpp	/^            std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\\n";$/;"	kind:local	line:731
 EasySip::__PRETTY_FUNCTION__	src/message.cpp	/^            std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\\n";$/;"	kind:local	line:912
 EasySip::ack	src/Element/element.cpp	/^                AckMessage ack(in_msg);$/;"	kind:prototype	line:294	file:	signature:(in_msg)
-EasySip::add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1001	file:	signature:()
-EasySip::add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1087	file:	signature:()
+EasySip::add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1033	file:	signature:()
+EasySip::add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1119	file:	signature:()
 EasySip::add_content_length	src/Element/element.cpp	/^        rep.add_content_length();$/;"	kind:prototype	line:112	file:	signature:()
-EasySip::add_content_length	src/Element/element.cpp	/^        req.add_content_length();$/;"	kind:prototype	line:777	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:591	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:602	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:681	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:692	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:870	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:881	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:475	file:	signature:()
-EasySip::add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:486	file:	signature:()
+EasySip::add_content_length	src/Element/element.cpp	/^        req.add_content_length();$/;"	kind:prototype	line:809	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:623	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:634	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:713	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:724	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:902	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:913	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:507	file:	signature:()
+EasySip::add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:518	file:	signature:()
 EasySip::addr_buf	src/socket.cpp	/^            Buffer addr_buf(len);$/;"	kind:prototype	line:50	file:	signature:(len)
-EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:608	file:	signature:(dialogs_.last()->remote_target())
-EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:698	file:	signature:(dialogs_.last()->remote_target())
-EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:887	file:	signature:(dialogs_.last()->remote_target())
-EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:607	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
-EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:697	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
-EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:886	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
-EasySip::append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:492	file:	signature:(dialogs_.last()->remote_target())
-EasySip::append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:491	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:640	file:	signature:(dialogs_.last()->remote_target())
+EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:730	file:	signature:(dialogs_.last()->remote_target())
+EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:919	file:	signature:(dialogs_.last()->remote_target())
+EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:639	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:729	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+EasySip::append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:918	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+EasySip::append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:524	file:	signature:(dialogs_.last()->remote_target())
+EasySip::append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:523	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
 EasySip::append	src/header_field.cpp	/^                            header_params_.append(key, buffer);$/;"	kind:prototype	line:186	file:	signature:(key, buffer)
 EasySip::append	src/header_field.cpp	/^                        digest_cln_.append(buffer, "");$/;"	kind:prototype	line:643	file:	signature:(buffer, Ó)
 EasySip::append	src/header_field.cpp	/^                        digest_cln_.append(buffer, "");$/;"	kind:prototype	line:668	file:	signature:(buffer, Ó)
@@ -1783,8 +1784,8 @@ EasySip::buffer	src/header_field.cpp	/^        std::string buffer;$/;"	kind:loca
 EasySip::buffer	src/header_field.cpp	/^        std::string buffer;$/;"	kind:local	line:282
 EasySip::buffer	src/message.cpp	/^        std::string buffer;$/;"	kind:local	line:637
 EasySip::cancel_dialog	src/Element/element.cpp	/^                    dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:322	file:	signature:(dialog.id())
-EasySip::cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1032	file:	signature:(dialog.id())
-EasySip::cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialogs_.last()->id());$/;"	kind:prototype	line:510	file:	signature:(dialogs_.last()->id())
+EasySip::cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1064	file:	signature:(dialog.id())
+EasySip::cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialogs_.last()->id());$/;"	kind:prototype	line:542	file:	signature:(dialogs_.last()->id())
 EasySip::cleanup_empty_uri	src/header_field.cpp	/^        cons_.cleanup_empty_uri();$/;"	kind:prototype	line:869	file:	signature:()
 EasySip::cleanup_empty_uri	src/header_field.cpp	/^        cons_.cleanup_empty_uri();$/;"	kind:prototype	line:969	file:	signature:()
 EasySip::clear	src/header_field.cpp	/^                            key.clear();$/;"	kind:prototype	line:1030	file:	signature:()
@@ -1865,21 +1866,21 @@ EasySip::code	src/Element/element.cpp	/^                std::cerr << "Unexpected
 EasySip::code	src/header_field.cpp	/^            in >> code;$/;"	kind:local	line:54
 EasySip::code	src/header_field.cpp	/^            int code;$/;"	kind:local	line:52
 EasySip::create_dialog	src/Element/element.cpp	/^                dialogs_.create_dialog(dialog);$/;"	kind:prototype	line:288	file:	signature:(dialog)
-EasySip::create_dialog	src/Element/element.cpp	/^        dialogs_.create_dialog(dialog);$/;"	kind:prototype	line:953	file:	signature:(dialog)
+EasySip::create_dialog	src/Element/element.cpp	/^        dialogs_.create_dialog(dialog);$/;"	kind:prototype	line:985	file:	signature:(dialog)
 EasySip::data	src/socket.cpp	/^            std::cout << "IF: " << ifaddr->ifa_name << " IP: " << addr_buf.data() << '\\n';$/;"	kind:prototype	line:52	file:	signature:()
 EasySip::dialog	src/Element/element.cpp	/^            Dialog dialog(in_msg);$/;"	kind:prototype	line:209	file:	signature:(in_msg)
-EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1027	file:	signature:(in_msg)
-EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1039	file:	signature:(in_msg)
-EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1063	file:	signature:(in_msg)
+EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1059	file:	signature:(in_msg)
+EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1071	file:	signature:(in_msg)
+EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1095	file:	signature:(in_msg)
 EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:282	file:	signature:(in_msg)
-EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:944	file:	signature:(in_msg)
+EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:976	file:	signature:(in_msg)
 EasySip::digest_cln_	src/header_field.cpp	/^        o << digest_cln_;$/;"	kind:local	line:573
 EasySip::expire	src/Element/registar.cpp	/^			std::string expire = in_msg.contact_.at(0)->header_params_.get_value_by_name("expires");$/;"	kind:local	line:152
 EasySip::field	src/message.cpp	/^                std::cerr << "Unexpected header: " << field << '\\n';$/;"	kind:local	line:625
-EasySip::from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:604
-EasySip::from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:694
-EasySip::from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:883
-EasySip::from	src/Element/element.cpp	/^                ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:488
+EasySip::from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:636
+EasySip::from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:726
+EasySip::from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:915
+EasySip::from	src/Element/element.cpp	/^                ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:520
 EasySip::generate_values	src/header_field.cpp	/^        hf.generate_values();$/;"	kind:prototype	line:71	file:	signature:()
 EasySip::get_ip_addr	src/Element/proxy.cpp	/^		udp_.SelfAddr(Socket::get_ip_addr());$/;"	kind:prototype	line:13	file:	signature:()
 EasySip::get_ip_addr	src/Element/registar.cpp	/^		udp_.SelfAddr(Socket::get_ip_addr());$/;"	kind:prototype	line:13	file:	signature:()
@@ -1894,7 +1895,7 @@ EasySip::header_params_	src/header_field.cpp	/^        p << header_params_;$/;"	
 EasySip::header_params_	src/header_field.cpp	/^        p << header_params_;$/;"	kind:local	line:1599
 EasySip::header_params_	src/header_field.cpp	/^        p << header_params_;$/;"	kind:local	line:274
 EasySip::header_params_	src/header_field.cpp	/^        p << header_params_;$/;"	kind:local	line:580
-EasySip::i	src/Element/element.cpp	/^        int i = 7;$/;"	kind:local	line:971
+EasySip::i	src/Element/element.cpp	/^        int i = 7;$/;"	kind:local	line:1003
 EasySip::i	src/message.cpp	/^            size_t i = 1, len = 0;$/;"	kind:local	line:689
 EasySip::ifaddr	src/socket.cpp	/^        struct ifaddrs *ifaddrs = NULL, *ifaddr = NULL;$/;"	kind:local	line:18
 EasySip::ifaddrs	src/socket.cpp	/^        struct ifaddrs *ifaddrs = NULL, *ifaddr = NULL;$/;"	kind:local	line:18
@@ -1977,7 +1978,7 @@ EasySip::insert	src/Element/element.cpp	/^        allowed_responses_.insert(SIP_
 EasySip::insert	src/Element/element.cpp	/^        allowed_responses_.insert(SIP_RESPONSE_USE_PROXY);$/;"	kind:prototype	line:51	file:	signature:(SIP_RESPONSE_USE_PROXY)
 EasySip::is	src/Element/registar.cpp	/^			std::istringstream is(expire);$/;"	kind:prototype	line:166	file:	signature:(expire)
 EasySip::is_confirmed	src/Element/element.cpp	/^                dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:292	file:	signature:(true)
-EasySip::is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1067	file:	signature:(true)
+EasySip::is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1099	file:	signature:(true)
 EasySip::it	src/dialog.cpp	/^				std::cout << "cancel dialog: \\n[\\n" << **it << "]\\n";$/;"	kind:local	line:133
 EasySip::it	src/message.cpp	/^        RespCodeList::iterator it;$/;"	kind:local	line:518
 EasySip::key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:343
@@ -1986,7 +1987,7 @@ EasySip::key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:lo
 EasySip::key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:721
 EasySip::key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:91
 EasySip::key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:984
-EasySip::last	src/Element/element.cpp	/^        std::cout << "----------\\n" << *dialogs_.last() << "-----------\\n";$/;"	kind:prototype	line:961	file:	signature:()
+EasySip::last	src/Element/element.cpp	/^        std::cout << "----------\\n" << *dialogs_.last() << "-----------\\n";$/;"	kind:prototype	line:993	file:	signature:()
 EasySip::len	src/message.cpp	/^            in >> len;$/;"	kind:local	line:691
 EasySip::len	src/message.cpp	/^            size_t i = 1, len = 0;$/;"	kind:local	line:689
 EasySip::len	src/socket.cpp	/^        int prot, len;$/;"	kind:local	line:20
@@ -2039,24 +2040,25 @@ EasySip::push_back	src/message.cpp	/^            ret.push_back(msg.substr(pos, n
 EasySip::read_head_param	src/header_field.cpp	/^        bool read_head_param = false, run = true, in_aquote = false, in_dquote = false;$/;"	kind:local	line:90
 EasySip::read_head_param	src/header_field.cpp	/^        bool read_head_param = false, run = true;$/;"	kind:local	line:720
 EasySip::read_head_param	src/header_field.cpp	/^        bool run = true, read_head_param = false;$/;"	kind:local	line:342
-EasySip::rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1049	file:	signature:(in_msg)
-EasySip::rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:190	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1081	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:189	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^            ResponseMessage rep(in_msg);$/;"	kind:prototype	line:150	file:	signature:(in_msg)
-EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1025	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1057	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:106	file:	signature:(in_msg)
-EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1075	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1107	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:136	file:	signature:(in_msg)
-EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:941	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:973	file:	signature:(in_msg)
 EasySip::rep	src/Element/registar.cpp	/^		ResponseMessage rep(in_msg);$/;"	kind:prototype	line:99	file:	signature:(in_msg)
-EasySip::req	src/Element/element.cpp	/^        AckMessage req;$/;"	kind:local	line:541
-EasySip::req	src/Element/element.cpp	/^        CancelMessage req;$/;"	kind:local	line:517
+EasySip::req	src/Element/element.cpp	/^        AckMessage req;$/;"	kind:local	line:573
+EasySip::req	src/Element/element.cpp	/^        CancelMessage req;$/;"	kind:local	line:549
 EasySip::req	src/Element/element.cpp	/^        InviteMessage req;$/;"	kind:local	line:370
-EasySip::req	src/Element/element.cpp	/^        MessageMessage req;$/;"	kind:local	line:630
-EasySip::req	src/Element/element.cpp	/^        NotifyMessage req;$/;"	kind:local	line:797
-EasySip::req	src/Element/element.cpp	/^        OptionsMessage req;$/;"	kind:local	line:820
-EasySip::req	src/Element/element.cpp	/^        PrackMessage req;$/;"	kind:local	line:930
-EasySip::req	src/Element/element.cpp	/^        ReferMessage req;$/;"	kind:local	line:808
-EasySip::req	src/Element/element.cpp	/^        SubscribeMessage req;$/;"	kind:local	line:786
+EasySip::req	src/Element/element.cpp	/^        MessageMessage req;$/;"	kind:local	line:662
+EasySip::req	src/Element/element.cpp	/^        NotifyMessage req;$/;"	kind:local	line:829
+EasySip::req	src/Element/element.cpp	/^        OptionsMessage req;$/;"	kind:local	line:852
+EasySip::req	src/Element/element.cpp	/^        PrackMessage req;$/;"	kind:local	line:962
+EasySip::req	src/Element/element.cpp	/^        ReferMessage req;$/;"	kind:local	line:840
+EasySip::req	src/Element/element.cpp	/^        RegisterMessage req;$/;"	kind:local	line:420
+EasySip::req	src/Element/element.cpp	/^        SubscribeMessage req;$/;"	kind:local	line:818
 EasySip::resize	src/header_field.cpp	/^                                warn_vals_.resize(warn_vals_.size()+1);$/;"	kind:prototype	line:1515	file:	signature:(warn_vals_.size()+1)
 EasySip::resize	src/header_field.cpp	/^                            warn_vals_.resize(warn_vals_.size()+1);$/;"	kind:prototype	line:1474	file:	signature:(warn_vals_.size()+1)
 EasySip::resize	src/header_field.cpp	/^                            warn_vals_.resize(warn_vals_.size()+1);$/;"	kind:prototype	line:1495	file:	signature:(warn_vals_.size()+1)
@@ -2092,10 +2094,10 @@ EasySip::send_buffer	src/Element/registar.cpp	/^		udp_.send_buffer(rep.create().
 EasySip::send_buffer	src/Element/registar.cpp	/^		udp_.send_buffer(rep.create().Msg());$/;"	kind:prototype	line:118	file:	signature:(rep.create().Msg())
 EasySip::send_buffer	src/Element/registar.cpp	/^		udp_.send_buffer(rep.create().Msg());$/;"	kind:prototype	line:181	file:	signature:(rep.create().Msg())
 EasySip::sent_by_	src/header_field.cpp	/^        o << sent_proto_ << ' ' << sent_by_;$/;"	kind:local	line:710
-EasySip::seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:564
-EasySip::seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:654
-EasySip::seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:843
-EasySip::seq	src/Element/element.cpp	/^        std::string seq;$/;"	kind:local	line:448
+EasySip::seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:596
+EasySip::seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:686
+EasySip::seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:875
+EasySip::seq	src/Element/element.cpp	/^        std::string seq;$/;"	kind:local	line:480
 EasySip::setup_server	src/Element/proxy.cpp	/^		udp_.setup_server();$/;"	kind:prototype	line:15	file:	signature:()
 EasySip::setup_server	src/Element/registar.cpp	/^		udp_.setup_server();$/;"	kind:prototype	line:15	file:	signature:()
 EasySip::setup_server	src/Element/uaclient.cpp	/^		udp_.setup_server();$/;"	kind:prototype	line:14	file:	signature:()
@@ -2103,12 +2105,12 @@ EasySip::setup_server	src/Element/uaserver.cpp	/^		udp_.setup_server();$/;"	kind
 EasySip::size	src/dialog.cpp	/^		std::cout << "dialogs size: [" << size() << "]\\n";$/;"	kind:prototype	line:115	file:	signature:()
 EasySip::size	src/dialog.cpp	/^		std::cout << "dialogs size: [" << size() << "]\\n";$/;"	kind:prototype	line:122	file:	signature:()
 EasySip::size	src/dialog.cpp	/^		std::cout << "dialogs size: [" << size() << "]\\n";$/;"	kind:prototype	line:141	file:	signature:()
-EasySip::state	src/Element/element.cpp	/^		ivt_.state(T_FSM_CALLING);$/;"	kind:prototype	line:412	file:	signature:(T_FSM_CALLING)
+EasySip::state	src/Element/element.cpp	/^        ivt_.state(T_FSM_CALLING);$/;"	kind:prototype	line:412	file:	signature:(T_FSM_CALLING)
 EasySip::std::cout	src/message.cpp	/^        std::cout << "--------------------------------\\n";$/;"	kind:member	line:736	class:EasySip::std	file:
 EasySip::std::cout	src/message.cpp	/^        std::cout << "--------------------------------\\n";$/;"	kind:member	line:917	class:EasySip::std	file:
 EasySip::std::cout	src/message.cpp	/^        std::cout << "-reponse------------------------\\n";$/;"	kind:member	line:915	class:EasySip::std	file:
 EasySip::std::cout	src/message.cpp	/^        std::cout << "-request------------------------\\n";$/;"	kind:member	line:734	class:EasySip::std	file:
-EasySip::still_ringing	src/Element/element.cpp	/^        dialogs_[dialog.id()]->still_ringing(true);$/;"	kind:prototype	line:966	file:	signature:(true)
+EasySip::still_ringing	src/Element/element.cpp	/^        dialogs_[dialog.id()]->still_ringing(true);$/;"	kind:prototype	line:998	file:	signature:(true)
 EasySip::strerror	src/socket.cpp	/^                    std::cerr << "recvfrom: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:147	file:	signature:(errno)
 EasySip::strerror	src/socket.cpp	/^                std::cerr << "bind: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:109	file:	signature:(errno)
 EasySip::strerror	src/socket.cpp	/^                std::cerr << "socket: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:73	file:	signature:(errno)
@@ -2121,7 +2123,7 @@ EasySip::sym	src/header_field.cpp	/^        char sym = ',';$/;"	kind:local	line:
 EasySip::sym	src/header_field.cpp	/^        char sym = ',';$/;"	kind:local	line:866
 EasySip::sym	src/header_field.cpp	/^        char sym = ',';$/;"	kind:local	line:966
 EasySip::t1	src/transaction.cpp	/^                T1 t1;$/;"	kind:local	line:16
-EasySip::tags	src/Element/element.cpp	/^            std::vector<std::string> tags = in_msg.proxy_require_.last()->misunderstand_tags();$/;"	kind:local	line:186
+EasySip::tags	src/Element/element.cpp	/^            std::vector<std::string> tags = in_msg.proxy_require_.last()->misunderstand_tags();$/;"	kind:local	line:185
 EasySip::tmpAddrPtr	src/socket.cpp	/^        void *tmpAddrPtr = NULL;$/;"	kind:local	line:19
 EasySip::tv	src/socket.cpp	/^        struct timeval tv;$/;"	kind:local	line:68
 Element	include/Element/element.h	/^        Element();$/;"	kind:prototype	line:39	class:EasySip::Element	access:public	signature:()
@@ -2490,42 +2492,42 @@ RequestMessage	include/message.h	/^    class RequestMessage : public Message$/;"
 RequestMessage	src/message.cpp	/^    RequestMessage::RequestMessage(ResponseMessage &in_msg)$/;"	kind:function	line:741	class:EasySip::RequestMessage	signature:(ResponseMessage &in_msg)
 RequestURI	include/message.h	/^        std::string RequestURI()$/;"	kind:function	line:202	class:EasySip::RequestMessage	access:public	signature:()
 RequestURI	include/message.h	/^        void RequestURI(std::string ver)$/;"	kind:function	line:197	class:EasySip::RequestMessage	access:public	signature:(std::string ver)
-RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:589	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:679	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:868	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:600	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
-RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:690	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
-RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:879	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:621	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:711	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:900	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:632	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:722	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+RequestURI	src/Element/element.cpp	/^                    req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:911	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
 RequestURI	src/Element/element.cpp	/^                ack.RequestURI(udp_.Addr());$/;"	kind:prototype	line:296	file:	signature:(udp_.Addr())
-RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:473	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:582	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:672	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:861	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:484	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
-RequestURI	src/Element/element.cpp	/^            req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:466	file:	signature:(dialogs_.last()->remote_target().last()->uri())
-RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:704	file:	signature:(udp_.Addr())
-RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:893	file:	signature:(udp_.Addr())
+RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:505	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:614	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:704	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:893	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^                req.RequestURI(dialogs_.last()->routes().last()->cons_.last()->uri());$/;"	kind:prototype	line:516	file:	signature:(dialogs_.last()->routes().last()->cons_.last()->uri())
+RequestURI	src/Element/element.cpp	/^            req.RequestURI(dialogs_.last()->remote_target().last()->uri());$/;"	kind:prototype	line:498	file:	signature:(dialogs_.last()->remote_target().last()->uri())
+RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:736	file:	signature:(udp_.Addr())
+RequestURI	src/Element/element.cpp	/^            req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:925	file:	signature:(udp_.Addr())
 RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:373	file:	signature:(udp_.Addr())
-RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:633	file:	signature:(udp_.Addr())
-RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:789	file:	signature:(udp_.Addr())
-RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:800	file:	signature:(udp_.Addr())
-RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:811	file:	signature:(udp_.Addr())
-RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:933	file:	signature:(udp_.Addr())
+RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:665	file:	signature:(udp_.Addr())
+RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:821	file:	signature:(udp_.Addr())
+RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:832	file:	signature:(udp_.Addr())
+RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:843	file:	signature:(udp_.Addr())
+RequestURI	src/Element/element.cpp	/^        req.RequestURI(udp_.Addr());$/;"	kind:prototype	line:965	file:	signature:(udp_.Addr())
 RespCode	include/response_code.h	/^    typedef CodeMap RespCode;$/;"	kind:typedef	line:12	namespace:EasySip
 RespCodeList	include/response_code.h	/^    typedef std::set<RespCode> RespCodeList;$/;"	kind:typedef	line:14	namespace:EasySip
 RespStatus	include/message.h	/^        ResponseStatus& RespStatus()$/;"	kind:function	line:584	class:EasySip::ResponseMessage	access:public	signature:()
 ResponseCode	include/message.h	/^        RespCode& ResponseCode()$/;"	kind:function	line:594	class:EasySip::ResponseMessage	access:public	signature:()
 ResponseCode	include/message.h	/^        void ResponseCode(const RespCode& resp)$/;"	kind:function	line:589	class:EasySip::ResponseMessage	access:public	signature:(const RespCode& resp)
-ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BAD_EXTENSION);$/;"	kind:prototype	line:192	file:	signature:(SIP_RESPONSE_BAD_EXTENSION)
-ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BUSY);$/;"	kind:prototype	line:992	file:	signature:(SIP_RESPONSE_BUSY)
-ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_GLOBAL_BUSY);$/;"	kind:prototype	line:990	file:	signature:(SIP_RESPONSE_GLOBAL_BUSY)
-ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1052	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
-ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_MULTI_CHOICES);$/;"	kind:prototype	line:977	file:	signature:(SIP_RESPONSE_MULTI_CHOICES)
+ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BAD_EXTENSION);$/;"	kind:prototype	line:191	file:	signature:(SIP_RESPONSE_BAD_EXTENSION)
+ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BUSY);$/;"	kind:prototype	line:1024	file:	signature:(SIP_RESPONSE_BUSY)
+ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_GLOBAL_BUSY);$/;"	kind:prototype	line:1022	file:	signature:(SIP_RESPONSE_GLOBAL_BUSY)
+ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1084	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
+ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_MULTI_CHOICES);$/;"	kind:prototype	line:1009	file:	signature:(SIP_RESPONSE_MULTI_CHOICES)
 ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:152	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
-ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_RINGING);$/;"	kind:prototype	line:963	file:	signature:(SIP_RESPONSE_RINGING)
-ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1078	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_RINGING);$/;"	kind:prototype	line:995	file:	signature:(SIP_RESPONSE_RINGING)
+ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1031	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:109	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
-ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:999	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1110	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(rc);$/;"	kind:prototype	line:138	file:	signature:(rc)
 ResponseCode	src/Element/registar.cpp	/^						rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:137	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
 ResponseCode	src/Element/registar.cpp	/^				rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:126	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
@@ -2568,23 +2570,24 @@ SipVersion	include/message.h	/^        std::string& SipVersion()$/;"	kind:functi
 SipVersion	include/message.h	/^        void SipVersion(std::string ver)$/;"	kind:function	line:187	class:EasySip::RequestMessage	access:public	signature:(std::string ver)
 SipVersion	include/message.h	/^        void SipVersion(std::string ver)$/;"	kind:function	line:599	class:EasySip::ResponseMessage	access:public	signature:(std::string ver)
 SipVersion	src/Element/element.cpp	/^                ack.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:295	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1051	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:191	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1083	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:190	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^            rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:151	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1077	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:108	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1109	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:137	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:942	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:974	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:372	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:429	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:518	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:543	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:632	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:788	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:799	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:810	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:822	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:932	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:422	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:461	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:550	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:575	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:664	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:820	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:831	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:842	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:854	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:964	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/registar.cpp	/^		rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:100	file:	signature:(SIP_VERSION_2_0)
 Socket	include/socket.h	/^        Socket()$/;"	kind:function	line:59	class:EasySip::Socket	access:public	signature:()
 Socket	include/socket.h	/^        Socket(int domain, int type, int proto)$/;"	kind:function	line:63	class:EasySip::Socket	access:public	signature:(int domain, int type, int proto)
@@ -2765,7 +2768,7 @@ accept_encoding_	include/header_field.h	/^        PtsOf<HFAcceptEncoding> accept
 accept_language_	include/header_field.h	/^        PtsOf<HFAcceptLanguage> accept_language_;$/;"	kind:member	line:1273	struct:EasySip::HeaderFields	access:public
 ack	src/Element/element.cpp	/^                AckMessage ack(in_msg);$/;"	kind:prototype	line:294	file:	signature:(in_msg)
 ack_request	include/Element/element.h	/^        virtual int ack_request();$/;"	kind:prototype	line:75	class:EasySip::Element	access:public	implementation:virtual	signature:()
-ack_request	src/Element/element.cpp	/^    int Element::ack_request()$/;"	kind:function	line:539	class:EasySip::Element	signature:()
+ack_request	src/Element/element.cpp	/^    int Element::ack_request()$/;"	kind:function	line:571	class:EasySip::Element	signature:()
 ack_request	test/ts-client.cpp	/^			case 'a': client.ack_request(); break;$/;"	kind:prototype	line:32	file:	signature:()
 ack_request	test/ts-proxy.cpp	/^			case 'a': proxy.ack_request(); break;$/;"	kind:prototype	line:32	file:	signature:()
 ack_request	test/ts-server.cpp	/^			case 'a': server.ack_request(); break;$/;"	kind:prototype	line:38	file:	signature:()
@@ -2780,8 +2783,8 @@ add_accept_language	src/message.cpp	/^    HFAcceptLanguage* Message::add_accept_
 add_alert_info	include/message.h	/^         HFAlertInfo* add_alert_info();$/;"	kind:prototype	line:90	class:EasySip::Message	access:public	signature:()
 add_alert_info	src/message.cpp	/^    HFAlertInfo* Message::add_alert_info()$/;"	kind:function	line:40	class:EasySip::Message	signature:()
 add_allow	include/message.h	/^         HFAllow* add_allow();$/;"	kind:prototype	line:142	class:EasySip::Message	access:public	signature:()
-add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1001	file:	signature:()
-add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1087	file:	signature:()
+add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1033	file:	signature:()
+add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1119	file:	signature:()
 add_allow	src/message.cpp	/^    HFAllow* Message::add_allow()$/;"	kind:function	line:352	class:EasySip::Message	signature:()
 add_allow_events	include/message.h	/^         HFAllowEvents* add_allow_events();$/;"	kind:prototype	line:91	class:EasySip::Message	access:public	signature:()
 add_allow_events	src/message.cpp	/^    HFAllowEvents* Message::add_allow_events()$/;"	kind:function	line:46	class:EasySip::Message	signature:()
@@ -2805,7 +2808,7 @@ add_content_language	include/message.h	/^         HFContentLanguage* add_content
 add_content_language	src/message.cpp	/^    HFContentLanguage* Message::add_content_language()$/;"	kind:function	line:377	class:EasySip::Message	signature:()
 add_content_length	include/message.h	/^         HFContentLength* add_content_length();$/;"	kind:prototype	line:144	class:EasySip::Message	access:public	signature:()
 add_content_length	src/Element/element.cpp	/^        rep.add_content_length();$/;"	kind:prototype	line:112	file:	signature:()
-add_content_length	src/Element/element.cpp	/^        req.add_content_length();$/;"	kind:prototype	line:777	file:	signature:()
+add_content_length	src/Element/element.cpp	/^        req.add_content_length();$/;"	kind:prototype	line:809	file:	signature:()
 add_content_length	src/message.cpp	/^    HFContentLength* Message::add_content_length()$/;"	kind:function	line:364	class:EasySip::Message	signature:()
 add_content_type	include/message.h	/^         HFContentType* add_content_type();$/;"	kind:prototype	line:147	class:EasySip::Message	access:public	signature:()
 add_content_type	src/message.cpp	/^    HFContentType* Message::add_content_type()$/;"	kind:function	line:383	class:EasySip::Message	signature:()
@@ -2882,14 +2885,14 @@ add_require	src/message.cpp	/^    HFRequire* Message::add_require()$/;"	kind:fun
 add_retry_after	include/message.h	/^         HFRetryAfter* add_retry_after();$/;"	kind:prototype	line:96	class:EasySip::Message	access:public	signature:()
 add_retry_after	src/message.cpp	/^    HFRetryAfter* Message::add_retry_after()$/;"	kind:function	line:76	class:EasySip::Message	signature:()
 add_route	include/message.h	/^         HFRoute* add_route();$/;"	kind:prototype	line:128	class:EasySip::Message	access:public	signature:()
-add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:591	file:	signature:()
-add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:602	file:	signature:()
-add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:681	file:	signature:()
-add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:692	file:	signature:()
-add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:870	file:	signature:()
-add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:881	file:	signature:()
-add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:475	file:	signature:()
-add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:486	file:	signature:()
+add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:623	file:	signature:()
+add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:634	file:	signature:()
+add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:713	file:	signature:()
+add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:724	file:	signature:()
+add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:902	file:	signature:()
+add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:913	file:	signature:()
+add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:507	file:	signature:()
+add_route	src/Element/element.cpp	/^                req.add_route();$/;"	kind:prototype	line:518	file:	signature:()
 add_route	src/message.cpp	/^    HFRoute* Message::add_route()$/;"	kind:function	line:268	class:EasySip::Message	signature:()
 add_rseq	include/message.h	/^         HFRSeq* add_rseq();$/;"	kind:prototype	line:141	class:EasySip::Message	access:public	signature:()
 add_rseq	src/message.cpp	/^    HFRSeq* Message::add_rseq()$/;"	kind:function	line:346	class:EasySip::Message	signature:()
@@ -2957,14 +2960,14 @@ append	include/parameter.h	/^		void append(std::string name, std::string value)$
 append	include/uri.h	/^        void append(ContactList& c)$/;"	kind:function	line:99	struct:EasySip::ContactList	access:public	signature:(ContactList& c)
 append	include/uri.h	/^        void append(ContactList::iterator from, ContactList::iterator to)$/;"	kind:function	line:104	struct:EasySip::ContactList	access:public	signature:(ContactList::iterator from, ContactList::iterator to)
 append	include/uri.h	/^        void append(std::string uri, std::string name = "")$/;"	kind:function	line:88	struct:EasySip::ContactList	access:public	signature:(std::string uri, std::string name = Ó)
-append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:608	file:	signature:(dialogs_.last()->remote_target())
-append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:698	file:	signature:(dialogs_.last()->remote_target())
-append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:887	file:	signature:(dialogs_.last()->remote_target())
-append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:607	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
-append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:697	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
-append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:886	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
-append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:492	file:	signature:(dialogs_.last()->remote_target())
-append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:491	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:640	file:	signature:(dialogs_.last()->remote_target())
+append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:730	file:	signature:(dialogs_.last()->remote_target())
+append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:919	file:	signature:(dialogs_.last()->remote_target())
+append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:639	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:729	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+append	src/Element/element.cpp	/^                    req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:918	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
+append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(dialogs_.last()->remote_target());$/;"	kind:prototype	line:524	file:	signature:(dialogs_.last()->remote_target())
+append	src/Element/element.cpp	/^                req.route_.last()->cons_.append(from, dialogs_.last()->routes().last()->cons_.end());$/;"	kind:prototype	line:523	file:	signature:(from, dialogs_.last()->routes().last()->cons_.end())
 append	src/header_field.cpp	/^                            header_params_.append(key, buffer);$/;"	kind:prototype	line:186	file:	signature:(key, buffer)
 append	src/header_field.cpp	/^                        digest_cln_.append(buffer, "");$/;"	kind:prototype	line:643	file:	signature:(buffer, Ó)
 append	src/header_field.cpp	/^                        digest_cln_.append(buffer, "");$/;"	kind:prototype	line:668	file:	signature:(buffer, Ó)
@@ -3077,7 +3080,7 @@ buffer	src/header_field.cpp	/^        std::string buffer;$/;"	kind:local	line:16
 buffer	src/header_field.cpp	/^        std::string buffer;$/;"	kind:local	line:282
 buffer	src/message.cpp	/^        std::string buffer;$/;"	kind:local	line:637
 bye_request	include/Element/element.h	/^        virtual int bye_request();$/;"	kind:prototype	line:71	class:EasySip::Element	access:public	implementation:virtual	signature:()
-bye_request	src/Element/element.cpp	/^    int Element::bye_request()$/;"	kind:function	line:423	class:EasySip::Element	signature:()
+bye_request	src/Element/element.cpp	/^    int Element::bye_request()$/;"	kind:function	line:455	class:EasySip::Element	signature:()
 bye_request	test/ts-client.cpp	/^			case 'b': client.bye_request(); break;$/;"	kind:prototype	line:28	file:	signature:()
 bye_request	test/ts-proxy.cpp	/^			case 'b': proxy.bye_request(); break;$/;"	kind:prototype	line:28	file:	signature:()
 bye_request	test/ts-server.cpp	/^			case 'b': server.bye_request(); break;$/;"	kind:prototype	line:34	file:	signature:()
@@ -3100,11 +3103,11 @@ callidPtr	test/ts-osip.c	/^	osip_call_id_t *callidPtr;$/;"	kind:local	line:170
 cancel	include/thread.h	/^        Thread& cancel()$/;"	kind:function	line:362	class:EasySip::Thread	access:public	signature:()
 cancel_dialog	include/dialog.h	/^        void cancel_dialog(DialogId val);$/;"	kind:prototype	line:209	class:EasySip::Dialogs	access:public	signature:(DialogId val)
 cancel_dialog	src/Element/element.cpp	/^                    dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:322	file:	signature:(dialog.id())
-cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1032	file:	signature:(dialog.id())
-cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialogs_.last()->id());$/;"	kind:prototype	line:510	file:	signature:(dialogs_.last()->id())
+cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1064	file:	signature:(dialog.id())
+cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialogs_.last()->id());$/;"	kind:prototype	line:542	file:	signature:(dialogs_.last()->id())
 cancel_dialog	src/dialog.cpp	/^	void Dialogs::cancel_dialog(DialogId val)$/;"	kind:function	line:126	class:EasySip::Dialogs	signature:(DialogId val)
 cancel_request	include/Element/element.h	/^        virtual int cancel_request();$/;"	kind:prototype	line:72	class:EasySip::Element	access:public	implementation:virtual	signature:()
-cancel_request	src/Element/element.cpp	/^    int Element::cancel_request()$/;"	kind:function	line:515	class:EasySip::Element	signature:()
+cancel_request	src/Element/element.cpp	/^    int Element::cancel_request()$/;"	kind:function	line:547	class:EasySip::Element	signature:()
 cancel_request	test/ts-client.cpp	/^			case 'c': client.cancel_request(); break;$/;"	kind:prototype	line:29	file:	signature:()
 cancel_request	test/ts-proxy.cpp	/^			case 'c': proxy.cancel_request(); break;$/;"	kind:prototype	line:29	file:	signature:()
 cancel_request	test/ts-server.cpp	/^			case 'c': server.cancel_request(); break;$/;"	kind:prototype	line:35	file:	signature:()
@@ -3232,7 +3235,7 @@ create	src/message.cpp	/^    ResponseMessage& ResponseMessage::create()$/;"	kind
 create_dialog	include/dialog.h	/^        Dialog* create_dialog();$/;"	kind:prototype	line:206	class:EasySip::Dialogs	access:public	signature:()
 create_dialog	include/dialog.h	/^        Dialog* create_dialog(Dialog &dialog);$/;"	kind:prototype	line:207	class:EasySip::Dialogs	access:public	signature:(Dialog &dialog)
 create_dialog	src/Element/element.cpp	/^                dialogs_.create_dialog(dialog);$/;"	kind:prototype	line:288	file:	signature:(dialog)
-create_dialog	src/Element/element.cpp	/^        dialogs_.create_dialog(dialog);$/;"	kind:prototype	line:953	file:	signature:(dialog)
+create_dialog	src/Element/element.cpp	/^        dialogs_.create_dialog(dialog);$/;"	kind:prototype	line:985	file:	signature:(dialog)
 create_dialog	src/dialog.cpp	/^	Dialog* Dialogs::create_dialog()$/;"	kind:function	line:112	class:EasySip::Dialogs	signature:()
 create_dialog	src/dialog.cpp	/^	Dialog* Dialogs::create_dialog(Dialog &dialog)$/;"	kind:function	line:119	class:EasySip::Dialogs	signature:(Dialog &dialog)
 cseq	include/header_field.h	/^            std::istringstream i(cseq());$/;"	kind:prototype	line:422	signature:()
@@ -3251,11 +3254,11 @@ detachstate	include/thread.h	/^            int detachstate;$/;"	kind:local	line:
 detachstate	include/thread.h	/^        ThrAttr& detachstate(int detachstate)$/;"	kind:function	line:85	class:EasySip::ThrAttr	access:public	signature:(int detachstate)
 detachstate	include/thread.h	/^        int detachstate()$/;"	kind:function	line:75	class:EasySip::ThrAttr	access:public	signature:()
 dialog	src/Element/element.cpp	/^            Dialog dialog(in_msg);$/;"	kind:prototype	line:209	file:	signature:(in_msg)
-dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1027	file:	signature:(in_msg)
-dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1039	file:	signature:(in_msg)
-dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1063	file:	signature:(in_msg)
+dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1059	file:	signature:(in_msg)
+dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1071	file:	signature:(in_msg)
+dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1095	file:	signature:(in_msg)
 dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:282	file:	signature:(in_msg)
-dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:944	file:	signature:(in_msg)
+dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:976	file:	signature:(in_msg)
 dialog_preprocess	include/Element/element.h	/^        int dialog_preprocess(Dialog &dialog, T &in_msg)$/;"	kind:function	line:104	class:EasySip::Element	access:public	signature:(Dialog &dialog, T &in_msg)
 dialogs_	include/Element/element.h	/^        Dialogs dialogs_;$/;"	kind:member	line:25	class:EasySip::Element	access:protected
 digest_cln_	include/header_field.h	/^        Parameters digest_cln_;$/;"	kind:member	line:314	struct:EasySip::HFBase_5_	access:public
@@ -3289,10 +3292,10 @@ fo	test/ts-pair.cpp	/^	std::pair<int, int> fo;$/;"	kind:local	line:7
 foe	test/ts-pair.cpp	/^	std::pair<int, int> foe = std::make_pair(100, 33);$/;"	kind:local	line:11
 fos	test/ts-pair.cpp	/^	std::set<std::pair<int, int> > fos;$/;"	kind:local	line:8
 from	include/uri.h	/^            insert(end(), from, to);$/;"	kind:local	line:106
-from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:604
-from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:694
-from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:883
-from	src/Element/element.cpp	/^                ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:488
+from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:636
+from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:726
+from	src/Element/element.cpp	/^                    ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:915
+from	src/Element/element.cpp	/^                ContactList::iterator from = dialogs_.last()->routes().last()->cons_.begin();$/;"	kind:local	line:520
 from_	include/header_field.h	/^        PtsOf<HFFrom> from_;$/;"	kind:member	line:1252	struct:EasySip::HeaderFields	access:public
 full	include/uri.h	/^        bool full()$/;"	kind:function	line:69	class:EasySip::Contact	access:public	signature:()
 func_cb	test/ts-thr-timer.cpp	/^typedef void (*func_cb)();$/;"	kind:typedef	line:9	file:
@@ -3408,7 +3411,7 @@ header_params_	src/header_field.cpp	/^        p << header_params_;$/;"	kind:loca
 header_params_	src/header_field.cpp	/^        p << header_params_;$/;"	kind:local	line:274
 header_params_	src/header_field.cpp	/^        p << header_params_;$/;"	kind:local	line:580
 host	test/ts-osip.c	/^	char host[256];$/;"	kind:local	line:262
-i	src/Element/element.cpp	/^        int i = 7;$/;"	kind:local	line:971
+i	src/Element/element.cpp	/^        int i = 7;$/;"	kind:local	line:1003
 i	src/message.cpp	/^            size_t i = 1, len = 0;$/;"	kind:local	line:689
 i	test/ts-osip.c	/^	int i,result;$/;"	kind:local	line:297
 i	test/ts-osip.c	/^	int i;$/;"	kind:local	line:75
@@ -3442,7 +3445,7 @@ in_replay_to_	include/header_field.h	/^        PtsOf<HFInReplyTo> in_replay_to_;
 inc_seq	include/header_field.h	/^        void inc_seq()$/;"	kind:function	line:418	struct:EasySip::HFCSeq	access:public	signature:()
 index	src/header_field.cpp	/^        size_t index = 0;$/;"	kind:local	line:1438
 info_request	include/Element/element.h	/^        virtual int info_request();$/;"	kind:prototype	line:74	class:EasySip::Element	access:public	implementation:virtual	signature:()
-info_request	src/Element/element.cpp	/^    int Element::info_request()$/;"	kind:function	line:534	class:EasySip::Element	signature:()
+info_request	src/Element/element.cpp	/^    int Element::info_request()$/;"	kind:function	line:566	class:EasySip::Element	signature:()
 info_request	test/ts-client.cpp	/^			case 'f': client.info_request(); break;$/;"	kind:prototype	line:31	file:	signature:()
 info_request	test/ts-proxy.cpp	/^			case 'f': proxy.info_request(); break;$/;"	kind:prototype	line:31	file:	signature:()
 info_request	test/ts-server.cpp	/^			case 'f': server.info_request(); break;$/;"	kind:prototype	line:37	file:	signature:()
@@ -3537,7 +3540,7 @@ is_6xx_resp	include/message.h	/^        bool is_6xx_resp()$/;"	kind:function	lin
 is_confirmed	include/dialog.h	/^        bool is_confirmed()$/;"	kind:function	line:184	class:EasySip::Dialog	access:public	signature:()
 is_confirmed	include/dialog.h	/^        void is_confirmed(bool c)$/;"	kind:function	line:179	class:EasySip::Dialog	access:public	signature:(bool c)
 is_confirmed	src/Element/element.cpp	/^                dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:292	file:	signature:(true)
-is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1067	file:	signature:(true)
+is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1099	file:	signature:(true)
 is_hop_by_hop_	include/header_field.h	/^        bool is_hop_by_hop_;$/;"	kind:member	line:107	struct:EasySip::HeaderField	access:public
 is_resp2invite	include/message.h	/^        bool is_resp2invite()$/;"	kind:function	line:639	class:EasySip::ResponseMessage	access:public	signature:()
 is_valid	include/message.h	/^        bool is_valid();$/;"	kind:prototype	line:239	class:EasySip::InviteMessage	access:public	signature:()
@@ -3602,7 +3605,7 @@ key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:
 key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:91
 key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:984
 last	include/utils.h	/^        T* last()$/;"	kind:function	line:168	class:EasySip::PtsOf	access:public	signature:()
-last	src/Element/element.cpp	/^        std::cout << "----------\\n" << *dialogs_.last() << "-----------\\n";$/;"	kind:prototype	line:961	file:	signature:()
+last	src/Element/element.cpp	/^        std::cout << "----------\\n" << *dialogs_.last() << "-----------\\n";$/;"	kind:prototype	line:993	file:	signature:()
 len	include/buffer.h	/^        size_t len()$/;"	kind:function	line:39	class:EasySip::Buffer	access:public	signature:()
 len	src/message.cpp	/^            in >> len;$/;"	kind:local	line:691
 len	src/message.cpp	/^            size_t i = 1, len = 0;$/;"	kind:local	line:689
@@ -3645,7 +3648,7 @@ max_forwards	include/header_field.h	/^        std::string max_forwards()$/;"	kin
 max_forwards_	include/header_field.h	/^        PtsOf<HFMaxForwards> max_forwards_;$/;"	kind:member	line:1286	struct:EasySip::HeaderFields	access:public
 max_rx_	include/socket.h	/^        int max_rx_;$/;"	kind:member	line:93	class:EasySip::SocketIp4	access:protected
 message_request	include/Element/element.h	/^        virtual int message_request();$/;"	kind:prototype	line:76	class:EasySip::Element	access:public	implementation:virtual	signature:()
-message_request	src/Element/element.cpp	/^    int Element::message_request()$/;"	kind:function	line:628	class:EasySip::Element	signature:()
+message_request	src/Element/element.cpp	/^    int Element::message_request()$/;"	kind:function	line:660	class:EasySip::Element	signature:()
 message_request	test/ts-client.cpp	/^			case 'm': client.message_request(); break;$/;"	kind:prototype	line:33	file:	signature:()
 message_request	test/ts-proxy.cpp	/^			case 'm': proxy.message_request(); break;$/;"	kind:prototype	line:33	file:	signature:()
 message_request	test/ts-server.cpp	/^			case 'm': server.message_request(); break;$/;"	kind:prototype	line:39	file:	signature:()
@@ -3693,7 +3696,7 @@ next	src/header_field.cpp	/^        size_t next = 0;$/;"	kind:local	line:42
 next	src/message.cpp	/^        int next = msg.find_first_of(sym, pos);$/;"	kind:local	line:525
 next	src/message.cpp	/^        size_t pos, next;$/;"	kind:local	line:539
 notify_request	include/Element/element.h	/^        virtual int notify_request();$/;"	kind:prototype	line:78	class:EasySip::Element	access:public	implementation:virtual	signature:()
-notify_request	src/Element/element.cpp	/^    int Element::notify_request()$/;"	kind:function	line:795	class:EasySip::Element	signature:()
+notify_request	src/Element/element.cpp	/^    int Element::notify_request()$/;"	kind:function	line:827	class:EasySip::Element	signature:()
 notify_request	test/ts-client.cpp	/^			case 'n': client.notify_request(); break;$/;"	kind:prototype	line:35	file:	signature:()
 notify_request	test/ts-proxy.cpp	/^			case 'n': proxy.notify_request(); break;$/;"	kind:prototype	line:35	file:	signature:()
 notify_request	test/ts-server.cpp	/^			case 'n': server.notify_request(); break;$/;"	kind:prototype	line:41	file:	signature:()
@@ -3714,23 +3717,23 @@ o	src/header_field.cpp	/^        std::ostringstream o;$/;"	kind:local	line:967
 o	src/message.cpp	/^        std::ostringstream o;$/;"	kind:local	line:707
 o	src/message.cpp	/^        std::ostringstream o;$/;"	kind:local	line:887
 on_ack_request	include/Element/element.h	/^        virtual int on_ack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:86	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1061	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1093	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_bye_request	include/Element/element.h	/^        virtual int on_bye_request(RequestMessage &in_msg);$/;"	kind:prototype	line:85	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1023	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1055	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_cancel_request	include/Element/element.h	/^        virtual int on_cancel_request(RequestMessage &in_msg);$/;"	kind:prototype	line:87	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1037	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1069	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_info_request	include/Element/element.h	/^        virtual int on_info_request(RequestMessage &in_msg);$/;"	kind:prototype	line:93	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1113	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1145	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_invite_request	include/Element/element.h	/^        virtual int on_invite_request(RequestMessage &in_msg);$/;"	kind:prototype	line:83	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_invite_request	src/Element/element.cpp	/^    int Element::on_invite_request(RequestMessage &in_msg)$/;"	kind:function	line:939	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_invite_request	src/Element/element.cpp	/^    int Element::on_invite_request(RequestMessage &in_msg)$/;"	kind:function	line:971	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_message_request	include/Element/element.h	/^        virtual int on_message_request(RequestMessage &in_msg);$/;"	kind:prototype	line:92	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1131	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1163	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_notify_request	include/Element/element.h	/^        virtual int on_notify_request(RequestMessage &in_msg);$/;"	kind:prototype	line:91	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1107	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1139	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_options_request	include/Element/element.h	/^        virtual int on_options_request(RequestMessage &in_msg);$/;"	kind:prototype	line:88	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1073	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1105	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_prack_request	include/Element/element.h	/^        virtual int on_prack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:94	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1137	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1169	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_receive_message	include/Element/element.h	/^        virtual int on_receive_message(std::string &msg);$/;"	kind:prototype	line:65	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg)
 on_receive_message	src/Element/element.cpp	/^    int Element::on_receive_message(std::string &msg)$/;"	kind:function	line:117	class:EasySip::Element	signature:(std::string &msg)
 on_receive_req	include/Element/element.h	/^        virtual int on_receive_req(std::string &msg, const int code);$/;"	kind:prototype	line:66	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
@@ -3738,16 +3741,16 @@ on_receive_req	src/Element/element.cpp	/^    int Element::on_receive_req(std::st
 on_receive_resp	include/Element/element.h	/^        virtual int on_receive_resp(std::string &msg, const int code);$/;"	kind:prototype	line:67	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
 on_receive_resp	src/Element/element.cpp	/^    int Element::on_receive_resp(std::string &msg, const int code)$/;"	kind:function	line:277	class:EasySip::Element	signature:(std::string &msg, const int code)
 on_refer_request	include/Element/element.h	/^        virtual int on_refer_request(RequestMessage &in_msg);$/;"	kind:prototype	line:89	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1125	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1157	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_register_request	include/Element/element.h	/^        virtual int on_register_request(RequestMessage &in_msg);$/;"	kind:prototype	line:84	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
 on_register_request	include/Element/registar.h	/^		virtual int on_register_request(RequestMessage &in_msg);$/;"	kind:prototype	line:41	class:EasySip::Registar	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_register_request	src/Element/element.cpp	/^    int Element::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:1017	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_register_request	src/Element/element.cpp	/^    int Element::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:1049	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_register_request	src/Element/registar.cpp	/^	int Registar::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:95	class:EasySip::Registar	signature:(RequestMessage &in_msg)
 on_subscribe_request	include/Element/element.h	/^        virtual int on_subscribe_request(RequestMessage &in_msg);$/;"	kind:prototype	line:90	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1101	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1133	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_timeup	test/ts-thr-timer.cpp	/^void on_timeup()$/;"	kind:function	line:4	signature:()
 on_update_request	include/Element/element.h	/^        virtual int on_update_request(RequestMessage &in_msg);$/;"	kind:prototype	line:95	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1119	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1151	class:EasySip::Element	signature:(RequestMessage &in_msg)
 operator !=	include/timer.h	/^    extern bool operator!= (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:26	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 operator !=	src/timer.cpp	/^    bool operator!= (struct itimerval &a, struct itimerval &b)$/;"	kind:function	line:14	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 operator ()	include/header_field.h	/^        std::string operator() ()$/;"	kind:function	line:1183	struct:EasySip::RequestLine	access:public	signature:()
@@ -3800,7 +3803,7 @@ operator []	test/ts.cpp	/^	int operator[] (A a)$/;"	kind:function	line:94	class:
 operator []	test/ts.cpp	/^	int operator[] (int val)$/;"	kind:function	line:85	class:B	access:public	signature:(int val)
 operator []	test/ts.cpp	/^	int operator[] (std::string hello)$/;"	kind:function	line:90	class:B	access:public	signature:(std::string hello)
 options_request	include/Element/element.h	/^        virtual int options_request();$/;"	kind:prototype	line:80	class:EasySip::Element	access:public	implementation:virtual	signature:()
-options_request	src/Element/element.cpp	/^    int Element::options_request()$/;"	kind:function	line:818	class:EasySip::Element	signature:()
+options_request	src/Element/element.cpp	/^    int Element::options_request()$/;"	kind:function	line:850	class:EasySip::Element	signature:()
 options_request	test/ts-client.cpp	/^			case 'o': client.options_request(); break;$/;"	kind:prototype	line:37	file:	signature:()
 options_request	test/ts-proxy.cpp	/^			case 'o': proxy.options_request(); break;$/;"	kind:prototype	line:37	file:	signature:()
 options_request	test/ts-server.cpp	/^			case 'o': server.options_request(); break;$/;"	kind:prototype	line:43	file:	signature:()
@@ -3925,7 +3928,7 @@ pos	include/message.h	/^            size_t pos = 0;$/;"	kind:local	line:651
 pos	src/message.cpp	/^        size_t pos = msg.find_first_of(sym);$/;"	kind:local	line:519
 pos	src/message.cpp	/^        size_t pos, next;$/;"	kind:local	line:539
 prack_request	include/Element/element.h	/^        virtual int prack_request();$/;"	kind:prototype	line:81	class:EasySip::Element	access:public	implementation:virtual	signature:()
-prack_request	src/Element/element.cpp	/^    int Element::prack_request()$/;"	kind:function	line:928	class:EasySip::Element	signature:()
+prack_request	src/Element/element.cpp	/^    int Element::prack_request()$/;"	kind:function	line:960	class:EasySip::Element	signature:()
 prack_request	test/ts-client.cpp	/^			case 'k': client.prack_request(); break;$/;"	kind:prototype	line:38	file:	signature:()
 prack_request	test/ts-proxy.cpp	/^			case 'k': proxy.prack_request(); break;$/;"	kind:prototype	line:38	file:	signature:()
 prack_request	test/ts-server.cpp	/^			case 'k': server.prack_request(); break;$/;"	kind:prototype	line:44	file:	signature:()
@@ -3956,7 +3959,7 @@ record_route_	include/header_field.h	/^        PtsOf<HFRecordRoute> record_route
 recv_buffer	include/socket.h	/^        int recv_buffer(int selfloop = 1);$/;"	kind:prototype	line:204	class:EasySip::SocketIp4UDP	access:public	signature:(int selfloop = 1)
 recv_buffer	src/socket.cpp	/^    int SocketIp4UDP::recv_buffer(int selfloop)$/;"	kind:function	line:118	class:EasySip::SocketIp4UDP	signature:(int selfloop)
 refer_request	include/Element/element.h	/^        virtual int refer_request();$/;"	kind:prototype	line:79	class:EasySip::Element	access:public	implementation:virtual	signature:()
-refer_request	src/Element/element.cpp	/^    int Element::refer_request()$/;"	kind:function	line:806	class:EasySip::Element	signature:()
+refer_request	src/Element/element.cpp	/^    int Element::refer_request()$/;"	kind:function	line:838	class:EasySip::Element	signature:()
 refer_request	test/ts-client.cpp	/^			case 'e': client.refer_request(); break;$/;"	kind:prototype	line:36	file:	signature:()
 refer_request	test/ts-proxy.cpp	/^			case 'e': proxy.refer_request(); break;$/;"	kind:prototype	line:36	file:	signature:()
 refer_request	test/ts-server.cpp	/^			case 'e': server.refer_request(); break;$/;"	kind:prototype	line:42	file:	signature:()
@@ -3983,26 +3986,27 @@ remote_uri	include/dialog.h	/^        std::string& remote_uri()$/;"	kind:functio
 remote_uri	include/dialog.h	/^        void remote_uri(std::string val) $/;"	kind:function	line:159	class:EasySip::Dialog	access:public	signature:(std::string val)
 remote_uri_	include/dialog.h	/^        std::string remote_uri_;$/;"	kind:member	line:79	class:EasySip::Dialog	access:private
 remove_tail_symbol	include/header_field.h	/^        void remove_tail_symbol(char sym)$/;"	kind:function	line:161	struct:EasySip::HeaderField	access:public	signature:(char sym)
-rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1049	file:	signature:(in_msg)
-rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:190	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1081	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:189	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^            ResponseMessage rep(in_msg);$/;"	kind:prototype	line:150	file:	signature:(in_msg)
-rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1025	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1057	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:106	file:	signature:(in_msg)
-rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1075	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1107	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:136	file:	signature:(in_msg)
-rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:941	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:973	file:	signature:(in_msg)
 rep	src/Element/registar.cpp	/^		ResponseMessage rep(in_msg);$/;"	kind:prototype	line:99	file:	signature:(in_msg)
 replaces_	include/header_field.h	/^        PtsOf<HFReplaces> replaces_;$/;"	kind:member	line:1291	struct:EasySip::HeaderFields	access:public
 reply_to_	include/header_field.h	/^        PtsOf<HFReplyTo> reply_to_;$/;"	kind:member	line:1290	struct:EasySip::HeaderFields	access:public
-req	src/Element/element.cpp	/^        AckMessage req;$/;"	kind:local	line:541
-req	src/Element/element.cpp	/^        CancelMessage req;$/;"	kind:local	line:517
+req	src/Element/element.cpp	/^        AckMessage req;$/;"	kind:local	line:573
+req	src/Element/element.cpp	/^        CancelMessage req;$/;"	kind:local	line:549
 req	src/Element/element.cpp	/^        InviteMessage req;$/;"	kind:local	line:370
-req	src/Element/element.cpp	/^        MessageMessage req;$/;"	kind:local	line:630
-req	src/Element/element.cpp	/^        NotifyMessage req;$/;"	kind:local	line:797
-req	src/Element/element.cpp	/^        OptionsMessage req;$/;"	kind:local	line:820
-req	src/Element/element.cpp	/^        PrackMessage req;$/;"	kind:local	line:930
-req	src/Element/element.cpp	/^        ReferMessage req;$/;"	kind:local	line:808
-req	src/Element/element.cpp	/^        SubscribeMessage req;$/;"	kind:local	line:786
+req	src/Element/element.cpp	/^        MessageMessage req;$/;"	kind:local	line:662
+req	src/Element/element.cpp	/^        NotifyMessage req;$/;"	kind:local	line:829
+req	src/Element/element.cpp	/^        OptionsMessage req;$/;"	kind:local	line:852
+req	src/Element/element.cpp	/^        PrackMessage req;$/;"	kind:local	line:962
+req	src/Element/element.cpp	/^        ReferMessage req;$/;"	kind:local	line:840
+req	src/Element/element.cpp	/^        RegisterMessage req;$/;"	kind:local	line:420
+req	src/Element/element.cpp	/^        SubscribeMessage req;$/;"	kind:local	line:818
 req_line_	include/header_field.h	/^        std::shared_ptr<RequestLine> req_line_;$/;"	kind:member	line:1247	struct:EasySip::HeaderFields	access:public
 request_disposition_	include/header_field.h	/^        PtsOf<HFRequestDisposition> request_disposition_;$/;"	kind:member	line:1293	struct:EasySip::HeaderFields	access:public
 request_uri_	include/header_field.h	/^        std::string request_uri_;$/;"	kind:member	line:1175	struct:EasySip::RequestLine	access:public
@@ -4106,10 +4110,10 @@ sent_proto_	include/header_field.h	/^        std::string sent_proto_;$/;"	kind:m
 seq	include/header_field.h	/^            i >> seq;$/;"	kind:local	line:423
 seq	include/header_field.h	/^            o << seq;$/;"	kind:local	line:427
 seq	include/header_field.h	/^            unsigned int seq;$/;"	kind:local	line:420
-seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:564
-seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:654
-seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:843
-seq	src/Element/element.cpp	/^        std::string seq;$/;"	kind:local	line:448
+seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:596
+seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:686
+seq	src/Element/element.cpp	/^            std::string seq;$/;"	kind:local	line:875
+seq	src/Element/element.cpp	/^        std::string seq;$/;"	kind:local	line:480
 seqNumStr	test/ts-osip.c	/^	char *seqNumStr = NULL;$/;"	kind:local	line:169
 server_	include/header_field.h	/^        PtsOf<HFServer> server_;$/;"	kind:member	line:1305	struct:EasySip::HeaderFields	access:public
 session_expires_	include/header_field.h	/^        PtsOf<HFSessionExpires> session_expires_; \/\/ in second$/;"	kind:member	line:1297	struct:EasySip::HeaderFields	access:public
@@ -4166,7 +4170,7 @@ start	test/ts-server.cpp	/^	server.start();$/;"	kind:prototype	line:17	file:	sig
 startt	test/ts-es-timer.cpp	/^void startt(Timer *t)$/;"	kind:function	line:6	signature:(Timer *t)
 state	include/transaction.h	/^        int state()$/;"	kind:function	line:57	class:EasySip::Fsm	access:public	signature:()
 state	include/transaction.h	/^        void state(int s)$/;"	kind:function	line:62	class:EasySip::Fsm	access:public	signature:(int s)
-state	src/Element/element.cpp	/^		ivt_.state(T_FSM_CALLING);$/;"	kind:prototype	line:412	file:	signature:(T_FSM_CALLING)
+state	src/Element/element.cpp	/^        ivt_.state(T_FSM_CALLING);$/;"	kind:prototype	line:412	file:	signature:(T_FSM_CALLING)
 state_	include/transaction.h	/^        int state_;$/;"	kind:member	line:31	class:EasySip::Fsm	access:protected
 stateful	include/Element/element.h	/^        bool stateful()$/;"	kind:function	line:53	class:EasySip::Element	access:public	signature:()
 stateful	include/Element/element.h	/^        void stateful(bool s)$/;"	kind:function	line:58	class:EasySip::Element	access:public	signature:(bool s)
@@ -4183,7 +4187,7 @@ std::cout	test/ts-server.cpp	/^		std::cout << "input command: ";$/;"	kind:member
 std::reverse	test/ts.cpp	/^	std::reverse(digits.begin(), digits.end());$/;"	kind:prototype	line:137	class:std	file:	signature:(digits.begin(), digits.end())
 still_ringing	include/dialog.h	/^        bool still_ringing()$/;"	kind:function	line:189	class:EasySip::Dialog	access:public	signature:()
 still_ringing	include/dialog.h	/^        void still_ringing(bool ring)$/;"	kind:function	line:194	class:EasySip::Dialog	access:public	signature:(bool ring)
-still_ringing	src/Element/element.cpp	/^        dialogs_[dialog.id()]->still_ringing(true);$/;"	kind:prototype	line:966	file:	signature:(true)
+still_ringing	src/Element/element.cpp	/^        dialogs_[dialog.id()]->still_ringing(true);$/;"	kind:prototype	line:998	file:	signature:(true)
 still_ringing_	include/dialog.h	/^        bool still_ringing_;$/;"	kind:member	line:85	class:EasySip::Dialog	access:private
 strerror	include/socket.h	/^                std::cerr << "socket: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:70	signature:(errno)
 strerror	include/thread.h	/^                std::cerr << "pthread_attr_destroy: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:49	signature:(errno)
@@ -4217,7 +4221,7 @@ strerror	src/socket.cpp	/^                std::cerr << "bind: " << strerror(errn
 strerror	src/socket.cpp	/^                std::cerr << "socket: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:73	file:	signature:(errno)
 subject_	include/header_field.h	/^        PtsOf<HFSubject> subject_;$/;"	kind:member	line:1263	struct:EasySip::HeaderFields	access:public
 subscribe_request	include/Element/element.h	/^        virtual int subscribe_request();$/;"	kind:prototype	line:77	class:EasySip::Element	access:public	implementation:virtual	signature:()
-subscribe_request	src/Element/element.cpp	/^    int Element::subscribe_request()$/;"	kind:function	line:784	class:EasySip::Element	signature:()
+subscribe_request	src/Element/element.cpp	/^    int Element::subscribe_request()$/;"	kind:function	line:816	class:EasySip::Element	signature:()
 subscribe_request	test/ts-client.cpp	/^			case 's': client.subscribe_request(); break;$/;"	kind:prototype	line:34	file:	signature:()
 subscribe_request	test/ts-proxy.cpp	/^			case 's': proxy.subscribe_request(); break;$/;"	kind:prototype	line:34	file:	signature:()
 subscribe_request	test/ts-server.cpp	/^			case 's': server.subscribe_request(); break;$/;"	kind:prototype	line:40	file:	signature:()
@@ -4242,7 +4246,7 @@ t_	include/transaction.h	/^		Thread t_;$/;"	kind:member	line:33	class:EasySip::F
 t_id	include/timer.h	/^            int t_id = ITIMER_REAL;\/\/VIRTUAL;$/;"	kind:local	line:151
 tag	include/header_field.h	/^        std::string tag()$/;"	kind:function	line:455	struct:EasySip::HFFrom	access:public	signature:()
 tag	include/header_field.h	/^        std::string tag()$/;"	kind:function	line:483	struct:EasySip::HFTo	access:public	signature:()
-tags	src/Element/element.cpp	/^            std::vector<std::string> tags = in_msg.proxy_require_.last()->misunderstand_tags();$/;"	kind:local	line:186
+tags	src/Element/element.cpp	/^            std::vector<std::string> tags = in_msg.proxy_require_.last()->misunderstand_tags();$/;"	kind:local	line:185
 temp	test/ts-osip.c	/^	char temp[MESSAGE_ENTRY_MAX_LENGTH];$/;"	kind:local	line:171
 text_	include/header_field.h	/^            std::string text_;$/;"	kind:member	line:997	struct:EasySip::HFWarning::WarningValue	access:public
 th1	test/ts-es-timer.cpp	/^	std::thread th1(startt, &t1);$/;"	kind:prototype	line:17	file:	signature:(startt, &t1)
@@ -4273,7 +4277,7 @@ type_	include/socket.h	/^        int type_;$/;"	kind:member	line:52	class:EasySi
 udp_	include/Element/element.h	/^        SocketIp4UDP udp_;$/;"	kind:member	line:22	class:EasySip::Element	access:protected
 unsupported_	include/header_field.h	/^        PtsOf<HFUnsupported> unsupported_;$/;"	kind:member	line:1306	struct:EasySip::HeaderFields	access:public
 update_request	include/Element/element.h	/^        virtual int update_request();$/;"	kind:prototype	line:73	class:EasySip::Element	access:public	implementation:virtual	signature:()
-update_request	src/Element/element.cpp	/^    int Element::update_request()$/;"	kind:function	line:529	class:EasySip::Element	signature:()
+update_request	src/Element/element.cpp	/^    int Element::update_request()$/;"	kind:function	line:561	class:EasySip::Element	signature:()
 update_request	test/ts-client.cpp	/^			case 'u': client.update_request(); break;$/;"	kind:prototype	line:30	file:	signature:()
 update_request	test/ts-proxy.cpp	/^			case 'u': proxy.update_request(); break;$/;"	kind:prototype	line:30	file:	signature:()
 update_request	test/ts-server.cpp	/^			case 'u': server.update_request(); break;$/;"	kind:prototype	line:36	file:	signature:()
