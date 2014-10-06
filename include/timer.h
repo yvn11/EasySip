@@ -13,13 +13,9 @@ namespace EasySip
 {
     /*
      * void timeradd(struct timeval *a, struct timeval *b, struct timeval *res);
-     * 
      * void timersub(struct timeval *a, struct timeval *b, struct timeval *res);
-     * 
      * void timerclear(struct timeval *tvp);
-     * 
      * int timerisset(struct timeval *tvp);
-     * 
      * int timercmp(struct timeval *a, struct timeval *b, CMP);
      */
     extern bool operator== (struct itimerval &a, struct itimerval &b);
@@ -28,6 +24,13 @@ namespace EasySip
     extern std::ostream& operator<< (std::ostream &o, struct itimerval &a);
     extern std::ostream& operator<< (std::ostream &o, struct timespec &a);
     extern std::ostream& operator<< (std::ostream &o, struct itimerspec &a);
+
+    class Time
+    {
+        time_t time_;
+    public:
+        static std::string now();
+    };
 
 //    void sigalrm_cb(int signo)
 //    {

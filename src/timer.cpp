@@ -36,4 +36,16 @@ namespace EasySip
     {
         return o << a.it_value << " : " << a.it_interval;
     }
+
+    std::string Time::now()
+    {
+        time_t buf = time(0);
+        std::string fmt("%a, %d %b %G %H:%M:%S GMT");
+        char sbuf[30] = {0};
+
+        strftime(sbuf, sizeof(sbuf), fmt.c_str(), gmtime(&buf));
+
+        return std::string(sbuf);
+//      return std::string(asctime(gmtime(&buf)));
+    }
 } // namespace EasySip
