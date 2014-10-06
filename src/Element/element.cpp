@@ -1048,7 +1048,23 @@ namespace EasySip
     
     int Element::on_register_request(RequestMessage &in_msg)
     {
-        echo(in_msg);
+        ResponseMessage rep(in_msg);
+        rep.SipVersion(SIP_VERSION_2_0);
+
+		/*
+		 * TODO: Expires <= 2^32-1
+		 *     if Expires is illegal, then use 3600
+		 */
+
+		/*
+		 * TODO: add bindings for AOR
+		 *  sip:xxxxxx
+		 *  tel:xxxxx
+		 *  mailto:xxxxx
+		 */
+
+        send_msg(rep);
+
         return PROCEDURE_OK;
     }
     
