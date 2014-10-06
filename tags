@@ -57,7 +57,7 @@ B::operator []	test/ts.cpp	/^	int operator[] (std::string hello)$/;"	kind:functi
 B::show	test/ts.cpp	/^		a.show();$/;"	kind:prototype	line:96	file:	signature:()
 B::~B	test/ts.cpp	/^	~B()$/;"	kind:function	line:82	class:B	access:public	signature:()
 BUILD	makefiles/predef.mk	/^BUILD			= $(PROJECT_DIR)\/build$/;"	kind:macro	line:12
-Base	include/timer.h	/^        typedef Timer Base;$/;"	kind:typedef	line:63	class:EasySip::Timer	access:public
+Base	include/timer.h	/^        typedef Timer Base;$/;"	kind:typedef	line:66	class:EasySip::Timer	access:public
 Bind	include/socket.h	/^        bool Bind()$/;"	kind:function	line:216	class:EasySip::SocketIp4UDP	access:public	signature:()
 Bind	include/socket.h	/^        void Bind(bool b)$/;"	kind:function	line:206	class:EasySip::SocketIp4UDP	access:public	signature:(bool b)
 Buffer	include/buffer.h	/^        Buffer(size_t len) : len_(len)$/;"	kind:function	line:21	class:EasySip::Buffer	access:public	signature:(size_t len)
@@ -313,23 +313,23 @@ EasySip::Element::msgq_	include/Element/element.h	/^        std::queue<std::stri
 EasySip::Element::notify_request	include/Element/element.h	/^        virtual int notify_request();$/;"	kind:prototype	line:78	class:EasySip::Element	access:public	implementation:virtual	signature:()
 EasySip::Element::notify_request	src/Element/element.cpp	/^    int Element::notify_request()$/;"	kind:function	line:827	class:EasySip::Element	signature:()
 EasySip::Element::on_ack_request	include/Element/element.h	/^        virtual int on_ack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:86	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1093	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1118	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_bye_request	include/Element/element.h	/^        virtual int on_bye_request(RequestMessage &in_msg);$/;"	kind:prototype	line:85	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1055	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1080	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_cancel_request	include/Element/element.h	/^        virtual int on_cancel_request(RequestMessage &in_msg);$/;"	kind:prototype	line:87	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1069	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1094	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_info_request	include/Element/element.h	/^        virtual int on_info_request(RequestMessage &in_msg);$/;"	kind:prototype	line:93	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1145	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1170	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_invite_request	include/Element/element.h	/^        virtual int on_invite_request(RequestMessage &in_msg);$/;"	kind:prototype	line:83	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
 EasySip::Element::on_invite_request	src/Element/element.cpp	/^    int Element::on_invite_request(RequestMessage &in_msg)$/;"	kind:function	line:971	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_message_request	include/Element/element.h	/^        virtual int on_message_request(RequestMessage &in_msg);$/;"	kind:prototype	line:92	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1163	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1188	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_notify_request	include/Element/element.h	/^        virtual int on_notify_request(RequestMessage &in_msg);$/;"	kind:prototype	line:91	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1139	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1164	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_options_request	include/Element/element.h	/^        virtual int on_options_request(RequestMessage &in_msg);$/;"	kind:prototype	line:88	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1105	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1130	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_prack_request	include/Element/element.h	/^        virtual int on_prack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:94	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1169	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1194	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_receive_message	include/Element/element.h	/^        virtual int on_receive_message(std::string &msg);$/;"	kind:prototype	line:65	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg)
 EasySip::Element::on_receive_message	src/Element/element.cpp	/^    int Element::on_receive_message(std::string &msg)$/;"	kind:function	line:117	class:EasySip::Element	signature:(std::string &msg)
 EasySip::Element::on_receive_req	include/Element/element.h	/^        virtual int on_receive_req(std::string &msg, const int code);$/;"	kind:prototype	line:66	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
@@ -337,13 +337,13 @@ EasySip::Element::on_receive_req	src/Element/element.cpp	/^    int Element::on_r
 EasySip::Element::on_receive_resp	include/Element/element.h	/^        virtual int on_receive_resp(std::string &msg, const int code);$/;"	kind:prototype	line:67	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
 EasySip::Element::on_receive_resp	src/Element/element.cpp	/^    int Element::on_receive_resp(std::string &msg, const int code)$/;"	kind:function	line:277	class:EasySip::Element	signature:(std::string &msg, const int code)
 EasySip::Element::on_refer_request	include/Element/element.h	/^        virtual int on_refer_request(RequestMessage &in_msg);$/;"	kind:prototype	line:89	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1157	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1182	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_register_request	include/Element/element.h	/^        virtual int on_register_request(RequestMessage &in_msg);$/;"	kind:prototype	line:84	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
 EasySip::Element::on_register_request	src/Element/element.cpp	/^    int Element::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:1049	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_subscribe_request	include/Element/element.h	/^        virtual int on_subscribe_request(RequestMessage &in_msg);$/;"	kind:prototype	line:90	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1133	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1158	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::on_update_request	include/Element/element.h	/^        virtual int on_update_request(RequestMessage &in_msg);$/;"	kind:prototype	line:95	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-EasySip::Element::on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1151	class:EasySip::Element	signature:(RequestMessage &in_msg)
+EasySip::Element::on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1176	class:EasySip::Element	signature:(RequestMessage &in_msg)
 EasySip::Element::options_request	include/Element/element.h	/^        virtual int options_request();$/;"	kind:prototype	line:80	class:EasySip::Element	access:public	implementation:virtual	signature:()
 EasySip::Element::options_request	src/Element/element.cpp	/^    int Element::options_request()$/;"	kind:function	line:850	class:EasySip::Element	signature:()
 EasySip::Element::prack_request	include/Element/element.h	/^        virtual int prack_request();$/;"	kind:prototype	line:81	class:EasySip::Element	access:public	implementation:virtual	signature:()
@@ -1307,13 +1307,14 @@ EasySip::RespCodeList	include/response_code.h	/^    typedef std::set<RespCode> R
 EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BAD_EXTENSION);$/;"	kind:prototype	line:191	file:	signature:(SIP_RESPONSE_BAD_EXTENSION)
 EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BUSY);$/;"	kind:prototype	line:1024	file:	signature:(SIP_RESPONSE_BUSY)
 EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_GLOBAL_BUSY);$/;"	kind:prototype	line:1022	file:	signature:(SIP_RESPONSE_GLOBAL_BUSY)
-EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1084	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
+EasySip::ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1109	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
 EasySip::ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_MULTI_CHOICES);$/;"	kind:prototype	line:1009	file:	signature:(SIP_RESPONSE_MULTI_CHOICES)
 EasySip::ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:152	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
 EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_RINGING);$/;"	kind:prototype	line:995	file:	signature:(SIP_RESPONSE_RINGING)
 EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1031	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1053	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:109	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
-EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1110	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1135	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 EasySip::ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(rc);$/;"	kind:prototype	line:138	file:	signature:(rc)
 EasySip::ResponseCode	src/Element/registar.cpp	/^						rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:137	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
 EasySip::ResponseCode	src/Element/registar.cpp	/^				rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:126	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
@@ -1332,7 +1333,7 @@ EasySip::ResponseMessage::ResponseMessage	include/message.h	/^        ResponseMe
 EasySip::ResponseMessage::ResponseMessage	src/message.cpp	/^    ResponseMessage::ResponseMessage(RequestMessage &in_msg)$/;"	kind:function	line:922	class:EasySip::ResponseMessage	signature:(RequestMessage &in_msg)
 EasySip::ResponseMessage::SipVersion	include/message.h	/^        std::string& SipVersion()$/;"	kind:function	line:604	class:EasySip::ResponseMessage	access:public	signature:()
 EasySip::ResponseMessage::SipVersion	include/message.h	/^        void SipVersion(std::string ver)$/;"	kind:function	line:599	class:EasySip::ResponseMessage	access:public	signature:(std::string ver)
-EasySip::ResponseMessage::create	include/message.h	/^        virtual ResponseMessage& create();$/;"	kind:prototype	line:645	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
+EasySip::ResponseMessage::create	include/message.h	/^        virtual ResponseMessage& create();$/;"	kind:prototype	line:650	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
 EasySip::ResponseMessage::create	src/message.cpp	/^    ResponseMessage& ResponseMessage::create()$/;"	kind:function	line:884	class:EasySip::ResponseMessage	signature:()
 EasySip::ResponseMessage::is_1xx_resp	include/message.h	/^        bool is_1xx_resp()$/;"	kind:function	line:609	class:EasySip::ResponseMessage	access:public	signature:()
 EasySip::ResponseMessage::is_2xx_resp	include/message.h	/^        bool is_2xx_resp()$/;"	kind:function	line:614	class:EasySip::ResponseMessage	access:public	signature:()
@@ -1341,10 +1342,11 @@ EasySip::ResponseMessage::is_4xx_resp	include/message.h	/^        bool is_4xx_re
 EasySip::ResponseMessage::is_5xx_resp	include/message.h	/^        bool is_5xx_resp()$/;"	kind:function	line:629	class:EasySip::ResponseMessage	access:public	signature:()
 EasySip::ResponseMessage::is_6xx_resp	include/message.h	/^        bool is_6xx_resp()$/;"	kind:function	line:634	class:EasySip::ResponseMessage	access:public	signature:()
 EasySip::ResponseMessage::is_resp2invite	include/message.h	/^        bool is_resp2invite()$/;"	kind:function	line:639	class:EasySip::ResponseMessage	access:public	signature:()
-EasySip::ResponseMessage::parse	include/message.h	/^        virtual int parse()$/;"	kind:function	line:649	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
-EasySip::ResponseMessage::parse	include/message.h	/^        virtual int parse(size_t &pos);$/;"	kind:prototype	line:647	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:(size_t &pos)
+EasySip::ResponseMessage::is_resp2register	include/message.h	/^        bool is_resp2register()$/;"	kind:function	line:644	class:EasySip::ResponseMessage	access:public	signature:()
+EasySip::ResponseMessage::parse	include/message.h	/^        virtual int parse()$/;"	kind:function	line:654	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
+EasySip::ResponseMessage::parse	include/message.h	/^        virtual int parse(size_t &pos);$/;"	kind:prototype	line:652	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:(size_t &pos)
 EasySip::ResponseMessage::parse	src/message.cpp	/^    int ResponseMessage::parse(size_t &pos)$/;"	kind:function	line:899	class:EasySip::ResponseMessage	signature:(size_t &pos)
-EasySip::ResponseMessage::pos	include/message.h	/^            size_t pos = 0;$/;"	kind:local	line:651
+EasySip::ResponseMessage::pos	include/message.h	/^            size_t pos = 0;$/;"	kind:local	line:656
 EasySip::ResponseMessage::~ResponseMessage	include/message.h	/^        ~ResponseMessage()$/;"	kind:function	line:580	class:EasySip::ResponseMessage	access:public	signature:()
 EasySip::ResponseStatus	include/header_field.h	/^    struct ResponseStatus$/;"	kind:struct	line:1199	namespace:EasySip
 EasySip::ResponseStatus::ResponseStatus	include/header_field.h	/^        ResponseStatus()$/;"	kind:function	line:1204	struct:EasySip::ResponseStatus	access:public	signature:()
@@ -1358,11 +1360,12 @@ EasySip::ResponseStatus::resp_code_	include/header_field.h	/^        RespCode re
 EasySip::ResponseStatus::ret	include/header_field.h	/^            std::ostringstream ret;$/;"	kind:local	line:1212
 EasySip::ResponseStatus::version_	include/header_field.h	/^        std::string version_;$/;"	kind:member	line:1201	struct:EasySip::ResponseStatus	access:public
 EasySip::SipVersion	src/Element/element.cpp	/^                ack.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:295	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1083	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1108	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:190	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^            rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:151	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1052	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:108	file:	signature:(SIP_VERSION_2_0)
-EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1109	file:	signature:(SIP_VERSION_2_0)
+EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1134	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:137	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:974	file:	signature:(SIP_VERSION_2_0)
 EasySip::SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:372	file:	signature:(SIP_VERSION_2_0)
@@ -1440,36 +1443,36 @@ EasySip::SubscribeMessage::SubscribeMessage	include/message.h	/^        Subscrib
 EasySip::SubscribeMessage::is_valid	include/message.h	/^        bool is_valid();$/;"	kind:prototype	line:428	class:EasySip::SubscribeMessage	access:public	signature:()
 EasySip::SubscribeMessage::is_valid	src/message.cpp	/^    bool SubscribeMessage::is_valid()$/;"	kind:function	line:837	class:EasySip::SubscribeMessage	signature:()
 EasySip::SubscribeMessage::~SubscribeMessage	include/message.h	/^        ~SubscribeMessage()$/;"	kind:function	line:424	class:EasySip::SubscribeMessage	access:public	signature:()
-EasySip::T1	include/timer.h	/^    class T1 : public Timer$/;"	kind:class	line:213	namespace:EasySip	inherits:Timer
-EasySip::T1::T1	include/timer.h	/^        T1() : Timer("500")\/\/ms")$/;"	kind:function	line:217	class:EasySip::T1	access:public	signature:()
-EasySip::T2	include/timer.h	/^    class T2 : public Timer$/;"	kind:class	line:222	namespace:EasySip	inherits:Timer
-EasySip::T2::T2	include/timer.h	/^        T2() : Timer("4000")$/;"	kind:function	line:226	class:EasySip::T2	access:public	signature:()
-EasySip::T4	include/timer.h	/^    class T4 : public Timer$/;"	kind:class	line:231	namespace:EasySip	inherits:Timer
-EasySip::T4::T4	include/timer.h	/^        T4() : Timer("5000")$/;"	kind:function	line:235	class:EasySip::T4	access:public	signature:()
-EasySip::TA	include/timer.h	/^    class TA : public Timer$/;"	kind:class	line:241	namespace:EasySip	inherits:Timer
-EasySip::TA::TA	include/timer.h	/^        TA() : Timer(T1().value())\/\/ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:245	class:EasySip::TA	access:public	signature:()
-EasySip::TB	include/timer.h	/^    class TB : public Timer$/;"	kind:class	line:250	namespace:EasySip	inherits:Timer
-EasySip::TB::TB	include/timer.h	/^        TB() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:254	class:EasySip::TB	access:public	signature:()
-EasySip::TC	include/timer.h	/^    class TC : public Timer \/\/ 4min$/;"	kind:class	line:259	namespace:EasySip	inherits:Timer
-EasySip::TC::Base::value	include/timer.h	/^            Base::value(value);$/;"	kind:prototype	line:270	class:EasySip::TC::Base	signature:(value)
-EasySip::TC::TC	include/timer.h	/^        TC() : Timer((unsigned long)4*60*1000) \/\/ TODO: > 3min$/;"	kind:function	line:263	class:EasySip::TC	access:public	signature:()
-EasySip::TC::value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:267	class:EasySip::TC	access:public	signature:(std::string value)
-EasySip::TD	include/timer.h	/^    class TD : public Timer$/;"	kind:class	line:274	namespace:EasySip	inherits:Timer
-EasySip::TD::TD	include/timer.h	/^        TD() : Timer("33000") \/\/ TODO: UDP: >32s, TCP\/SCTP =0s$/;"	kind:function	line:278	class:EasySip::TD	access:public	signature:()
-EasySip::TE	include/timer.h	/^    class TE : public Timer$/;"	kind:class	line:283	namespace:EasySip	inherits:Timer
-EasySip::TE::TE	include/timer.h	/^        TE() : Timer("500") \/\/ TODO: T1 initial value$/;"	kind:function	line:287	class:EasySip::TE	access:public	signature:()
-EasySip::TF	include/timer.h	/^    class TF : public Timer$/;"	kind:class	line:292	namespace:EasySip	inherits:Timer
-EasySip::TF::TF	include/timer.h	/^        TF() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:296	class:EasySip::TF	access:public	signature:()
-EasySip::TG	include/timer.h	/^    class TG : public Timer$/;"	kind:class	line:301	namespace:EasySip	inherits:Timer
-EasySip::TG::TG	include/timer.h	/^        TG() : Timer("500ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:305	class:EasySip::TG	access:public	signature:()
-EasySip::TH	include/timer.h	/^    class TH : public Timer$/;"	kind:class	line:310	namespace:EasySip	inherits:Timer
-EasySip::TH::TH	include/timer.h	/^        TH() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:314	class:EasySip::TH	access:public	signature:()
-EasySip::TI	include/timer.h	/^    class TI : public Timer$/;"	kind:class	line:319	namespace:EasySip	inherits:Timer
-EasySip::TI::TI	include/timer.h	/^        TI() : Timer(T4().value()) \/\/ TODO: UDP: T4, TCP\/SCTP =0s$/;"	kind:function	line:323	class:EasySip::TI	access:public	signature:()
-EasySip::TJ	include/timer.h	/^    class TJ : public Timer$/;"	kind:class	line:328	namespace:EasySip	inherits:Timer
-EasySip::TJ::TJ	include/timer.h	/^        TJ() : Timer(T1()*64) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:332	class:EasySip::TJ	access:public	signature:()
-EasySip::TK	include/timer.h	/^    class TK : public Timer$/;"	kind:class	line:337	namespace:EasySip	inherits:Timer
-EasySip::TK::TK	include/timer.h	/^        TK() : Timer(T4().value()) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:341	class:EasySip::TK	access:public	signature:()
+EasySip::T1	include/timer.h	/^    class T1 : public Timer$/;"	kind:class	line:216	namespace:EasySip	inherits:Timer
+EasySip::T1::T1	include/timer.h	/^        T1() : Timer("500")\/\/ms")$/;"	kind:function	line:220	class:EasySip::T1	access:public	signature:()
+EasySip::T2	include/timer.h	/^    class T2 : public Timer$/;"	kind:class	line:225	namespace:EasySip	inherits:Timer
+EasySip::T2::T2	include/timer.h	/^        T2() : Timer("4000")$/;"	kind:function	line:229	class:EasySip::T2	access:public	signature:()
+EasySip::T4	include/timer.h	/^    class T4 : public Timer$/;"	kind:class	line:234	namespace:EasySip	inherits:Timer
+EasySip::T4::T4	include/timer.h	/^        T4() : Timer("5000")$/;"	kind:function	line:238	class:EasySip::T4	access:public	signature:()
+EasySip::TA	include/timer.h	/^    class TA : public Timer$/;"	kind:class	line:244	namespace:EasySip	inherits:Timer
+EasySip::TA::TA	include/timer.h	/^        TA() : Timer(T1().value())\/\/ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:248	class:EasySip::TA	access:public	signature:()
+EasySip::TB	include/timer.h	/^    class TB : public Timer$/;"	kind:class	line:253	namespace:EasySip	inherits:Timer
+EasySip::TB::TB	include/timer.h	/^        TB() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:257	class:EasySip::TB	access:public	signature:()
+EasySip::TC	include/timer.h	/^    class TC : public Timer \/\/ 4min$/;"	kind:class	line:262	namespace:EasySip	inherits:Timer
+EasySip::TC::Base::value	include/timer.h	/^            Base::value(value);$/;"	kind:prototype	line:273	class:EasySip::TC::Base	signature:(value)
+EasySip::TC::TC	include/timer.h	/^        TC() : Timer((unsigned long)4*60*1000) \/\/ TODO: > 3min$/;"	kind:function	line:266	class:EasySip::TC	access:public	signature:()
+EasySip::TC::value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:270	class:EasySip::TC	access:public	signature:(std::string value)
+EasySip::TD	include/timer.h	/^    class TD : public Timer$/;"	kind:class	line:277	namespace:EasySip	inherits:Timer
+EasySip::TD::TD	include/timer.h	/^        TD() : Timer("33000") \/\/ TODO: UDP: >32s, TCP\/SCTP =0s$/;"	kind:function	line:281	class:EasySip::TD	access:public	signature:()
+EasySip::TE	include/timer.h	/^    class TE : public Timer$/;"	kind:class	line:286	namespace:EasySip	inherits:Timer
+EasySip::TE::TE	include/timer.h	/^        TE() : Timer("500") \/\/ TODO: T1 initial value$/;"	kind:function	line:290	class:EasySip::TE	access:public	signature:()
+EasySip::TF	include/timer.h	/^    class TF : public Timer$/;"	kind:class	line:295	namespace:EasySip	inherits:Timer
+EasySip::TF::TF	include/timer.h	/^        TF() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:299	class:EasySip::TF	access:public	signature:()
+EasySip::TG	include/timer.h	/^    class TG : public Timer$/;"	kind:class	line:304	namespace:EasySip	inherits:Timer
+EasySip::TG::TG	include/timer.h	/^        TG() : Timer("500ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:308	class:EasySip::TG	access:public	signature:()
+EasySip::TH	include/timer.h	/^    class TH : public Timer$/;"	kind:class	line:313	namespace:EasySip	inherits:Timer
+EasySip::TH::TH	include/timer.h	/^        TH() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:317	class:EasySip::TH	access:public	signature:()
+EasySip::TI	include/timer.h	/^    class TI : public Timer$/;"	kind:class	line:322	namespace:EasySip	inherits:Timer
+EasySip::TI::TI	include/timer.h	/^        TI() : Timer(T4().value()) \/\/ TODO: UDP: T4, TCP\/SCTP =0s$/;"	kind:function	line:326	class:EasySip::TI	access:public	signature:()
+EasySip::TJ	include/timer.h	/^    class TJ : public Timer$/;"	kind:class	line:331	namespace:EasySip	inherits:Timer
+EasySip::TJ::TJ	include/timer.h	/^        TJ() : Timer(T1()*64) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:335	class:EasySip::TJ	access:public	signature:()
+EasySip::TK	include/timer.h	/^    class TK : public Timer$/;"	kind:class	line:340	namespace:EasySip	inherits:Timer
+EasySip::TK::TK	include/timer.h	/^        TK() : Timer(T4().value()) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:344	class:EasySip::TK	access:public	signature:()
 EasySip::T_FSM_CALLING	include/transaction.h	/^        T_FSM_CALLING,$/;"	kind:enumerator	line:16	enum:EasySip::__anon1
 EasySip::T_FSM_COMPLETED	include/transaction.h	/^        T_FSM_COMPLETED,$/;"	kind:enumerator	line:19	enum:EasySip::__anon1
 EasySip::T_FSM_CONFIRMED	include/transaction.h	/^        T_FSM_CONFIRMED,$/;"	kind:enumerator	line:20	enum:EasySip::__anon1
@@ -1567,30 +1570,34 @@ EasySip::Thread::strerror	include/thread.h	/^                std::cerr << "pthre
 EasySip::Thread::strerror	include/thread.h	/^                std::cerr << "pthread_setconcurrency: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:348	signature:(errno)
 EasySip::Thread::strerror	include/thread.h	/^              std::cerr << "pthread_create: " << strerror(errno) << '\\n';$/;"	kind:prototype	line:320	signature:(errno)
 EasySip::Thread::~Thread	include/thread.h	/^        ~Thread()$/;"	kind:function	line:323	class:EasySip::Thread	access:public	signature:()
-EasySip::Timer	include/timer.h	/^    class Timer$/;"	kind:class	line:56	namespace:EasySip
-EasySip::Timer::Base	include/timer.h	/^        typedef Timer Base;$/;"	kind:typedef	line:63	class:EasySip::Timer	access:public
-EasySip::Timer::Timer	include/timer.h	/^        Timer(std::string value)$/;"	kind:function	line:96	class:EasySip::Timer	access:public	signature:(std::string value)
-EasySip::Timer::Timer	include/timer.h	/^        Timer(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:76	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
-EasySip::Timer::Timer	include/timer.h	/^        Timer(unsigned long value)\/\/unsigned long value \/* ms *\/)$/;"	kind:function	line:65	class:EasySip::Timer	access:public	signature:(unsigned long value)
-EasySip::Timer::cur	include/timer.h	/^            std::cout << itv_ << "|" << cur << '\\n';$/;"	kind:local	line:158
-EasySip::Timer::cur	include/timer.h	/^            struct itimerval cur;$/;"	kind:local	line:154
-EasySip::Timer::itimev	include/timer.h	/^           Timer& itimev(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:86	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
-EasySip::Timer::itv_	include/timer.h	/^        struct itimerval itv_;$/;"	kind:member	line:59	class:EasySip::Timer	typeref:struct:EasySip::Timer::itimerval	access:private
-EasySip::Timer::operator *	include/timer.h	/^        unsigned long operator* (unsigned long val)$/;"	kind:function	line:206	class:EasySip::Timer	access:public	signature:(unsigned long val)
-EasySip::Timer::sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:70
-EasySip::Timer::sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:99
-EasySip::Timer::setitimer	include/timer.h	/^            std::cout << "settimer: " << setitimer(t_id, &itv_, 0) << '\\n';$/;"	kind:prototype	line:153	signature:(t_id, &itv_, 0)
-EasySip::Timer::start	include/timer.h	/^        virtual void start()$/;"	kind:function	line:148	class:EasySip::Timer	access:public	implementation:virtual	signature:()
-EasySip::Timer::t_id	include/timer.h	/^            int t_id = ITIMER_REAL;\/\/VIRTUAL;$/;"	kind:local	line:151
-EasySip::Timer::time_string_to_ulong	include/timer.h	/^        static unsigned long time_string_to_ulong(std::string value)$/;"	kind:function	line:194	class:EasySip::Timer	access:public	signature:(std::string value)
-EasySip::Timer::time_ulong_to_string	include/timer.h	/^        static unsigned long time_ulong_to_string(unsigned long value)$/;"	kind:function	line:200	class:EasySip::Timer	access:public	signature:(unsigned long value)
-EasySip::Timer::usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:100
-EasySip::Timer::usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:71
-EasySip::Timer::value	include/timer.h	/^        unsigned long value()$/;"	kind:function	line:118	class:EasySip::Timer	access:public	signature:()
-EasySip::Timer::value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:108	class:EasySip::Timer	access:public	signature:(std::string value)
-EasySip::Timer::value	include/timer.h	/^        void value(unsigned long value)$/;"	kind:function	line:123	class:EasySip::Timer	access:public	signature:(unsigned long value)
-EasySip::Timer::value_	include/timer.h	/^        unsigned long value_; \/\/ in  ms$/;"	kind:member	line:58	class:EasySip::Timer	access:private
-EasySip::Timer::~Timer	include/timer.h	/^        ~Timer()$/;"	kind:function	line:104	class:EasySip::Timer	access:public	signature:()
+EasySip::Time	include/timer.h	/^    class Time$/;"	kind:class	line:28	namespace:EasySip
+EasySip::Time::now	include/timer.h	/^        static std::string now();$/;"	kind:prototype	line:32	class:EasySip::Time	access:public	signature:()
+EasySip::Time::now	src/timer.cpp	/^    std::string Time::now()$/;"	kind:function	line:40	class:EasySip::Time	signature:()
+EasySip::Time::time_	include/timer.h	/^        time_t time_;$/;"	kind:member	line:30	class:EasySip::Time	access:private
+EasySip::Timer	include/timer.h	/^    class Timer$/;"	kind:class	line:59	namespace:EasySip
+EasySip::Timer::Base	include/timer.h	/^        typedef Timer Base;$/;"	kind:typedef	line:66	class:EasySip::Timer	access:public
+EasySip::Timer::Timer	include/timer.h	/^        Timer(std::string value)$/;"	kind:function	line:99	class:EasySip::Timer	access:public	signature:(std::string value)
+EasySip::Timer::Timer	include/timer.h	/^        Timer(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:79	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
+EasySip::Timer::Timer	include/timer.h	/^        Timer(unsigned long value)\/\/unsigned long value \/* ms *\/)$/;"	kind:function	line:68	class:EasySip::Timer	access:public	signature:(unsigned long value)
+EasySip::Timer::cur	include/timer.h	/^            std::cout << itv_ << "|" << cur << '\\n';$/;"	kind:local	line:161
+EasySip::Timer::cur	include/timer.h	/^            struct itimerval cur;$/;"	kind:local	line:157
+EasySip::Timer::itimev	include/timer.h	/^           Timer& itimev(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:89	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
+EasySip::Timer::itv_	include/timer.h	/^        struct itimerval itv_;$/;"	kind:member	line:62	class:EasySip::Timer	typeref:struct:EasySip::Timer::itimerval	access:private
+EasySip::Timer::operator *	include/timer.h	/^        unsigned long operator* (unsigned long val)$/;"	kind:function	line:209	class:EasySip::Timer	access:public	signature:(unsigned long val)
+EasySip::Timer::sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:102
+EasySip::Timer::sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:73
+EasySip::Timer::setitimer	include/timer.h	/^            std::cout << "settimer: " << setitimer(t_id, &itv_, 0) << '\\n';$/;"	kind:prototype	line:156	signature:(t_id, &itv_, 0)
+EasySip::Timer::start	include/timer.h	/^        virtual void start()$/;"	kind:function	line:151	class:EasySip::Timer	access:public	implementation:virtual	signature:()
+EasySip::Timer::t_id	include/timer.h	/^            int t_id = ITIMER_REAL;\/\/VIRTUAL;$/;"	kind:local	line:154
+EasySip::Timer::time_string_to_ulong	include/timer.h	/^        static unsigned long time_string_to_ulong(std::string value)$/;"	kind:function	line:197	class:EasySip::Timer	access:public	signature:(std::string value)
+EasySip::Timer::time_ulong_to_string	include/timer.h	/^        static unsigned long time_ulong_to_string(unsigned long value)$/;"	kind:function	line:203	class:EasySip::Timer	access:public	signature:(unsigned long value)
+EasySip::Timer::usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:103
+EasySip::Timer::usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:74
+EasySip::Timer::value	include/timer.h	/^        unsigned long value()$/;"	kind:function	line:121	class:EasySip::Timer	access:public	signature:()
+EasySip::Timer::value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:111	class:EasySip::Timer	access:public	signature:(std::string value)
+EasySip::Timer::value	include/timer.h	/^        void value(unsigned long value)$/;"	kind:function	line:126	class:EasySip::Timer	access:public	signature:(unsigned long value)
+EasySip::Timer::value_	include/timer.h	/^        unsigned long value_; \/\/ in  ms$/;"	kind:member	line:61	class:EasySip::Timer	access:private
+EasySip::Timer::~Timer	include/timer.h	/^        ~Timer()$/;"	kind:function	line:107	class:EasySip::Timer	access:public	signature:()
 EasySip::Transaction	include/transaction.h	/^    class Transaction : public Fsm$/;"	kind:class	line:89	namespace:EasySip	inherits:Fsm
 EasySip::Transaction::Transaction	include/transaction.h	/^        Transaction()$/;"	kind:function	line:93	class:EasySip::Transaction	access:public	signature:()
 EasySip::Transaction::loop	include/transaction.h	/^        virtual int loop();$/;"	kind:prototype	line:100	class:EasySip::Transaction	access:protected	implementation:virtual	signature:()
@@ -1675,7 +1682,7 @@ EasySip::__PRETTY_FUNCTION__	src/message.cpp	/^            std::cerr << __PRETTY
 EasySip::__PRETTY_FUNCTION__	src/message.cpp	/^            std::cerr << __PRETTY_FUNCTION__ << ": message invalid!\\n";$/;"	kind:local	line:912
 EasySip::ack	src/Element/element.cpp	/^                AckMessage ack(in_msg);$/;"	kind:prototype	line:294	file:	signature:(in_msg)
 EasySip::add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1033	file:	signature:()
-EasySip::add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1119	file:	signature:()
+EasySip::add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1144	file:	signature:()
 EasySip::add_content_length	src/Element/element.cpp	/^        rep.add_content_length();$/;"	kind:prototype	line:112	file:	signature:()
 EasySip::add_content_length	src/Element/element.cpp	/^        req.add_content_length();$/;"	kind:prototype	line:809	file:	signature:()
 EasySip::add_route	src/Element/element.cpp	/^                    req.add_route();$/;"	kind:prototype	line:623	file:	signature:()
@@ -1773,6 +1780,7 @@ EasySip::append_item	src/message.cpp	/^        via_.append_item();$/;"	kind:prot
 EasySip::append_item	src/message.cpp	/^        warning_.append_item();$/;"	kind:prototype	line:336	file:	signature:()
 EasySip::append_item	src/message.cpp	/^        www_authenticate_.append_item();$/;"	kind:prototype	line:342	file:	signature:()
 EasySip::buf	src/socket.cpp	/^        Buffer buf(max_rx_);$/;"	kind:prototype	line:121	file:	signature:(max_rx_)
+EasySip::buf	src/timer.cpp	/^        time_t buf = time(0);$/;"	kind:local	line:42
 EasySip::buffer	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:343
 EasySip::buffer	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:460
 EasySip::buffer	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:587
@@ -1784,7 +1792,7 @@ EasySip::buffer	src/header_field.cpp	/^        std::string buffer;$/;"	kind:loca
 EasySip::buffer	src/header_field.cpp	/^        std::string buffer;$/;"	kind:local	line:282
 EasySip::buffer	src/message.cpp	/^        std::string buffer;$/;"	kind:local	line:637
 EasySip::cancel_dialog	src/Element/element.cpp	/^                    dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:322	file:	signature:(dialog.id())
-EasySip::cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1064	file:	signature:(dialog.id())
+EasySip::cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1089	file:	signature:(dialog.id())
 EasySip::cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialogs_.last()->id());$/;"	kind:prototype	line:542	file:	signature:(dialogs_.last()->id())
 EasySip::cleanup_empty_uri	src/header_field.cpp	/^        cons_.cleanup_empty_uri();$/;"	kind:prototype	line:869	file:	signature:()
 EasySip::cleanup_empty_uri	src/header_field.cpp	/^        cons_.cleanup_empty_uri();$/;"	kind:prototype	line:969	file:	signature:()
@@ -1869,9 +1877,9 @@ EasySip::create_dialog	src/Element/element.cpp	/^                dialogs_.create
 EasySip::create_dialog	src/Element/element.cpp	/^        dialogs_.create_dialog(dialog);$/;"	kind:prototype	line:985	file:	signature:(dialog)
 EasySip::data	src/socket.cpp	/^            std::cout << "IF: " << ifaddr->ifa_name << " IP: " << addr_buf.data() << '\\n';$/;"	kind:prototype	line:52	file:	signature:()
 EasySip::dialog	src/Element/element.cpp	/^            Dialog dialog(in_msg);$/;"	kind:prototype	line:209	file:	signature:(in_msg)
-EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1059	file:	signature:(in_msg)
-EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1071	file:	signature:(in_msg)
-EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1095	file:	signature:(in_msg)
+EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1084	file:	signature:(in_msg)
+EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1096	file:	signature:(in_msg)
+EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1120	file:	signature:(in_msg)
 EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:282	file:	signature:(in_msg)
 EasySip::dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:976	file:	signature:(in_msg)
 EasySip::digest_cln_	src/header_field.cpp	/^        o << digest_cln_;$/;"	kind:local	line:573
@@ -1978,7 +1986,7 @@ EasySip::insert	src/Element/element.cpp	/^        allowed_responses_.insert(SIP_
 EasySip::insert	src/Element/element.cpp	/^        allowed_responses_.insert(SIP_RESPONSE_USE_PROXY);$/;"	kind:prototype	line:51	file:	signature:(SIP_RESPONSE_USE_PROXY)
 EasySip::is	src/Element/registar.cpp	/^			std::istringstream is(expire);$/;"	kind:prototype	line:166	file:	signature:(expire)
 EasySip::is_confirmed	src/Element/element.cpp	/^                dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:292	file:	signature:(true)
-EasySip::is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1099	file:	signature:(true)
+EasySip::is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1124	file:	signature:(true)
 EasySip::it	src/dialog.cpp	/^				std::cout << "cancel dialog: \\n[\\n" << **it << "]\\n";$/;"	kind:local	line:133
 EasySip::it	src/message.cpp	/^        RespCodeList::iterator it;$/;"	kind:local	line:518
 EasySip::key	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:343
@@ -2000,6 +2008,7 @@ EasySip::next	src/header_field.cpp	/^        size_t next = 0;$/;"	kind:local	lin
 EasySip::next	src/header_field.cpp	/^        size_t next = 0;$/;"	kind:local	line:42
 EasySip::next	src/message.cpp	/^        int next = msg.find_first_of(sym, pos);$/;"	kind:local	line:525
 EasySip::next	src/message.cpp	/^        size_t pos, next;$/;"	kind:local	line:539
+EasySip::now	src/Element/element.cpp	/^        ->add_value(Time::now());$/;"	kind:prototype	line:1073	file:	signature:()
 EasySip::o	src/header_field.cpp	/^        std::ostringstream o;$/;"	kind:local	line:1420
 EasySip::o	src/header_field.cpp	/^        std::ostringstream o;$/;"	kind:local	line:439
 EasySip::o	src/header_field.cpp	/^        std::ostringstream o;$/;"	kind:local	line:572
@@ -2009,12 +2018,12 @@ EasySip::o	src/header_field.cpp	/^        std::ostringstream o;$/;"	kind:local	l
 EasySip::o	src/header_field.cpp	/^        std::ostringstream o;$/;"	kind:local	line:967
 EasySip::o	src/message.cpp	/^        std::ostringstream o;$/;"	kind:local	line:707
 EasySip::o	src/message.cpp	/^        std::ostringstream o;$/;"	kind:local	line:887
-EasySip::operator !=	include/timer.h	/^    extern bool operator!= (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:26	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
+EasySip::operator !=	include/timer.h	/^    extern bool operator!= (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:22	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 EasySip::operator !=	src/timer.cpp	/^    bool operator!= (struct itimerval &a, struct itimerval &b)$/;"	kind:function	line:14	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
-EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerspec &a);$/;"	kind:prototype	line:30	namespace:EasySip	signature:(std::ostream &o, struct itimerspec &a)
-EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerval &a);$/;"	kind:prototype	line:28	namespace:EasySip	signature:(std::ostream &o, struct itimerval &a)
-EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timespec &a);$/;"	kind:prototype	line:29	namespace:EasySip	signature:(std::ostream &o, struct timespec &a)
-EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timeval &a);$/;"	kind:prototype	line:27	namespace:EasySip	signature:(std::ostream &o, struct timeval &a)
+EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerspec &a);$/;"	kind:prototype	line:26	namespace:EasySip	signature:(std::ostream &o, struct itimerspec &a)
+EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerval &a);$/;"	kind:prototype	line:24	namespace:EasySip	signature:(std::ostream &o, struct itimerval &a)
+EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timespec &a);$/;"	kind:prototype	line:25	namespace:EasySip	signature:(std::ostream &o, struct timespec &a)
+EasySip::operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timeval &a);$/;"	kind:prototype	line:23	namespace:EasySip	signature:(std::ostream &o, struct timeval &a)
 EasySip::operator <<	src/dialog.cpp	/^	std::ostream& operator<< (std::ostream &o, Dialog &dia)$/;"	kind:function	line:99	namespace:EasySip	signature:(std::ostream &o, Dialog &dia)
 EasySip::operator <<	src/header_field.cpp	/^    std::ostream& operator<< (std::ostream& o, HeaderField &hf)$/;"	kind:function	line:68	namespace:EasySip	signature:(std::ostream& o, HeaderField &hf)
 EasySip::operator <<	src/message.cpp	/^    std::ostream& operator<< (std::ostream& o, Message& msg)$/;"	kind:function	line:401	namespace:EasySip	signature:(std::ostream& o, Message& msg)
@@ -2022,7 +2031,7 @@ EasySip::operator <<	src/timer.cpp	/^    std::ostream& operator<< (std::ostream 
 EasySip::operator <<	src/timer.cpp	/^    std::ostream& operator<< (std::ostream &o, struct itimerval &a)$/;"	kind:function	line:25	namespace:EasySip	signature:(std::ostream &o, struct itimerval &a)
 EasySip::operator <<	src/timer.cpp	/^    std::ostream& operator<< (std::ostream &o, struct timespec &a)$/;"	kind:function	line:30	namespace:EasySip	signature:(std::ostream &o, struct timespec &a)
 EasySip::operator <<	src/timer.cpp	/^    std::ostream& operator<< (std::ostream &o, struct timeval &a)$/;"	kind:function	line:20	namespace:EasySip	signature:(std::ostream &o, struct timeval &a)
-EasySip::operator ==	include/timer.h	/^    extern bool operator== (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:25	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
+EasySip::operator ==	include/timer.h	/^    extern bool operator== (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:21	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 EasySip::operator ==	src/timer.cpp	/^    bool operator== (struct itimerval &a, struct itimerval &b)$/;"	kind:function	line:8	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 EasySip::p	src/header_field.cpp	/^            std::ostringstream p;$/;"	kind:local	line:334
 EasySip::p	src/header_field.cpp	/^            std::ostringstream p;$/;"	kind:local	line:451
@@ -2040,12 +2049,13 @@ EasySip::push_back	src/message.cpp	/^            ret.push_back(msg.substr(pos, n
 EasySip::read_head_param	src/header_field.cpp	/^        bool read_head_param = false, run = true, in_aquote = false, in_dquote = false;$/;"	kind:local	line:90
 EasySip::read_head_param	src/header_field.cpp	/^        bool read_head_param = false, run = true;$/;"	kind:local	line:720
 EasySip::read_head_param	src/header_field.cpp	/^        bool run = true, read_head_param = false;$/;"	kind:local	line:342
-EasySip::rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1081	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1106	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:189	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^            ResponseMessage rep(in_msg);$/;"	kind:prototype	line:150	file:	signature:(in_msg)
-EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1057	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1051	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:106	file:	signature:(in_msg)
-EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1107	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1082	file:	signature:(in_msg)
+EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1132	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:136	file:	signature:(in_msg)
 EasySip::rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:973	file:	signature:(in_msg)
 EasySip::rep	src/Element/registar.cpp	/^		ResponseMessage rep(in_msg);$/;"	kind:prototype	line:99	file:	signature:(in_msg)
@@ -2083,6 +2093,7 @@ EasySip::run	src/header_field.cpp	/^        bool run = true, in_dquote = false;$
 EasySip::run	src/header_field.cpp	/^        bool run = true, read_head_param = false;$/;"	kind:local	line:342
 EasySip::run	src/header_field.cpp	/^        bool run = true;$/;"	kind:local	line:1605
 EasySip::run	src/header_field.cpp	/^        bool run = true;$/;"	kind:local	line:281
+EasySip::sbuf	src/timer.cpp	/^        char sbuf[30] = {0};$/;"	kind:local	line:44
 EasySip::seconds	src/Element/registar.cpp	/^			int seconds;$/;"	kind:local	line:150
 EasySip::seconds	src/Element/registar.cpp	/^			is >> seconds;$/;"	kind:local	line:167
 EasySip::send_buffer	src/Element/element.cpp	/^        udp_.send_buffer(msg.create().Msg());$/;"	kind:prototype	line:101	file:	signature:(msg.create().Msg())
@@ -2521,13 +2532,14 @@ ResponseCode	include/message.h	/^        void ResponseCode(const RespCode& resp)
 ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BAD_EXTENSION);$/;"	kind:prototype	line:191	file:	signature:(SIP_RESPONSE_BAD_EXTENSION)
 ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_BUSY);$/;"	kind:prototype	line:1024	file:	signature:(SIP_RESPONSE_BUSY)
 ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_GLOBAL_BUSY);$/;"	kind:prototype	line:1022	file:	signature:(SIP_RESPONSE_GLOBAL_BUSY)
-ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1084	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
+ResponseCode	src/Element/element.cpp	/^                rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:1109	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
 ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_MULTI_CHOICES);$/;"	kind:prototype	line:1009	file:	signature:(SIP_RESPONSE_MULTI_CHOICES)
 ResponseCode	src/Element/element.cpp	/^            rep.ResponseCode(SIP_RESPONSE_REQUEST_TERMINATED);$/;"	kind:prototype	line:152	file:	signature:(SIP_RESPONSE_REQUEST_TERMINATED)
 ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_RINGING);$/;"	kind:prototype	line:995	file:	signature:(SIP_RESPONSE_RINGING)
 ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1031	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1053	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:109	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
-ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1110	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
+ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);$/;"	kind:prototype	line:1135	file:	signature:(SIP_RESPONSE_SUCCESSFUL)
 ResponseCode	src/Element/element.cpp	/^        rep.ResponseCode(rc);$/;"	kind:prototype	line:138	file:	signature:(rc)
 ResponseCode	src/Element/registar.cpp	/^						rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:137	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
 ResponseCode	src/Element/registar.cpp	/^				rep.ResponseCode(SIP_RESPONSE_BAD_REQUEST);$/;"	kind:prototype	line:126	file:	signature:(SIP_RESPONSE_BAD_REQUEST)
@@ -2570,11 +2582,12 @@ SipVersion	include/message.h	/^        std::string& SipVersion()$/;"	kind:functi
 SipVersion	include/message.h	/^        void SipVersion(std::string ver)$/;"	kind:function	line:187	class:EasySip::RequestMessage	access:public	signature:(std::string ver)
 SipVersion	include/message.h	/^        void SipVersion(std::string ver)$/;"	kind:function	line:599	class:EasySip::ResponseMessage	access:public	signature:(std::string ver)
 SipVersion	src/Element/element.cpp	/^                ack.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:295	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1083	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1108	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^                rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:190	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^            rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:151	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1052	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:108	file:	signature:(SIP_VERSION_2_0)
-SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1109	file:	signature:(SIP_VERSION_2_0)
+SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:1134	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:137	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^        rep.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:974	file:	signature:(SIP_VERSION_2_0)
 SipVersion	src/Element/element.cpp	/^        req.SipVersion(SIP_VERSION_2_0);$/;"	kind:prototype	line:372	file:	signature:(SIP_VERSION_2_0)
@@ -2607,34 +2620,34 @@ SubscribeMessage	include/message.h	/^    class SubscribeMessage : public Request
 Sym	include/parameter.h	/^					o << ps.Sym();$/;"	kind:prototype	line:150	signature:()
 Sym	include/parameter.h	/^		std::string Sym() const$/;"	kind:function	line:91	class:EasySip::Parameters	access:public	signature:() const
 Sym	include/parameter.h	/^		void Sym(std::string sym)$/;"	kind:function	line:86	class:EasySip::Parameters	access:public	signature:(std::string sym)
-T1	include/timer.h	/^        T1() : Timer("500")\/\/ms")$/;"	kind:function	line:217	class:EasySip::T1	access:public	signature:()
-T1	include/timer.h	/^    class T1 : public Timer$/;"	kind:class	line:213	namespace:EasySip	inherits:Timer
-T2	include/timer.h	/^        T2() : Timer("4000")$/;"	kind:function	line:226	class:EasySip::T2	access:public	signature:()
-T2	include/timer.h	/^    class T2 : public Timer$/;"	kind:class	line:222	namespace:EasySip	inherits:Timer
-T4	include/timer.h	/^        T4() : Timer("5000")$/;"	kind:function	line:235	class:EasySip::T4	access:public	signature:()
-T4	include/timer.h	/^    class T4 : public Timer$/;"	kind:class	line:231	namespace:EasySip	inherits:Timer
-TA	include/timer.h	/^        TA() : Timer(T1().value())\/\/ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:245	class:EasySip::TA	access:public	signature:()
-TA	include/timer.h	/^    class TA : public Timer$/;"	kind:class	line:241	namespace:EasySip	inherits:Timer
-TB	include/timer.h	/^        TB() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:254	class:EasySip::TB	access:public	signature:()
-TB	include/timer.h	/^    class TB : public Timer$/;"	kind:class	line:250	namespace:EasySip	inherits:Timer
-TC	include/timer.h	/^        TC() : Timer((unsigned long)4*60*1000) \/\/ TODO: > 3min$/;"	kind:function	line:263	class:EasySip::TC	access:public	signature:()
-TC	include/timer.h	/^    class TC : public Timer \/\/ 4min$/;"	kind:class	line:259	namespace:EasySip	inherits:Timer
-TD	include/timer.h	/^        TD() : Timer("33000") \/\/ TODO: UDP: >32s, TCP\/SCTP =0s$/;"	kind:function	line:278	class:EasySip::TD	access:public	signature:()
-TD	include/timer.h	/^    class TD : public Timer$/;"	kind:class	line:274	namespace:EasySip	inherits:Timer
-TE	include/timer.h	/^        TE() : Timer("500") \/\/ TODO: T1 initial value$/;"	kind:function	line:287	class:EasySip::TE	access:public	signature:()
-TE	include/timer.h	/^    class TE : public Timer$/;"	kind:class	line:283	namespace:EasySip	inherits:Timer
-TF	include/timer.h	/^        TF() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:296	class:EasySip::TF	access:public	signature:()
-TF	include/timer.h	/^    class TF : public Timer$/;"	kind:class	line:292	namespace:EasySip	inherits:Timer
-TG	include/timer.h	/^        TG() : Timer("500ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:305	class:EasySip::TG	access:public	signature:()
-TG	include/timer.h	/^    class TG : public Timer$/;"	kind:class	line:301	namespace:EasySip	inherits:Timer
-TH	include/timer.h	/^        TH() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:314	class:EasySip::TH	access:public	signature:()
-TH	include/timer.h	/^    class TH : public Timer$/;"	kind:class	line:310	namespace:EasySip	inherits:Timer
-TI	include/timer.h	/^        TI() : Timer(T4().value()) \/\/ TODO: UDP: T4, TCP\/SCTP =0s$/;"	kind:function	line:323	class:EasySip::TI	access:public	signature:()
-TI	include/timer.h	/^    class TI : public Timer$/;"	kind:class	line:319	namespace:EasySip	inherits:Timer
-TJ	include/timer.h	/^        TJ() : Timer(T1()*64) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:332	class:EasySip::TJ	access:public	signature:()
-TJ	include/timer.h	/^    class TJ : public Timer$/;"	kind:class	line:328	namespace:EasySip	inherits:Timer
-TK	include/timer.h	/^        TK() : Timer(T4().value()) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:341	class:EasySip::TK	access:public	signature:()
-TK	include/timer.h	/^    class TK : public Timer$/;"	kind:class	line:337	namespace:EasySip	inherits:Timer
+T1	include/timer.h	/^        T1() : Timer("500")\/\/ms")$/;"	kind:function	line:220	class:EasySip::T1	access:public	signature:()
+T1	include/timer.h	/^    class T1 : public Timer$/;"	kind:class	line:216	namespace:EasySip	inherits:Timer
+T2	include/timer.h	/^        T2() : Timer("4000")$/;"	kind:function	line:229	class:EasySip::T2	access:public	signature:()
+T2	include/timer.h	/^    class T2 : public Timer$/;"	kind:class	line:225	namespace:EasySip	inherits:Timer
+T4	include/timer.h	/^        T4() : Timer("5000")$/;"	kind:function	line:238	class:EasySip::T4	access:public	signature:()
+T4	include/timer.h	/^    class T4 : public Timer$/;"	kind:class	line:234	namespace:EasySip	inherits:Timer
+TA	include/timer.h	/^        TA() : Timer(T1().value())\/\/ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:248	class:EasySip::TA	access:public	signature:()
+TA	include/timer.h	/^    class TA : public Timer$/;"	kind:class	line:244	namespace:EasySip	inherits:Timer
+TB	include/timer.h	/^        TB() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:257	class:EasySip::TB	access:public	signature:()
+TB	include/timer.h	/^    class TB : public Timer$/;"	kind:class	line:253	namespace:EasySip	inherits:Timer
+TC	include/timer.h	/^        TC() : Timer((unsigned long)4*60*1000) \/\/ TODO: > 3min$/;"	kind:function	line:266	class:EasySip::TC	access:public	signature:()
+TC	include/timer.h	/^    class TC : public Timer \/\/ 4min$/;"	kind:class	line:262	namespace:EasySip	inherits:Timer
+TD	include/timer.h	/^        TD() : Timer("33000") \/\/ TODO: UDP: >32s, TCP\/SCTP =0s$/;"	kind:function	line:281	class:EasySip::TD	access:public	signature:()
+TD	include/timer.h	/^    class TD : public Timer$/;"	kind:class	line:277	namespace:EasySip	inherits:Timer
+TE	include/timer.h	/^        TE() : Timer("500") \/\/ TODO: T1 initial value$/;"	kind:function	line:290	class:EasySip::TE	access:public	signature:()
+TE	include/timer.h	/^    class TE : public Timer$/;"	kind:class	line:286	namespace:EasySip	inherits:Timer
+TF	include/timer.h	/^        TF() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:299	class:EasySip::TF	access:public	signature:()
+TF	include/timer.h	/^    class TF : public Timer$/;"	kind:class	line:295	namespace:EasySip	inherits:Timer
+TG	include/timer.h	/^        TG() : Timer("500ms") \/\/ TODO: T1 initial value$/;"	kind:function	line:308	class:EasySip::TG	access:public	signature:()
+TG	include/timer.h	/^    class TG : public Timer$/;"	kind:class	line:304	namespace:EasySip	inherits:Timer
+TH	include/timer.h	/^        TH() : Timer(T1()*64) \/\/ TODO: T1*64$/;"	kind:function	line:317	class:EasySip::TH	access:public	signature:()
+TH	include/timer.h	/^    class TH : public Timer$/;"	kind:class	line:313	namespace:EasySip	inherits:Timer
+TI	include/timer.h	/^        TI() : Timer(T4().value()) \/\/ TODO: UDP: T4, TCP\/SCTP =0s$/;"	kind:function	line:326	class:EasySip::TI	access:public	signature:()
+TI	include/timer.h	/^    class TI : public Timer$/;"	kind:class	line:322	namespace:EasySip	inherits:Timer
+TJ	include/timer.h	/^        TJ() : Timer(T1()*64) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:335	class:EasySip::TJ	access:public	signature:()
+TJ	include/timer.h	/^    class TJ : public Timer$/;"	kind:class	line:331	namespace:EasySip	inherits:Timer
+TK	include/timer.h	/^        TK() : Timer(T4().value()) \/\/ TODO: UDP: 64*T1, TCP\/SCTP =0s$/;"	kind:function	line:344	class:EasySip::TK	access:public	signature:()
+TK	include/timer.h	/^    class TK : public Timer$/;"	kind:class	line:340	namespace:EasySip	inherits:Timer
 TOUCH	makefiles/predef.mk	/^TOUCH	= touch$/;"	kind:macro	line:5
 T_FSM_CALLING	include/transaction.h	/^        T_FSM_CALLING,$/;"	kind:enumerator	line:16	enum:EasySip::__anon1
 T_FSM_COMPLETED	include/transaction.h	/^        T_FSM_COMPLETED,$/;"	kind:enumerator	line:19	enum:EasySip::__anon1
@@ -2653,10 +2666,11 @@ Thread	include/thread.h	/^		Thread() : loop_(0), arg_(0)$/;"	kind:function	line:
 Thread	include/thread.h	/^        Thread(void* (*loop) (void*), void* arg = 0)$/;"	kind:function	line:316	class:EasySip::Thread	access:public	signature:(void* (*loop) (void*), void* arg = 0)
 Thread	include/thread.h	/^    class Thread$/;"	kind:class	line:301	namespace:EasySip
 Thread	include/thread.h	380;"	kind:macro	line:380
-Timer	include/timer.h	/^        Timer(std::string value)$/;"	kind:function	line:96	class:EasySip::Timer	access:public	signature:(std::string value)
-Timer	include/timer.h	/^        Timer(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:76	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
-Timer	include/timer.h	/^        Timer(unsigned long value)\/\/unsigned long value \/* ms *\/)$/;"	kind:function	line:65	class:EasySip::Timer	access:public	signature:(unsigned long value)
-Timer	include/timer.h	/^    class Timer$/;"	kind:class	line:56	namespace:EasySip
+Time	include/timer.h	/^    class Time$/;"	kind:class	line:28	namespace:EasySip
+Timer	include/timer.h	/^        Timer(std::string value)$/;"	kind:function	line:99	class:EasySip::Timer	access:public	signature:(std::string value)
+Timer	include/timer.h	/^        Timer(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:79	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
+Timer	include/timer.h	/^        Timer(unsigned long value)\/\/unsigned long value \/* ms *\/)$/;"	kind:function	line:68	class:EasySip::Timer	access:public	signature:(unsigned long value)
+Timer	include/timer.h	/^    class Timer$/;"	kind:class	line:59	namespace:EasySip
 Transaction	include/transaction.h	/^        Transaction()$/;"	kind:function	line:93	class:EasySip::Transaction	access:public	signature:()
 Transaction	include/transaction.h	/^    class Transaction : public Fsm$/;"	kind:class	line:89	namespace:EasySip	inherits:Fsm
 UAClient	include/Element/uaclient.h	/^		UAClient();$/;"	kind:prototype	line:15	class:EasySip::UAClient	access:public	signature:()
@@ -2784,7 +2798,7 @@ add_alert_info	include/message.h	/^         HFAlertInfo* add_alert_info();$/;"	k
 add_alert_info	src/message.cpp	/^    HFAlertInfo* Message::add_alert_info()$/;"	kind:function	line:40	class:EasySip::Message	signature:()
 add_allow	include/message.h	/^         HFAllow* add_allow();$/;"	kind:prototype	line:142	class:EasySip::Message	access:public	signature:()
 add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1033	file:	signature:()
-add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1119	file:	signature:()
+add_allow	src/Element/element.cpp	/^        rep.add_allow();$/;"	kind:prototype	line:1144	file:	signature:()
 add_allow	src/message.cpp	/^    HFAllow* Message::add_allow()$/;"	kind:function	line:352	class:EasySip::Message	signature:()
 add_allow_events	include/message.h	/^         HFAllowEvents* add_allow_events();$/;"	kind:prototype	line:91	class:EasySip::Message	access:public	signature:()
 add_allow_events	src/message.cpp	/^    HFAllowEvents* Message::add_allow_events()$/;"	kind:function	line:46	class:EasySip::Message	signature:()
@@ -3068,6 +3082,7 @@ begin	include/uri.h	/^            insert(end(), c.begin(), c.end());$/;"	kind:pr
 binded_	include/socket.h	/^        bool binded_;$/;"	kind:member	line:192	class:EasySip::SocketIp4UDP	access:private
 buck	test/ts.cpp	/^	std::unordered_map<std::string, std::string> buck;$/;"	kind:local	line:122
 buf	src/socket.cpp	/^        Buffer buf(max_rx_);$/;"	kind:prototype	line:121	file:	signature:(max_rx_)
+buf	src/timer.cpp	/^        time_t buf = time(0);$/;"	kind:local	line:42
 buf	test/ts.cpp	/^	std::vector<int> digits, buf;$/;"	kind:local	line:129
 buffer	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:343
 buffer	src/header_field.cpp	/^        std::string buffer, key;$/;"	kind:local	line:460
@@ -3103,7 +3118,7 @@ callidPtr	test/ts-osip.c	/^	osip_call_id_t *callidPtr;$/;"	kind:local	line:170
 cancel	include/thread.h	/^        Thread& cancel()$/;"	kind:function	line:362	class:EasySip::Thread	access:public	signature:()
 cancel_dialog	include/dialog.h	/^        void cancel_dialog(DialogId val);$/;"	kind:prototype	line:209	class:EasySip::Dialogs	access:public	signature:(DialogId val)
 cancel_dialog	src/Element/element.cpp	/^                    dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:322	file:	signature:(dialog.id())
-cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1064	file:	signature:(dialog.id())
+cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialog.id());$/;"	kind:prototype	line:1089	file:	signature:(dialog.id())
 cancel_dialog	src/Element/element.cpp	/^        dialogs_.cancel_dialog(dialogs_.last()->id());$/;"	kind:prototype	line:542	file:	signature:(dialogs_.last()->id())
 cancel_dialog	src/dialog.cpp	/^	void Dialogs::cancel_dialog(DialogId val)$/;"	kind:function	line:126	class:EasySip::Dialogs	signature:(DialogId val)
 cancel_request	include/Element/element.h	/^        virtual int cancel_request();$/;"	kind:prototype	line:72	class:EasySip::Element	access:public	implementation:virtual	signature:()
@@ -3226,7 +3241,7 @@ cout	test/ts-server.cpp	/^		std::cout << "input command: ";$/;"	kind:member	line
 cpuset_	include/thread.h	/^        cpu_set_t cpuset_;$/;"	kind:member	line:34	class:EasySip::ThrAttr	access:private
 create	include/message.h	/^        RequestMessage& create();$/;"	kind:prototype	line:177	class:EasySip::RequestMessage	access:public	signature:()
 create	include/message.h	/^        virtual Message& create();$/;"	kind:prototype	line:61	class:EasySip::Message	access:public	implementation:virtual	signature:()
-create	include/message.h	/^        virtual ResponseMessage& create();$/;"	kind:prototype	line:645	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
+create	include/message.h	/^        virtual ResponseMessage& create();$/;"	kind:prototype	line:650	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
 create	src/message.cpp	/^        Ancestor::create();$/;"	kind:prototype	line:706	class:EasySip::Ancestor	file:	signature:()
 create	src/message.cpp	/^        Ancestor::create();$/;"	kind:prototype	line:886	class:EasySip::Ancestor	file:	signature:()
 create	src/message.cpp	/^    Message& Message::create()$/;"	kind:function	line:477	class:EasySip::Message	signature:()
@@ -3243,8 +3258,8 @@ cseq	include/header_field.h	/^        HFCSeq& cseq(std::string val)$/;"	kind:fun
 cseq	include/header_field.h	/^        std::string cseq()$/;"	kind:function	line:404	struct:EasySip::HFCSeq	access:public	signature:()
 cseqPtr	test/ts-osip.c	/^	osip_cseq_t *cseqPtr;$/;"	kind:local	line:173
 cseq_	include/header_field.h	/^        PtsOf<HFCSeq> cseq_;$/;"	kind:member	line:1251	struct:EasySip::HeaderFields	access:public
-cur	include/timer.h	/^            std::cout << itv_ << "|" << cur << '\\n';$/;"	kind:local	line:158
-cur	include/timer.h	/^            struct itimerval cur;$/;"	kind:local	line:154
+cur	include/timer.h	/^            std::cout << itv_ << "|" << cur << '\\n';$/;"	kind:local	line:161
+cur	include/timer.h	/^            struct itimerval cur;$/;"	kind:local	line:157
 data	include/buffer.h	/^        char* data()$/;"	kind:function	line:34	class:EasySip::Buffer	access:public	signature:()
 data	src/socket.cpp	/^            std::cout << "IF: " << ifaddr->ifa_name << " IP: " << addr_buf.data() << '\\n';$/;"	kind:prototype	line:52	file:	signature:()
 dataLen	test/ts-osip.c	/^	int dataLen;$/;"	kind:local	line:60
@@ -3254,9 +3269,9 @@ detachstate	include/thread.h	/^            int detachstate;$/;"	kind:local	line:
 detachstate	include/thread.h	/^        ThrAttr& detachstate(int detachstate)$/;"	kind:function	line:85	class:EasySip::ThrAttr	access:public	signature:(int detachstate)
 detachstate	include/thread.h	/^        int detachstate()$/;"	kind:function	line:75	class:EasySip::ThrAttr	access:public	signature:()
 dialog	src/Element/element.cpp	/^            Dialog dialog(in_msg);$/;"	kind:prototype	line:209	file:	signature:(in_msg)
-dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1059	file:	signature:(in_msg)
-dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1071	file:	signature:(in_msg)
-dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1095	file:	signature:(in_msg)
+dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1084	file:	signature:(in_msg)
+dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1096	file:	signature:(in_msg)
+dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:1120	file:	signature:(in_msg)
 dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:282	file:	signature:(in_msg)
 dialog	src/Element/element.cpp	/^        Dialog dialog(in_msg);$/;"	kind:prototype	line:976	file:	signature:(in_msg)
 dialog_preprocess	include/Element/element.h	/^        int dialog_preprocess(Dialog &dialog, T &in_msg)$/;"	kind:function	line:104	class:EasySip::Element	access:public	signature:(Dialog &dialog, T &in_msg)
@@ -3540,9 +3555,10 @@ is_6xx_resp	include/message.h	/^        bool is_6xx_resp()$/;"	kind:function	lin
 is_confirmed	include/dialog.h	/^        bool is_confirmed()$/;"	kind:function	line:184	class:EasySip::Dialog	access:public	signature:()
 is_confirmed	include/dialog.h	/^        void is_confirmed(bool c)$/;"	kind:function	line:179	class:EasySip::Dialog	access:public	signature:(bool c)
 is_confirmed	src/Element/element.cpp	/^                dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:292	file:	signature:(true)
-is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1099	file:	signature:(true)
+is_confirmed	src/Element/element.cpp	/^            dialogs_[dialog.id()]->is_confirmed(true);$/;"	kind:prototype	line:1124	file:	signature:(true)
 is_hop_by_hop_	include/header_field.h	/^        bool is_hop_by_hop_;$/;"	kind:member	line:107	struct:EasySip::HeaderField	access:public
 is_resp2invite	include/message.h	/^        bool is_resp2invite()$/;"	kind:function	line:639	class:EasySip::ResponseMessage	access:public	signature:()
+is_resp2register	include/message.h	/^        bool is_resp2register()$/;"	kind:function	line:644	class:EasySip::ResponseMessage	access:public	signature:()
 is_valid	include/message.h	/^        bool is_valid();$/;"	kind:prototype	line:239	class:EasySip::InviteMessage	access:public	signature:()
 is_valid	include/message.h	/^        bool is_valid();$/;"	kind:prototype	line:268	class:EasySip::RegisterMessage	access:public	signature:()
 is_valid	include/message.h	/^        bool is_valid();$/;"	kind:prototype	line:295	class:EasySip::ByeMessage	access:public	signature:()
@@ -3583,9 +3599,9 @@ it	test/ts-pair.cpp	/^	std::set<std::pair<int, int> >::iterator it = fos.find(fo
 it_a	test/ts-timer.cpp	/^	struct itimerval it_a;$/;"	kind:local	line:111
 it_a	test/ts-timer.cpp	/^struct itimerval it_a;$/;"	kind:variable	line:98	typeref:struct:itimerval
 items_	include/parameter.h	/^		std::vector<std::string> items_;$/;"	kind:member	line:161	struct:EasySip::ItemWithParams	access:public
-itimev	include/timer.h	/^           Timer& itimev(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:86	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
+itimev	include/timer.h	/^           Timer& itimev(time_t sec, suseconds_t usec = 0)$/;"	kind:function	line:89	class:EasySip::Timer	access:public	signature:(time_t sec, suseconds_t usec = 0)
 its_	include/header_field.h	/^        PtsOf<ItemWithParams> its_;$/;"	kind:member	line:283	struct:EasySip::HFBase_4_	access:public
-itv_	include/timer.h	/^        struct itimerval itv_;$/;"	kind:member	line:59	class:EasySip::Timer	typeref:struct:EasySip::Timer::itimerval	access:private
+itv_	include/timer.h	/^        struct itimerval itv_;$/;"	kind:member	line:62	class:EasySip::Timer	typeref:struct:EasySip::Timer::itimerval	access:private
 ivt_	include/Element/element.h	/^		Transaction ivt_;$/;"	kind:member	line:30	class:EasySip::Element	access:protected
 join	include/thread.h	/^        int join()$/;"	kind:function	line:369	class:EasySip::Thread	access:public	signature:()
 join	include/transaction.h	/^			t_.join();$/;"	kind:prototype	line:44	signature:()
@@ -3700,6 +3716,9 @@ notify_request	src/Element/element.cpp	/^    int Element::notify_request()$/;"	k
 notify_request	test/ts-client.cpp	/^			case 'n': client.notify_request(); break;$/;"	kind:prototype	line:35	file:	signature:()
 notify_request	test/ts-proxy.cpp	/^			case 'n': proxy.notify_request(); break;$/;"	kind:prototype	line:35	file:	signature:()
 notify_request	test/ts-server.cpp	/^			case 'n': server.notify_request(); break;$/;"	kind:prototype	line:41	file:	signature:()
+now	include/timer.h	/^        static std::string now();$/;"	kind:prototype	line:32	class:EasySip::Time	access:public	signature:()
+now	src/Element/element.cpp	/^        ->add_value(Time::now());$/;"	kind:prototype	line:1073	file:	signature:()
+now	src/timer.cpp	/^    std::string Time::now()$/;"	kind:function	line:40	class:EasySip::Time	signature:()
 num	test/ts-es-thread.cpp	/^		std::cout << num << '\\n';$/;"	kind:local	line:22
 num	test/ts-es-thread.cpp	/^	int num;$/;"	kind:member	line:16	class:X	file:	access:private
 number	test/ts-osip.c	/^	unsigned int number;$/;"	kind:local	line:174
@@ -3717,23 +3736,23 @@ o	src/header_field.cpp	/^        std::ostringstream o;$/;"	kind:local	line:967
 o	src/message.cpp	/^        std::ostringstream o;$/;"	kind:local	line:707
 o	src/message.cpp	/^        std::ostringstream o;$/;"	kind:local	line:887
 on_ack_request	include/Element/element.h	/^        virtual int on_ack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:86	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1093	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_ack_request	src/Element/element.cpp	/^    int Element::on_ack_request(RequestMessage &in_msg)$/;"	kind:function	line:1118	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_bye_request	include/Element/element.h	/^        virtual int on_bye_request(RequestMessage &in_msg);$/;"	kind:prototype	line:85	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1055	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_bye_request	src/Element/element.cpp	/^    int Element::on_bye_request(RequestMessage &in_msg)$/;"	kind:function	line:1080	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_cancel_request	include/Element/element.h	/^        virtual int on_cancel_request(RequestMessage &in_msg);$/;"	kind:prototype	line:87	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1069	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_cancel_request	src/Element/element.cpp	/^    int Element::on_cancel_request(RequestMessage &in_msg)$/;"	kind:function	line:1094	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_info_request	include/Element/element.h	/^        virtual int on_info_request(RequestMessage &in_msg);$/;"	kind:prototype	line:93	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1145	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_info_request	src/Element/element.cpp	/^    int Element::on_info_request(RequestMessage &in_msg)$/;"	kind:function	line:1170	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_invite_request	include/Element/element.h	/^        virtual int on_invite_request(RequestMessage &in_msg);$/;"	kind:prototype	line:83	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
 on_invite_request	src/Element/element.cpp	/^    int Element::on_invite_request(RequestMessage &in_msg)$/;"	kind:function	line:971	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_message_request	include/Element/element.h	/^        virtual int on_message_request(RequestMessage &in_msg);$/;"	kind:prototype	line:92	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1163	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_message_request	src/Element/element.cpp	/^    int Element::on_message_request(RequestMessage &in_msg)$/;"	kind:function	line:1188	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_notify_request	include/Element/element.h	/^        virtual int on_notify_request(RequestMessage &in_msg);$/;"	kind:prototype	line:91	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1139	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_notify_request	src/Element/element.cpp	/^    int Element::on_notify_request(RequestMessage &in_msg)$/;"	kind:function	line:1164	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_options_request	include/Element/element.h	/^        virtual int on_options_request(RequestMessage &in_msg);$/;"	kind:prototype	line:88	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1105	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_options_request	src/Element/element.cpp	/^    int Element::on_options_request(RequestMessage &in_msg)$/;"	kind:function	line:1130	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_prack_request	include/Element/element.h	/^        virtual int on_prack_request(RequestMessage &in_msg);$/;"	kind:prototype	line:94	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1169	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_prack_request	src/Element/element.cpp	/^    int Element::on_prack_request(RequestMessage &in_msg)$/;"	kind:function	line:1194	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_receive_message	include/Element/element.h	/^        virtual int on_receive_message(std::string &msg);$/;"	kind:prototype	line:65	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg)
 on_receive_message	src/Element/element.cpp	/^    int Element::on_receive_message(std::string &msg)$/;"	kind:function	line:117	class:EasySip::Element	signature:(std::string &msg)
 on_receive_req	include/Element/element.h	/^        virtual int on_receive_req(std::string &msg, const int code);$/;"	kind:prototype	line:66	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
@@ -3741,17 +3760,17 @@ on_receive_req	src/Element/element.cpp	/^    int Element::on_receive_req(std::st
 on_receive_resp	include/Element/element.h	/^        virtual int on_receive_resp(std::string &msg, const int code);$/;"	kind:prototype	line:67	class:EasySip::Element	access:public	implementation:virtual	signature:(std::string &msg, const int code)
 on_receive_resp	src/Element/element.cpp	/^    int Element::on_receive_resp(std::string &msg, const int code)$/;"	kind:function	line:277	class:EasySip::Element	signature:(std::string &msg, const int code)
 on_refer_request	include/Element/element.h	/^        virtual int on_refer_request(RequestMessage &in_msg);$/;"	kind:prototype	line:89	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1157	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_refer_request	src/Element/element.cpp	/^    int Element::on_refer_request(RequestMessage &in_msg)$/;"	kind:function	line:1182	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_register_request	include/Element/element.h	/^        virtual int on_register_request(RequestMessage &in_msg);$/;"	kind:prototype	line:84	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
 on_register_request	include/Element/registar.h	/^		virtual int on_register_request(RequestMessage &in_msg);$/;"	kind:prototype	line:41	class:EasySip::Registar	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
 on_register_request	src/Element/element.cpp	/^    int Element::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:1049	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_register_request	src/Element/registar.cpp	/^	int Registar::on_register_request(RequestMessage &in_msg)$/;"	kind:function	line:95	class:EasySip::Registar	signature:(RequestMessage &in_msg)
 on_subscribe_request	include/Element/element.h	/^        virtual int on_subscribe_request(RequestMessage &in_msg);$/;"	kind:prototype	line:90	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1133	class:EasySip::Element	signature:(RequestMessage &in_msg)
+on_subscribe_request	src/Element/element.cpp	/^    int Element::on_subscribe_request(RequestMessage &in_msg)$/;"	kind:function	line:1158	class:EasySip::Element	signature:(RequestMessage &in_msg)
 on_timeup	test/ts-thr-timer.cpp	/^void on_timeup()$/;"	kind:function	line:4	signature:()
 on_update_request	include/Element/element.h	/^        virtual int on_update_request(RequestMessage &in_msg);$/;"	kind:prototype	line:95	class:EasySip::Element	access:public	implementation:virtual	signature:(RequestMessage &in_msg)
-on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1151	class:EasySip::Element	signature:(RequestMessage &in_msg)
-operator !=	include/timer.h	/^    extern bool operator!= (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:26	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
+on_update_request	src/Element/element.cpp	/^    int Element::on_update_request(RequestMessage &in_msg)$/;"	kind:function	line:1176	class:EasySip::Element	signature:(RequestMessage &in_msg)
+operator !=	include/timer.h	/^    extern bool operator!= (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:22	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 operator !=	src/timer.cpp	/^    bool operator!= (struct itimerval &a, struct itimerval &b)$/;"	kind:function	line:14	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 operator ()	include/header_field.h	/^        std::string operator() ()$/;"	kind:function	line:1183	struct:EasySip::RequestLine	access:public	signature:()
 operator ()	include/header_field.h	/^        std::string operator() ()$/;"	kind:function	line:1210	struct:EasySip::ResponseStatus	access:public	signature:()
@@ -3759,7 +3778,7 @@ operator ()	include/header_field.h	/^        std::string operator() ();$/;"	kind
 operator ()	include/utils.h	/^        std::string operator() ()$/;"	kind:function	line:253	class:EasySip::CodeMap	access:public	signature:()
 operator ()	include/utils.h	/^        void operator() (CodeMap &cm)$/;"	kind:function	line:260	class:EasySip::CodeMap	access:public	signature:(CodeMap &cm)
 operator ()	src/header_field.cpp	/^    std::string HeaderField::operator() ()$/;"	kind:function	line:80	class:EasySip::HeaderField	signature:()
-operator *	include/timer.h	/^        unsigned long operator* (unsigned long val)$/;"	kind:function	line:206	class:EasySip::Timer	access:public	signature:(unsigned long val)
+operator *	include/timer.h	/^        unsigned long operator* (unsigned long val)$/;"	kind:function	line:209	class:EasySip::Timer	access:public	signature:(unsigned long val)
 operator *	test/ts.cpp	/^	unsigned long operator* (unsigned long val)$/;"	kind:function	line:45	class:A	access:public	signature:(unsigned long val)
 operator <	include/parameter.h	/^		friend bool operator< (Parameter a, Parameter b)$/;"	kind:function	line:50	class:EasySip::Parameter	access:friend	signature:(Parameter a, Parameter b)
 operator <	include/utils.h	/^        bool operator< (CodeMap cm)$/;"	kind:function	line:237	class:EasySip::CodeMap	access:public	signature:(CodeMap cm)
@@ -3774,10 +3793,10 @@ operator <<	include/parameter.h	/^		friend std::ostream& operator<< (std::ostrea
 operator <<	include/parameter.h	/^		friend std::ostream& operator<< (std::ostream &o, Parameter p)$/;"	kind:function	line:55	class:EasySip::Parameter	access:friend	signature:(std::ostream &o, Parameter p)
 operator <<	include/parameter.h	/^		friend std::ostream& operator<< (std::ostream &o, Parameters &ps)$/;"	kind:function	line:145	class:EasySip::Parameters	access:friend	signature:(std::ostream &o, Parameters &ps)
 operator <<	include/socket.h	/^        friend std::ostream& operator<< (std::ostream &o, SocketIp4 sk)$/;"	kind:function	line:183	class:EasySip::SocketIp4	access:friend	signature:(std::ostream &o, SocketIp4 sk)
-operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerspec &a);$/;"	kind:prototype	line:30	namespace:EasySip	signature:(std::ostream &o, struct itimerspec &a)
-operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerval &a);$/;"	kind:prototype	line:28	namespace:EasySip	signature:(std::ostream &o, struct itimerval &a)
-operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timespec &a);$/;"	kind:prototype	line:29	namespace:EasySip	signature:(std::ostream &o, struct timespec &a)
-operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timeval &a);$/;"	kind:prototype	line:27	namespace:EasySip	signature:(std::ostream &o, struct timeval &a)
+operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerspec &a);$/;"	kind:prototype	line:26	namespace:EasySip	signature:(std::ostream &o, struct itimerspec &a)
+operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct itimerval &a);$/;"	kind:prototype	line:24	namespace:EasySip	signature:(std::ostream &o, struct itimerval &a)
+operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timespec &a);$/;"	kind:prototype	line:25	namespace:EasySip	signature:(std::ostream &o, struct timespec &a)
+operator <<	include/timer.h	/^    extern std::ostream& operator<< (std::ostream &o, struct timeval &a);$/;"	kind:prototype	line:23	namespace:EasySip	signature:(std::ostream &o, struct timeval &a)
 operator <<	include/uri.h	/^        friend std::ostream& operator<< (std::ostream &o, Contact &c)$/;"	kind:function	line:48	class:EasySip::Contact	access:friend	signature:(std::ostream &o, Contact &c)
 operator <<	include/utils.h	/^        friend std::ostream& operator<< (std::ostream &o, CodeMap cm)$/;"	kind:function	line:247	class:EasySip::CodeMap	access:friend	signature:(std::ostream &o, CodeMap cm)
 operator <<	include/utils.h	/^        friend std::ostream& operator<< (std::ostream &o, PtsOf<T> &pts)$/;"	kind:function	line:173	class:EasySip::PtsOf	access:friend	signature:(std::ostream &o, PtsOf<T> &pts)
@@ -3794,7 +3813,7 @@ operator =	test/ts.cpp	/^	A operator= (A a)$/;"	kind:function	line:51	class:A	ac
 operator ==	include/dialog.h	/^        friend bool operator== (DialogId a, DialogId b)$/;"	kind:function	line:55	class:EasySip::DialogId	access:friend	signature:(DialogId a, DialogId b)
 operator ==	include/header_field.h	/^        bool operator== (HFCallId& val)$/;"	kind:function	line:352	struct:EasySip::HFCallId	access:public	signature:(HFCallId& val)
 operator ==	include/thread.h	/^        friend bool operator== (Thread &a, Thread &b)$/;"	kind:function	line:357	class:EasySip::Thread	access:friend	signature:(Thread &a, Thread &b)
-operator ==	include/timer.h	/^    extern bool operator== (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:25	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
+operator ==	include/timer.h	/^    extern bool operator== (struct itimerval &a, struct itimerval &b);$/;"	kind:prototype	line:21	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 operator ==	include/utils.h	/^        bool operator== (const CodeMap &cm)$/;"	kind:function	line:242	class:EasySip::CodeMap	access:public	signature:(const CodeMap &cm)
 operator ==	src/timer.cpp	/^    bool operator== (struct itimerval &a, struct itimerval &b)$/;"	kind:function	line:8	namespace:EasySip	signature:(struct itimerval &a, struct itimerval &b)
 operator []	include/dialog.h	/^        Dialog* operator[] (DialogId val);$/;"	kind:prototype	line:213	class:EasySip::Dialogs	access:public	signature:(DialogId val)
@@ -3869,10 +3888,10 @@ parse	include/header_field.h	/^        virtual int parse(std::string &msg, size_
 parse	include/header_field.h	/^        virtual int parse(std::string &msg, size_t &pos);$/;"	kind:prototype	line:294	struct:EasySip::HFBase_4_	access:public	implementation:virtual	signature:(std::string &msg, size_t &pos)
 parse	include/header_field.h	/^        virtual int parse(std::string &msg, size_t &pos);$/;"	kind:prototype	line:327	struct:EasySip::HFBase_5_	access:public	implementation:virtual	signature:(std::string &msg, size_t &pos)
 parse	include/message.h	/^        virtual int parse()$/;"	kind:function	line:181	class:EasySip::RequestMessage	access:public	implementation:virtual	signature:()
-parse	include/message.h	/^        virtual int parse()$/;"	kind:function	line:649	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
+parse	include/message.h	/^        virtual int parse()$/;"	kind:function	line:654	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:()
 parse	include/message.h	/^        virtual int parse(size_t &pos);$/;"	kind:prototype	line:179	class:EasySip::RequestMessage	access:public	implementation:virtual	signature:(size_t &pos)
 parse	include/message.h	/^        virtual int parse(size_t &pos);$/;"	kind:prototype	line:64	class:EasySip::Message	access:public	implementation:virtual	signature:(size_t &pos)
-parse	include/message.h	/^        virtual int parse(size_t &pos);$/;"	kind:prototype	line:647	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:(size_t &pos)
+parse	include/message.h	/^        virtual int parse(size_t &pos);$/;"	kind:prototype	line:652	class:EasySip::ResponseMessage	access:public	implementation:virtual	signature:(size_t &pos)
 parse	src/Element/element.cpp	/^        in_msg.parse();$/;"	kind:prototype	line:280	file:	signature:()
 parse	src/Element/registar.cpp	/^		in_msg.parse();$/;"	kind:prototype	line:97	file:	signature:()
 parse	src/header_field.cpp	/^    int HFAcceptContact::parse(std::string &msg, size_t &pos)$/;"	kind:function	line:937	class:EasySip::HFAcceptContact	signature:(std::string &msg, size_t &pos)
@@ -3924,7 +3943,7 @@ parse_field	include/message.h	66;"	kind:macro	line:66
 policy_	include/thread.h	/^            int policy_;$/;"	kind:member	line:28	struct:EasySip::ThrAttr::SchedParam	access:public
 port	test/ts-osip.c	/^	int port;$/;"	kind:local	line:261
 pos	include/message.h	/^            size_t pos = 0;$/;"	kind:local	line:183
-pos	include/message.h	/^            size_t pos = 0;$/;"	kind:local	line:651
+pos	include/message.h	/^            size_t pos = 0;$/;"	kind:local	line:656
 pos	src/message.cpp	/^        size_t pos = msg.find_first_of(sym);$/;"	kind:local	line:519
 pos	src/message.cpp	/^        size_t pos, next;$/;"	kind:local	line:539
 prack_request	include/Element/element.h	/^        virtual int prack_request();$/;"	kind:prototype	line:81	class:EasySip::Element	access:public	implementation:virtual	signature:()
@@ -3986,12 +4005,13 @@ remote_uri	include/dialog.h	/^        std::string& remote_uri()$/;"	kind:functio
 remote_uri	include/dialog.h	/^        void remote_uri(std::string val) $/;"	kind:function	line:159	class:EasySip::Dialog	access:public	signature:(std::string val)
 remote_uri_	include/dialog.h	/^        std::string remote_uri_;$/;"	kind:member	line:79	class:EasySip::Dialog	access:private
 remove_tail_symbol	include/header_field.h	/^        void remove_tail_symbol(char sym)$/;"	kind:function	line:161	struct:EasySip::HeaderField	access:public	signature:(char sym)
-rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1081	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1106	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^                ResponseMessage rep(in_msg);$/;"	kind:prototype	line:189	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^            ResponseMessage rep(in_msg);$/;"	kind:prototype	line:150	file:	signature:(in_msg)
-rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1057	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1051	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:106	file:	signature:(in_msg)
-rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1107	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1082	file:	signature:(in_msg)
+rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:1132	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:136	file:	signature:(in_msg)
 rep	src/Element/element.cpp	/^        ResponseMessage rep(in_msg);$/;"	kind:prototype	line:973	file:	signature:(in_msg)
 rep	src/Element/registar.cpp	/^		ResponseMessage rep(in_msg);$/;"	kind:prototype	line:99	file:	signature:(in_msg)
@@ -4070,6 +4090,7 @@ rxd	test/ts-client.cpp	/^void rxd()$/;"	kind:function	line:9	signature:()
 rxd	test/ts-proxy.cpp	/^void rxd()$/;"	kind:function	line:9	signature:()
 rxd	test/ts-server.cpp	/^void rxd()$/;"	kind:function	line:15	signature:()
 sa	test/ts-osip.c	/^	struct sockaddr_in sa;$/;"	kind:local	line:267
+sbuf	src/timer.cpp	/^        char sbuf[30] = {0};$/;"	kind:local	line:44
 schedparam	include/thread.h	/^        SchedParam& schedparam()$/;"	kind:function	line:129	class:EasySip::ThrAttr	access:public	signature:()
 schedparam	include/thread.h	/^        ThrAttr& schedparam(int priority)$/;"	kind:function	line:137	class:EasySip::ThrAttr	access:public	signature:(int priority)
 schedparam_	include/thread.h	/^        SchedParam schedparam_;$/;"	kind:member	line:36	class:EasySip::ThrAttr	access:private
@@ -4080,8 +4101,8 @@ schedprio	include/thread.h	/^        Thread& schedprio(int prio)$/;"	kind:functi
 scope	include/thread.h	/^            int scope;$/;"	kind:local	line:168
 scope	include/thread.h	/^        ThrAttr& scope(int scope)$/;"	kind:function	line:176	class:EasySip::ThrAttr	access:public	signature:(int scope)
 scope	include/thread.h	/^        int scope()$/;"	kind:function	line:166	class:EasySip::ThrAttr	access:public	signature:()
-sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:70
-sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:99
+sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:102
+sec	include/timer.h	/^            time_t sec = value_\/1000;$/;"	kind:local	line:73
 second	include/utils.h	/^            o << first << " " << second << '\\n';$/;"	kind:local	line:256
 seconds	src/Element/registar.cpp	/^			int seconds;$/;"	kind:local	line:150
 seconds	src/Element/registar.cpp	/^			is >> seconds;$/;"	kind:local	line:167
@@ -4124,7 +4145,7 @@ set_timeout	src/socket.cpp	/^    int Socket::set_timeout(int sec)$/;"	kind:funct
 set_value_by_name	include/header_field.h	/^            header_params_.set_value_by_name(n, v);$/;"	kind:prototype	line:153	signature:(n, v)
 set_value_by_name	include/parameter.h	/^			params_.set_value_by_name(name, value);$/;"	kind:prototype	line:191	signature:(name, value)
 set_value_by_name	include/parameter.h	/^		void set_value_by_name(std::string name, std::string value)$/;"	kind:function	line:120	class:EasySip::Parameters	access:public	signature:(std::string name, std::string value)
-setitimer	include/timer.h	/^            std::cout << "settimer: " << setitimer(t_id, &itv_, 0) << '\\n';$/;"	kind:prototype	line:153	signature:(t_id, &itv_, 0)
+setitimer	include/timer.h	/^            std::cout << "settimer: " << setitimer(t_id, &itv_, 0) << '\\n';$/;"	kind:prototype	line:156	signature:(t_id, &itv_, 0)
 setitimer	test/ts-timer.cpp	/^	std::cout << "settimer: " << setitimer(ITIMER_REAL, 0, &it_a) << '\\n';$/;"	kind:prototype	line:104	file:	signature:(ITIMER_REAL, 0, &it_a)
 setup	include/transaction.h	/^        Fsm& setup()$/;"	kind:function	line:67	class:EasySip::Fsm	access:public	signature:()
 setup_server	include/socket.h	/^        int setup_server();$/;"	kind:prototype	line:200	class:EasySip::SocketIp4UDP	access:public	signature:()
@@ -4161,7 +4182,7 @@ stacksize	include/thread.h	/^        ThrAttr& stacksize(size_t stacksize)$/;"	ki
 stacksize	include/thread.h	/^        size_t stacksize()$/;"	kind:function	line:222	class:EasySip::ThrAttr	access:public	signature:()
 stacksize_	include/thread.h	/^            size_t stacksize_;$/;"	kind:member	line:23	struct:EasySip::ThrAttr::Stack	access:public
 start	include/Element/element.h	/^        virtual int start();$/;"	kind:prototype	line:64	class:EasySip::Element	access:public	implementation:virtual	signature:()
-start	include/timer.h	/^        virtual void start()$/;"	kind:function	line:148	class:EasySip::Timer	access:public	implementation:virtual	signature:()
+start	include/timer.h	/^        virtual void start()$/;"	kind:function	line:151	class:EasySip::Timer	access:public	implementation:virtual	signature:()
 start	src/Element/element.cpp	/^    int Element::start()$/;"	kind:function	line:345	class:EasySip::Element	signature:()
 start	test/ts-client.cpp	/^	client.start();$/;"	kind:prototype	line:11	file:	signature:()
 start	test/ts-es-timer.cpp	/^	t->start();$/;"	kind:prototype	line:8	file:	signature:()
@@ -4243,7 +4264,7 @@ t1	src/transaction.cpp	/^                T1 t1;$/;"	kind:local	line:16
 t1	test/ts-es-thread.cpp	/^	Thread t1 = Thread(&X::show, &x);$/;"	kind:local	line:35
 t1_loop	test/ts-es-thread.cpp	/^void* t1_loop(void* arg)$/;"	kind:function	line:5	signature:(void* arg)
 t_	include/transaction.h	/^		Thread t_;$/;"	kind:member	line:33	class:EasySip::Fsm	access:protected
-t_id	include/timer.h	/^            int t_id = ITIMER_REAL;\/\/VIRTUAL;$/;"	kind:local	line:151
+t_id	include/timer.h	/^            int t_id = ITIMER_REAL;\/\/VIRTUAL;$/;"	kind:local	line:154
 tag	include/header_field.h	/^        std::string tag()$/;"	kind:function	line:455	struct:EasySip::HFFrom	access:public	signature:()
 tag	include/header_field.h	/^        std::string tag()$/;"	kind:function	line:483	struct:EasySip::HFTo	access:public	signature:()
 tags	src/Element/element.cpp	/^            std::vector<std::string> tags = in_msg.proxy_require_.last()->misunderstand_tags();$/;"	kind:local	line:185
@@ -4251,8 +4272,9 @@ temp	test/ts-osip.c	/^	char temp[MESSAGE_ENTRY_MAX_LENGTH];$/;"	kind:local	line:
 text_	include/header_field.h	/^            std::string text_;$/;"	kind:member	line:997	struct:EasySip::HFWarning::WarningValue	access:public
 th1	test/ts-es-timer.cpp	/^	std::thread th1(startt, &t1);$/;"	kind:prototype	line:17	file:	signature:(startt, &t1)
 th2	test/ts-es-timer.cpp	/^	std::thread th2(startt, &t2);$/;"	kind:prototype	line:18	file:	signature:(startt, &t2)
-time_string_to_ulong	include/timer.h	/^        static unsigned long time_string_to_ulong(std::string value)$/;"	kind:function	line:194	class:EasySip::Timer	access:public	signature:(std::string value)
-time_ulong_to_string	include/timer.h	/^        static unsigned long time_ulong_to_string(unsigned long value)$/;"	kind:function	line:200	class:EasySip::Timer	access:public	signature:(unsigned long value)
+time_	include/timer.h	/^        time_t time_;$/;"	kind:member	line:30	class:EasySip::Time	access:private
+time_string_to_ulong	include/timer.h	/^        static unsigned long time_string_to_ulong(std::string value)$/;"	kind:function	line:197	class:EasySip::Timer	access:public	signature:(std::string value)
+time_ulong_to_string	include/timer.h	/^        static unsigned long time_ulong_to_string(unsigned long value)$/;"	kind:function	line:203	class:EasySip::Timer	access:public	signature:(unsigned long value)
 timer	test/ts-thr-timer.h	/^void	timer(Dua const & d, Func const & f)$/;"	kind:function	line:14	signature:(Dua const & d, Func const & f)
 timestamp_	include/header_field.h	/^        PtsOf<HFTimestamp> timestamp_;$/;"	kind:member	line:1265	struct:EasySip::HeaderFields	access:public
 tm_cur	test/ts-timer.cpp	/^	struct timeval tm_cur, tm_next;$/;"	kind:local	line:112
@@ -4287,21 +4309,21 @@ uri	include/uri.h	/^            o << " <" << c.uri();$/;"	kind:prototype	line:53
 uri	include/uri.h	/^        std::string& uri()$/;"	kind:function	line:33	class:EasySip::Contact	access:public	signature:()
 uri	include/uri.h	/^        void uri(std::string uri)$/;"	kind:function	line:43	class:EasySip::Contact	access:public	signature:(std::string uri)
 uri_binds_	include/Element/registar.h	/^		std::set<Contact> uri_binds_;$/;"	kind:member	line:16	class:EasySip::Registar	access:protected
-usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:100
-usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:71
+usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:103
+usec	include/timer.h	/^            suseconds_t usec = (value_ % 1000) * 1000;$/;"	kind:local	line:74
 user_agent_	include/header_field.h	/^        PtsOf<HFUserAgent> user_agent_;$/;"	kind:member	line:1266	struct:EasySip::HeaderFields	access:public
 user_data_	include/message.h	/^        std::string user_data_;$/;"	kind:member	line:27	class:EasySip::Message	access:protected
 val	include/header_field.h	/^            o << val;$/;"	kind:local	line:1070
 value	include/parameter.h	/^				o << "=" << p.value();$/;"	kind:prototype	line:61	signature:()
 value	include/parameter.h	/^		std::string value() const$/;"	kind:function	line:35	class:EasySip::Parameter	access:public	signature:() const
 value	include/parameter.h	/^		void value(const std::string v)$/;"	kind:function	line:45	class:EasySip::Parameter	access:public	signature:(const std::string v)
-value	include/timer.h	/^            Base::value(value);$/;"	kind:prototype	line:270	class:EasySip::TC::Base	signature:(value)
-value	include/timer.h	/^        unsigned long value()$/;"	kind:function	line:118	class:EasySip::Timer	access:public	signature:()
-value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:108	class:EasySip::Timer	access:public	signature:(std::string value)
-value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:267	class:EasySip::TC	access:public	signature:(std::string value)
-value	include/timer.h	/^        void value(unsigned long value)$/;"	kind:function	line:123	class:EasySip::Timer	access:public	signature:(unsigned long value)
+value	include/timer.h	/^            Base::value(value);$/;"	kind:prototype	line:273	class:EasySip::TC::Base	signature:(value)
+value	include/timer.h	/^        unsigned long value()$/;"	kind:function	line:121	class:EasySip::Timer	access:public	signature:()
+value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:111	class:EasySip::Timer	access:public	signature:(std::string value)
+value	include/timer.h	/^        void value(std::string value)$/;"	kind:function	line:270	class:EasySip::TC	access:public	signature:(std::string value)
+value	include/timer.h	/^        void value(unsigned long value)$/;"	kind:function	line:126	class:EasySip::Timer	access:public	signature:(unsigned long value)
 value	test/ts.cpp	/^	unsigned long value;$/;"	kind:member	line:10	class:A	file:	access:private
-value_	include/timer.h	/^        unsigned long value_; \/\/ in  ms$/;"	kind:member	line:58	class:EasySip::Timer	access:private
+value_	include/timer.h	/^        unsigned long value_; \/\/ in  ms$/;"	kind:member	line:61	class:EasySip::Timer	access:private
 values_	include/header_field.h	/^        std::string values_;$/;"	kind:member	line:105	struct:EasySip::HeaderField	access:public
 version_	include/header_field.h	/^            ret << method_.name() << " " << request_uri_ << " " << version_ << "\\n";$/;"	kind:local	line:1187
 version_	include/header_field.h	/^        std::string version_;$/;"	kind:member	line:1176	struct:EasySip::RequestLine	access:public
@@ -4348,7 +4370,7 @@ www_authenticate_	include/header_field.h	/^        PtsOf<HFWWWAuthenticate> www_
 ~ThrCond	include/thread.h	/^        ~ThrCond()$/;"	kind:function	line:295	class:EasySip::ThrCond	access:private	signature:()
 ~ThrCondAttr	include/thread.h	/^        ~ThrCondAttr()$/;"	kind:function	line:267	class:EasySip::ThrCondAttr	access:public	signature:()
 ~Thread	include/thread.h	/^        ~Thread()$/;"	kind:function	line:323	class:EasySip::Thread	access:public	signature:()
-~Timer	include/timer.h	/^        ~Timer()$/;"	kind:function	line:104	class:EasySip::Timer	access:public	signature:()
+~Timer	include/timer.h	/^        ~Timer()$/;"	kind:function	line:107	class:EasySip::Timer	access:public	signature:()
 ~UAClient	include/Element/uaclient.h	/^		~UAClient()$/;"	kind:function	line:17	class:EasySip::UAClient	access:public	signature:()
 ~UAServer	include/Element/uaserver.h	/^		~UAServer()$/;"	kind:function	line:18	class:EasySip::UAServer	access:public	signature:()
 ~UpdateMessage	include/message.h	/^        ~UpdateMessage()$/;"	kind:function	line:549	class:EasySip::UpdateMessage	access:public	signature:()

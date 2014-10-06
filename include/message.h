@@ -640,6 +640,11 @@ namespace EasySip
         {
             return (METHOD_INVITE.name() == cseq_.first()->method());
         }    
+
+        bool is_resp2register()
+        {
+            return (METHOD_REGISTER.name() == cseq_.first()->method());
+        }    
     
 
         virtual ResponseMessage& create();

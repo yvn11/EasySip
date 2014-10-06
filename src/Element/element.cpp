@@ -422,23 +422,23 @@ namespace EasySip
         req.SipVersion(SIP_VERSION_2_0);
         req.RequestURI("sip:nick@uuac.com");
 
-		req.add_to()
-		->add_uri(udp_.SelfAddr())
-		.add_name("ook");
+        req.add_to()
+        ->add_uri(udp_.SelfAddr())
+        .add_name("ook");
 
-		req.add_from()
-		->add_uri(udp_.SelfAddr())
-		.add_name("ook");
+        req.add_from()
+        ->add_uri(udp_.SelfAddr())
+        .add_name("ook");
 
-		req.add_call_id()
-		->id("987kk");
-		
-		req.add_cseq()
-		->cseq("1")
-		.method(req.Method());
+        req.add_call_id()
+        ->id("987kk");
+        
+        req.add_cseq()
+        ->cseq("1")
+        .method(req.Method());
 
-		req.add_contact()
-		->add_uri(udp_.SelfAddr());
+        req.add_contact()
+        ->add_uri(udp_.SelfAddr());
 
         req.add_route()
         ->add_uri("129.99.0.32");
@@ -765,7 +765,7 @@ namespace EasySip
         ->add_value("Digest")
         .add_param("realm", "\"biloxi.com\"")
         .add_param("qop", "\"auth,auth-int\"")
-        .add_param("nonce", "\"d92873jkncbasdfkjo349q\"")
+        .add_param("nonce", "\"d928j8mms349q\"")
         .add_param("opaque", "\"5ccc8372dsvnlk\"");
 
         req.add_organization()
@@ -1050,19 +1050,28 @@ namespace EasySip
     {
         ResponseMessage rep(in_msg);
         rep.SipVersion(SIP_VERSION_2_0);
+        rep.ResponseCode(SIP_RESPONSE_SUCCESSFUL);
 
-		/*
-		 * TODO: Expires <= 2^32-1
-		 *     if Expires is illegal, then use 3600
-		 */
+        /*
+         * TODO: Expires <= 2^32-1
+         *     if Expires is illegal, then use 3600
+         */
 
-		/*
-		 * TODO: add bindings for AOR
-		 *  sip:xxxxxx
-		 *  tel:xxxxx
-		 *  mailto:xxxxx
-		 */
+        /*
+         * NOTE: A UA SHOULD NOT refresh bindings set up by
+         * other UAs.
+         * TODO: add bindings for AOR, check preference priority by `q`
+         *  sip:xxxxxx
+         *  tel:xxxxx
+         *  mailto:xxxxx
+         */
 
+        /*
+         * TODO: add current bindings list to rep
+         */
+        rep.add_date()
+        ->add_value(Time::now());
+//        ->add_value("Sat, 13 Nov 2014 23:29:00 GMT");
         send_msg(rep);
 
         return PROCEDURE_OK;
