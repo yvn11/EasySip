@@ -15,8 +15,6 @@ int main()
 
 	std::set<std::pair<int, int> >::iterator it = fos.find(foe);
 	std::cout << (it == fos.end()) << '\n';
-	it->first = 345;
-	it->second = 3312;
 
 	std::cout << fo.first << ' ' << fo.second << '\n';
 }

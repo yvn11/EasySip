@@ -21,7 +21,7 @@ public:
 	{
 		std::cout << num << '\n';
 
-	std::cout << "start " << pthread_yield() << '\n';
+	//	std::cout << "start " << pthread_yield() << '\n';
 		return 0;
 	}
 };
@@ -35,7 +35,6 @@ int main()
 	Thread t1 = Thread(&X::show, &x);
 
 //	t1.join();
-
 
 	char c;
 	std::cin.get(c);

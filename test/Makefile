@@ -6,6 +6,7 @@ VERSION		= 0.0.1
 
 INCLUDES	+= ../include ../build
 SRCS		+= .
+SOURCES		= $(shell find $(SRCS) -iregex ".*\.c\(c\|pp\|++\|xx\)")
 LIBS		+= easysip
 LDPATH		+= ../build
 LDFLAGS		+= $(LDPATH:%=-L%)
@@ -13,7 +14,8 @@ LDFLAGS		+= $(LDPATH:%=-L%)
 
 include ../makefiles/predef.mk
 
-all: ts-server ts-client ts-proxy
+all: $(patsubst %.cpp, %, $(SOURCES))
+#ts-server ts-client ts-proxy
 
 %: %.cpp
 	@echo

@@ -25,9 +25,6 @@ namespace EasySip
     {
     protected:
 
-//        MethodMapList allowed_methods_;
-//        RespCodeList allowed_responses_;
-//        SocketIp4UDP udp_;
         int state_;
         bool run_;
 		Thread t_;
@@ -90,8 +87,7 @@ namespace EasySip
     {
     public:
 
-        Transaction()
-        : Fsm(T_FSM_CALLING)
+        Transaction() : Fsm(T_FSM_CALLING)
         {
         }
 

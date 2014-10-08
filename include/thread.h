@@ -377,7 +377,7 @@ namespace EasySip
         }
     };
 
-    #define Thread(f, a) Thread((void* (*) (void*))f, (void*)a)
+    #define Thread(f, a) Thread(reinterpret_cast<void* (*) (void*)>(f), (void*)a)
 
 } // namespace EasySip
 
