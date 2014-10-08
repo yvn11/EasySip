@@ -306,6 +306,13 @@ namespace EasySip
                         << in_msg << "]\n";
             }
         }
+        else if (in_msg.is_resp2register())
+        {
+			switch (code)
+			{
+				default:; //TODO for each code
+			}
+		}
 //        else if ((ret = dialog_preprocess<ResponseMessage>(dialog, in_msg)))
 //        {
 //            return ret;
@@ -438,7 +445,8 @@ namespace EasySip
         .method(req.Method());
 
         req.add_contact()
-        ->add_uri(udp_.SelfAddr());
+        ->add_uri("tel:+1-972-555-2222");
+        //->add_uri(udp_.SelfAddr());
 
         req.add_route()
         ->add_uri("129.99.0.32");
